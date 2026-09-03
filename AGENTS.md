@@ -38,15 +38,21 @@ portfolio/
 ├── AGENTS.md                    # Engineering guidelines & architectural rules
 ├── README.md                    # Repository documentation
 ├── docs/
-│   └── blueprint.md             # System blueprint (v4.1 Approachable Full-Stack Builder)
+│   └── blueprint.md             # System blueprint (v4.2 Approachable Full-Stack Builder)
 ├── projects/
 │   └── portfolio_case_study.md  # Ground-truth production metrics for JP Connect
-├── public/                      # Static assets, logos, resume PDF
+├── public/                      # Static WebP assets, logos, certificates, resume PDF
+│   ├── certificates/            # Official signed credentials (OWWA, HackEstate, School)
 │   ├── logos/                   # Institutional & client logos (SJPIICD, OWWA, CSWDO)
-│   ├── projects/                # High-res project mockups and previews
+│   ├── profile/                 # Developer avatar portraits (WebP)
+│   ├── projects/                # High-res project mockups, previews, and multi-tab screenshots
 │   └── KennethBulaga_*.pdf      # Downloadable resume
+├── scripts/
+│   └── convert-to-webp.mjs      # Automated WebP compression pipeline
 └── src/
     ├── app/
+    │   ├── apple-icon.tsx       # Dynamic static Apple Touch Icon generator
+    │   ├── icon.tsx             # Dynamic static Monogram Favicon generator
     │   ├── globals.css          # Tailwind v4 cascade layers & zinc color tokens
     │   ├── layout.tsx           # Global HTML shell, fonts, SEO & OpenGraph metadata
     │   └── page.tsx             # Root page composition (imports sections only)
@@ -59,6 +65,8 @@ portfolio/
     │   │   ├── button.tsx       # Standardized button variants
     │   │   ├── card.tsx         # Bordered container cards
     │   │   ├── command-menu.tsx # Cmd+K / Ctrl+K quick actions palette
+    │   │   ├── mobile-nav.tsx   # Responsive slide-over navigation sheet
+    │   │   ├── section-divider.tsx # Subtle section separation rules
     │   │   └── case-study-drawer.tsx # Slide-over deep-dive for flagship architectures
     │   └── sections/            # Organism components (page blocks)
     │       ├── Navbar.tsx       # Sticky top nav (Kenzo / dev) + Cmd+K trigger
@@ -66,8 +74,8 @@ portfolio/
     │       ├── TechMarquee.tsx  # Continuous looping tech stack ticker with icons
     │       ├── Projects.tsx     # Flagship cards (with case study triggers) + client cards
     │       ├── Experience.tsx   # Professional experience timeline (OWWA, Independent)
-    │       ├── Education.tsx    # Academic degree (BSIT Graduate) & student leadership
-    │       └── Footer.tsx       # Contact, interactive email copy, social links
+    │       ├── Education.tsx    # AWS cloud banner, academic degree & verified credentials
+    │       └── Footer.tsx       # Contact, avatar frame, direct Gmail action, social hub
     ├── data/
     │   └── portfolio.ts         # <--- SINGLE SOURCE OF TRUTH FOR ALL CONTENT
     └── lib/
@@ -92,7 +100,8 @@ portfolio/
 ### C. Truth in Metrics
 * **JP Connect:** 5,536 Registered SSO Users, 14,778 Masterlist Records, 658 Exam Schedules across 9 colleges, 0 Overlaps.
 * **SJP2CD Leaderboard:** Highlight real-time match tracking, instant mobile accessibility, and zero downtime during intramurals (do not quote 1.4M request claims).
-* **OWWA Region 11:** Internal information system solutions & IT support.
+* **OWWA CSMR System:** Active regional production tool used daily across OWWA Region XI for citizen satisfaction measurement and compliance reporting.
+* **OWWA SPRS Platform:** Capstone statistical reporting and performance analytics engine engineered and presented for OWWA Region XI.
 * **CSWDO Davao:** City Social Welfare event & inventory tracking system.
 
 ### D. Styling & Tailwind v4 Conventions
@@ -108,3 +117,4 @@ portfolio/
 * **Production Build:** `npm run build`
 * **Run Linter:** `npm run lint`
 * **Preview Production:** `npm run start`
+* **Convert Images to WebP:** `node scripts/convert-to-webp.mjs --dir public`
