@@ -24,7 +24,7 @@ export function Experience() {
             Work Experience
           </h2>
           <p className="text-muted-foreground">
-            Professional roles and internships.
+            Contract engagements, institutional engineering roles, and public solutions.
           </p>
         </motion.div>
 
@@ -41,10 +41,10 @@ export function Experience() {
               {/* Timeline line */}
               <div className="absolute left-5 top-0 bottom-0 w-px bg-border" />
 
-              <ul className="space-y-6">
+              <ul className="space-y-6 sm:space-y-8">
                 {experience.map((exp, index) => (
                   <li key={index} className="relative pl-12">
-                    {/* Timeline logo */}
+                    {/* Timeline logo or indicator */}
                     <div className="absolute left-0 w-10 h-10 flex items-center justify-center">
                       {exp.logo ? (
                         <div className="relative w-10 h-10 rounded-full overflow-hidden bg-background border-2 border-border z-10">
@@ -57,39 +57,34 @@ export function Experience() {
                           />
                         </div>
                       ) : (
-                        <div
-                          className={`w-3 h-3 rounded-full z-10 ${
-                            exp.isCurrent
-                              ? "bg-primary ring-4 ring-primary/20"
-                              : "bg-muted-foreground"
-                          }`}
-                        />
+                        <div className="w-10 h-10 rounded-full bg-background border-2 border-primary flex items-center justify-center z-10 shadow-sm">
+                          <div className="w-3 h-3 rounded-full bg-primary" />
+                        </div>
                       )}
                     </div>
 
                     {/* Content */}
                     {(() => {
                       const content = (
-                        <div className="space-y-1">
-                          <div className="flex items-start justify-between gap-3">
-                            <div className="flex-1 min-w-0">
-                              {/* Organization: Responsive - OWWA RWO XI on mobile, full name on desktop */}
-                              <h4 className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">
-                                <span className="md:hidden">OWWA RWO XI</span>
-                                <span className="hidden md:inline">
-                                  {exp.organization}
-                                </span>
-                              </h4>
-                              {/* Role */}
-                              <p className="text-sm text-muted-foreground mt-0.5">
-                                {exp.role}
-                              </p>
-                            </div>
-                            {/* Period: Always visible, no badge */}
-                            <span className="text-xs text-muted-foreground whitespace-nowrap shrink-0">
+                        <div className="space-y-1.5">
+                          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-3">
+                            <h4 className="font-semibold text-foreground text-sm sm:text-base group-hover:text-primary transition-colors">
+                              {exp.organization}
+                            </h4>
+                            <span className="text-xs font-mono text-muted-foreground whitespace-nowrap shrink-0">
                               {exp.period}
                             </span>
                           </div>
+
+                          <p className="text-xs sm:text-sm text-primary font-medium">
+                            {exp.role}
+                          </p>
+
+                          {exp.description && (
+                            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pt-0.5">
+                              {exp.description}
+                            </p>
+                          )}
                         </div>
                       );
 

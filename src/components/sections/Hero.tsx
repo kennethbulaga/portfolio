@@ -1,148 +1,178 @@
 "use client";
 
 import Image from "next/image";
-import { MapPin, Mail, Download, Eye } from "lucide-react";
+import { MapPin, Mail, Download, Eye, ArrowDown, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { personalInfo, resumePath } from "@/data/portfolio";
-import { fadeInUp, staggerContainer, staggerItem } from "@/components/motion";
+import { personalInfo, resumePath, institutionalTrust } from "@/data/portfolio";
+import { staggerContainer, staggerItem } from "@/components/motion";
+import { TechMarquee } from "./TechMarquee";
 
 export function Hero() {
+  const scrollToProjects = () => {
+    const el = document.querySelector("#projects");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <section id="about" className="relative pt-24 pb-8 sm:pt-32 sm:pb-10 md:pt-40 md:pb-12 overflow-hidden">
-      {/* Dot Pattern Background - Desktop only */}
+    <section id="about" className="relative pt-24 pb-8 sm:pt-32 sm:pb-12 md:pt-36 md:pb-16 overflow-hidden">
+      {/* Precision Subtle Background Grid */}
       <div className="absolute inset-0 -z-10">
-        <div className="hidden md:block absolute inset-0 bg-[radial-gradient(circle,#9ca3af_1.5px,transparent_1.5px)] dark:bg-[radial-gradient(circle,#6b7280_1.5px,transparent_1.5px)] [background-size:32px_32px]" />
-        <div className="hidden md:block absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
+        <div className="hidden md:block absolute inset-0 bg-[radial-gradient(circle,#71717a_1px,transparent_1px)] dark:bg-[radial-gradient(circle,#3f3f46_1px,transparent_1px)] [background-size:28px_28px] opacity-35" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="space-y-4 sm:space-y-6"
+          className="space-y-6 sm:space-y-8"
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
         >
-          {/* Availability Badge */}
+          {/* Availability Eyebrow */}
           <motion.div variants={staggerItem}>
             <Badge 
               variant="outline" 
-              className="gap-1.5 px-3 py-1 text-xs font-medium border-green-500/50 text-green-600 dark:text-green-400 bg-green-500/10"
+              className="gap-2 px-3 py-1 text-xs font-medium border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
               {personalInfo.availability.message}
             </Badge>
           </motion.div>
 
-          {/* Headline with Gradient */}
-          <motion.h1
-            variants={staggerItem}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
-          >
-            <span className="text-foreground">Hi, I&apos;m </span>
-            <span className="bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
-              Kenneth Bulaga
-            </span>
-            <span className="text-foreground">.</span>
-          </motion.h1>
+          {/* Headline & Sub-headline */}
+          <motion.div variants={staggerItem} className="space-y-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+              <span className="text-foreground">Hi, I&apos;m </span>
+              <span className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent">
+                {personalInfo.name}
+              </span>
+              <span className="text-primary">.</span>
+            </h1>
 
-          {/* Sub-headline */}
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium">
+              {personalInfo.subHeadline}
+            </p>
+          </motion.div>
+
+          {/* Genuine Bio */}
           <motion.p
             variants={staggerItem}
-            className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium"
-          >
-            {personalInfo.subHeadline}
-          </motion.p>
-
-          {/* Bio */}
-          <motion.p
-            variants={staggerItem}
-            className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl leading-relaxed"
+            className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl leading-relaxed"
           >
             {personalInfo.bio}
           </motion.p>
 
-          {/* Location & Contact */}
+          {/* Location & Contact Meta */}
           <motion.div
             variants={staggerItem}
-            className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground"
+            className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-muted-foreground"
           >
             <span className="flex items-center gap-1.5">
-              <MapPin size={16} className="text-primary" />
+              <MapPin size={15} className="text-primary" />
               {personalInfo.location}
             </span>
             <span className="flex items-center gap-1.5">
-              <Mail size={16} className="text-primary" />
+              <Mail size={15} className="text-primary" />
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="hover:text-foreground transition-colors"
+                className="hover:text-foreground transition-colors underline-offset-4 hover:underline"
               >
                 {personalInfo.email}
               </a>
             </span>
           </motion.div>
 
-          {/* CTA Buttons - View & Download */}
-          <motion.div variants={staggerItem} className="pt-4 flex flex-wrap gap-3">
-            {/* Primary: View Resume */}
-            <Button asChild size="lg">
+          {/* Primary Action Buttons */}
+          <motion.div variants={staggerItem} className="pt-2 flex flex-wrap gap-3">
+            <Button onClick={scrollToProjects} size="lg" className="gap-2 shadow-sm">
+              <span>Explore Projects</span>
+              <ArrowDown size={16} />
+            </Button>
+
+            <Button asChild size="lg" variant="outline">
               <a
                 href={resumePath}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="gap-2"
               >
-                <Eye size={18} />
+                <Eye size={17} />
                 View Resume
               </a>
             </Button>
-            {/* Secondary: Download */}
-            <Button asChild size="lg" variant="outline">
+
+            <Button asChild size="lg" variant="ghost">
               <a
                 href={resumePath}
                 download="KennethBulaga_FullStackDev_Jan2026.pdf"
                 rel="noopener noreferrer"
                 className="gap-2"
               >
-                <Download size={18} />
+                <Download size={17} />
                 Download
               </a>
             </Button>
           </motion.div>
 
-          {/* Trusted By */}
-          <motion.div variants={staggerItem} className="pt-6 border-t border-border/50">
-            <p className="text-xs text-muted-foreground mb-3 uppercase tracking-wider">
-              Trusted by
-            </p>
-            <div className="flex items-center gap-4">
-              <a 
-                href="https://www.facebook.com/sjp2cdofficial" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center gap-2.5 hover:opacity-80 transition-opacity"
-              >
-                <div className="relative w-9 h-9 rounded-full overflow-hidden bg-background border border-border">
-                  <Image
-                    src="/logos/school-logo-nobg.png"
-                    alt="St. John Paul II College of Davao"
-                    fill
-                    sizes="36px"
-                    className="object-contain p-0.5"
-                  />
-                </div>
-                <span className="text-sm font-medium text-foreground/80 hover:text-foreground transition-colors">
-                  St. John Paul II College of Davao
-                </span>
-              </a>
+          {/* Institutional Trust & Collaboration Bar */}
+          <motion.div variants={staggerItem} className="pt-8 border-t border-border/60">
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
+                <ShieldCheck size={14} className="text-primary" />
+                Collaborations & Institutional Deployments
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {institutionalTrust.map((partner) => {
+                const content = (
+                  <div className="flex items-start gap-3 p-3.5 rounded-xl border border-border/80 bg-card/50 hover:bg-card hover:border-primary/40 transition-all group h-full">
+                    <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-background border border-border/80 shrink-0 p-1 mt-0.5">
+                      <Image
+                        src={partner.logo}
+                        alt={partner.name}
+                        fill
+                        sizes="40px"
+                        className="object-contain p-0.5"
+                      />
+                    </div>
+                    <div className="space-y-1 min-w-0 flex-1">
+                      <p className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
+                        {partner.name}
+                      </p>
+                      <p className="text-[11px] text-muted-foreground leading-snug">
+                        {partner.role}
+                      </p>
+                    </div>
+                  </div>
+                );
+
+                return partner.link ? (
+                  <a
+                    key={partner.name}
+                    href={partner.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block h-full"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <div key={partner.name} className="h-full">{content}</div>
+                );
+              })}
             </div>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Tech Stack Animated Marquee Loop at Hero bottom edge */}
+      <TechMarquee />
     </section>
   );
 }

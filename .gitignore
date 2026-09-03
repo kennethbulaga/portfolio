@@ -24,9 +24,6 @@
 .DS_Store
 *.pem
 
-# cursor
-.cursor/
-
 # docs
 docs/
 
@@ -45,3 +42,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# agentskillz
+.agents/
+
+# script
+scripts/

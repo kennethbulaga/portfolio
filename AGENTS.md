@@ -1,0 +1,110 @@
+# AGENTS.md — Engineering Guidelines for "The Kenzo System" Portfolio
+
+This document provides foundational architecture rules, technical standards, and engineering guardrails for AI agents and human contributors working on Kenneth Bulaga's portfolio codebase.
+
+---
+
+## 1. Project Overview & Identity
+
+* **Developer:** Kenneth Bulaga ("Kenzo")
+* **Professional Positioning:** Full-Stack Web & Mobile Developer & Independent Contractor
+* **Core Specialty:** Practical, accessible web and mobile platforms, multi-role RBAC, institutional tooling, and zero-downtime community systems.
+* **Target Audience:** Modern tech startups, corporate engineering teams, institutional and private clients.
+* **Core Design Ethos:** "Approachable Craftsman & Genuine Utility" — clean typography, high contrast, zero fluff, zero redundant buzzwords, and verifiable evidence of real-world impact.
+
+---
+
+## 2. Technical Stack & Dependencies
+
+| Layer | Technology | Specifications |
+|---|---|---|
+| **Framework** | Next.js 16 (App Router) | Turbopack, React Server Components (RSC), strict route handlers |
+| **Runtime / UI** | React 19 | Automatic React Compiler optimization, strict zero hydration mismatch |
+| **Styling** | Tailwind CSS v4 | CSS-first `@theme inline` configuration in `src/app/globals.css`, modern zinc monochrome palette |
+| **Language** | TypeScript (Strict) | Zero `any`, strict type checking, shared interfaces in `src/data/portfolio.ts` |
+| **Icons** | Lucide React | Clean, consistent 16-20px stroke icons |
+| **Motion** | Framer Motion | Subtle, purposeful transitions (stagger containers, fade-ins), never obstructive |
+| **Components** | Radix UI / shadcn style | Accessible, unstyled primitives styled with Tailwind utility classes |
+| **Hosting** | Vercel (Edge Network) | Static generation with zero-latency response times |
+
+---
+
+## 3. Architecture & File Structure
+
+This repository follows a strict **Atomic & Data-Driven Architecture**. The UI contains zero hardcoded copy; all data flows from `src/data/portfolio.ts`.
+
+```
+portfolio/
+├── AGENTS.md                    # Engineering guidelines & architectural rules
+├── README.md                    # Repository documentation
+├── docs/
+│   └── blueprint.md             # System blueprint (v4.1 Approachable Full-Stack Builder)
+├── projects/
+│   └── portfolio_case_study.md  # Ground-truth production metrics for JP Connect
+├── public/                      # Static assets, logos, resume PDF
+│   ├── logos/                   # Institutional & client logos (SJPIICD, OWWA, CSWDO)
+│   ├── projects/                # High-res project mockups and previews
+│   └── KennethBulaga_*.pdf      # Downloadable resume
+└── src/
+    ├── app/
+    │   ├── globals.css          # Tailwind v4 cascade layers & zinc color tokens
+    │   ├── layout.tsx           # Global HTML shell, fonts, SEO & OpenGraph metadata
+    │   └── page.tsx             # Root page composition (imports sections only)
+    ├── components/
+    │   ├── motion.tsx           # Shared Framer Motion animation variants
+    │   ├── theme-provider.tsx   # Next-themes dark/light mode provider
+    │   ├── theme-toggle.tsx     # Tactile theme toggle button
+    │   ├── ui/                  # Atom & Molecule components
+    │   │   ├── badge.tsx        # Tech stack pills
+    │   │   ├── button.tsx       # Standardized button variants
+    │   │   ├── card.tsx         # Bordered container cards
+    │   │   ├── command-menu.tsx # Cmd+K / Ctrl+K quick actions palette
+    │   │   └── case-study-drawer.tsx # Slide-over deep-dive for flagship architectures
+    │   └── sections/            # Organism components (page blocks)
+    │       ├── Navbar.tsx       # Sticky top nav (Kenzo / dev) + Cmd+K trigger
+    │       ├── Hero.tsx         # Friendly headline, open-to-work badge, trust bar
+    │       ├── TechMarquee.tsx  # Continuous looping tech stack ticker with icons
+    │       ├── Projects.tsx     # Flagship cards (with case study triggers) + client cards
+    │       ├── Experience.tsx   # Professional experience timeline (OWWA, Independent)
+    │       ├── Education.tsx    # Academic degree (BSIT Graduate) & student leadership
+    │       └── Footer.tsx       # Contact, interactive email copy, social links
+    ├── data/
+    │   └── portfolio.ts         # <--- SINGLE SOURCE OF TRUTH FOR ALL CONTENT
+    └── lib/
+        └── utils.ts             # Tailwind class merging utility (`cn`)
+```
+
+---
+
+## 4. Key Engineering Guardrails for Agents
+
+### A. Single Source of Truth
+* **Rule:** Never hardcode text, project descriptions, numbers, or links directly in React section components.
+* **Action:** Always add or edit fields in `src/data/portfolio.ts`, update the TypeScript interfaces accordingly, and consume them via typed imports in components.
+
+### B. Anti-Redundancy & Human Tone
+* **Rule:** Never repeat titles, buzzwords, or tags adjacent to each other.
+  * Navbar logo: `Kenzo / dev` (no redundant job title pill next to it).
+  * Hero Eyebrow: `● Freelancing & Open to Full-Time Roles`.
+  * Hero Sub-headline: `Full-Stack Web & Mobile Developer`.
+* Maintain a humble, approachable, craftsman tone without corporate fluff or excessive telemetry widgets.
+
+### C. Truth in Metrics
+* **JP Connect:** 5,536 Registered SSO Users, 14,778 Masterlist Records, 658 Exam Schedules across 9 colleges, 0 Overlaps.
+* **SJP2CD Leaderboard:** Highlight real-time match tracking, instant mobile accessibility, and zero downtime during intramurals (do not quote 1.4M request claims).
+* **OWWA Region 11:** Internal information system solutions & IT support.
+* **CSWDO Davao:** City Social Welfare event & inventory tracking system.
+
+### D. Styling & Tailwind v4 Conventions
+* Use Tailwind v4 `@theme inline` tokens and semantic classes (`bg-background`, `text-foreground`, `border-border`, `text-muted-foreground`, `bg-muted`).
+* Maintain the strict Zinc monochrome palette (`zinc-950`, `zinc-900`, `zinc-800`, `zinc-100`, `zinc-50`) with high contrast.
+* Use `cn()` from `@/lib/utils` for conditional class joining.
+
+---
+
+## 5. Development Workflow & Commands
+
+* **Run Dev Server:** `npm run dev`
+* **Production Build:** `npm run build`
+* **Run Linter:** `npm run lint`
+* **Preview Production:** `npm run start`
