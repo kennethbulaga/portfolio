@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Github, Linkedin, Mail, Check, Copy, ArrowUpRight, MessageSquare, MapPin } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { socialLinks, personalInfo } from "@/data/portfolio";
 import { fadeInUp } from "@/components/motion";
 
@@ -65,7 +66,7 @@ export function Footer() {
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Human Behind the Code Profile & Contact Card */}
-        <div className="p-6 sm:p-8 md:p-10 rounded-2xl border border-border/80 bg-card/70 shadow-sm relative overflow-hidden">
+        <SpotlightCard className="p-6 sm:p-8 md:p-10 rounded-2xl border border-border/80 bg-card/70 shadow-sm relative overflow-hidden">
           {/* Subtle Ambient Accent */}
           <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 rounded-full bg-primary/5 blur-3xl pointer-events-none" />
 
@@ -130,7 +131,7 @@ export function Footer() {
               <Button
                 size="default"
                 onClick={handleCopyEmail}
-                className="gap-2 shadow-xs"
+                className="gap-2 shadow-xs transition-transform active:scale-95"
               >
                 {copied ? (
                   <>
@@ -161,7 +162,7 @@ export function Footer() {
               {personalInfo.email}
             </p>
           </div>
-        </div>
+        </SpotlightCard>
 
         {/* Segmented Engineering & Social Media Channels */}
         <div className="space-y-4">
@@ -179,22 +180,24 @@ export function Footer() {
                 href={githubLink.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 transition-all group shadow-xs"
+                className="block"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground group-hover:text-primary transition-colors">
-                    <Github size={18} />
+                <SpotlightCard className="flex items-center justify-between p-3.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 transition-all group shadow-xs">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground group-hover:text-primary transition-colors">
+                      <Github size={18} />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
+                        GitHub
+                      </p>
+                      <p className="text-[11px] font-mono text-muted-foreground">
+                        {githubLink.username}
+                      </p>
+                    </div>
                   </div>
-                  <div className="text-left">
-                    <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
-                      GitHub
-                    </p>
-                    <p className="text-[11px] font-mono text-muted-foreground">
-                      {githubLink.username}
-                    </p>
-                  </div>
-                </div>
-                <ArrowUpRight size={15} className="text-muted-foreground group-hover:text-foreground transition-colors" />
+                  <ArrowUpRight size={15} className="text-muted-foreground group-hover:text-foreground transition-colors" />
+                </SpotlightCard>
               </a>
             )}
 
@@ -203,22 +206,24 @@ export function Footer() {
                 href={linkedinLink.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between p-3.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 transition-all group shadow-xs"
+                className="block"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground group-hover:text-primary transition-colors">
-                    <Linkedin size={18} />
+                <SpotlightCard className="flex items-center justify-between p-3.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 transition-all group shadow-xs">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground group-hover:text-primary transition-colors">
+                      <Linkedin size={18} />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
+                        LinkedIn
+                      </p>
+                      <p className="text-[11px] font-mono text-muted-foreground">
+                        {linkedinLink.username}
+                      </p>
+                    </div>
                   </div>
-                  <div className="text-left">
-                    <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
-                      LinkedIn
-                    </p>
-                    <p className="text-[11px] font-mono text-muted-foreground">
-                      {linkedinLink.username}
-                    </p>
-                  </div>
-                </div>
-                <ArrowUpRight size={15} className="text-muted-foreground group-hover:text-foreground transition-colors" />
+                  <ArrowUpRight size={15} className="text-muted-foreground group-hover:text-foreground transition-colors" />
+                </SpotlightCard>
               </a>
             )}
           </div>
@@ -270,6 +275,22 @@ export function Footer() {
           </p>
         </div>
       </div>
+
+      {/* Floating Micro-Haptic Copy Toast */}
+      <AnimatePresence>
+        {copied && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-zinc-900/95 dark:bg-zinc-100/95 text-zinc-100 dark:text-zinc-900 text-xs font-mono font-medium shadow-2xl backdrop-blur-md border border-white/20 dark:border-black/20 flex items-center gap-2 pointer-events-none"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Copied email to clipboard!</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.footer>
   );
 }

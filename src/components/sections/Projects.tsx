@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { flagshipProjects, clientProjects, FlagshipProject } from "@/data/portfolio";
 import { fadeInUp, staggerContainer, staggerItem } from "@/components/motion";
 
@@ -47,7 +48,7 @@ function FlagshipCard({
       : project.title;
 
   return (
-    <Card className="overflow-hidden border border-border/80 bg-card hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl">
+    <SpotlightCard className="overflow-hidden border border-border/80 bg-card hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl">
       {/* Mobile Header: Logo, Title & Live Link First (Mobile Only) */}
       <div className="md:hidden p-4 pb-3 border-b border-border/70 flex items-start justify-between gap-3 bg-muted/15">
         <div className="flex items-center gap-3">
@@ -266,7 +267,7 @@ function FlagshipCard({
           </div>
         </div>
       </div>
-    </Card>
+    </SpotlightCard>
   );
 }
 
@@ -393,8 +394,8 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
           >
             {clientProjects.map((project) => (
               <motion.div key={project.id} variants={staggerItem}>
-                <Card className="hover:border-primary/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md h-full flex flex-col justify-between bg-card/60">
-                  <CardHeader className="p-4 sm:p-5 pb-2">
+                <SpotlightCard className="hover:border-primary/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md h-full flex flex-col justify-between bg-card/60">
+                  <div className="p-4 sm:p-5 pb-2">
                     <div className="flex items-start gap-3">
                       {project.logo && (
                         <div className="relative w-9 h-9 rounded-lg overflow-hidden bg-background flex-shrink-0 border border-border/60 p-0.5">
@@ -416,12 +417,21 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
                         </p>
                       </div>
                     </div>
-                  </CardHeader>
+                  </div>
 
-                  <CardContent className="p-4 sm:p-5 pt-0 space-y-3">
+                  <div className="p-4 sm:p-5 pt-0 space-y-3">
                     <CardDescription className="text-xs leading-relaxed text-muted-foreground">
                       {project.objective}
                     </CardDescription>
+
+                    {/* Visual Key Impact Callout */}
+                    {project.impact && (
+                      <div className="p-2.5 rounded-lg bg-primary/5 border border-primary/15 text-[11px] text-foreground leading-snug flex items-start gap-1.5">
+                        <span className="text-primary font-bold shrink-0">⚡</span>
+                        <span>{project.impact}</span>
+                      </div>
+                    )}
+
                     {project.techStack && project.techStack.length > 0 && (
                       <div className="flex flex-wrap gap-1 pt-1">
                         {project.techStack.map((tech) => (
@@ -431,8 +441,8 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
                         ))}
                       </div>
                     )}
-                  </CardContent>
-                </Card>
+                  </div>
+                </SpotlightCard>
               </motion.div>
             ))}
           </motion.div>

@@ -15,6 +15,7 @@ import {
   Database,
   Calendar,
   AlertTriangle,
+  Cloud,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -159,7 +160,7 @@ export function CaseStudyDrawer({ isOpen, onClose }: CaseStudyDrawerProps) {
                   }`}
                 >
                   <HelpCircle size={14} />
-                  Tech Lead Defense Q&A
+                  Architecture & Decisions FAQ
                 </button>
               </div>
             </div>
@@ -194,7 +195,7 @@ export function CaseStudyDrawer({ isOpen, onClose }: CaseStudyDrawerProps) {
                           5,536
                         </p>
                         <p className="text-[11px] text-muted-foreground mt-0.5">
-                          Google SSO @sjp2cd
+                          5,426 students, 107 faculty
                         </p>
                       </div>
 
@@ -227,17 +228,35 @@ export function CaseStudyDrawer({ isOpen, onClose }: CaseStudyDrawerProps) {
                       <div className="p-3.5 rounded-xl border border-border bg-card/60">
                         <div className="flex items-center gap-2 text-muted-foreground text-xs mb-1">
                           <CheckCircle2 size={14} className="text-emerald-500" />
-                          <span>Collisions</span>
+                          <span>Bottlenecks</span>
                         </div>
                         <p className="text-xl sm:text-2xl font-bold font-mono tracking-tight text-emerald-600 dark:text-emerald-400">
                           0
                         </p>
                         <p className="text-[11px] text-muted-foreground mt-0.5">
-                          0 Overlap Collisions
+                          Zero Paper Queues
                         </p>
                       </div>
                     </div>
                   </div>
+
+                  {/* Cost-Aware Cloud Architecture */}
+                  {study.costArchitecture && (
+                    <div className="p-4 rounded-xl border border-border bg-muted/20 space-y-2">
+                      <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
+                        <Cloud size={13} className="text-primary" />
+                        <span>{study.costArchitecture.title}</span>
+                      </p>
+                      <ul className="space-y-1.5">
+                        {study.costArchitecture.points.map((pt, i) => (
+                          <li key={i} className="text-xs text-muted-foreground leading-relaxed flex items-start gap-2">
+                            <span className="text-primary font-bold mt-0.5">•</span>
+                            <span>{pt}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
 
                   {/* Problem Statements Solved */}
                   <div>
@@ -336,6 +355,45 @@ export function CaseStudyDrawer({ isOpen, onClose }: CaseStudyDrawerProps) {
               {/* TAB 2: ARCHITECTURE & SECURITY */}
               {activeTab === "architecture" && (
                 <div className="space-y-6">
+                  {/* Visual Production Request & Data Flow */}
+                  <div className="p-4 sm:p-5 rounded-xl border border-border bg-card space-y-3">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
+                        <Cpu size={14} className="text-primary" />
+                        <span>Production Request & Data Pipeline</span>
+                      </p>
+                      <span className="text-[10px] font-mono text-emerald-500 font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
+                        ● 0 Overlap Guarantee
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+                      <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
+                        <span className="text-[10px] text-primary font-bold">01. SSO Entry</span>
+                        <p className="text-xs font-semibold text-foreground">Google OAuth</p>
+                        <p className="text-[10px] text-muted-foreground font-sans">@sjp2cd.edu.ph domain locked for 5,536 users</p>
+                      </div>
+
+                      <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
+                        <span className="text-[10px] text-sky-500 font-bold">02. Edge Guard</span>
+                        <p className="text-xs font-semibold text-foreground">Next.js 16 SSR</p>
+                        <p className="text-[10px] text-muted-foreground font-sans">Route handlers & RBAC permission verification</p>
+                      </div>
+
+                      <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
+                        <span className="text-[10px] text-amber-500 font-bold">03. RLS Isolation</span>
+                        <p className="text-xs font-semibold text-foreground">Postgres RLS</p>
+                        <p className="text-[10px] text-muted-foreground font-sans">Row-level security: zero cross-college data leaks</p>
+                      </div>
+
+                      <div className="p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/5 relative space-y-1">
+                        <span className="text-[10px] text-emerald-500 font-bold">04. Conflict-Free</span>
+                        <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Schedule Engine</p>
+                        <p className="text-[10px] text-muted-foreground font-sans">Automated validator for 658 multi-room exam slots</p>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Architecture Diagram Visualization */}
                   <div className="p-5 rounded-xl border border-border bg-muted/20 space-y-4">
                     <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
@@ -458,15 +516,15 @@ export function CaseStudyDrawer({ isOpen, onClose }: CaseStudyDrawerProps) {
                 </div>
               )}
 
-              {/* TAB 4: INTERVIEW DEFENSE Q&A */}
+              {/* TAB 4: ARCHITECTURE & DECISIONS FAQ */}
               {activeTab === "interview" && (
                 <div className="space-y-4">
                   <div className="p-3.5 rounded-xl border border-border bg-muted/30">
                     <p className="text-xs font-mono uppercase tracking-wider text-primary font-semibold mb-1">
-                      Senior Engineering Interview Readiness
+                      System Architecture & Engineering Decisions FAQ
                     </p>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Technical explanations regarding architectural trade-offs, security model, and concurrency guarantees implemented across the JP Connect ecosystem.
+                      Direct answers on the technical decisions, security trade-offs, and cloud cost optimizations I made while building and scaling JP Connect.
                     </p>
                   </div>
 

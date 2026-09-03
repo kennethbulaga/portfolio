@@ -57,6 +57,7 @@ export interface ClientProject {
   title: string;
   client: string;
   objective: string;
+  impact?: string;
   logo?: string;
   techStack?: string[];
 }
@@ -120,6 +121,7 @@ export interface CaseStudyData {
   institution: string;
   scaleSummary: string;
   metrics: { label: string; value: string; desc: string }[];
+  costArchitecture?: { title: string; points: string[] };
   problemStatements: { title: string; desc: string }[];
   architectureSummary: string;
   securityPoints: string[];
@@ -321,6 +323,7 @@ export const clientProjects: ClientProject[] = [
     client: "Overseas Workers Welfare Administration (Region XI)",
     objective:
       "Engineered an internal Client Satisfaction Measurement Report System actively used in daily operations across OWWA Region XI to collect citizen feedback, automate evaluations, and generate compliance reports.",
+    impact: "Active Regional Production: Daily citizen feedback analytics & automated compliance reporting across Region XI.",
     logo: "/logos/owwa-logo.webp",
     techStack: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS", "Data Analytics"],
   },
@@ -330,6 +333,7 @@ export const clientProjects: ClientProject[] = [
     client: "Overseas Workers Welfare Administration (Region XI)",
     objective:
       "Engineered and presented a centralized Statistical Performance Reporting System for OWWA Region XI administrative workflows, designed to consolidate regional operations data and KPI monitoring.",
+    impact: "Regional Capstone: Consolidated multi-department performance metrics, statistical data aggregation, and KPI monitoring.",
     logo: "/logos/owwa-logo.webp",
     techStack: ["Next.js", "TypeScript", "Database Architecture", "Tailwind CSS", "KPI Dashboards"],
   },
@@ -339,6 +343,7 @@ export const clientProjects: ClientProject[] = [
     client: "Government / Social Services",
     objective:
       "Engineered an event and inventory tracking system filtered by date and category. Built employee assignment monitoring with automated expiration alerts and real-time notifications.",
+    impact: "Automated Operations: Date/category inventory filters and automated employee assignment expiration alerts.",
     logo: "/logos/cswdo-logo.webp",
     techStack: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "TanStack Table", "Recharts"],
   },
@@ -348,6 +353,7 @@ export const clientProjects: ClientProject[] = [
     client: "Culinary Tech",
     objective:
       "Developed a hands-free, voice-activated system for Philippine cuisine. Integrated 'meal analytics' to visualize nutritional consumption and generate data-driven dietary reports.",
+    impact: "Hands-Free Voice AI: Voice-activated recipe navigation & automated nutritional dietary analytics.",
     logo: "/logos/voicecook-logo.webp",
     techStack: ["React Native", "Expo", "TypeScript", "Supabase", "Voice Recognition", "Edamam API"],
   },
@@ -357,6 +363,7 @@ export const clientProjects: ClientProject[] = [
     client: "Health Tech",
     objective:
       "Created an accessible mental health tool featuring an automated chatbot, daily mood tracking analytics, and an interactive resource library.",
+    impact: "AI Assistant & Telemetry: Integrated Google Gemini chatbot with daily mood tracking and self-care resources.",
     logo: "/logos/moodlift-logo.webp",
     techStack: ["React Native", "Expo", "TypeScript", "Supabase", "Google Gemini"],
   },
@@ -366,6 +373,7 @@ export const clientProjects: ClientProject[] = [
     client: "Cagayan State University",
     objective:
       "Deployed a high-performance event tracking engine capable of handling real-time score updates for university-wide sports events.",
+    impact: "Zero-Latency Scoring: Real-time university sports bracket and match standings engine.",
     techStack: ["HTML5", "CSS3", "PHP", "JavaScript", "MySQL"],
   },
 ];
@@ -593,13 +601,20 @@ export const jpConnectCaseStudy: CaseStudyData = {
   role: "Lead Full-Stack Developer (Institutional Engagement)",
   institution: "St. John Paul II College of Davao (SJPIICD)",
   scaleSummary:
-    "Deployed into live production across 2 academic semesters, orchestrating operations for 5,536 authenticated student and faculty profiles, 14,778 ingested masterlist records, and 658 validated exam schedules.",
+    "Multi-office operations platform serving 5,500+ active university users across 3 administrative departments, replacing manual spreadsheets and paper queues with automated conflict detection, digital ID passes, and role-based clearance.",
   metrics: [
-    { label: "5,536", value: "SSO Profiles", desc: "Authenticated via Google Workspace restriction" },
-    { label: "14,778", value: "Masterlist Records", desc: "Dynamically mapped across 9 degree programs" },
-    { label: "658", value: "Exam Schedules", desc: "Processed with 0 schedule overlap collisions" },
-    { label: "100%", value: "Automated Detection", desc: "Eliminated room collisions & proctoring overlaps" },
+    { label: "5,536", value: "Authenticated Profiles", desc: "5,426 students, 107 instructors, 3 admin portals across 2 active semesters" },
+    { label: "14,778", value: "Masterlist Records", desc: "Ingested and mapped across 9 collegiate degree programs" },
+    { label: "658", value: "Exam Schedules", desc: "Ingested with 100% automated 3-way conflict detection & 0 collisions" },
+    { label: "0", value: "Paper Bottlenecks", desc: "Eliminated physical clearance lines with instant digital sanction tracking" },
   ],
+  costArchitecture: {
+    title: "Cost-Aware Cloud Architecture",
+    points: [
+      "I engineered the platform for $0 baseline idle infrastructure cost on Vercel & Supabase Free Tiers through client-side parsing, zero-egress SVG rendering, and indexed PostgreSQL queries.",
+      "The system dynamically scales to dedicated compute tiers only during peak university bursts (Exam Week and Semester-End Clearance rush).",
+    ],
+  },
   problemStatements: [
     {
       title: "End-of-Semester Clearance Bottleneck",
@@ -615,57 +630,74 @@ export const jpConnectCaseStudy: CaseStudyData = {
     },
   ],
   architectureSummary:
-    "Constructed on a Defense-in-Depth philosophy. The Next.js 16 network gate (`proxy.ts`) enforces role claims before rendering, Google Workspace SSO locks access to @sjp2cd.edu.ph, and PostgreSQL Row-Level Security (RLS) restricts database queries with `auth.uid() = student_id`.",
+    "I built JP Connect on a Defense-in-Depth philosophy: the Next.js 16 network gate (proxy.ts) enforces role claims before rendering, Google Workspace SSO locks access to @sjp2cd.edu.ph, and PostgreSQL Row-Level Security (RLS) guarantees complete database isolation with auth.uid() = student_id.",
   securityPoints: [
-    "Next.js 16 Request Gate (proxy.ts route matching & instantaneous redirection for unauthorized role claims)",
-    "Strict @sjp2cd.edu.ph domain-restricted Google OAuth SSO",
-    "PostgreSQL Row-Level Security (RLS) guaranteeing tenant and student isolation at the DB layer",
-    "Immutable 1:1 binding between auth.users and registrar masterlist records during onboarding",
+    "Front Door Gate (proxy.ts): Next.js 16 network boundary intercepting incoming requests and enforcing RBAC before page render.",
+    "Passwordless Google SSO & Delegated Compute: 100% passwordless via Google Workspace OAuth (@sjp2cd.edu.ph), offloading auth compute to Google (50k free-tier MAU ceiling) and eliminating password-hashing CPU spikes and reset overhead.",
+    "Registrar Masterlist Verification Gate: First-time onboarding verifies Student/Employee IDs directly against each semester's imported Registrar roster; unlisted or unenrolled IDs are strictly blocked, preventing ghost accounts.",
+    "Interactive 1:1 Identity Claiming: Enrolled users visually confirm their inferred degree program, year level, and college in an interactive dialog before establishing an immutable 1:1 database binding.",
+    "Database RLS (Supabase SSR): Defense-in-depth PostgreSQL policies (auth.uid() = student_id) prevent client data leaks even under direct HTTP API inspection.",
+    "Strict Type Safety: React 19 Compiler, zero any TypeScript, and Vitest/Playwright test suites.",
   ],
   deepDives: [
     {
-      title: "1. The 3-Way Algorithmic Exam Conflict Resolver",
+      title: "1. 3-Way Exam Conflict Resolver & Faculty Dispatch",
       challenge:
-        "Excel sheets with merged cells and varying time strings frequently created room collisions and proctoring overlaps across 658 examinations.",
+        "Raw departmental Excel sheets had erratic proctor names (nicknames, typos, abbreviations) and irregular times, creating room/proctor collisions and manual delays notifying 100+ faculty.",
       solution:
-        "Implemented safe parsing with `read-excel-file` (zero vulnerability CVEs) and designed an O(N log N) temporal interval collision engine checking Room, Proctor, and Self-Proctoring conflicts simultaneously.",
+        "I engineered a safe read-excel-file parser, an O(N log N) 3-way collision engine (Room, Proctor, Self-Proctoring), and a PostgreSQL name-normalization engine (normalized_match_key alias mapping) that auto-binds published schedules to instructor Google SSO accounts.",
       outcome:
-        "658 schedules parsed in seconds; 0 schedule collisions published to student portals.",
+        "658 schedules parsed with 0 collisions and instantly populated across 107 instructor dashboards upon publishing.",
     },
     {
       title: "2. Defense-in-Depth Multi-Role RBAC",
       challenge:
-        "Managing 6 distinct roles (Super Admin, OSA Admin, SSC Admin, Checker, Instructor, Student) across public terminals without session leakage.",
+        "Managing 6 distinct roles (Super Admin, OSA Admin, SSC Admin, Checker, Instructor, Student) across public school terminals without session leakage.",
       solution:
-        "Built with @supabase/ssr using HTTP-only secure cookies, React Server Component validations, and strict PostgreSQL RLS policies.",
+        "I built the authorization layer with @supabase/ssr using HTTP-only secure cookies, React Server Component validations, and strict PostgreSQL RLS policies.",
       outcome:
-        "Zero unauthorized record extractions or role elevation exploits.",
+        "Zero unauthorized record extractions or role elevation exploits across 5,500+ active user accounts.",
     },
     {
-      title: "3. Optical Attendance Pass & Automated Sanctions",
+      title: "3. Batch RFID Ingestion & Sanctions Engine",
       challenge:
-        "Manual sign-in sheets caused massive clearance queues and disputed sanction fees at the end of every semester.",
+        "Standalone physical RFID event scanners produced unlinked logs, requiring manual spreadsheet checks to find absent students and compute fines.",
       solution:
-        "Built dynamic zero-ping client QR passes with laser animations, coupled with automated Supabase `pg_cron` jobs that transition unexcused pending attendees to absent and assess sanctions automatically.",
+        "I built a batch ingestion tool where SSC officers import scanned IDs; the system auto-reconciles against the masterlist to flag absentees and apply fines.",
       outcome:
-        "Instant digital clearance tracking directly from student smartphone dashboards.",
+        "Replaced days of manual cross-referencing with instant automated sanctions and real-time student e-clearance tracking.",
     },
   ],
   qaList: [
     {
-      question: "Why Next.js 16 & React 19 over a standard SPA like Vite?",
+      question: "How does student onboarding prevent unauthorized sign-ups or ghost accounts?",
       answer:
-        "For an institutional platform with public campus hubs and protected student portals, SEO, instant load performance, and server-side authorization boundaries were vital. Next.js 16 App Router runs sensitive logic on the server with zero client bundle overhead.",
+        "At the start of each semester, the official Registrar masterlist is imported as the absolute source of truth. When first-time students sign in via Google and enter their Student ID, the system validates that ID against the active semester roster. Unenrolled or missing IDs are strictly blocked. For valid students, an interactive confirmation dialog displays their inferred degree program, year level, and college before locking an immutable 1:1 database binding.",
     },
     {
-      question: "How did you prevent students from viewing peers' records?",
+      question: "How did you ensure the login system wouldn't crash during peak exam-morning traffic?",
       answer:
-        "Defense-in-depth: Route-level proxy blocks unauthorized paths, while PostgreSQL Row-Level Security restricts SQL queries to WHERE auth.uid() = student_id. Even direct API calls cannot extract unauthorized rows.",
+        "Rather than running CPU-heavy password hashing (bcrypt/argon2) on our database, I delegated authentication to Google OAuth. This offloaded login compute to Google's infrastructure, eliminated password resets, and utilized Supabase's 50,000 free-tier MAU ceiling to handle 5,500+ users at zero cost.",
     },
     {
-      question: "How does the conflict resolver detect overlaps?",
+      question: "How does attendance & sanction tracking work with existing school hardware?",
       answer:
-        "It normalizes all slots into UTC timestamps and sweeps for (Start_A < End_B) and (End_A > Start_B) across identical dates, simultaneously checking room equality, proctor equality, and instructor self-assignment.",
+        "The school uses standalone physical RFID scanners during events. SSC officers export the scanned IDs into JP Connect, which runs a set-reconciliation against the masterlist—auto-flagging missing IDs as absent with fines attached.",
+    },
+    {
+      question: "How did you optimize cloud infrastructure and hosting costs for the school?",
+      answer:
+        "I designed a cost-aware architecture that runs at $0 monthly idle cost on free tiers by executing zero-egress client parsing and caching React Server Components. During high-traffic bursts (exam weeks and clearance sign-offs), the system scales to paid compute on demand.",
+    },
+    {
+      question: "How does the 3-way exam conflict resolver work?",
+      answer:
+        "I designed the resolver to normalize spreadsheet timestamps into Manila timezone intervals and perform an O(N log N) sweep detecting Room collisions, Proctor double-bookings, and Self-Proctoring violations simultaneously.",
+    },
+    {
+      question: "How is student data privacy protected?",
+      answer:
+        "I enforced a two-tier boundary: Google Workspace SSO restricts authentication to @sjp2cd.edu.ph, while PostgreSQL RLS policies restrict row access to auth.uid() = student_id, guaranteeing complete tenant and student isolation.",
     },
   ],
 };
