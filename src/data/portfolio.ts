@@ -280,7 +280,7 @@ export const flagshipProjects: FlagshipProject[] = [
     focus: "Real-Time Campus Sports Platform",
     description:
       "Real-time university sports tracker providing live match scores and team standings across campus during Intramurals. Engineered for instant mobile access, high concurrency during championship games, and zero downtime.",
-    image: "/projects/sjp2cd-leaderboard.png",
+    image: "/projects/sjp2cd-leaderboard.webp",
     logo: "/logos/school-logo-nobg.webp",
     techStack: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Netlify"],
     metrics: {
@@ -301,7 +301,7 @@ export const flagshipProjects: FlagshipProject[] = [
     focus: "Commercial Booking & Queuing Engine",
     description:
       "Web-based appointment portal for barbershops addressing operational bottlenecks with a real-time queuing engine, service catalog, and automated customer alerts.",
-    image: "/projects/clip-and-style.png",
+    image: "/projects/clip-and-style.webp",
     logo: "/logos/clipnstyle-logo.webp",
     techStack: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Zod"],
     metrics: {
@@ -452,7 +452,7 @@ export const featuredCredentials: Credential[] = [
     description:
       "Officially recognized for developing and implementing the OWWA CSMR System—actively running in daily regional operations today to streamline citizen feedback collection and compliance reporting.",
     skills: ["Government IT", "Feedback Analytics", "Compliance Reporting", "Full-Stack Web"],
-    image: "/certificates/ojt/csmr.jpg",
+    image: "/certificates/ojt/csmr.webp",
     signatories: [
       "Jhon David S. Tumbaga — OJT Supervisor / IT Instructor",
       "Aileen D. Casiller — Supervising Administrative Officer",
@@ -468,7 +468,7 @@ export const featuredCredentials: Credential[] = [
     description:
       "Officially recognized for developing and presenting the OWWA SPRS platform, designed to consolidate regional administrative statistical reporting, KPI monitoring, and operational data.",
     skills: ["Enterprise Systems", "Statistical Reporting", "Performance KPIs", "Data Management"],
-    image: "/certificates/ojt/sprs.jpg",
+    image: "/certificates/ojt/sprs.webp",
     signatories: [
       "Jhon David S. Tumbaga — OJT Supervisor / IT Instructor",
       "Aileen D. Casiller — Supervising Administrative Officer",
@@ -484,7 +484,7 @@ export const featuredCredentials: Credential[] = [
     description:
       "Competed in the 2025 Mindanao Interschool Hackathon, architecting rapid prototypes and PropTech solutions focused on AI workflows and digital property transactions under competitive time constraints.",
     skills: ["Rapid Prototyping", "PropTech Solutions", "AI Workflows", "Full-Stack Development"],
-    image: "/certificates/hackathon/proptech.jpg",
+    image: "/certificates/hackathon/proptech.webp",
     signatories: [
       "Anthony Gerard O. Leuterio, REB, ePro — Founder of Leuterio Realty, FilipinoHomes & Rent.ph",
     ],
@@ -499,7 +499,7 @@ export const featuredCredentials: Credential[] = [
     description:
       "Conferred with the institution's highest student honor for exemplary leadership throughout AY 2025–2026. Elected SSC Senator directing campus student affairs, cross-department operations, Intramurals 2025, and Extravaganza 2026 logistics.",
     skills: ["Institutional Service", "Student Governance", "Campus Operations", "Executive Leadership"],
-    image: "/certificates/school/2. insti-service-reward.jpg",
+    image: "/certificates/school/2. insti-service-reward.webp",
     signatories: [
       "Jocelyn P. Rodriguez, MAEd-GC, RGC — Dean of Student Affairs",
       "Engr. Joselito B. Lim, Jr. — AVP for Student Services",
