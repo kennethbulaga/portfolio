@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { MapPin, Mail, Download, Eye, ArrowDown, ShieldCheck } from "lucide-react";
+import { MapPin, Mail, ArrowUpRight, ArrowDown, ShieldCheck, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -87,34 +87,23 @@ export function Hero() {
             </span>
           </motion.div>
 
-          {/* Primary Action Buttons */}
-          <motion.div variants={staggerItem} className="pt-2 flex flex-wrap gap-3">
-            <Button onClick={scrollToProjects} size="lg" className="gap-2 shadow-sm">
+          {/* Primary Action Buttons (Balanced 50/50 on Mobile, Flex on Desktop) */}
+          <motion.div variants={staggerItem} className="pt-2 grid grid-cols-2 gap-2.5 sm:flex sm:items-center sm:gap-3 max-w-md sm:max-w-none">
+            <Button onClick={scrollToProjects} size="lg" className="gap-2 shadow-xs text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto px-3 sm:px-5">
               <span>Explore Projects</span>
-              <ArrowDown size={16} />
+              <ArrowDown size={15} />
             </Button>
 
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" variant="outline" className="text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto px-3 sm:px-5">
               <a
                 href={resumePath}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="gap-2"
+                className="gap-1.5 sm:gap-2"
               >
-                <Eye size={17} />
-                View Resume
-              </a>
-            </Button>
-
-            <Button asChild size="lg" variant="ghost">
-              <a
-                href={resumePath}
-                download="KennethBulaga_FullStackDev_Jan2026.pdf"
-                rel="noopener noreferrer"
-                className="gap-2"
-              >
-                <Download size={17} />
-                Download
+                <FileText size={16} className="text-primary shrink-0" />
+                <span>Resume (PDF)</span>
+                <ArrowUpRight size={14} className="opacity-70 shrink-0" />
               </a>
             </Button>
           </motion.div>
