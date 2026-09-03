@@ -24,7 +24,7 @@ import { personalInfo, resumePath, socialLinks } from "@/data/portfolio";
 interface CommandMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpenCaseStudy: () => void;
+  onOpenCaseStudy: (studyId?: string) => void;
 }
 
 interface CommandItem {
@@ -127,13 +127,23 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
       items: [
         {
           id: "case-study-jpconnect",
-          label: "Inspect JP Connect Architecture (5.5k Users)",
+          label: "Inspect JP Connect Architecture (5,536 Users)",
           icon: Sparkles,
           action: () => {
             onClose();
-            onOpenCaseStudy();
+            onOpenCaseStudy("jp-connect");
           },
-          badge: "Featured",
+          badge: "Institutional",
+        },
+        {
+          id: "case-study-owwacsmr",
+          label: "Inspect OWWA CSMR Architecture (4,632 Respondents)",
+          icon: Sparkles,
+          action: () => {
+            onClose();
+            onOpenCaseStudy("owwa-csmr");
+          },
+          badge: "Gov Production",
         },
       ],
     },

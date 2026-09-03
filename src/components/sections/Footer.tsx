@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Github, Linkedin, Mail, Check, Copy, ArrowUpRight, MessageSquare, MapPin } from "lucide-react";
+import { Github, Linkedin, Mail, Check, Copy, ArrowUpRight, MessageSquare, MapPin, Sparkles, Headphones, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { socialLinks, personalInfo } from "@/data/portfolio";
+import { socialLinks, personalInfo, personalInterests, spotifyPlaylists } from "@/data/portfolio";
 import { fadeInUp } from "@/components/motion";
 
 function XIcon({ className = "w-4 h-4" }: { className?: string }) {
@@ -38,6 +38,9 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
   const [copied, setCopied] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [activePlaylistIdx, setActivePlaylistIdx] = useState(0);
+
+  const activePlaylist = spotifyPlaylists[activePlaylistIdx] || spotifyPlaylists[0];
 
   const handleCopyEmail = async () => {
     try {
@@ -125,8 +128,119 @@ export function Footer() {
             </div>
           </div>
 
+          {/* Personal Touch: Outside of Coding */}
+          <div className="mt-6 pt-5 border-t border-border/60 space-y-2.5 text-left">
+            <p className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
+              <Sparkles size={13} className="text-primary" />
+              <span>Beyond the Terminal / Outside of Coding</span>
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {personalInterests.map((interest, idx) => (
+                <div
+                  key={idx}
+                  className="p-2.5 rounded-xl border border-border/70 bg-muted/25 flex items-start gap-2.5 text-left hover:border-primary/30 transition-colors"
+                >
+                  {interest.svgIcon ? (
+                    <div className="relative w-5 h-5 rounded shrink-0 select-none mt-0.5 overflow-hidden flex items-center justify-center">
+                      <Image
+                        src={interest.svgIcon}
+                        alt={interest.label}
+                        fill
+                        sizes="24px"
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <span className="text-base shrink-0 select-none mt-0.5">{interest.icon}</span>
+                  )}
+                  <div className="space-y-0.5 min-w-0">
+                    <p className="text-xs font-semibold text-foreground font-mono truncate">
+                      {interest.label}
+                    </p>
+                    <p className="text-[11px] text-muted-foreground leading-snug">
+                      {interest.detail}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Currently Vibing / Multi-Playlist Spotify Switcher */}
+          <div className="mt-5 pt-4 border-t border-border/60 space-y-2.5 text-left">
+            <div className="flex items-center justify-between flex-wrap gap-2">
+              <div className="flex items-center gap-1.5">
+                <Headphones size={13} className="text-emerald-500" />
+                <span className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground font-semibold">
+                  Currently Vibing / On Repeat
+                </span>
+              </div>
+
+              {/* Navigation Tabs & Chevrons */}
+              <div className="flex items-center gap-1.5 max-w-full">
+                <div className="flex items-center gap-1 overflow-x-auto no-scrollbar py-0.5 max-w-[280px] sm:max-w-none">
+                  {spotifyPlaylists.map((pl, idx) => (
+                    <button
+                      key={pl.id}
+                      onClick={() => setActivePlaylistIdx(idx)}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-mono transition-all font-medium shrink-0 ${
+                        activePlaylistIdx === idx
+                          ? "bg-emerald-500/15 text-emerald-500 border border-emerald-500/30 font-semibold shadow-2xs"
+                          : "text-muted-foreground hover:text-foreground bg-muted/40 border border-transparent"
+                      }`}
+                    >
+                      {pl.title}
+                    </button>
+                  ))}
+                </div>
+
+                {spotifyPlaylists.length > 1 && (
+                  <div className="flex items-center gap-0.5 ml-1 border-l border-border/60 pl-1.5 shrink-0">
+                    <button
+                      onClick={() =>
+                        setActivePlaylistIdx(
+                          (prev) => (prev - 1 + spotifyPlaylists.length) % spotifyPlaylists.length
+                        )
+                      }
+                      className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors"
+                      aria-label="Previous playlist"
+                    >
+                      <ChevronLeft size={14} />
+                    </button>
+                    <button
+                      onClick={() =>
+                        setActivePlaylistIdx((prev) => (prev + 1) % spotifyPlaylists.length)
+                      }
+                      className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors"
+                      aria-label="Next playlist"
+                    >
+                      <ChevronRight size={14} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Embedded Spotify Player with Dynamic Key */}
+            <div className="rounded-xl overflow-hidden border border-border/80 bg-background/50 shadow-sm">
+              <iframe
+                key={activePlaylist.id}
+                data-testid="embed-iframe"
+                style={{ borderRadius: "12px" }}
+                src={activePlaylist.embedUrl}
+                width="100%"
+                height="152"
+                frameBorder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                title={`Spotify Playlist - ${activePlaylist.title}`}
+                className="w-full"
+              />
+            </div>
+          </div>
+
           {/* Primary Action Buttons (Copy Email & Direct Message) */}
-          <div className="mt-8 pt-6 border-t border-border/60 flex flex-wrap items-center justify-center md:justify-between gap-4">
+          <div className="mt-6 pt-5 border-t border-border/60 flex flex-wrap items-center justify-center md:justify-between gap-4">
             <div className="flex flex-wrap items-center justify-center gap-3">
               <Button
                 size="default"
@@ -182,21 +296,23 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="block"
               >
-                <SpotlightCard className="flex items-center justify-between p-3.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 transition-all group shadow-xs">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground group-hover:text-primary transition-colors">
-                      <Github size={18} />
+                <SpotlightCard className="p-3.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 transition-all group shadow-xs">
+                  <div className="flex items-center justify-between w-full gap-2">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground group-hover:text-primary transition-colors shrink-0">
+                        <Github size={18} />
+                      </div>
+                      <div className="text-left min-w-0">
+                        <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
+                          GitHub
+                        </p>
+                        <p className="text-[11px] font-mono text-muted-foreground truncate">
+                          {githubLink.username}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-left">
-                      <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
-                        GitHub
-                      </p>
-                      <p className="text-[11px] font-mono text-muted-foreground">
-                        {githubLink.username}
-                      </p>
-                    </div>
+                    <ArrowUpRight size={15} className="text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                   </div>
-                  <ArrowUpRight size={15} className="text-muted-foreground group-hover:text-foreground transition-colors" />
                 </SpotlightCard>
               </a>
             )}
@@ -208,21 +324,23 @@ export function Footer() {
                 rel="noopener noreferrer"
                 className="block"
               >
-                <SpotlightCard className="flex items-center justify-between p-3.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 transition-all group shadow-xs">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground group-hover:text-primary transition-colors">
-                      <Linkedin size={18} />
+                <SpotlightCard className="p-3.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 transition-all group shadow-xs">
+                  <div className="flex items-center justify-between w-full gap-2">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-8 h-8 rounded-lg bg-muted flex items-center justify-center text-foreground group-hover:text-primary transition-colors shrink-0">
+                        <Linkedin size={18} />
+                      </div>
+                      <div className="text-left min-w-0">
+                        <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
+                          LinkedIn
+                        </p>
+                        <p className="text-[11px] font-mono text-muted-foreground truncate">
+                          {linkedinLink.username}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-left">
-                      <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
-                        LinkedIn
-                      </p>
-                      <p className="text-[11px] font-mono text-muted-foreground">
-                        {linkedinLink.username}
-                      </p>
-                    </div>
+                    <ArrowUpRight size={15} className="text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
                   </div>
-                  <ArrowUpRight size={15} className="text-muted-foreground group-hover:text-foreground transition-colors" />
                 </SpotlightCard>
               </a>
             )}

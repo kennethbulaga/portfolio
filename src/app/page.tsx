@@ -6,11 +6,11 @@ import { CaseStudyDrawer } from "@/components/ui/case-study-drawer";
 import { SectionDivider } from "@/components/ui/section-divider";
 
 export default function Home() {
-  const [isCaseStudyOpen, setIsCaseStudyOpen] = useState(false);
+  const [activeCaseStudyId, setActiveCaseStudyId] = useState<string | null>(null);
 
   return (
     <>
-      <Navbar />
+      <Navbar onOpenCaseStudy={(studyId) => setActiveCaseStudyId(studyId || "jp-connect")} />
       
       {/* Global Ambient Depth Light */}
       <div className="fixed inset-0 -z-20 pointer-events-none overflow-hidden">
@@ -20,7 +20,7 @@ export default function Home() {
       <main className="min-h-screen">
         <Hero />
         <SectionDivider />
-        <Projects onOpenCaseStudy={() => setIsCaseStudyOpen(true)} />
+        <Projects onOpenCaseStudy={(studyId) => setActiveCaseStudyId(studyId || "jp-connect")} />
         <SectionDivider />
         <Experience />
         <SectionDivider />
@@ -30,8 +30,9 @@ export default function Home() {
 
       {/* Flagship Case Study Interactive Drawer */}
       <CaseStudyDrawer
-        isOpen={isCaseStudyOpen}
-        onClose={() => setIsCaseStudyOpen(false)}
+        isOpen={!!activeCaseStudyId}
+        studyId={activeCaseStudyId}
+        onClose={() => setActiveCaseStudyId(null)}
       />
     </>
   );

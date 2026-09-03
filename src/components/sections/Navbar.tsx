@@ -9,7 +9,11 @@ import { MobileNav } from "@/components/ui/mobile-nav";
 import { navItems, resumePath } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
 
-export function Navbar() {
+interface NavbarProps {
+  onOpenCaseStudy?: (studyId?: string) => void;
+}
+
+export function Navbar({ onOpenCaseStudy }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
@@ -87,6 +91,7 @@ export function Navbar() {
       <MobileNav
         isOpen={isMobileNavOpen}
         onClose={() => setIsMobileNavOpen(false)}
+        onOpenCaseStudy={onOpenCaseStudy}
       />
     </>
   );

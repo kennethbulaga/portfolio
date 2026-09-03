@@ -48,3 +48,6 @@ next-env.d.ts
 
 # script
 scripts/
+
+# docs
+docs/

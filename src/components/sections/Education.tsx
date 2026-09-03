@@ -75,19 +75,24 @@ export function Education() {
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           {/* Section Header */}
-          <motion.div className="space-y-2 mb-2 sm:mb-4" variants={fadeInUp}>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground">
-              Education & Leadership
-            </h2>
-            <p className="text-muted-foreground">
-              Academic degree credentials, student governance appointments, and technical milestones.
-            </p>
+          <motion.div className="flex items-start justify-between flex-wrap gap-2 mb-2 sm:mb-4" variants={fadeInUp}>
+            <div className="space-y-1">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+                Education & Leadership
+              </h2>
+              <p className="text-muted-foreground text-sm sm:text-base">
+                Academic degree credentials, student governance appointments, and technical milestones.
+              </p>
+            </div>
+            <span className="md:hidden text-[10px] font-mono text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0 mt-1">
+              <span>Swipe →</span>
+            </span>
           </motion.div>
 
-          {/* Two Column Layout: Degree & Student Leadership */}
-          <div className="grid md:grid-cols-2 gap-8">
+          {/* Two Column Layout: Degree & Student Leadership (Mobile Snap Carousel) */}
+          <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory gap-4 md:gap-8 pb-2 md:pb-0 no-scrollbar md:grid-cols-2">
             {/* Education Column - Timeline */}
-            <Card className="transition-all duration-300 hover:shadow-lg">
+            <Card className="w-[85vw] max-w-[340px] md:w-auto md:max-w-none shrink-0 md:shrink snap-center flex flex-col transition-all duration-300 hover:shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <GraduationCap size={20} className="text-primary" />
@@ -154,7 +159,7 @@ export function Education() {
             </Card>
 
             {/* Leadership Column - Timeline */}
-            <Card className="transition-all duration-300 hover:shadow-lg">
+            <Card className="w-[85vw] max-w-[340px] md:w-auto md:max-w-none shrink-0 md:shrink snap-center flex flex-col transition-all duration-300 hover:shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Award size={20} className="text-primary" />
@@ -320,21 +325,27 @@ export function Education() {
                     <BadgeCheck size={19} className="text-primary shrink-0" />
                     <span>Technical Milestones & Institutional Honors</span>
                   </CardTitle>
-                  <span className="text-[11px] font-mono font-medium text-muted-foreground flex items-center gap-1.5 bg-background px-2.5 py-1 rounded-full border border-border/70">
-                    <FileCheck size={13} className="text-primary" />
-                    <span>Verified Credentials</span>
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="sm:hidden text-[10px] font-mono text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <span>Swipe →</span>
+                    </span>
+                    <span className="text-[11px] font-mono font-medium text-muted-foreground flex items-center gap-1.5 bg-background px-2.5 py-1 rounded-full border border-border/70">
+                      <FileCheck size={13} className="text-primary" />
+                      <span>{featuredCredentials.length} Verified Credentials</span>
+                    </span>
+                  </div>
                 </div>
               </CardHeader>
 
               <CardContent className="p-4 sm:p-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Responsive Layout: Horizontal Snap Carousel on Mobile, 2-Column Grid on Desktop */}
+                <div className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory gap-4 pb-2 sm:pb-0 no-scrollbar sm:grid-cols-2">
                   {featuredCredentials.map((item) => {
                     const CategoryIcon = categoryIconMap[item.category] || BadgeCheck;
                     return (
                       <div
                         key={item.id}
-                        className="p-4 rounded-xl border border-border/70 bg-card/50 hover:bg-card hover:border-primary/40 transition-all flex flex-col justify-between space-y-3.5 shadow-xs group"
+                        className="w-[85vw] max-w-[340px] sm:w-auto sm:max-w-none shrink-0 sm:shrink snap-center p-4 rounded-xl border border-border/70 bg-card/50 hover:bg-card hover:border-primary/40 transition-all flex flex-col justify-between space-y-3.5 shadow-xs group"
                       >
                         <div className="space-y-3">
                           {/* Certificate Thumbnail Preview */}
@@ -348,7 +359,7 @@ export function Education() {
                                 src={item.image}
                                 alt={item.title}
                                 fill
-                                sizes="(max-width: 768px) 100vw, 400px"
+                                sizes="(max-width: 768px) 85vw, 400px"
                                 className="object-cover transition-transform duration-300 group-hover/img:scale-[1.03]"
                               />
                               <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
@@ -369,17 +380,17 @@ export function Education() {
                               </span>
                               
                               {item.status === "Active Production" ? (
-                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1">
+                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1 shrink-0">
                                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                   <span>Active Production</span>
                                 </span>
                               ) : item.status === "Highest Honor" ? (
-                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1">
+                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1 shrink-0">
                                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                                   <span>Highest Honor</span>
                                 </span>
                               ) : (
-                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-medium bg-primary/10 text-primary border border-primary/20">
+                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-medium bg-primary/10 text-primary border border-primary/20 shrink-0">
                                   {item.status}
                                 </span>
                               )}
@@ -391,11 +402,11 @@ export function Education() {
 
                             <p className="text-xs text-muted-foreground flex items-center gap-1.5">
                               <Calendar size={12} className="text-primary shrink-0" />
-                              <span>{item.period} · {item.issuer}</span>
+                              <span className="truncate">{item.period} · {item.issuer}</span>
                             </p>
                           </div>
 
-                          <p className="text-xs text-muted-foreground leading-relaxed">
+                          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3 sm:line-clamp-none">
                             {item.description}
                           </p>
                         </div>

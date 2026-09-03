@@ -134,7 +134,12 @@ export interface CaseStudyData {
   qaList: { question: string; answer: string }[];
 }
 
-// Personal Info
+export interface PersonalInterest {
+  icon?: string;
+  svgIcon?: string;
+  label: string;
+  detail: string;
+}
 
 export const personalInfo: PersonalInfo = {
   name: "Kenneth Bulaga",
@@ -150,6 +155,94 @@ export const personalInfo: PersonalInfo = {
     message: "Freelancing & Open to Full-Time Roles",
   },
 };
+
+export const personalInterests: PersonalInterest[] = [
+  {
+    svgIcon: "/interest/one-piece.webp",
+    icon: "⚔️",
+    label: "Anime & Manhwa",
+    detail: "One Piece, Demon Slayer, Solo Leveling, Tower of God & many more",
+  },
+  {
+    svgIcon: "/interest/book-education.svg",
+    icon: "📖",
+    label: "Books & Philosophy",
+    detail: "Naval Ravikant, Atomic Habits, Philosophy 101, 48 Laws of Power",
+  },
+  {
+    svgIcon: "/interest/codm-logo.svg",
+    icon: "🎯",
+    label: "COD: Mobile",
+    detail: "Solo vs Squad, kasi malakas ako",
+  },
+  {
+    svgIcon: "/interest/gym-dumbbell.svg",
+    icon: "🏋️",
+    label: "Home Gym & Fitness",
+    detail: "Strength training, jogging & staying active",
+  },
+];
+
+export interface SpotifyPlaylist {
+  id: string;
+  title: string;
+  vibe: string;
+  embedUrl: string;
+}
+
+export const spotifyPlaylists: SpotifyPlaylist[] = [
+  {
+    id: "old-english-songs",
+    title: "Old English Songs",
+    vibe: "Classics & Ballads",
+    embedUrl:
+      "https://open.spotify.com/embed/playlist/0bHg6DZSZb8FQ82fhvQw6Q?utm_source=generator&si=a340dc08cfe44334&theme=0",
+  },
+  {
+    id: "tambay-lang",
+    title: "Tambay Lang",
+    vibe: "Chill & Relax",
+    embedUrl:
+      "https://open.spotify.com/embed/playlist/2vkLR2fdEM9pPlfT56tnab?utm_source=generator&theme=0&si=87326174da5246e3",
+  },
+  {
+    id: "anime-songs",
+    title: "Anime Songs",
+    vibe: "Anime OSTs & J-Pop",
+    embedUrl:
+      "https://open.spotify.com/embed/playlist/06ScFLddWUBOULNzeAXuIw?utm_source=generator&si=67ef882f3f3a475c&theme=0",
+  },
+  {
+    id: "opm-now",
+    title: "OPM Now",
+    vibe: "Modern OPM Hits",
+    embedUrl:
+      "https://open.spotify.com/embed/playlist/44LibO6VIlle3lwn18Wfay?utm_source=generator&si=793dcbb8a4694e1c&theme=0",
+  },
+  {
+    id: "2010s-babies",
+    title: "2010s babies",
+    vibe: "2010s Nostalgia",
+    embedUrl:
+      "https://open.spotify.com/embed/playlist/5oFGYUo1aIPFTyjQXv28ID?utm_source=generator&theme=0&si=4490ace214304fcc",
+  },
+  {
+    id: "opm-throwback",
+    title: "OPM throwback",
+    vibe: "Classic OPM Hits",
+    embedUrl:
+      "https://open.spotify.com/embed/playlist/3I05uaW5H0QqlwRGGahkTN?utm_source=generator&si=bac5dc6337ea4025&theme=0",
+  },
+  {
+    id: "jejemon",
+    title: "JEJEMON",
+    vibe: "Pinoy Nostalgia",
+    embedUrl:
+      "https://open.spotify.com/embed/playlist/0IfoiuoyHgv2kP2GXieyWa?utm_source=generator&si=573c965ba4624b97&theme=0",
+  },
+];
+
+export const spotifyPlaylistUrl = spotifyPlaylists[0].embedUrl;
 
 // Institutional Trust Partners
 
@@ -276,6 +369,45 @@ export const flagshipProjects: FlagshipProject[] = [
     hasCaseStudy: true,
   },
   {
+    id: "owwa-csmr",
+    title: "OWWA CSMR System",
+    link: "#",
+    focus: "Regional Client Satisfaction Measurement & Analytics Platform",
+    description:
+      "Engineered and deployed a centralized web platform for OWWA Regional Welfare Office XI, replacing manual spreadsheets across 9 frontline service units with automated Likert satisfaction matrices, live multi-office validation, and 1-click ARTA/CSC-compliant master spreadsheet generation.",
+    image: "/projects/owwa-csmr/landing.webp",
+    screenshots: [
+      { label: "Public Landing", image: "/projects/owwa-csmr/landing.webp" },
+      { label: "Secure Role Login", image: "/projects/owwa-csmr/login.webp" },
+      { label: "Dashboard", image: "/projects/owwa-csmr/dashboard.webp" },
+      { label: "Manage Offices", image: "/projects/owwa-csmr/manage_offices.webp" },
+    ],
+    logo: "/logos/owwa-logo.webp",
+    techStack: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "PostgreSQL",
+      "Supabase SSR",
+      "ExcelJS",
+      "Recharts",
+      "TanStack Table",
+    ],
+    metrics: {
+      "Surveyed Citizens": "4,632+",
+      "Monthly Reports": "72 Submissions",
+      "Regional Offices": "10 Units",
+      "Consolidation Time": "<1s (1-Click)",
+    },
+    highlights: [
+      "Zero-Drift Virtual Consolidation: On-demand functional aggregation summing sub-unit matrices into a single regional masterlist.",
+      "ARTA/CSC Compliant ExcelJS Engine: 2,100+ line spreadsheet synthesis pipeline generating official formatted workbooks.",
+      "Universal Law of Sums Live Validation: Real-time client arithmetic verification eliminating mathematical submission errors.",
+    ],
+    hasCaseStudy: true,
+  },
+  {
     id: "sjp2cd-leaderboard",
     title: "SJP2CD Leaderboard",
     link: "https://sjp2cdintrams.netlify.app/",
@@ -317,16 +449,6 @@ export const flagshipProjects: FlagshipProject[] = [
 // Client & Institutional Projects
 
 export const clientProjects: ClientProject[] = [
-  {
-    id: "owwa-csmr",
-    title: "OWWA CSMR System",
-    client: "Overseas Workers Welfare Administration (Region XI)",
-    objective:
-      "Engineered an internal Client Satisfaction Measurement Report System actively used in daily operations across OWWA Region XI to collect citizen feedback, automate evaluations, and generate compliance reports.",
-    impact: "Active Regional Production: Daily citizen feedback analytics & automated compliance reporting across Region XI.",
-    logo: "/logos/owwa-logo.webp",
-    techStack: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS", "Data Analytics"],
-  },
   {
     id: "owwa-sprs",
     title: "OWWA SPRS Platform",
@@ -603,10 +725,10 @@ export const jpConnectCaseStudy: CaseStudyData = {
   scaleSummary:
     "Multi-office operations platform serving 5,500+ active university users across 3 administrative departments, replacing manual spreadsheets and paper queues with automated conflict detection, digital ID passes, and role-based clearance.",
   metrics: [
-    { label: "5,536", value: "Authenticated Profiles", desc: "5,426 students, 107 instructors, 3 admin portals across 2 active semesters" },
-    { label: "14,778", value: "Masterlist Records", desc: "Ingested and mapped across 9 collegiate degree programs" },
-    { label: "658", value: "Exam Schedules", desc: "Ingested with 100% automated 3-way conflict detection & 0 collisions" },
-    { label: "0", value: "Paper Bottlenecks", desc: "Eliminated physical clearance lines with instant digital sanction tracking" },
+    { label: "5,536", value: "Authenticated Profiles", desc: "5,426 students, 107 faculty across 2 active semesters" },
+    { label: "14,778", value: "Masterlist Records", desc: "Ingested across 9 collegiate degree programs" },
+    { label: "658", value: "Exam Schedules", desc: "100% automated 3-way conflict verification" },
+    { label: "0", value: "Paper Bottlenecks", desc: "Eliminated physical lines via digital clearances" },
   ],
   costArchitecture: {
     title: "Cost-Aware Cloud Architecture",
@@ -700,4 +822,100 @@ export const jpConnectCaseStudy: CaseStudyData = {
         "I enforced a two-tier boundary: Google Workspace SSO restricts authentication to @sjp2cd.edu.ph, while PostgreSQL RLS policies restrict row access to auth.uid() = student_id, guaranteeing complete tenant and student isolation.",
     },
   ],
+};
+
+export const owwaCsmrCaseStudy: CaseStudyData = {
+  id: "owwa-csmr",
+  title: "OWWA CSMR: Regional Citizen Satisfaction Measurement Platform",
+  subtitle: "Multi-Office Data Intake, Automated ARTA Compliance & Enterprise ExcelJS Consolidation",
+  role: "Full-Stack Software Engineer & System Architect",
+  institution: "Overseas Workers Welfare Administration (OWWA Region XI)",
+  scaleSummary:
+    "Architected and deployed a regional reporting engine for OWWA Regional Welfare Office XI (Davao Region) that consolidated 72 monthly unit submissions representing 4,632+ physical citizen and OFW survey responses across 9 frontline regional offices.",
+  metrics: [
+    { label: "4,632", value: "Surveyed Respondents", desc: "Citizen & OFW survey tallies across 8 cycles" },
+    { label: "72", value: "Monthly Submissions", desc: "53 finalized reports + 19 active drafts" },
+    { label: "10", value: "Regional Units", desc: "9 frontline units + 1 IT Head consolidator" },
+    { label: "<1s", value: "Master Consolidation", desc: "1-click ARTA/CSC-compliant Excel synthesis" },
+  ],
+  costArchitecture: {
+    title: "Zero-Redundancy Virtual Aggregation",
+    points: [
+      "I engineered an on-demand functional reduction pipeline in Next.js Server Actions that aggregates sub-unit survey matrices on the fly without persisting redundant aggregate rows.",
+      "Eliminates database bloat, guarantees mathematical parity across all reports, and computes regional summaries in sub-100ms compute cycles.",
+    ],
+  },
+  problemStatements: [
+    {
+      title: "The Multi-Office 'Excel Hell' Bottleneck",
+      desc: "9 frontline units (Social Benefits, Reintegration, Education, PDOS, etc.) independently formatted and emailed spreadsheets each month. The IT Unit spent 3–4 working days manually fixing broken formulas and consolidating rows.",
+    },
+    {
+      title: "Mathematical Entry Errors at the Source",
+      desc: "Encoders frequently made entry errors where demographic and service tallies did not balance with total declared respondents (N), invalidating regional satisfaction percentages.",
+    },
+    {
+      title: "Rigid Government Compliance Mandates",
+      desc: "Anti-Red Tape Authority (ARTA) and Civil Service Commission (CSC) guidelines require precise formatting, specific cell border styling, and formula rows that standard CSV dumpers cannot output.",
+    },
+  ],
+  architectureSummary:
+    "I architected OWWA CSMR on a centralized hub-and-spoke model: stateless cryptographic JWT sessions (jose) enforce multi-office authorization, live-validating smart matrices anchor arithmetic in real time, and an ExcelJS pipeline synthesizes official multi-section workbooks in-memory.",
+  securityPoints: [
+    "Stateless Cryptographic JWTs (jose): HS256 token verification stored in HttpOnly secure cookies with multi-office assignment claims.",
+    "PostgreSQL Composite Integrity: Unique compound key on (office_id, month, year) physically preventing duplicate submissions per reporting cycle.",
+    "JSONB Structured Payloads: Document snapshot architecture accommodating 52+ evolving frontline service classifications without schema migrations.",
+    "Immutable Audit Logging: Super-edits, period re-openings, and administrative interventions logged with timestamps and user references in audit_logs.",
+  ],
+  deepDives: [
+    {
+      title: "1. Zero-Drift On-Demand Aggregation Pipeline",
+      challenge:
+        "Each office submits deeply nested survey datasets (9 SQD Likert dimensions with 6 rating tiers, 52 services availed, demographics). Storing static aggregate rows caused desynchronization whenever an admin unlocked a report.",
+      solution:
+        "I implemented an on-demand virtual reduction engine in Next.js Server Actions. It fetches submitted snapshots via Supabase and executes a functional accumulator pipeline calculating global distributions on the fly.",
+      outcome:
+        "Guaranteed mathematical parity across all reports with zero redundant data; master reports compute in sub-100ms.",
+    },
+    {
+      title: "2. Server-Side ARTA-Compliant Master Workbook Synthesis",
+      challenge:
+        "Government reporting mandates rigid formatting: exact border hierarchies, cell fills, merged headers, dynamic formulas, and narrative commentary blocks that standard CSV generators cannot deliver.",
+      solution:
+        "I engineered a 2,100+ line spreadsheet synthesis pipeline using ExcelJS, calculating cell coordinates dynamically, applying government styling tokens, and compiling clean binary streams in-memory.",
+      outcome:
+        "Consolidated master reports generated in under 1 second with 100% layout fidelity to official regional templates.",
+    },
+    {
+      title: "3. 'Universal Law of Sums' Client-Side Live Validation",
+      challenge:
+        "Encoders frequently made arithmetic mistakes where sub-category responses did not equal total declared respondents, invalidating regional metrics.",
+      solution:
+        "I built AutoCalcTableInput and SmartMatrixInput components linked to React Hook Form and Zod refinements, anchoring all inputs to the master total with real-time color-coded balance indicators.",
+      outcome:
+        "Eliminated mathematical submission errors at the source, reducing invalid submissions to zero.",
+    },
+  ],
+  qaList: [
+    {
+      question: "Why did I choose a JSONB snapshot architecture over a highly normalized relational schema?",
+      answer:
+        "In a government CSM workflow, the service catalog (52+ services) and survey sub-criteria evolve between fiscal years based on national directives. By maintaining a relational core for offices, users, and periods while storing survey payload matrices as structured JSONB snapshots, I achieved schema flexibility without destructive table migrations—while maintaining end-to-end type safety via Zod and TypeScript.",
+    },
+    {
+      question: "How did I handle data validation and server-side report generation?",
+      answer:
+        "I enforced a multi-layered validation strategy: on the client, custom validation hooks perform live arithmetic checks to ensure sub-category tallies match anchor totals. On the server, Next.js Server Actions validate payloads against strict Zod schemas before persisting. For exports, an ExcelJS pipeline constructs the complete aggregated workbook in-memory with exact typography, cell borders, and narrative template injections.",
+    },
+    {
+      question: "How did I ensure data accuracy and prevent duplicate or unauthorized entries?",
+      answer:
+        "I implemented integrity checks at both database and auth levels. A compound unique constraint on (office_id, month, year) physically prevents duplicate submissions for any office in a cycle. Stateless jose JWTs verify user and office permissions. Once submitted, records lock into read-only mode, with any administrative super-edits tracked in an immutable audit_logs table.",
+    },
+  ],
+};
+
+export const caseStudies: Record<string, CaseStudyData> = {
+  "jp-connect": jpConnectCaseStudy,
+  "owwa-csmr": owwaCsmrCaseStudy,
 };

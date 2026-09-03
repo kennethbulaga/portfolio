@@ -18,7 +18,7 @@ import { flagshipProjects, clientProjects, FlagshipProject } from "@/data/portfo
 import { fadeInUp, staggerContainer, staggerItem } from "@/components/motion";
 
 interface ProjectsProps {
-  onOpenCaseStudy: () => void;
+  onOpenCaseStudy: (studyId?: string) => void;
 }
 
 interface ZoomState {
@@ -33,7 +33,7 @@ function FlagshipCard({
   onZoom,
 }: {
   project: FlagshipProject;
-  onOpenCaseStudy: () => void;
+  onOpenCaseStudy: (studyId: string) => void;
   onZoom: (initialIndex: number) => void;
 }) {
   const [activeScreenshotIdx, setActiveScreenshotIdx] = useState(0);
@@ -73,17 +73,23 @@ function FlagshipCard({
           </div>
         </div>
 
-        <Button asChild size="sm" variant="ghost" className="gap-1 shrink-0 text-xs h-8 px-2.5">
-          <a
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Open ${project.title}`}
-          >
-            <span>Live App</span>
-            <ArrowUpRight size={15} />
-          </a>
-        </Button>
+        {project.link && project.link !== "#" ? (
+          <Button asChild size="sm" variant="ghost" className="gap-1 shrink-0 text-xs h-8 px-2.5">
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${project.title}`}
+            >
+              <span>Live App</span>
+              <ArrowUpRight size={15} />
+            </a>
+          </Button>
+        ) : (
+          <Badge variant="outline" className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20 px-2 py-0.5 shrink-0">
+            Gov Production
+          </Badge>
+        )}
       </div>
 
       <div className="flex flex-col md:flex-row">
@@ -205,17 +211,23 @@ function FlagshipCard({
                 </div>
               </div>
 
-              <Button asChild size="sm" variant="ghost" className="gap-1 shrink-0 text-xs h-8 px-2.5">
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Open ${project.title}`}
-                >
-                  <span>Live App</span>
-                  <ArrowUpRight size={15} />
-                </a>
-              </Button>
+              {project.link && project.link !== "#" ? (
+                <Button asChild size="sm" variant="ghost" className="gap-1 shrink-0 text-xs h-8 px-2.5">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open ${project.title}`}
+                  >
+                    <span>Live App</span>
+                    <ArrowUpRight size={15} />
+                  </a>
+                </Button>
+              ) : (
+                <Badge variant="outline" className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20 px-2 py-0.5 shrink-0">
+                  Gov Production
+                </Badge>
+              )}
             </div>
 
             {/* Concise Description */}
@@ -257,7 +269,7 @@ function FlagshipCard({
               <Button
                 size="sm"
                 variant="outline"
-                onClick={onOpenCaseStudy}
+                onClick={() => onOpenCaseStudy(project.id)}
                 className="gap-1.5 text-xs text-primary hover:text-primary font-medium h-8"
               >
                 <Layers size={13} />
@@ -376,25 +388,34 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
 
         {/* Client & Departmental Solutions */}
         <div>
-          <div className="mb-5">
-            <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
-              Client & Government Solutions
-            </h3>
-            <p className="text-xs sm:text-sm text-muted-foreground">
-              Custom systems and tooling built for government services, academic events, and private clients.
-            </p>
+          <div className="mb-5 flex items-center justify-between flex-wrap gap-2">
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
+                Client & Government Solutions
+              </h3>
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Custom systems and tooling built for government services, academic events, and private clients.
+              </p>
+            </div>
+            <span className="sm:hidden text-[10px] font-mono text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0">
+              <span>Swipe →</span>
+            </span>
           </div>
 
           <motion.div
-            className="grid sm:grid-cols-2 gap-4"
+            className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory gap-4 pb-2 sm:pb-0 no-scrollbar sm:grid-cols-2"
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
             {clientProjects.map((project) => (
-              <motion.div key={project.id} variants={staggerItem}>
-                <SpotlightCard className="hover:border-primary/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md h-full flex flex-col justify-between bg-card/60">
+              <motion.div
+                key={project.id}
+                variants={staggerItem}
+                className="w-[85vw] max-w-[340px] sm:w-auto sm:max-w-none shrink-0 sm:shrink snap-center flex"
+              >
+                <SpotlightCard className="hover:border-primary/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md h-full w-full flex flex-col justify-between bg-card/60">
                   <div className="p-4 sm:p-5 pb-2">
                     <div className="flex items-start gap-3">
                       {project.logo && (
