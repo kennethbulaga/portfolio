@@ -58,63 +58,65 @@ export function CaseStudyDrawer({ isOpen, onClose }: CaseStudyDrawerProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-0 sm:p-4 md:p-6 overflow-hidden">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
             onClick={onClose}
-            className="fixed inset-0 bg-background/85 backdrop-blur-md"
+            className="fixed inset-0 bg-background/80 backdrop-blur-sm"
           />
 
           {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.97, y: 12 }}
+            initial={{ opacity: 0, scale: 0.98, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.97, y: 12 }}
-            transition={{ duration: 0.22, ease: "easeOut" }}
-            className="relative w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden rounded-2xl border border-border bg-card text-card-foreground shadow-2xl z-10"
+            exit={{ opacity: 0, scale: 0.98, y: 10 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            style={{ willChange: "transform, opacity" }}
+            className="relative w-full h-[100dvh] sm:h-auto sm:max-h-[92dvh] max-w-4xl flex flex-col overflow-hidden rounded-none sm:rounded-2xl border-0 sm:border border-border bg-card text-card-foreground shadow-2xl z-10"
           >
             {/* Header */}
-            <div className="p-4 sm:p-6 border-b border-border bg-card/60 backdrop-blur-sm">
-              <div className="flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary/20">
+            <div className="p-3.5 sm:p-6 border-b border-border bg-card/95 sm:bg-card/60 backdrop-blur-md shrink-0">
+              <div className="flex items-start justify-between gap-3">
+                <div className="space-y-1.5 min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <Badge variant="outline" className="text-[10px] sm:text-xs bg-primary/10 text-primary border-primary/20 px-2 py-0.5">
                       Production Case Study
                     </Badge>
-                    <Badge variant="outline" className="text-xs font-mono">
+                    <Badge variant="outline" className="text-[10px] sm:text-xs font-mono px-2 py-0.5 max-w-[200px] sm:max-w-none truncate">
                       Next.js 16 · Supabase SSR · PostgreSQL RLS
                     </Badge>
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                  <h2 className="text-lg sm:text-2xl font-bold tracking-tight text-foreground leading-snug">
                     {study.title}
                   </h2>
-                  <p className="text-xs sm:text-sm text-muted-foreground">
+                  <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2 sm:line-clamp-none">
                     {study.subtitle}
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <Button asChild size="sm" variant="outline" className="hidden sm:inline-flex gap-1 text-xs">
+                <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
+                  <Button asChild size="sm" variant="outline" className="hidden sm:inline-flex gap-1 text-xs h-8">
                     <a href="https://jp-connect.vercel.app" target="_blank" rel="noopener noreferrer">
                       <span>Live Site</span>
-                      <ExternalLink size={14} />
+                      <ExternalLink size={13} />
                     </a>
                   </Button>
                   <button
                     onClick={onClose}
-                    className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                    className="p-1.5 sm:p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors border border-border/50 sm:border-transparent"
                     aria-label="Close modal"
                   >
-                    <X size={20} />
+                    <X size={19} />
                   </button>
                 </div>
               </div>
 
               {/* Tabs Navigation */}
-              <div className="flex items-center gap-1 sm:gap-2 mt-4 overflow-x-auto pt-1 no-scrollbar">
+              <div className="flex items-center gap-1 sm:gap-2 mt-3 sm:mt-4 overflow-x-auto pt-1 no-scrollbar">
                 <button
                   onClick={() => setActiveTab("overview")}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap ${
@@ -486,11 +488,11 @@ export function CaseStudyDrawer({ isOpen, onClose }: CaseStudyDrawerProps) {
             </div>
 
             {/* Footer Bar */}
-            <div className="p-3 sm:p-4 border-t border-border bg-muted/30 flex items-center justify-between">
-              <span className="text-[11px] text-muted-foreground font-mono">
-                St. John Paul II College of Davao · Production Verified
+            <div className="p-3 sm:p-4 border-t border-border bg-card/95 sm:bg-muted/30 flex items-center justify-between gap-2 shrink-0">
+              <span className="text-[10px] sm:text-[11px] text-muted-foreground font-mono truncate">
+                SJPIICD · Production Verified
               </span>
-              <Button size="sm" variant="default" onClick={onClose}>
+              <Button size="sm" variant="default" onClick={onClose} className="h-8 text-xs shrink-0 px-3">
                 Close Case Study
               </Button>
             </div>

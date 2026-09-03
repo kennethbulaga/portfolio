@@ -90,23 +90,43 @@ function FlagshipCard({
         {activeImage && (
           <div className="md:w-[48%] lg:w-[46%] shrink-0 flex flex-col bg-muted/25 p-3.5 sm:p-4 border-b md:border-b-0 md:border-r border-border/70 space-y-3.5">
             <div className="space-y-2.5">
-              {/* Clickable Image Preview Container with Zoom Indicator */}
+              {/* Clickable Image Preview Container with Preloaded Instant Switcher */}
               <div
                 onClick={() => onZoom(activeScreenshotIdx)}
                 className="relative aspect-[16/10] rounded-xl overflow-hidden bg-background border border-border/80 shadow-xs group cursor-zoom-in"
                 title="Click to view full resolution"
               >
-                <Image
-                  src={activeImage}
-                  alt={currentLabel}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
-                  priority={project.id === "jp-connect"}
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
+                {project.screenshots && project.screenshots.length > 0 ? (
+                  project.screenshots.map((screen, idx) => (
+                    <div
+                      key={screen.image}
+                      className={`absolute inset-0 transition-opacity duration-200 ${
+                        activeScreenshotIdx === idx ? "opacity-100 z-1" : "opacity-0 z-0 pointer-events-none"
+                      }`}
+                    >
+                      <Image
+                        src={screen.image}
+                        alt={`${project.title} — ${screen.label}`}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
+                        priority
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <Image
+                    src={activeImage}
+                    alt={currentLabel}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
+                    priority={project.id === "jp-connect"}
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                )}
                 
                 {/* Clean Hover Zoom Indicator */}
-                <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
                   <div className="px-3 py-1.5 rounded-full bg-zinc-900/90 text-white text-xs font-medium backdrop-blur-md shadow-md flex items-center gap-1.5 border border-white/20">
                     <ZoomIn size={13} className="text-white" />
                     <span>Click to Zoom</span>
