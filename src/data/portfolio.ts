@@ -733,7 +733,7 @@ export const jpConnectCaseStudy: CaseStudyData = {
   costArchitecture: {
     title: "Cost-Aware Cloud Architecture",
     points: [
-      "I engineered the platform for $0 baseline idle infrastructure cost on Vercel & Supabase Free Tiers through client-side parsing, zero-egress SVG rendering, and indexed PostgreSQL queries.",
+      "Engineered for $0 baseline idle infrastructure cost on Vercel & Supabase Free Tiers through client-side parsing, zero-egress SVG rendering, and indexed PostgreSQL queries.",
       "The system dynamically scales to dedicated compute tiers only during peak university bursts (Exam Week and Semester-End Clearance rush).",
     ],
   },
@@ -752,7 +752,7 @@ export const jpConnectCaseStudy: CaseStudyData = {
     },
   ],
   architectureSummary:
-    "I built JP Connect on a Defense-in-Depth philosophy: the Next.js 16 network gate (proxy.ts) enforces role claims before rendering, Google Workspace SSO locks access to @sjp2cd.edu.ph, and PostgreSQL Row-Level Security (RLS) guarantees complete database isolation with auth.uid() = student_id.",
+    "Built on a Defense-in-Depth philosophy: the Next.js 16 network gate (proxy.ts) enforces role claims before rendering, Google Workspace SSO locks access to @sjp2cd.edu.ph, and PostgreSQL Row-Level Security (RLS) guarantees complete database isolation with auth.uid() = student_id.",
   securityPoints: [
     "Front Door Gate (proxy.ts): Next.js 16 network boundary intercepting incoming requests and enforcing RBAC before page render.",
     "Passwordless Google SSO & Delegated Compute: 100% passwordless via Google Workspace OAuth (@sjp2cd.edu.ph), offloading auth compute to Google (50k free-tier MAU ceiling) and eliminating password-hashing CPU spikes and reset overhead.",
@@ -767,7 +767,7 @@ export const jpConnectCaseStudy: CaseStudyData = {
       challenge:
         "Raw departmental Excel sheets had erratic proctor names (nicknames, typos, abbreviations) and irregular times, creating room/proctor collisions and manual delays notifying 100+ faculty.",
       solution:
-        "I engineered a safe read-excel-file parser, an O(N log N) 3-way collision engine (Room, Proctor, Self-Proctoring), and a PostgreSQL name-normalization engine (normalized_match_key alias mapping) that auto-binds published schedules to instructor Google SSO accounts.",
+        "Engineered a safe read-excel-file parser, an O(N log N) 3-way collision engine (Room, Proctor, Self-Proctoring), and a PostgreSQL name-normalization engine (normalized_match_key alias mapping) that auto-binds published schedules to instructor Google SSO accounts.",
       outcome:
         "658 schedules parsed with 0 collisions and instantly populated across 107 instructor dashboards upon publishing.",
     },
@@ -776,7 +776,7 @@ export const jpConnectCaseStudy: CaseStudyData = {
       challenge:
         "Managing 6 distinct roles (Super Admin, OSA Admin, SSC Admin, Checker, Instructor, Student) across public school terminals without session leakage.",
       solution:
-        "I built the authorization layer with @supabase/ssr using HTTP-only secure cookies, React Server Component validations, and strict PostgreSQL RLS policies.",
+        "Built with @supabase/ssr using HTTP-only secure cookies, React Server Component validations, and strict PostgreSQL RLS policies.",
       outcome:
         "Zero unauthorized record extractions or role elevation exploits across 5,500+ active user accounts.",
     },
@@ -785,41 +785,41 @@ export const jpConnectCaseStudy: CaseStudyData = {
       challenge:
         "Standalone physical RFID event scanners produced unlinked logs, requiring manual spreadsheet checks to find absent students and compute fines.",
       solution:
-        "I built a batch ingestion tool where SSC officers import scanned IDs; the system auto-reconciles against the masterlist to flag absentees and apply fines.",
+        "Built a batch ingestion tool where SSC officers import scanned IDs; the system auto-reconciles against the masterlist to flag absentees and apply fines.",
       outcome:
         "Replaced days of manual cross-referencing with instant automated sanctions and real-time student e-clearance tracking.",
     },
   ],
   qaList: [
     {
-      question: "How does student onboarding prevent unauthorized sign-ups or ghost accounts?",
+      question: "How does student onboarding prevent account hijacking or ghost accounts?",
       answer:
-        "At the start of each semester, the official Registrar masterlist is imported as the absolute source of truth. When first-time students sign in via Google and enter their Student ID, the system validates that ID against the active semester roster. Unenrolled or missing IDs are strictly blocked. For valid students, an interactive confirmation dialog displays their inferred degree program, year level, and college before locking an immutable 1:1 database binding.",
+        "Access is restricted to Google Workspace accounts with the @sjp2cd.edu.ph domain. On first sign-in, students input their Student ID, which is validated against the active semester's Registrar masterlist. The UI renders an interactive confirmation preview (Name, Course, Year Level) for visual verification before executing an atomic database transaction that binds auth.users.id to the student record with an immutable 1:1 unique constraint.",
     },
     {
-      question: "How did you ensure the login system wouldn't crash during peak exam-morning traffic?",
+      question: "How did you ensure authentication wouldn't buckle during peak morning traffic?",
       answer:
-        "Rather than running CPU-heavy password hashing (bcrypt/argon2) on our database, I delegated authentication to Google OAuth. This offloaded login compute to Google's infrastructure, eliminated password resets, and utilized Supabase's 50,000 free-tier MAU ceiling to handle 5,500+ users at zero cost.",
+        "Rather than running CPU-bound password hashing algorithms (bcrypt/argon2) on our application runtime, we delegated credential authentication to Google Workspace OAuth. This eliminated compute spikes, bypassed transactional email (SMTP) bottlenecks during password resets, and utilized Supabase connection pooling to maintain zero-cost operation within the 50,000 MAU free tier.",
     },
     {
-      question: "How does attendance & sanction tracking work with existing school hardware?",
+      question: "How does attendance reconciliation handle raw hardware logs?",
       answer:
-        "The school uses standalone physical RFID scanners during events. SSC officers export the scanned IDs into JP Connect, which runs a set-reconciliation against the masterlist—auto-flagging missing IDs as absent with fines attached.",
+        "Standalone physical RFID scanners capture event taps offline. SSC officers export these raw logs into JP Connect, where our ingestion pipeline deduplicates multi-tap scanner noise into a clean unique ID set. The engine then computes the set difference (Masterlist \\ Scanned), automatically flagging unscanned IDs as absent and applying pre-set sanction fees.",
     },
     {
-      question: "How did you optimize cloud infrastructure and hosting costs for the school?",
+      question: "How did you manage cloud infrastructure and hosting costs for the school?",
       answer:
-        "I designed a cost-aware architecture that runs at $0 monthly idle cost on free tiers by executing zero-egress client parsing and caching React Server Components. During high-traffic bursts (exam weeks and clearance sign-offs), the system scales to paid compute on demand.",
+        "The platform maintains a $0 baseline idle cost on Vercel and Supabase Free Tiers by utilizing zero-egress client parsing and caching React Server Components. We established an operational playbook to provision paid database compute tiers only during scheduled high-concurrency windows (Finals week and end-of-term Clearance).",
     },
     {
-      question: "How does the 3-way exam conflict resolver work?",
+      question: "How does the 3-Way Exam Conflict Resolver work algorithmically?",
       answer:
-        "I designed the resolver to normalize spreadsheet timestamps into Manila timezone intervals and perform an O(N log N) sweep detecting Room collisions, Proctor double-bookings, and Self-Proctoring violations simultaneously.",
+        "It parses spreadsheet schedules via read-excel-file, normalizes timestamps into Manila timezone (UTC+8) intervals, and runs an O(N log N) sweep across three constraints: Room double-bookings, Proctor time overlaps, and Self-Proctoring violations (instructors assigned to proctor their own classes, violating institutional neutrality rules).",
     },
     {
-      question: "How is student data privacy protected?",
+      question: "How is student data isolation enforced in the database?",
       answer:
-        "I enforced a two-tier boundary: Google Workspace SSO restricts authentication to @sjp2cd.edu.ph, while PostgreSQL RLS policies restrict row access to auth.uid() = student_id, guaranteeing complete tenant and student isolation.",
+        "PostgreSQL Row-Level Security (RLS) in Supabase enforces authorization at the database engine level via students.profile_id = (select auth.uid()). Even if a client bypasses the Next.js API layer and queries the database directly, the database engine strictly restricts access to the authenticated user's own record.",
     },
   ],
 };
@@ -841,7 +841,7 @@ export const owwaCsmrCaseStudy: CaseStudyData = {
   costArchitecture: {
     title: "Zero-Redundancy Virtual Aggregation",
     points: [
-      "I engineered an on-demand functional reduction pipeline in Next.js Server Actions that aggregates sub-unit survey matrices on the fly without persisting redundant aggregate rows.",
+      "Engineered an on-demand functional reduction pipeline in Next.js Server Actions that aggregates sub-unit survey matrices on the fly without persisting redundant aggregate rows.",
       "Eliminates database bloat, guarantees mathematical parity across all reports, and computes regional summaries in sub-100ms compute cycles.",
     ],
   },
@@ -860,7 +860,7 @@ export const owwaCsmrCaseStudy: CaseStudyData = {
     },
   ],
   architectureSummary:
-    "I architected OWWA CSMR on a centralized hub-and-spoke model: stateless cryptographic JWT sessions (jose) enforce multi-office authorization, live-validating smart matrices anchor arithmetic in real time, and an ExcelJS pipeline synthesizes official multi-section workbooks in-memory.",
+    "Architected on a centralized hub-and-spoke model: stateless cryptographic JWT sessions (jose) enforce multi-office authorization, live-validating smart matrices anchor arithmetic in real time, and an ExcelJS pipeline synthesizes official multi-section workbooks in-memory.",
   securityPoints: [
     "Stateless Cryptographic JWTs (jose): HS256 token verification stored in HttpOnly secure cookies with multi-office assignment claims.",
     "PostgreSQL Composite Integrity: Unique compound key on (office_id, month, year) physically preventing duplicate submissions per reporting cycle.",
@@ -873,7 +873,7 @@ export const owwaCsmrCaseStudy: CaseStudyData = {
       challenge:
         "Each office submits deeply nested survey datasets (9 SQD Likert dimensions with 6 rating tiers, 52 services availed, demographics). Storing static aggregate rows caused desynchronization whenever an admin unlocked a report.",
       solution:
-        "I implemented an on-demand virtual reduction engine in Next.js Server Actions. It fetches submitted snapshots via Supabase and executes a functional accumulator pipeline calculating global distributions on the fly.",
+        "Implemented an on-demand virtual reduction engine in Next.js Server Actions. It fetches submitted snapshots via Supabase and executes a functional accumulator pipeline calculating global distributions on the fly.",
       outcome:
         "Guaranteed mathematical parity across all reports with zero redundant data; master reports compute in sub-100ms.",
     },
@@ -882,7 +882,7 @@ export const owwaCsmrCaseStudy: CaseStudyData = {
       challenge:
         "Government reporting mandates rigid formatting: exact border hierarchies, cell fills, merged headers, dynamic formulas, and narrative commentary blocks that standard CSV generators cannot deliver.",
       solution:
-        "I engineered a 2,100+ line spreadsheet synthesis pipeline using ExcelJS, calculating cell coordinates dynamically, applying government styling tokens, and compiling clean binary streams in-memory.",
+        "Engineered a 2,100+ line spreadsheet synthesis pipeline using ExcelJS, calculating cell coordinates dynamically, applying government styling tokens, and compiling clean binary streams in-memory.",
       outcome:
         "Consolidated master reports generated in under 1 second with 100% layout fidelity to official regional templates.",
     },
@@ -891,26 +891,26 @@ export const owwaCsmrCaseStudy: CaseStudyData = {
       challenge:
         "Encoders frequently made arithmetic mistakes where sub-category responses did not equal total declared respondents, invalidating regional metrics.",
       solution:
-        "I built AutoCalcTableInput and SmartMatrixInput components linked to React Hook Form and Zod refinements, anchoring all inputs to the master total with real-time color-coded balance indicators.",
+        "Engineered AutoCalcTableInput and SmartMatrixInput components linked to React Hook Form and Zod refinements, anchoring all inputs to the master total with real-time color-coded balance indicators.",
       outcome:
         "Eliminated mathematical submission errors at the source, reducing invalid submissions to zero.",
     },
   ],
   qaList: [
     {
-      question: "Why did I choose a JSONB snapshot architecture over a highly normalized relational schema?",
+      question: "Why choose a JSONB snapshot architecture over a highly normalized relational schema?",
       answer:
-        "In a government CSM workflow, the service catalog (52+ services) and survey sub-criteria evolve between fiscal years based on national directives. By maintaining a relational core for offices, users, and periods while storing survey payload matrices as structured JSONB snapshots, I achieved schema flexibility without destructive table migrations—while maintaining end-to-end type safety via Zod and TypeScript.",
+        "In a government CSM workflow, the service catalog (52+ services) and survey sub-criteria evolve between fiscal years based on national directives. By maintaining a relational core for offices, users, and periods while storing survey payload matrices as structured JSONB snapshots, the system achieves schema flexibility without destructive table migrations—while maintaining end-to-end type safety via Zod and TypeScript.",
     },
     {
-      question: "How did I handle data validation and server-side report generation?",
+      question: "How are data validation and server-side report generation handled?",
       answer:
-        "I enforced a multi-layered validation strategy: on the client, custom validation hooks perform live arithmetic checks to ensure sub-category tallies match anchor totals. On the server, Next.js Server Actions validate payloads against strict Zod schemas before persisting. For exports, an ExcelJS pipeline constructs the complete aggregated workbook in-memory with exact typography, cell borders, and narrative template injections.",
+        "Enforces a multi-layered validation strategy: on the client, custom validation hooks perform live arithmetic checks to ensure sub-category tallies match anchor totals. On the server, Next.js Server Actions validate payloads against strict Zod schemas before persisting. For exports, an ExcelJS pipeline constructs the complete aggregated workbook in-memory with exact typography, cell borders, and narrative template injections.",
     },
     {
-      question: "How did I ensure data accuracy and prevent duplicate or unauthorized entries?",
+      question: "How does the system ensure data accuracy and prevent duplicate or unauthorized entries?",
       answer:
-        "I implemented integrity checks at both database and auth levels. A compound unique constraint on (office_id, month, year) physically prevents duplicate submissions for any office in a cycle. Stateless jose JWTs verify user and office permissions. Once submitted, records lock into read-only mode, with any administrative super-edits tracked in an immutable audit_logs table.",
+        "Enforces integrity checks at both database and auth levels. A compound unique constraint on (office_id, month, year) physically prevents duplicate submissions for any office in a cycle. Stateless jose JWTs verify user and office permissions. Once submitted, records lock into read-only mode, with any administrative super-edits tracked in an immutable audit_logs table.",
     },
   ],
 };

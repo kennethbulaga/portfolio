@@ -535,7 +535,7 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                       System Architecture & Engineering Decisions FAQ
                     </p>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Direct answers on the technical decisions, security trade-offs, and cloud optimizations I made while building and scaling {study.id === "owwa-csmr" ? "the OWWA CSMR System" : "JP Connect"}.
+                      Direct answers on the technical architecture, security trade-offs, and cloud optimizations engineered while building and scaling {study.id === "owwa-csmr" ? "the OWWA CSMR System" : "JP Connect"}.
                     </p>
                   </div>
 
