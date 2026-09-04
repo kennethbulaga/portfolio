@@ -170,7 +170,7 @@ export const personalInterests: PersonalInterest[] = [
     detail: "Naval Ravikant, Atomic Habits, Philosophy 101, 48 Laws of Power",
   },
   {
-    svgIcon: "/interest/codm-logo.svg",
+    svgIcon: "/interest/codm-logo.webp",
     icon: "🎯",
     label: "COD: Mobile",
     detail: "Solo vs Squad, kasi malakas ako",
@@ -395,7 +395,7 @@ export const flagshipProjects: FlagshipProject[] = [
       "TanStack Table",
     ],
     metrics: {
-      "Surveyed Citizens": "4,632+",
+      "Survey Responses": "4,632+",
       "Monthly Reports": "72 Submissions",
       "Regional Offices": "10 Units",
       "Consolidation Time": "<1s (1-Click)",
@@ -833,7 +833,7 @@ export const owwaCsmrCaseStudy: CaseStudyData = {
   scaleSummary:
     "Architected and deployed a regional reporting engine for OWWA Regional Welfare Office XI (Davao Region) that consolidated 72 monthly unit submissions representing 4,632+ physical citizen and OFW survey responses across 9 frontline regional offices.",
   metrics: [
-    { label: "4,632", value: "Surveyed Respondents", desc: "Citizen & OFW survey tallies across 8 cycles" },
+    { label: "4,632", value: "Survey Responses Consolidated", desc: "Citizen & OFW survey feedback records ingested across 8 cycles" },
     { label: "72", value: "Monthly Submissions", desc: "53 finalized reports + 19 active drafts" },
     { label: "10", value: "Regional Units", desc: "9 frontline units + 1 IT Head consolidator" },
     { label: "<1s", value: "Master Consolidation", desc: "1-click ARTA/CSC-compliant Excel synthesis" },

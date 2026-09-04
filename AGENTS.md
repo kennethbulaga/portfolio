@@ -99,7 +99,7 @@ portfolio/
 
 ### C. Truth in Metrics
 * **JP Connect:** 5,536 Registered SSO Users, 14,778 Masterlist Records, 658 Exam Schedules across 9 colleges, 0 Overlaps.
-* **OWWA CSMR System:** 4,632+ Surveyed Citizen/OFW respondents, 72 monthly report submissions across 10 regional units, 100% ARTA/CSC compliance, <1s 1-click ExcelJS master consolidation.
+* **OWWA CSMR System:** 4,632+ Citizen/OFW survey feedback responses consolidated, 72 monthly report submissions across 10 regional units, 100% ARTA/CSC compliance, <1s 1-click ExcelJS master consolidation.
 * **SJP2CD Leaderboard:** Highlight real-time match tracking, instant mobile accessibility, and zero downtime during intramurals (do not quote 1.4M request claims).
 * **OWWA SPRS Platform:** Capstone statistical reporting and performance analytics engine engineered and presented for OWWA Region XI.
 * **CSWDO Davao:** City Social Welfare event & inventory tracking system.

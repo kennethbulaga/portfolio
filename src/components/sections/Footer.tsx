@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { IWasHereButton } from "@/components/ui/i-was-here";
 import { socialLinks, personalInfo, personalInterests, spotifyPlaylists } from "@/data/portfolio";
 import { fadeInUp } from "@/components/motion";
 
@@ -270,6 +271,8 @@ export function Footer() {
                   <span>Open in Gmail</span>
                 </a>
               </Button>
+
+              <IWasHereButton />
             </div>
 
             <p className="text-xs font-mono text-muted-foreground">

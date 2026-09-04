@@ -137,7 +137,7 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
         },
         {
           id: "case-study-owwacsmr",
-          label: "Inspect OWWA CSMR Architecture (4,632 Respondents)",
+          label: "Inspect OWWA CSMR Architecture (4,632 Survey Responses)",
           icon: Sparkles,
           action: () => {
             onClose();
