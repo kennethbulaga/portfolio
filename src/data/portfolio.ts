@@ -125,6 +125,20 @@ export interface CaseStudyData {
   problemStatements: { title: string; desc: string }[];
   architectureSummary: string;
   securityPoints: string[];
+  endorsement?: {
+    quote: string;
+    author: string;
+    role: string;
+    department: string;
+    institution: string;
+    image?: string;
+  };
+  liveDeployment?: {
+    title: string;
+    caption: string;
+    image: string;
+    aspect?: string;
+  };
   deepDives: {
     title: string;
     challenge: string;
@@ -344,6 +358,8 @@ export const flagshipProjects: FlagshipProject[] = [
       { label: "Exam Schedules", image: "/projects/jp-connect/2. PersonalizedExam.webp" },
       { label: "Instructor Portal", image: "/projects/jp-connect/3 InstructorDashboard.webp" },
       { label: "SSC & Campus", image: "/projects/jp-connect/4. SSC&Campus.webp" },
+      { label: "Program Head Email", image: "/projects/jp-connect/5. pg-email.webp" },
+      { label: "Campus Projector", image: "/projects/jp-connect/6. projector.webp" },
     ],
     logo: "/logos/jp-connect-logo.webp",
     techStack: [
@@ -751,6 +767,22 @@ export const jpConnectCaseStudy: CaseStudyData = {
       desc: "Strict compliance with the Philippine Data Privacy Act of 2012 required absolute cryptographic isolation so no student could inspect another's sanctions or academic standing.",
     },
   ],
+  endorsement: {
+    quote:
+      "Let me commend you for developing JP Connect! Proud of you, Kenneth! Keep on reaching high mountains. Kudos!",
+    author: "Karen Shane Adorico-Priete, MIT",
+    role: "Program Head",
+    department: "College of Information and Communications Technology",
+    institution: "St. John Paul II College of Davao",
+    image: "/projects/jp-connect/5. pg-email.webp",
+  },
+  liveDeployment: {
+    title: "Campus-Wide Vertical Projector Broadcast",
+    caption:
+      "Live operational display of JP Connect exam schedules and campus clearances projected on the vertical lobby displays at St. John Paul II College of Davao.",
+    image: "/projects/jp-connect/6. projector.webp",
+    aspect: "9/16",
+  },
   architectureSummary:
     "Built on a Defense-in-Depth philosophy: the Next.js 16 network gate (proxy.ts) enforces role claims before rendering, Google Workspace SSO locks access to @sjp2cd.edu.ph, and PostgreSQL Row-Level Security (RLS) guarantees complete database isolation with auth.uid() = student_id.",
   securityPoints: [

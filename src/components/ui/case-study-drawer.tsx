@@ -16,6 +16,8 @@ import {
   Calendar,
   AlertTriangle,
   Cloud,
+  MessageSquareQuote,
+  Tv,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -263,6 +265,103 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                       ))}
                     </div>
                   </div>
+
+                  {/* Stakeholder Endorsement & Institutional Feedback */}
+                  {study.endorsement && (
+                    <div className="p-4 sm:p-5 rounded-xl border border-primary/30 bg-primary/5 space-y-3 relative overflow-hidden shadow-xs">
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <p className="text-xs font-mono uppercase tracking-wider text-primary font-semibold flex items-center gap-1.5">
+                          <MessageSquareQuote size={15} />
+                          <span>Stakeholder Endorsement & Commendation</span>
+                        </p>
+                        <span className="text-[10px] font-mono text-primary bg-primary/10 border border-primary/20 px-2.5 py-0.5 rounded-full font-medium">
+                          Verified Leadership Commendation
+                        </span>
+                      </div>
+
+                      <blockquote className="text-sm sm:text-base italic text-foreground font-medium leading-relaxed pl-3 border-l-2 border-primary">
+                        &ldquo;{study.endorsement.quote}&rdquo;
+                      </blockquote>
+
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between pt-2 gap-3 border-t border-border/50 text-xs">
+                        <div>
+                          <p className="font-bold text-foreground">
+                            {study.endorsement.author}
+                          </p>
+                          <p className="text-[11px] text-muted-foreground">
+                            {study.endorsement.role} · {study.endorsement.department}
+                          </p>
+                          <p className="text-[10px] font-mono text-primary font-medium">
+                            {study.endorsement.institution}
+                          </p>
+                        </div>
+
+                        {study.endorsement.image && (
+                          <div className="flex items-center gap-2 shrink-0">
+                            <div className="relative w-16 h-11 rounded-md overflow-hidden border border-border bg-background shadow-xs">
+                              <Image
+                                src={study.endorsement.image}
+                                alt="Official Endorsement Email"
+                                fill
+                                sizes="80px"
+                                className="object-cover"
+                              />
+                            </div>
+                            <span className="text-[10px] font-mono text-muted-foreground">
+                              Signed Email
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Live Campus Deployment Showcase */}
+                  {study.liveDeployment && (
+                    <div className="p-4 sm:p-5 rounded-xl border border-border bg-muted/20 space-y-3 shadow-xs">
+                      <div className="flex items-center justify-between flex-wrap gap-2">
+                        <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
+                          <Tv size={14} className="text-primary" />
+                          <span>Live Campus Deployment & Digital Displays</span>
+                        </p>
+                        <span className="text-[10px] font-mono text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1 font-medium">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          <span>Live In Production</span>
+                        </span>
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row gap-4 items-center">
+                        <div className="relative w-full sm:w-44 aspect-[9/16] rounded-xl overflow-hidden border-2 border-border bg-background shadow-md shrink-0">
+                          <Image
+                            src={study.liveDeployment.image}
+                            alt={study.liveDeployment.title}
+                            fill
+                            sizes="(max-width: 640px) 100vw, 200px"
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="space-y-2 text-left">
+                          <h4 className="text-sm sm:text-base font-bold text-foreground">
+                            {study.liveDeployment.title}
+                          </h4>
+                          <p className="text-xs text-muted-foreground leading-relaxed">
+                            {study.liveDeployment.caption}
+                          </p>
+                          <div className="pt-1 flex flex-wrap gap-1.5">
+                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-background border border-border/70 text-foreground">
+                              Vertical Digital Stand
+                            </span>
+                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-background border border-border/70 text-foreground">
+                              Campus Lobby Kiosk
+                            </span>
+                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-background border border-border/70 text-foreground">
+                              5,500+ Daily Foot Traffic
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Production System Surfaces & Dashboards Gallery */}
                   {projectScreenshots.length > 0 && (
