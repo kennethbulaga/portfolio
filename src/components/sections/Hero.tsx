@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { MapPin, Mail, ArrowUpRight, ArrowDown, ShieldCheck, FileText } from "lucide-react";
+import { MapPin, Mail, ArrowDown, ShieldCheck, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { personalInfo, resumePath, institutionalTrust } from "@/data/portfolio";
+import { personalInfo, institutionalTrust } from "@/data/portfolio";
 import { staggerContainer, staggerItem } from "@/components/motion";
 import { TechMarquee } from "./TechMarquee";
 
@@ -94,17 +94,15 @@ export function Hero() {
               <ArrowDown size={15} />
             </Button>
 
-            <Button asChild size="lg" variant="outline" className="text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto px-3 sm:px-5">
-              <a
-                href={resumePath}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="gap-1.5 sm:gap-2"
-              >
-                <FileText size={16} className="text-primary shrink-0" />
-                <span>Resume (PDF)</span>
-                <ArrowUpRight size={14} className="opacity-70 shrink-0" />
-              </a>
+            <Button
+              disabled
+              size="lg"
+              variant="outline"
+              className="text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto px-3 sm:px-5 gap-1.5 sm:gap-2 cursor-not-allowed opacity-60"
+              title="Resume is currently being updated"
+            >
+              <FileText size={16} className="text-muted-foreground shrink-0" />
+              <span>Resume (Updating)</span>
             </Button>
           </motion.div>
 
