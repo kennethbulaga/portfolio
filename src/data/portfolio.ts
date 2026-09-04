@@ -364,7 +364,7 @@ export const flagshipProjects: FlagshipProject[] = [
     highlights: [
       "3-Way Algorithmic Conflict Resolver: Eliminates room collisions, proctoring overlaps, and self-proctoring violations.",
       "Defense-in-Depth RBAC: Next.js 16 proxy gate + Google Workspace SSO + PostgreSQL Row-Level Security.",
-      "Optical Attendance & pg_cron: Dynamic SVG QR passes with automated background jobs resolving attendance status & sanction assessments.",
+      "Batch RFID Ingestion & Sanctions Engine: Reconciles offline scanner hardware logs against the masterlist via set difference to automate absentee fines and e-clearances.",
     ],
     hasCaseStudy: true,
   },
