@@ -16,21 +16,21 @@ interface FloatingParticle {
 
 export function IWasHereButton() {
   const [likes, setLikes] = useState<number | null>(null);
-  const [userClicks, setUserClicks] = useState<number>(() => {
-    if (typeof window === "undefined") return 0;
-    try {
-      const stored = localStorage.getItem("portfolio_user_likes");
-      return stored ? parseInt(stored, 10) || 0 : 0;
-    } catch {
-      return 0;
-    }
-  });
+  const [userClicks, setUserClicks] = useState<number>(0);
   const [particles, setParticles] = useState<FloatingParticle[]>([]);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Fetch initial likes count
+  // Sync client-only localStorage and fetch initial likes count
   useEffect(() => {
     let isMounted = true;
+
+    try {
+      const stored = localStorage.getItem("portfolio_user_likes");
+      if (stored) {
+        setUserClicks(parseInt(stored, 10) || 0);
+      }
+    } catch {}
+
     async function fetchLikes() {
       try {
         const res = await fetch("/api/likes");
