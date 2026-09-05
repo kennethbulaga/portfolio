@@ -20,6 +20,7 @@ export interface TechMarqueeItem {
   name: string;
   category: string;
   icon?: string;
+  darkIcon?: string;
   invertInLight?: boolean;
   invertInDark?: boolean;
 }
@@ -284,18 +285,19 @@ export const institutionalTrust: TrustPartner[] = [
 // Tech Marquee Items (Animated Loop Below Hero Edge)
 
 export const techMarqueeItems: TechMarqueeItem[] = [
-  { id: "nextjs", name: "Next.js 16", category: "Full-Stack Framework", icon: "/next.svg", invertInDark: true },
-  { id: "react", name: "React 19", category: "UI Library", icon: "/react-svgrepo-com.svg" },
-  { id: "typescript", name: "TypeScript", category: "Strict Type Safety", icon: "/typescript-icon-svgrepo-com.svg" },
-  { id: "tailwind", name: "Tailwind CSS v4", category: "Modern Styling", icon: "/tailwind-svgrepo-com.svg" },
-  { id: "supabase", name: "Supabase SSR", category: "Auth & Realtime", icon: "/supabase-logo-icon.svg" },
+  { id: "nextjs", name: "Next.js 16", category: "Full-Stack Framework", icon: "/tech-stack/next.svg", invertInDark: true },
+  { id: "react", name: "React 19", category: "UI Library", icon: "/tech-stack/react.svg" },
+  { id: "typescript", name: "TypeScript", category: "Strict Type Safety", icon: "/tech-stack/typescript.svg" },
+  { id: "tailwind", name: "Tailwind CSS v4", category: "Modern Styling", icon: "/tech-stack/tailwind.svg" },
+  { id: "supabase", name: "Supabase SSR", category: "Auth & Realtime", icon: "/tech-stack/supabase.svg" },
+  { id: "upstash", name: "Upstash Redis", category: "Serverless Cache & Queue", icon: "/tech-stack/upstash-light.svg", darkIcon: "/tech-stack/upstash-dark.svg" },
   { id: "postgres", name: "PostgreSQL", category: "Relational DB" },
   { id: "nodejs", name: "Node.js", category: "Server Runtime" },
-  { id: "reactnative", name: "React Native", category: "Mobile Apps", icon: "/react-svgrepo-com.svg" },
-  { id: "zod", name: "Zod", category: "Schema Validation", icon: "/zod-logo.svg" },
-  { id: "github", name: "Git & GitHub", category: "Version Control", icon: "/github-svgrepo-com.svg", invertInDark: true },
-  { id: "vercel", name: "Vercel", category: "Edge Platform", icon: "/vercel.svg", invertInLight: true },
-  { id: "framer", name: "Framer Motion", category: "Motion & UI", icon: "/framer-svgrepo-com.svg", invertInDark: true },
+  { id: "reactnative", name: "React Native", category: "Mobile Apps", icon: "/tech-stack/react.svg" },
+  { id: "zod", name: "Zod", category: "Schema Validation", icon: "/tech-stack/zod.svg" },
+  { id: "github", name: "Git & GitHub", category: "Version Control", icon: "/tech-stack/github.svg", invertInDark: true },
+  { id: "vercel", name: "Vercel", category: "Edge Platform", icon: "/tech-stack/vercel.svg", invertInLight: true },
+  { id: "framer", name: "Framer Motion", category: "Motion & UI", icon: "/tech-stack/framer.svg", invertInDark: true },
 ];
 
 // Tech Stack Categories ("What I Build With")
@@ -317,6 +319,7 @@ export const techCategories: TechCategory[] = [
     skills: [
       { name: "Supabase SSR", detail: "Auth, Realtime & Cookie Sessions" },
       { name: "PostgreSQL", detail: "Row-Level Security (RLS) & Schemas" },
+      { name: "Upstash Redis", detail: "Serverless Caching & Rate-Limiting" },
       { name: "Node.js", detail: "Server Actions & Route Handlers" },
       { name: "pg_cron", detail: "Automated Database Jobs" },
     ],

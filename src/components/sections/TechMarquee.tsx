@@ -8,7 +8,24 @@ function TechItemBadge({ item }: { item: TechMarqueeItem }) {
   return (
     <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl border border-border/70 bg-card/70 hover:bg-card hover:border-primary/40 transition-[background-color,border-color,box-shadow] duration-200 shadow-xs shrink-0 select-none group">
       <div className="relative size-5 flex items-center justify-center shrink-0">
-        {item.icon ? (
+        {item.darkIcon && item.icon ? (
+          <>
+            <Image
+              src={item.icon}
+              alt={item.name}
+              width={20}
+              height={20}
+              className="size-4 object-contain dark:hidden"
+            />
+            <Image
+              src={item.darkIcon}
+              alt={item.name}
+              width={20}
+              height={20}
+              className="size-4 object-contain hidden dark:block"
+            />
+          </>
+        ) : item.icon ? (
           <Image
             src={item.icon}
             alt={item.name}
