@@ -8,7 +8,7 @@ import { CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
-import { flagshipProjects, clientProjects, FlagshipProject } from "@/data/portfolio";
+import { flagshipProjects, clientProjects, FlagshipProject, ClientProject } from "@/data/portfolio";
 import { fadeInUp, staggerContainer, staggerItem } from "@/components/motion";
 
 interface ProjectsProps {
@@ -281,9 +281,9 @@ function FlagshipCard({
 export function Projects({ onOpenCaseStudy }: ProjectsProps) {
   const [zoomState, setZoomState] = useState<ZoomState | null>(null);
 
-  const handleOpenZoom = (project: FlagshipProject, initialIdx: number = 0) => {
+  const handleOpenZoom = (project: FlagshipProject | ClientProject, initialIdx: number = 0) => {
     const images =
-      project.screenshots && project.screenshots.length > 0
+      "screenshots" in project && project.screenshots && project.screenshots.length > 0
         ? project.screenshots
         : project.image
         ? [{ label: project.title, image: project.image }]
@@ -434,6 +434,30 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
                       </div>
                     </div>
                   </div>
+
+                  {project.image && (
+                    <div className="px-4 sm:px-5 pb-3">
+                      <div
+                        onClick={() => handleOpenZoom(project)}
+                        className="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-border/70 bg-muted/40 cursor-zoom-in group/img"
+                        title="Click to view full screenshot"
+                      >
+                        <Image
+                          src={project.image}
+                          alt={project.title}
+                          fill
+                          sizes="(max-width: 640px) 100vw, 400px"
+                          className="object-cover transition-transform duration-300 group-hover/img:scale-[1.02]"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/30 transition-colors flex items-center justify-center">
+                          <div className="opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/75 backdrop-blur-xs text-white text-[11px] font-mono px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-lg">
+                            <ZoomIn size={12} />
+                            <span>Preview</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="p-4 sm:p-5 pt-0 flex flex-col gap-3">
                     <CardDescription className="text-xs leading-relaxed text-muted-foreground text-pretty">

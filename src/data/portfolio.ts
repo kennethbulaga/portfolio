@@ -60,6 +60,8 @@ export interface ClientProject {
   objective: string;
   impact?: string;
   logo?: string;
+  image?: string;
+  link?: string;
   techStack?: string[];
 }
 
@@ -465,27 +467,22 @@ export const flagshipProjects: FlagshipProject[] = [
     ],
     hasCaseStudy: true,
   },
-  {
-    id: "clip-and-style",
-    title: "Clip & Style",
-    link: "https://www.clipandstyle.tech/",
-    focus: "Commercial Booking & Queuing Engine",
-    description:
-      "Web-based appointment portal for barbershops addressing operational bottlenecks with a real-time queuing engine, service catalog, and automated customer alerts.",
-    image: "/projects/clip-and-style.webp",
-    logo: "/logos/clipnstyle-logo.webp",
-    techStack: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Zod"],
-    metrics: {
-      "Queuing Precision": "Real-Time",
-      "Validation": "Zod Schema Gate",
-    },
-    hasCaseStudy: false,
-  },
 ];
 
 // Client & Institutional Projects
 
 export const clientProjects: ClientProject[] = [
+  {
+    id: "clip-and-style",
+    title: "Clip & Style",
+    client: "Capstone Project · Salon & Barber Tech",
+    objective:
+      "Web-based appointment portal for barbershops addressing operational bottlenecks with a real-time queuing engine, service catalog, and automated customer alerts.",
+    impact: "Capstone Project: Real-time appointment queuing engine with Zod schema validation gate.",
+    image: "/projects/clip-and-style.webp",
+    logo: "/logos/clipnstyle-logo.webp",
+    techStack: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Zod"],
+  },
   {
     id: "owwa-sprs",
     title: "OWWA SPRS Platform",
