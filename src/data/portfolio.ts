@@ -424,25 +424,42 @@ export const flagshipProjects: FlagshipProject[] = [
     hasCaseStudy: true,
   },
   {
-    id: "sjp2cd-leaderboard",
-    title: "SJP2CD Leaderboard",
-    link: "https://sjp2cdintrams.netlify.app/",
-    focus: "Real-Time Campus Sports Platform",
+    id: "jp-intrams",
+    title: "JP Intrams",
+    link: "https://jp-intrams.vercel.app",
+    focus: "Real-Time Arena Broadcast & Campus Tournament Platform",
     description:
-      "Real-time university sports tracker providing live match scores and team standings across campus during Intramurals. Engineered for instant mobile access, high concurrency during championship games, and zero downtime.",
-    image: "/projects/sjp2cd-leaderboard.webp",
+      "Architected and deployed a high-concurrency tournament engine and digital signage broadcast system for St. John Paul II College of Davao Intramurals. Powers live score feeds across 22 official tournament sports and 23+ competitive events for 9 academic departments, broadcasted live to campus arena projectors, gym TVs, and thousands of concurrent student mobile devices.",
+    image: "/projects/jp-intrams/desktop.webp",
+    screenshots: [
+      { label: "Desktop Leaderboard", image: "/projects/jp-intrams/desktop.webp" },
+      { label: "Mobile Spectator", image: "/projects/jp-intrams/iphone HD.webp" },
+      { label: "Arena TV Mode", image: "/projects/jp-intrams/tv(desktop).webp" },
+      { label: "Campus Projector", image: "/projects/jp-intrams/projector.webp" },
+    ],
     logo: "/logos/school-logo-nobg.webp",
-    techStack: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Netlify"],
+    techStack: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Supabase Realtime",
+      "PostgreSQL",
+      "Upstash Redis",
+      "Framer Motion",
+    ],
     metrics: {
-      "Match Updates": "Real-Time",
-      "System Uptime": "100%",
-      "Access Mode": "Public Mobile Web",
+      "Competing Units": "9 Departments",
+      "Tracked Events": "22 Sports / 23+ Events",
+      "Broadcast Latency": "<500ms",
+      "System Uptime": "99.9%",
     },
     highlights: [
-      "Instant Score Synchronization: Live score updates broadcast seamlessly to campus spectators during tournament finals.",
-      "Optimized Mobile Web Shell: Smooth performance on mobile browsers across campus Wi-Fi and mobile data.",
+      "Supabase Realtime Sync: Instant WebSocket change streams broadcasting score and podium recalculations to thousands of concurrent devices in <500ms.",
+      "Dedicated 24/7 Digital Signage (/tv): Auto-cycling 5-screen broadcast kiosk with 3D Olympic podium and celebration confetti designed for campus auditorium projectors and gym LED walls.",
+      "High-Velocity Cheer Engine: Offloads high-frequency student cheer voting to Upstash Redis with atomic SETNX rate-limiting and CDN edge caching to eliminate thundering herd database spikes.",
     ],
-    hasCaseStudy: false,
+    hasCaseStudy: true,
   },
   {
     id: "clip-and-style",
@@ -947,7 +964,108 @@ export const owwaCsmrCaseStudy: CaseStudyData = {
   ],
 };
 
+export const jpIntramsCaseStudy: CaseStudyData = {
+  id: "jp-intrams",
+  title: "JP Intrams: Real-Time Arena Broadcast & Leaderboard Engine",
+  subtitle: "High-Concurrency Tournament State, Digital Signage Kiosk & Upstash Cheer Pipeline",
+  role: "Lead Full-Stack Developer & Real-Time Architect",
+  institution: "St. John Paul II College of Davao (SJPIICD)",
+  scaleSummary:
+    "Architected and deployed a real-time tournament operations and arena broadcast platform for university intramurals. Powers live score feeds across 22 official tournament sports and 23+ competitive events (including major sports, minor events, esports, and socio-cultural categories) for 9 academic departments, broadcasted live to campus gym projectors, auditorium LED walls, and thousands of concurrent student mobile devices.",
+  metrics: [
+    { label: "9", value: "Academic Units", desc: "Colleges & SHS competing across multi-division brackets" },
+    { label: "22 / 23+", value: "Sports & Events", desc: "18 Major sports, 4 Minor sports & socio-cultural award categories" },
+    { label: "<500ms", value: "Broadcast Latency", desc: "Instant Supabase Realtime WebSocket point sync" },
+    { label: "5,400+", value: "Student Cheers", desc: "High-velocity votes processed via Upstash Redis" },
+  ],
+  costArchitecture: {
+    title: "Edge CDN & Jittered Polling Architecture",
+    points: [
+      "Decoupled high-velocity student cheer voting from PostgreSQL to Upstash Redis using atomic SETNX device rate-limiting and pipelined batch updates, protecting the primary database from connection exhaustion.",
+      "Implemented Edge CDN caching headers (s-maxage=5, stale-while-revalidate=15) alongside randomized client polling jitter (15s–30s ± random delta) to completely eliminate thundering herd spikes during championship game finals.",
+    ],
+  },
+  problemStatements: [
+    {
+      title: "Delayed Scoring & Disconnected Campus Spectators",
+      desc: "Scores were traditionally tabulated on manual clipboards and posted hours after games ended. Students scattered across outdoor courts and gymnasiums had no live way to track overall medal standings.",
+    },
+    {
+      title: "Big-Screen Arena & Projector Bottlenecks",
+      desc: "Auditorium LED walls and gym projectors required staff to manually refresh browser pages and resize window zoom levels, creating awkward display freezes and downtime during live ceremonies.",
+    },
+    {
+      title: "High-Concurrency Championship Surges",
+      desc: "Championship finals caused thousands of simultaneous student devices to refresh the leaderboard at the exact same second, risking server crashes and database connection pool exhaustion.",
+    },
+  ],
+  liveDeployment: {
+    title: "Campus Arena Projector & Gymnasium TV Broadcast",
+    caption:
+      "Live operational display of the JP Intrams leaderboard auto-cycling across the main campus auditorium projector and gymnasium LED screens during live tournament play.",
+    image: "/projects/jp-intrams/projector.webp",
+    aspect: "16/9",
+  },
+  architectureSummary:
+    "Built on a decoupled real-time architecture: Supabase Realtime WebSockets handle instantaneous score and rank recalculations (<500ms), Upstash Redis absorbs high-velocity cheer votes with atomic rate-limiting, and Next.js 16 App Router powers a dedicated 24/7 Digital Signage Kiosk route (/tv) designed for arena displays and LED walls.",
+  securityPoints: [
+    "Atomic Device Rate-Limiting: Upstash Redis SETNX locks prevent cheer vote ballot-stuffing and script abuse while allowing instant sub-millisecond voting.",
+    "Supabase Realtime WebSocket Channels: postgres_changes stream on points_log triggers atomic rank recalculation on the fly with zero client polling overhead.",
+    "Dedicated Fullscreen Digital Signage (/tv): Auto-cycling 5-screen broadcast kiosk (Podium, Standings, Cheer Meter, Results, Champion Showcase) with keyboard shortcuts for tournament directors.",
+    "Thundering Herd Defense: Edge CDN caching (s-maxage=5) combined with jittered client fallback intervals prevents sudden database connection exhaustion during peak traffic.",
+    "Row-Level Security (PostgreSQL RLS): Admin score creation and audit logs are strictly protected by role-based database policies.",
+  ],
+  deepDives: [
+    {
+      title: "1. Zero-Latency Real-Time Score Broadcast Engine",
+      challenge:
+        "When tournament referees submit game results, thousands of student spectators on campus Wi-Fi and mobile data need immediate updates without manual page refreshes.",
+      solution:
+        "The client subscribes to Supabase Realtime WebSocket change streams on points_log and departments. Upon receiving an event, the useLeaderboard hook triggers an instant, optimized refetch of the aggregated leaderboard view and merges live Upstash Redis cheer tallies.",
+      outcome:
+        "Podium rankings, medal tables, and department points broadcast to all connected devices in <500ms without full page reloads or blind high-frequency polling.",
+    },
+    {
+      title: "2. 24/7 Digital Signage & Arena Kiosk Route (/tv)",
+      challenge:
+        "Arena projectors and campus TVs needed a continuous, hands-free display that visually showcased the Olympic podium, live standings, and recent results without human intervention.",
+      solution:
+        "Built a dedicated /tv route with Framer Motion and canvas-confetti that automatically cycles across 5 broadcast screens on 15-second intervals, featuring keyboard navigation (Space, Arrow keys) and an interactive glassmorphic dock.",
+      outcome:
+        "Zero-downtime, professional television-grade broadcast running continuously on campus auditorium projectors and gym LED screens.",
+    },
+    {
+      title: "3. High-Velocity Cheer Engine & Concurrency Decoupling",
+      challenge:
+        "Allowing 5,400+ students to cheer and vote live during games could easily overwhelm the PostgreSQL transactional database with tens of thousands of write requests.",
+      solution:
+        "Decoupled the cheer engine entirely into Upstash Serverless Redis REST API, using atomic operations and pipelining, while Edge CDN caching shielded the main leaderboard endpoints.",
+      outcome:
+        "Sub-millisecond voting response times with 100% database stability and zero CPU spikes during championship game finals.",
+    },
+  ],
+  qaList: [
+    {
+      question: "How does the real-time scoring engine broadcast updates without overwhelming the database?",
+      answer:
+        "The client subscribes to Supabase Realtime WebSocket change streams (realtime-leaderboard-2026) on points_log and departments. Upon receiving an event, the useLeaderboard hook triggers an instant, optimized refetch of the aggregated leaderboard view and merges live Upstash Redis cheer tallies in <500ms—eliminating full page reloads and blind high-frequency polling.",
+    },
+    {
+      question: "How does the /tv Arena Display Mode work for campus projectors and TVs?",
+      answer:
+        "The /tv route is engineered as a standalone 24/7 digital kiosk. It utilizes an interval timer to auto-cycle through 5 distinct broadcast views: 3D Olympic Podium, Live Standings, Cheer Meter, Recent Results, and Champion Showcase. It includes keyboard hotkeys (Space to pause/resume, Arrows to skip) and full viewport scaling so campus AV operators can display it on any projector or TV resolution.",
+    },
+    {
+      question: "How did you prevent thundering herd crashes during championship game finals?",
+      answer:
+        "We implemented a two-tier strategy: First, high-frequency cheer voting was offloaded entirely to Upstash Redis with atomic SETNX rate-limiting. Second, leaderboard GET endpoints use Next.js Cache-Control headers (s-maxage=5, stale-while-revalidate=15) paired with a randomized client polling jitter (15s–30s ± delta), ensuring thousands of concurrent devices never hit the origin server at the exact same millisecond.",
+    },
+  ],
+};
+
 export const caseStudies: Record<string, CaseStudyData> = {
   "jp-connect": jpConnectCaseStudy,
   "owwa-csmr": owwaCsmrCaseStudy,
+  "jp-intrams": jpIntramsCaseStudy,
+  "sjp2cd-leaderboard": jpIntramsCaseStudy,
 };

@@ -229,6 +229,30 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                       </div>
                       <ArrowRight size={13} className="text-muted-foreground group-hover:text-primary transition-colors shrink-0 ml-1.5" />
                     </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        onClose();
+                        onOpenCaseStudy("jp-intrams");
+                      }}
+                      className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group shadow-2xs"
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="size-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                          🏆
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                            JP Intrams Arena Engine
+                          </p>
+                          <p className="text-[10px] font-mono text-muted-foreground truncate">
+                            9 Units · 23 Events · &lt;500ms
+                          </p>
+                        </div>
+                      </div>
+                      <ArrowRight size={13} className="text-muted-foreground group-hover:text-primary transition-colors shrink-0 ml-1.5" />
+                    </button>
                   </div>
                 </div>
               )}

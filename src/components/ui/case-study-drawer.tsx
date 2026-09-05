@@ -104,6 +104,8 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                     <Badge variant="outline" className="text-[10px] sm:text-xs font-mono px-2 py-0.5 max-w-[240px] sm:max-w-none truncate">
                       {study.id === "owwa-csmr"
                         ? "Next.js 16 · PostgreSQL · Supabase · ExcelJS"
+                        : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard"
+                        ? "Next.js 16 · Supabase Realtime · Upstash Redis · Framer Motion"
                         : "Next.js 16 · Supabase SSR · PostgreSQL RLS"}
                     </Badge>
                   </div>
@@ -201,7 +203,7 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                   {/* Production Metrics Grid */}
                   <div>
                     <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3">
-                      Live Production Metrics ({study.id === "owwa-csmr" ? "8 Reporting Cycles Active" : "2 Semesters Active"})
+                      Live Production Metrics ({study.id === "owwa-csmr" ? "8 Reporting Cycles Active" : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard" ? "2 Tournament Seasons (2025 Archive & 2026 Live)" : "2 Semesters Active"})
                     </h3>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       {study.metrics.map((m, idx) => (
@@ -405,7 +407,11 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                         <span>Production Request & Data Pipeline</span>
                       </p>
                       <span className="text-[10px] font-mono text-emerald-500 font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                        {study.id === "owwa-csmr" ? "● 100% ARTA / CSC Parity" : "● 0 Overlap Guarantee"}
+                        {study.id === "owwa-csmr"
+                          ? "● 100% ARTA / CSC Parity"
+                          : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard"
+                          ? "● <500ms Realtime Sync"
+                          : "● 0 Overlap Guarantee"}
                       </span>
                     </div>
 
@@ -433,6 +439,32 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                           <span className="text-[10px] text-emerald-500 font-bold">04. ExcelJS Engine</span>
                           <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">ARTA Consolidation</p>
                           <p className="text-[10px] text-muted-foreground font-sans">1-click server-side master workbook synthesis in &lt;1s</p>
+                        </div>
+                      </div>
+                    ) : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard" ? (
+                      <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
+                          <span className="text-[10px] text-primary font-bold">01. Realtime WS</span>
+                          <p className="text-xs font-semibold text-foreground">Supabase Channel</p>
+                          <p className="text-[10px] text-muted-foreground font-sans">WebSocket change stream on points_log in &lt;500ms</p>
+                        </div>
+
+                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
+                          <span className="text-[10px] text-sky-500 font-bold">02. Upstash Gate</span>
+                          <p className="text-xs font-semibold text-foreground">Serverless Redis</p>
+                          <p className="text-[10px] text-muted-foreground font-sans">Atomic SETNX device locks & pipelined cheer voting</p>
+                        </div>
+
+                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
+                          <span className="text-[10px] text-amber-500 font-bold">03. Dynamic Podium</span>
+                          <p className="text-xs font-semibold text-foreground">Framer Motion</p>
+                          <p className="text-[10px] text-muted-foreground font-sans">Live 3D podium calculation & celebration confetti</p>
+                        </div>
+
+                        <div className="p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/5 relative space-y-1">
+                          <span className="text-[10px] text-emerald-500 font-bold">04. Arena /tv Kiosk</span>
+                          <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Digital Signage</p>
+                          <p className="text-[10px] text-muted-foreground font-sans">Auto-cycling 5-screen display for gym TVs & projectors</p>
                         </div>
                       </div>
                     ) : (
@@ -467,7 +499,7 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                   {/* Architecture Diagram Visualization */}
                   <div className="p-5 rounded-xl border border-border bg-muted/20 space-y-4">
                     <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
-                      Two-Tier Defense-in-Depth Architecture
+                      Three-Tier Defense-in-Depth Architecture
                     </p>
 
                     <div className="space-y-3 font-mono text-xs">
@@ -509,6 +541,47 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                             </div>
                             <Badge variant="outline" className="text-[10px] w-fit">
                               Zero Duplicate Reports
+                            </Badge>
+                          </div>
+                        </>
+                      ) : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard" ? (
+                        <>
+                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <ShieldCheck size={16} className="text-primary shrink-0" />
+                              <div>
+                                <span className="font-semibold text-foreground">Layer 1: Real-Time WebSocket Channel</span>
+                                <p className="text-[11px] text-muted-foreground">Supabase Realtime channels with instantaneous cumulative rank recalculations</p>
+                              </div>
+                            </div>
+                            <Badge variant="outline" className="text-[10px] w-fit">
+                              &lt;500ms Sync
+                            </Badge>
+                          </div>
+
+                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <Users size={16} className="text-sky-500 shrink-0" />
+                              <div>
+                                <span className="font-semibold text-foreground">Layer 2: High-Velocity Voting Decoupling</span>
+                                <p className="text-[11px] text-muted-foreground">Upstash Serverless Redis REST API with atomic SETNX rate-limiting</p>
+                              </div>
+                            </div>
+                            <Badge variant="outline" className="text-[10px] w-fit">
+                              Zero DB CPU Spikes
+                            </Badge>
+                          </div>
+
+                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <Database size={16} className="text-emerald-500 shrink-0" />
+                              <div>
+                                <span className="font-semibold text-foreground">Layer 3: Edge CDN & Arena Signage Kiosk</span>
+                                <p className="text-[11px] text-muted-foreground">Next.js 16 App Router /tv digital signage with jittered client polling fallback</p>
+                              </div>
+                            </div>
+                            <Badge variant="outline" className="text-[10px] w-fit">
+                              24/7 Arena Broadcast
                             </Badge>
                           </div>
                         </>
@@ -636,7 +709,7 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                       System Architecture & Engineering Decisions FAQ
                     </p>
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Direct answers on the technical architecture, security trade-offs, and cloud optimizations engineered while building and scaling {study.id === "owwa-csmr" ? "the OWWA CSMR System" : "JP Connect"}.
+                      Direct answers on the technical architecture, security trade-offs, and cloud optimizations engineered while building and scaling {study.id === "owwa-csmr" ? "the OWWA CSMR System" : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard" ? "JP Intrams" : "JP Connect"}.
                     </p>
                   </div>
 

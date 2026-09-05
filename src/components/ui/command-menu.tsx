@@ -145,6 +145,16 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
           },
           badge: "Gov Production",
         },
+        {
+          id: "case-study-jpintrams",
+          label: "Inspect JP Intrams Arena Architecture (Real-Time Websockets)",
+          icon: Sparkles,
+          action: () => {
+            onClose();
+            onOpenCaseStudy("jp-intrams");
+          },
+          badge: "Real-Time",
+        },
       ],
     },
     {
