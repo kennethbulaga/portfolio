@@ -112,7 +112,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
             aria-label="Mobile Navigation Menu"
           >
             {/* Top Area: Logo, Theme, Status & Links */}
-            <div className="space-y-5">
+            <div className="flex flex-col gap-5">
               {/* Header Bar */}
               <div className="flex items-center justify-between pb-3.5 border-b border-border/80">
                 <Link
@@ -131,7 +131,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                     variant="ghost"
                     size="icon"
                     onClick={onClose}
-                    className="h-8 w-8 rounded-lg text-muted-foreground hover:text-foreground"
+                    className="size-8 rounded-lg text-muted-foreground hover:text-foreground"
                     aria-label="Close menu"
                   >
                     <X size={18} />
@@ -141,19 +141,19 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
 
               {/* Status Banner */}
               <div className="flex items-center gap-2 px-3 py-2 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-[11px] text-emerald-600 dark:text-emerald-400 font-mono font-medium">
-                <span className="relative flex h-2 w-2 shrink-0">
+                <span className="relative flex size-2 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  <span className="relative inline-flex rounded-full size-2 bg-emerald-500" />
                 </span>
                 <span className="truncate">Freelancing & Open to Full-Time</span>
               </div>
 
               {/* Navigation Links with Icons */}
-              <div className="space-y-1">
+              <div className="flex flex-col gap-1">
                 <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-semibold px-2 pb-1">
                   Navigation
                 </p>
-                <nav className="space-y-0.5">
+                <nav className="flex flex-col gap-0.5">
                   {navItems.map((item) => {
                     const Icon = navIconMap[item.label] || ArrowRight;
                     return (
@@ -161,13 +161,13 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                         key={item.href}
                         href={item.href}
                         onClick={onClose}
-                        className="flex items-center justify-between px-3 py-2 rounded-xl text-xs sm:text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-all group"
+                        className="flex items-center justify-between px-3 py-2 rounded-xl text-xs sm:text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-colors group"
                       >
                         <span className="flex items-center gap-2.5">
                           <Icon size={15} className="text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
                           <span>{item.label}</span>
                         </span>
-                        <ArrowRight size={13} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-primary" />
+                        <ArrowRight size={13} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-transform text-primary" />
                       </Link>
                     );
                   })}
@@ -176,21 +176,22 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
 
               {/* Flagship Case Studies Quick Action */}
               {onOpenCaseStudy && (
-                <div className="space-y-1.5 pt-3 border-t border-border/70">
+                <div className="flex flex-col gap-1.5 pt-3 border-t border-border/70">
                   <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-semibold px-2 pb-0.5 flex items-center gap-1">
                     <Sparkles size={11} className="text-primary" />
                     <span>System Architecture Deep-Dives</span>
                   </p>
                   <div className="grid grid-cols-1 gap-1.5">
                     <button
+                      type="button"
                       onClick={() => {
                         onClose();
                         onOpenCaseStudy("jp-connect");
                       }}
-                      className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-all group shadow-2xs"
+                      className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group shadow-2xs"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                        <div className="size-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-mono text-xs font-bold shrink-0">
                           ⚡
                         </div>
                         <div className="min-w-0">
@@ -206,14 +207,15 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                     </button>
 
                     <button
+                      type="button"
                       onClick={() => {
                         onClose();
                         onOpenCaseStudy("owwa-csmr");
                       }}
-                      className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-all group shadow-2xs"
+                      className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group shadow-2xs"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-mono text-xs font-bold shrink-0">
+                        <div className="size-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-mono text-xs font-bold shrink-0">
                           🏛️
                         </div>
                         <div className="min-w-0">
@@ -233,7 +235,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
             </div>
 
             {/* Bottom Section: Resume Actions & Full Socials */}
-            <div className="pt-4 border-t border-border/80 space-y-3.5">
+            <div className="pt-4 border-t border-border/80 flex flex-col gap-3.5">
               <div className="grid grid-cols-2 gap-2">
                 <Button asChild size="sm" variant="default" className="h-9 gap-1.5 text-xs">
                   <a href={resumePath} target="_blank" rel="noopener noreferrer">
@@ -286,7 +288,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                       className="p-2 rounded-lg hover:text-foreground hover:bg-muted/70 transition-colors border border-border/50"
                       aria-label="X (Twitter)"
                     >
-                      <XIcon className="w-3.5 h-3.5 text-foreground" />
+                      <XIcon className="size-3.5 text-foreground" />
                     </a>
                   )}
                   {facebookLink && (
@@ -297,7 +299,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                       className="p-2 rounded-lg hover:text-foreground hover:bg-muted/70 transition-colors border border-border/50"
                       aria-label="Facebook"
                     >
-                      <FacebookIcon className="w-3.5 h-3.5 text-foreground" />
+                      <FacebookIcon className="size-3.5 text-foreground" />
                     </a>
                   )}
                   {tiktokLink && (
@@ -308,7 +310,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                       className="p-2 rounded-lg hover:text-foreground hover:bg-muted/70 transition-colors border border-border/50"
                       aria-label="TikTok"
                     >
-                      <TikTokIcon className="w-3.5 h-3.5 text-foreground" />
+                      <TikTokIcon className="size-3.5 text-foreground" />
                     </a>
                   )}
                 </div>

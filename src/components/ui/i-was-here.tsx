@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 const MAX_CLAPS = 10;
 
@@ -15,11 +16,19 @@ interface FloatingParticle {
 
 export function IWasHereButton() {
   const [likes, setLikes] = useState<number | null>(null);
-  const [userClicks, setUserClicks] = useState<number>(0);
+  const [userClicks, setUserClicks] = useState<number>(() => {
+    if (typeof window === "undefined") return 0;
+    try {
+      const stored = localStorage.getItem("portfolio_user_likes");
+      return stored ? parseInt(stored, 10) || 0 : 0;
+    } catch {
+      return 0;
+    }
+  });
   const [particles, setParticles] = useState<FloatingParticle[]>([]);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Fetch initial likes count and stored user claps
+  // Fetch initial likes count
   useEffect(() => {
     let isMounted = true;
     async function fetchLikes() {
@@ -36,13 +45,6 @@ export function IWasHereButton() {
       }
     }
     fetchLikes();
-
-    try {
-      const stored = localStorage.getItem("portfolio_user_likes");
-      if (stored) {
-        setUserClicks(parseInt(stored, 10) || 0);
-      }
-    } catch {}
 
     return () => {
       isMounted = false;
@@ -119,11 +121,12 @@ export function IWasHereButton() {
         onMouseLeave={() => setIsHovered(false)}
         variant="outline"
         size="sm"
-        className={`relative group h-9 px-3.5 rounded-full border-border/80 transition-all duration-300 shadow-xs active:scale-95 ${
+        className={cn(
+          "relative group h-9 px-3.5 rounded-full border-border/80 transition-[background-color,border-color,box-shadow] duration-200 shadow-xs",
           isMaxReached
             ? "bg-rose-500/10 border-rose-500/30 cursor-default opacity-90"
             : "bg-background/80 hover:bg-muted/80 hover:border-rose-500/40"
-        }`}
+        )}
         title={
           isMaxReached
             ? `Max ${MAX_CLAPS} likes reached! Thanks for stopping by!`
@@ -144,11 +147,12 @@ export function IWasHereButton() {
           >
             <Heart
               size={14}
-              className={`transition-all duration-300 ${
+              className={cn(
+                "transition-[color,fill,transform] duration-200",
                 userClicks > 0
                   ? "text-rose-500 fill-rose-500 scale-110"
                   : "text-muted-foreground group-hover:text-rose-500"
-              }`}
+              )}
             />
           </motion.span>
 

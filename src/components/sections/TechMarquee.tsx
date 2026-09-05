@@ -6,15 +6,15 @@ import { techMarqueeItems, TechMarqueeItem } from "@/data/portfolio";
 
 function TechItemBadge({ item }: { item: TechMarqueeItem }) {
   return (
-    <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl border border-border/70 bg-card/70 hover:bg-card hover:border-primary/40 transition-all shadow-xs shrink-0 select-none group">
-      <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
+    <div className="flex items-center gap-2.5 px-3.5 py-2 rounded-xl border border-border/70 bg-card/70 hover:bg-card hover:border-primary/40 transition-[background-color,border-color,box-shadow] duration-200 shadow-xs shrink-0 select-none group">
+      <div className="relative size-5 flex items-center justify-center shrink-0">
         {item.icon ? (
           <Image
             src={item.icon}
             alt={item.name}
             width={20}
             height={20}
-            className={`w-4 h-4 object-contain ${
+            className={`size-4 object-contain ${
               item.invertInDark ? "dark:invert" : ""
             } ${item.invertInLight ? "invert dark:invert-0" : ""}`}
           />

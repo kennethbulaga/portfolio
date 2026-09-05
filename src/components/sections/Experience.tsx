@@ -19,17 +19,17 @@ export function Experience() {
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div className="space-y-2 mb-8 sm:mb-12" variants={fadeInUp}>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+        <motion.div className="flex flex-col gap-2 mb-8 sm:mb-12" variants={fadeInUp}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground text-balance">
             Work Experience
           </h2>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground text-pretty">
             Contract engagements, institutional engineering roles, and public solutions.
           </p>
         </motion.div>
 
         {/* Experience Timeline */}
-        <Card className="transition-all duration-300 hover:shadow-lg">
+        <Card className="rounded-2xl transition-[box-shadow,border-color] duration-200 hover:shadow-lg">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
               <Briefcase size={20} className="text-primary" />
@@ -41,13 +41,13 @@ export function Experience() {
               {/* Timeline line */}
               <div className="absolute left-5 top-0 bottom-0 w-px bg-border" />
 
-              <ul className="space-y-6 sm:space-y-8">
+              <ul className="flex flex-col gap-6 sm:gap-8">
                 {experience.map((exp, index) => (
                   <li key={index} className="relative pl-12">
                     {/* Timeline logo or indicator */}
-                    <div className="absolute left-0 w-10 h-10 flex items-center justify-center">
+                    <div className="absolute left-0 size-10 flex items-center justify-center">
                       {exp.logo ? (
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden bg-background border-2 border-border z-10">
+                        <div className="relative size-10 rounded-full overflow-hidden bg-background border-2 border-border z-10 image-outline">
                           <Image
                             src={exp.logo}
                             alt={exp.organization}
@@ -57,8 +57,8 @@ export function Experience() {
                           />
                         </div>
                       ) : (
-                        <div className="w-10 h-10 rounded-full bg-background border-2 border-primary flex items-center justify-center z-10 shadow-sm">
-                          <div className="w-3 h-3 rounded-full bg-primary" />
+                        <div className="size-10 rounded-full bg-background border-2 border-primary flex items-center justify-center z-10 shadow-sm">
+                          <div className="size-3 rounded-full bg-primary" />
                         </div>
                       )}
                     </div>
@@ -66,12 +66,12 @@ export function Experience() {
                     {/* Content */}
                     {(() => {
                       const content = (
-                        <div className="space-y-1.5">
+                        <div className="flex flex-col gap-1.5">
                           <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-3">
                             <h4 className="font-semibold text-foreground text-sm sm:text-base group-hover:text-primary transition-colors">
                               {exp.organization}
                             </h4>
-                            <span className="text-xs font-mono text-muted-foreground whitespace-nowrap shrink-0">
+                            <span className="text-xs font-mono tabular-nums text-muted-foreground whitespace-nowrap shrink-0">
                               {exp.period}
                             </span>
                           </div>
@@ -81,7 +81,7 @@ export function Experience() {
                           </p>
 
                           {exp.description && (
-                            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pt-0.5">
+                            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pt-0.5 text-pretty">
                               {exp.description}
                             </p>
                           )}

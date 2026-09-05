@@ -5,19 +5,19 @@ import { Button } from "@/components/ui/button";
 export default function NotFound() {
   return (
     <main className="min-h-screen flex items-center justify-center px-4">
-      <div className="text-center space-y-6">
+      <div className="text-center flex flex-col gap-6">
         {/* 404 Number */}
-        <div className="space-y-2">
-          <h1 className="text-8xl sm:text-9xl font-bold text-foreground/10">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-8xl sm:text-9xl font-bold text-foreground/10 tabular-nums select-none">
             404
           </h1>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground -mt-16 relative">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground -mt-16 relative text-balance">
             Page Not Found
           </h2>
         </div>
 
         {/* Description */}
-        <p className="text-muted-foreground max-w-md mx-auto">
+        <p className="text-muted-foreground max-w-md mx-auto text-pretty">
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
           Let&apos;s get you back on track.
         </p>

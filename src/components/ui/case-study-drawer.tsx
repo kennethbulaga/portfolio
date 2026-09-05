@@ -33,13 +33,15 @@ type TabType = "overview" | "architecture" | "deepdives" | "interview";
 
 export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerProps) {
   const [activeTab, setActiveTab] = useState<TabType>("overview");
+  const [prevStudyKey, setPrevStudyKey] = useState<string | null>(null);
 
-  // Reset to overview tab when a different study is opened
-  useEffect(() => {
+  const currentStudyKey = isOpen ? (studyId || "default") : null;
+  if (currentStudyKey !== prevStudyKey) {
+    setPrevStudyKey(currentStudyKey);
     if (isOpen) {
       setActiveTab("overview");
     }
-  }, [isOpen, studyId]);
+  }
 
   // Close on Escape key
   useEffect(() => {

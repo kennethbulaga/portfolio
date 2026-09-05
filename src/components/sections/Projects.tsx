@@ -4,13 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { ArrowUpRight, Layers, ZoomIn, X, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
@@ -48,12 +42,12 @@ function FlagshipCard({
       : project.title;
 
   return (
-    <SpotlightCard className="overflow-hidden border border-border/80 bg-card hover:border-primary/40 transition-all duration-300 shadow-sm hover:shadow-xl">
+    <SpotlightCard className="overflow-hidden rounded-2xl border border-border/80 bg-card hover:border-primary/40 transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-xl">
       {/* Mobile Header: Logo, Title & Live Link First (Mobile Only) */}
       <div className="md:hidden p-4 pb-3 border-b border-border/70 flex items-start justify-between gap-3 bg-muted/15">
         <div className="flex items-center gap-3">
           {project.logo && (
-            <div className="relative w-9 h-9 rounded-lg overflow-hidden bg-background shrink-0 border border-border/70 p-0.5">
+            <div className="relative size-9 rounded-lg overflow-hidden bg-background shrink-0 border border-border/70 p-0.5 image-outline">
               <Image
                 src={project.logo}
                 alt={project.title}
@@ -64,7 +58,7 @@ function FlagshipCard({
             </div>
           )}
           <div>
-            <CardTitle className="text-base font-bold text-foreground">
+            <CardTitle className="text-base font-bold text-foreground text-balance">
               {project.title}
             </CardTitle>
             <p className="text-xs text-primary font-medium">
@@ -86,7 +80,7 @@ function FlagshipCard({
             </a>
           </Button>
         ) : (
-          <Badge variant="outline" className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20 px-2 py-0.5 shrink-0">
+          <Badge variant="success" className="text-[10px] px-2 py-0.5 shrink-0">
             Gov Production
           </Badge>
         )}
@@ -95,12 +89,12 @@ function FlagshipCard({
       <div className="flex flex-col md:flex-row">
         {/* Visual Showcase & 2x2 Tabs */}
         {activeImage && (
-          <div className="md:w-[48%] lg:w-[46%] shrink-0 flex flex-col bg-muted/25 p-3.5 sm:p-4 border-b md:border-b-0 md:border-r border-border/70 space-y-3.5">
-            <div className="space-y-2.5">
+          <div className="md:w-[48%] lg:w-[46%] shrink-0 flex flex-col bg-muted/25 p-3.5 sm:p-4 border-b md:border-b-0 md:border-r border-border/70 gap-3.5">
+            <div className="flex flex-col gap-2.5">
               {/* Clickable Image Preview Container with Preloaded Instant Switcher */}
               <div
                 onClick={() => onZoom(activeScreenshotIdx)}
-                className="relative aspect-[16/10] rounded-xl overflow-hidden bg-background border border-border/80 shadow-xs group cursor-zoom-in"
+                className="relative aspect-[16/10] rounded-xl overflow-hidden bg-background border border-border/80 shadow-xs group cursor-zoom-in image-outline"
                 title="Click to view full resolution"
               >
                 {project.screenshots && project.screenshots.length > 0 ? (
@@ -146,12 +140,13 @@ function FlagshipCard({
                 <div className="grid grid-cols-2 gap-1.5 pt-0.5">
                   {project.screenshots.map((screen, idx) => (
                     <button
+                      type="button"
                       key={screen.label}
                       onClick={(e) => {
                         e.stopPropagation();
                         setActiveScreenshotIdx(idx);
                       }}
-                      className={`px-2.5 py-1.5 rounded-lg text-[11px] font-mono transition-colors text-center font-medium ${
+                      className={`px-2.5 py-1.5 rounded-lg text-[11px] font-mono transition-[background-color,color,border-color,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring text-center font-medium ${
                         activeScreenshotIdx === idx
                           ? "bg-primary text-primary-foreground font-semibold shadow-xs"
                           : "bg-card border border-border/70 text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -166,12 +161,12 @@ function FlagshipCard({
 
             {/* Left Column Highlights (Desktop Only to keep Mobile Compact & Fast to Scroll) */}
             {project.highlights && project.highlights.length > 0 && (
-              <div className="hidden md:block pt-3 border-t border-border/60 space-y-1.5">
+              <div className="hidden md:flex flex-col gap-1.5 pt-3 border-t border-border/60">
                 <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1">
                   <CheckCircle2 size={12} className="text-primary shrink-0" />
                   <span>Key Architecture Highlights</span>
                 </p>
-                <ul className="space-y-1.5">
+                <ul className="flex flex-col gap-1.5">
                   {project.highlights.map((hl, i) => (
                     <li key={i} className="text-[11px] text-muted-foreground leading-snug flex items-start gap-1.5">
                       <span className="text-primary font-bold mt-0.5 shrink-0">•</span>
@@ -185,13 +180,13 @@ function FlagshipCard({
         )}
 
         {/* Right Column: Information, Full-Width Non-Truncated Metrics & Tech Stack */}
-        <div className="flex-1 p-4 sm:p-6 flex flex-col justify-between space-y-4">
-          <div className="space-y-3.5">
+        <div className="flex-1 p-4 sm:p-6 flex flex-col justify-between gap-4">
+          <div className="flex flex-col gap-3.5">
             {/* Desktop-Only Header */}
             <div className="hidden md:flex items-start justify-between gap-3">
               <div className="flex items-center gap-3">
                 {project.logo && (
-                  <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-lg overflow-hidden bg-background shrink-0 border border-border/70 p-0.5">
+                  <div className="relative size-9 sm:size-10 rounded-lg overflow-hidden bg-background shrink-0 border border-border/70 p-0.5 image-outline">
                     <Image
                       src={project.logo}
                       alt={project.title}
@@ -202,7 +197,7 @@ function FlagshipCard({
                   </div>
                 )}
                 <div>
-                  <CardTitle className="text-base sm:text-lg font-bold text-foreground">
+                  <CardTitle className="text-base sm:text-lg font-bold text-foreground text-balance">
                     {project.title}
                   </CardTitle>
                   <p className="text-xs text-primary font-medium">
@@ -224,18 +219,18 @@ function FlagshipCard({
                   </a>
                 </Button>
               ) : (
-                <Badge variant="outline" className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20 px-2 py-0.5 shrink-0">
+                <Badge variant="success" className="text-[10px] px-2 py-0.5 shrink-0">
                   Gov Production
                 </Badge>
               )}
             </div>
 
             {/* Concise Description */}
-            <CardDescription className="text-xs sm:text-sm leading-relaxed text-muted-foreground">
+            <CardDescription className="text-xs sm:text-sm leading-relaxed text-muted-foreground text-pretty">
               {project.description}
             </CardDescription>
 
-            {/* 2x2 Metrics Grid (Spacious, Zero Truncation) */}
+            {/* 2x2 Metrics Grid (Spacious, Zero Truncation, Tabular Nums) */}
             {project.metrics && (
               <div className="grid grid-cols-2 gap-2.5 pt-1">
                 {Object.entries(project.metrics).map(([key, val]) => (
@@ -243,7 +238,7 @@ function FlagshipCard({
                     key={key}
                     className="p-2.5 rounded-lg bg-muted/40 border border-border/60"
                   >
-                    <p className="text-sm sm:text-base font-bold font-mono text-foreground leading-none mb-1">
+                    <p className="text-sm sm:text-base font-bold font-mono tabular-nums text-foreground leading-none mb-1">
                       {val}
                     </p>
                     <p className="text-[11px] text-muted-foreground font-mono leading-tight">
@@ -354,13 +349,13 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
     >
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <motion.div className="space-y-2 mb-8 sm:mb-12" variants={fadeInUp}>
+        <motion.div className="flex flex-col gap-2 mb-8 sm:mb-12" variants={fadeInUp}>
           <div className="flex items-center gap-2">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground text-balance">
               Featured Systems & Projects
             </h2>
           </div>
-          <p className="text-muted-foreground max-w-2xl text-sm sm:text-base">
+          <p className="text-muted-foreground max-w-2xl text-sm sm:text-base text-pretty">
             Mission-critical institutional platforms, real-time community systems, and client solutions built with modern full-stack architectures.
           </p>
         </motion.div>
@@ -390,10 +385,10 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
         <div>
           <div className="mb-5 flex items-center justify-between flex-wrap gap-2">
             <div>
-              <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground">
+              <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground text-balance">
                 Client & Government Solutions
               </h3>
-              <p className="text-xs sm:text-sm text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground text-pretty">
                 Custom systems and tooling built for government services, academic events, and private clients.
               </p>
             </div>
@@ -415,11 +410,11 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
                 variants={staggerItem}
                 className="w-[85vw] max-w-[340px] sm:w-auto sm:max-w-none shrink-0 sm:shrink snap-center flex"
               >
-                <SpotlightCard className="hover:border-primary/40 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md h-full w-full flex flex-col justify-between bg-card/60">
+                <SpotlightCard className="rounded-2xl hover:border-primary/40 transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-md h-full w-full flex flex-col justify-between bg-card/60">
                   <div className="p-4 sm:p-5 pb-2">
                     <div className="flex items-start gap-3">
                       {project.logo && (
-                        <div className="relative w-9 h-9 rounded-lg overflow-hidden bg-background flex-shrink-0 border border-border/60 p-0.5">
+                        <div className="relative size-9 rounded-lg overflow-hidden bg-background shrink-0 border border-border/60 p-0.5 image-outline">
                           <Image
                             src={project.logo}
                             alt={project.title}
@@ -429,8 +424,8 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
                           />
                         </div>
                       )}
-                      <div className="space-y-0.5">
-                        <CardTitle className="text-sm sm:text-base font-semibold text-foreground">
+                      <div className="flex flex-col gap-0.5">
+                        <CardTitle className="text-sm sm:text-base font-semibold text-foreground text-balance">
                           {project.title}
                         </CardTitle>
                         <p className="text-[11px] sm:text-xs text-primary font-medium">
@@ -440,8 +435,8 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
                     </div>
                   </div>
 
-                  <div className="p-4 sm:p-5 pt-0 space-y-3">
-                    <CardDescription className="text-xs leading-relaxed text-muted-foreground">
+                  <div className="p-4 sm:p-5 pt-0 flex flex-col gap-3">
+                    <CardDescription className="text-xs leading-relaxed text-muted-foreground text-pretty">
                       {project.objective}
                     </CardDescription>
 

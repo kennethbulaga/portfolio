@@ -73,14 +73,14 @@ export function Education() {
         viewport={{ once: true, margin: "-100px" }}
         variants={fadeInUp}
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
           {/* Section Header */}
           <motion.div className="flex items-start justify-between flex-wrap gap-2 mb-2 sm:mb-4" variants={fadeInUp}>
-            <div className="space-y-1">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+            <div className="flex flex-col gap-1">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground text-balance">
                 Education & Leadership
               </h2>
-              <p className="text-muted-foreground text-sm sm:text-base">
+              <p className="text-muted-foreground text-sm sm:text-base text-pretty">
                 Academic degree credentials, student governance appointments, and technical milestones.
               </p>
             </div>
@@ -92,7 +92,7 @@ export function Education() {
           {/* Two Column Layout: Degree & Student Leadership (Mobile Snap Carousel) */}
           <div className="flex md:grid overflow-x-auto md:overflow-visible snap-x snap-mandatory gap-4 md:gap-8 pb-2 md:pb-0 no-scrollbar md:grid-cols-2">
             {/* Education Column - Timeline */}
-            <Card className="w-[85vw] max-w-[340px] md:w-auto md:max-w-none shrink-0 md:shrink snap-center flex flex-col transition-all duration-300 hover:shadow-lg">
+            <Card className="w-[85vw] max-w-[340px] md:w-auto md:max-w-none shrink-0 md:shrink snap-center flex flex-col rounded-2xl transition-[box-shadow,border-color] duration-200 hover:shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <GraduationCap size={20} className="text-primary" />
@@ -104,13 +104,13 @@ export function Education() {
                   {/* Timeline line */}
                   <div className="absolute left-5 top-0 bottom-0 w-px bg-border" />
 
-                  <ul className="space-y-6">
+                  <ul className="flex flex-col gap-6">
                     {education.map((edu, index) => (
                       <li key={index} className="relative pl-12">
                         {/* Timeline dot/logo */}
-                        <div className="absolute left-0 w-10 h-10 flex items-center justify-center">
+                        <div className="absolute left-0 size-10 flex items-center justify-center">
                           {edu.logo ? (
-                            <div className="relative w-10 h-10 rounded-full overflow-hidden bg-background border-2 border-border z-10">
+                            <div className="relative size-10 rounded-full overflow-hidden bg-background border-2 border-border z-10 image-outline">
                               <Image
                                 src={edu.logo}
                                 alt={edu.institution}
@@ -121,7 +121,7 @@ export function Education() {
                             </div>
                           ) : (
                             <div
-                              className={`w-3 h-3 rounded-full z-10 ${
+                              className={`size-3 rounded-full z-10 ${
                                 edu.isCurrent
                                   ? "bg-primary ring-4 ring-primary/20"
                                   : "bg-muted-foreground"
@@ -131,7 +131,7 @@ export function Education() {
                         </div>
 
                         {/* Content */}
-                        <div className="space-y-0.5">
+                        <div className="flex flex-col gap-0.5">
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="text-xs font-medium uppercase tracking-wide text-foreground">
                               {edu.level}
@@ -159,7 +159,7 @@ export function Education() {
             </Card>
 
             {/* Leadership Column - Timeline */}
-            <Card className="w-[85vw] max-w-[340px] md:w-auto md:max-w-none shrink-0 md:shrink snap-center flex flex-col transition-all duration-300 hover:shadow-lg">
+            <Card className="w-[85vw] max-w-[340px] md:w-auto md:max-w-none shrink-0 md:shrink snap-center flex flex-col rounded-2xl transition-[box-shadow,border-color] duration-200 hover:shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Award size={20} className="text-primary" />
@@ -171,24 +171,24 @@ export function Education() {
                   {/* Timeline line */}
                   <div className="absolute left-5 top-0 bottom-0 w-px bg-border" />
 
-                  <ul className="space-y-6">
+                  <ul className="flex flex-col gap-6">
                     {leadership.map((position, index) => {
                       const content = (
-                        <div className="space-y-0.5">
+                        <div className="flex flex-col gap-0.5">
                           <div className="flex items-center gap-2 flex-wrap">
                             <h4 className="font-semibold text-foreground text-sm group-hover:text-primary transition-colors">
                               {position.organization}
                             </h4>
                             {position.isCurrent && (
-                              <span className="text-[11px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 rounded-full">
+                              <Badge variant="success" className="text-[11px] px-2 py-0.5">
                                 Active
-                              </span>
+                              </Badge>
                             )}
                           </div>
                           <p className="text-xs sm:text-sm text-muted-foreground">
                             {position.role}
                           </p>
-                          <p className="text-[11px] font-mono text-muted-foreground">
+                          <p className="text-[11px] font-mono tabular-nums text-muted-foreground">
                             {position.period}
                           </p>
                         </div>
@@ -197,10 +197,10 @@ export function Education() {
                       return (
                         <li key={index} className="relative pl-12">
                           {/* Timeline dot/logo */}
-                          <div className="absolute left-0 w-10 h-10 flex items-center justify-center">
+                          <div className="absolute left-0 size-10 flex items-center justify-center">
                             {position.logo ? (
                               <div
-                                className={`relative w-10 h-10 rounded-full overflow-hidden bg-background border-2 z-10 ${
+                                className={`relative size-10 rounded-full overflow-hidden bg-background border-2 z-10 image-outline ${
                                   position.isCurrent ? "border-primary" : "border-border"
                                 }`}
                               >
@@ -214,7 +214,7 @@ export function Education() {
                               </div>
                             ) : (
                               <div
-                                className={`w-3 h-3 rounded-full z-10 ${
+                                className={`size-3 rounded-full z-10 ${
                                   position.isCurrent
                                     ? "bg-primary ring-4 ring-primary/20"
                                     : "bg-muted-foreground"
@@ -247,40 +247,40 @@ export function Education() {
 
           {/* Dedicated Section 1: Active Cloud & Technical Certifications */}
           {cloudCertifications && cloudCertifications.length > 0 && (
-            <Card className="transition-all duration-300 hover:shadow-lg border-border/80 bg-card/70 overflow-hidden">
+            <Card className="rounded-2xl transition-[box-shadow,border-color] duration-200 hover:shadow-lg border-border/80 bg-card/70 overflow-hidden">
               <CardHeader className="pb-3 border-b border-border/60 bg-muted/20">
                 <div className="flex items-center justify-between flex-wrap gap-2">
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold text-foreground">
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold text-foreground text-balance">
                     <Cloud size={19} className="text-amber-500 shrink-0" />
                     <span>Active Cloud Certifications & Upskilling</span>
                   </CardTitle>
-                  <span className="text-[11px] font-mono font-medium text-amber-600 dark:text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-full flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                  <Badge variant="warning" className="text-[11px] px-2.5 py-1 flex items-center gap-1.5">
+                    <span className="size-1.5 rounded-full bg-amber-500 animate-pulse" />
                     <span>In Progress (2026)</span>
-                  </span>
+                  </Badge>
                 </div>
               </CardHeader>
 
-              <CardContent className="p-4 sm:p-6 space-y-4">
+              <CardContent className="p-4 sm:p-6 flex flex-col gap-4">
                 {cloudCertifications.map((cert) => (
                   <div
                     key={cert.id}
-                    className="p-4 sm:p-5 rounded-xl border border-border/70 bg-card/50 hover:bg-card hover:border-primary/40 transition-all space-y-3"
+                    className="p-4 sm:p-5 rounded-xl border border-border/70 bg-card/50 hover:bg-card hover:border-primary/40 transition-[background-color,border-color,box-shadow] duration-200 flex flex-col gap-3"
                   >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                      <div className="space-y-0.5">
+                      <div className="flex flex-col gap-0.5">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <h4 className="font-bold text-foreground text-base sm:text-lg">
+                          <h4 className="font-bold text-foreground text-base sm:text-lg text-balance">
                             {cert.title}
                           </h4>
                           {cert.code && (
-                            <Badge variant="outline" className="font-mono text-xs px-2 py-0 border-amber-500/40 text-amber-600 dark:text-amber-400">
+                            <Badge variant="warning" className="text-xs px-2 py-0">
                               {cert.code}
                             </Badge>
                           )}
                         </div>
                         <p className="text-xs sm:text-sm text-muted-foreground">
-                          {cert.issuer} · <span className="font-mono text-xs">{cert.period}</span>
+                          {cert.issuer} · <span className="font-mono tabular-nums text-xs">{cert.period}</span>
                         </p>
                       </div>
 
@@ -294,7 +294,7 @@ export function Education() {
                       )}
                     </div>
 
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-pretty">
                       {cert.description}
                     </p>
 
@@ -318,10 +318,10 @@ export function Education() {
 
           {/* Dedicated Section 2: Featured Technical Milestones & Institutional Honors */}
           {featuredCredentials && featuredCredentials.length > 0 && (
-            <Card className="transition-all duration-300 hover:shadow-lg border-border/80 bg-card/70 overflow-hidden">
+            <Card className="rounded-2xl transition-[box-shadow,border-color] duration-200 hover:shadow-lg border-border/80 bg-card/70 overflow-hidden">
               <CardHeader className="pb-3 border-b border-border/60 bg-muted/20">
                 <div className="flex items-center justify-between flex-wrap gap-2">
-                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold text-foreground">
+                  <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold text-foreground text-balance">
                     <BadgeCheck size={19} className="text-primary shrink-0" />
                     <span>Technical Milestones & Institutional Honors</span>
                   </CardTitle>
@@ -345,14 +345,14 @@ export function Education() {
                     return (
                       <div
                         key={item.id}
-                        className="w-[85vw] max-w-[340px] sm:w-auto sm:max-w-none shrink-0 sm:shrink snap-center p-4 rounded-xl border border-border/70 bg-card/50 hover:bg-card hover:border-primary/40 transition-all flex flex-col justify-between space-y-3.5 shadow-xs group"
+                        className="w-[85vw] max-w-[340px] sm:w-auto sm:max-w-none shrink-0 sm:shrink snap-center p-4 rounded-2xl border border-border/70 bg-card/50 hover:bg-card hover:border-primary/40 transition-[background-color,border-color,box-shadow] duration-200 flex flex-col justify-between gap-3.5 shadow-xs group"
                       >
-                        <div className="space-y-3">
+                        <div className="flex flex-col gap-3">
                           {/* Certificate Thumbnail Preview */}
                           {item.image && (
                             <div
                               onClick={() => setActiveCert(item)}
-                              className="relative aspect-[16/10] rounded-lg overflow-hidden border border-border/80 bg-background cursor-zoom-in group/img shadow-2xs"
+                              className="relative aspect-[16/10] rounded-xl overflow-hidden border border-border/80 bg-background cursor-zoom-in group/img shadow-2xs image-outline"
                               title="Click to inspect full resolution certificate"
                             >
                               <Image
@@ -372,7 +372,7 @@ export function Education() {
                           )}
 
                           {/* Title & Metadata */}
-                          <div className="space-y-1">
+                          <div className="flex flex-col gap-1">
                             <div className="flex items-center justify-between gap-2">
                               <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-semibold px-2 py-0.5 rounded bg-muted/60 flex items-center gap-1 border border-border/40">
                                 <CategoryIcon size={11} className="text-primary shrink-0" />
@@ -380,15 +380,15 @@ export function Education() {
                               </span>
                               
                               {item.status === "Active Production" ? (
-                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1 shrink-0">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                <Badge variant="success" className="text-[10px] px-2 py-0.5 flex items-center gap-1 shrink-0">
+                                  <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
                                   <span>Active Production</span>
-                                </span>
+                                </Badge>
                               ) : item.status === "Highest Honor" ? (
-                                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1 shrink-0">
-                                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                                <Badge variant="warning" className="text-[10px] px-2 py-0.5 flex items-center gap-1 shrink-0">
+                                  <span className="size-1.5 rounded-full bg-amber-500" />
                                   <span>Highest Honor</span>
-                                </span>
+                                </Badge>
                               ) : (
                                 <span className="text-[10px] font-mono px-2 py-0.5 rounded-full font-medium bg-primary/10 text-primary border border-primary/20 shrink-0">
                                   {item.status}
@@ -396,17 +396,17 @@ export function Education() {
                               )}
                             </div>
 
-                            <h4 className="font-bold text-foreground text-sm sm:text-base leading-snug pt-0.5">
+                            <h4 className="font-bold text-foreground text-sm sm:text-base leading-snug pt-0.5 text-balance">
                               {item.title}
                             </h4>
 
                             <p className="text-xs text-muted-foreground flex items-center gap-1.5">
                               <Calendar size={12} className="text-primary shrink-0" />
-                              <span className="truncate">{item.period} · {item.issuer}</span>
+                              <span className="truncate tabular-nums">{item.period} · {item.issuer}</span>
                             </p>
                           </div>
 
-                          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3 sm:line-clamp-none">
+                          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-3 sm:line-clamp-none text-pretty">
                             {item.description}
                           </p>
                         </div>
@@ -425,8 +425,9 @@ export function Education() {
                           </div>
 
                           <button
+                            type="button"
                             onClick={() => setActiveCert(item)}
-                            className="text-xs font-semibold text-primary hover:underline flex items-center gap-1 font-mono shrink-0"
+                            className="text-xs font-semibold text-primary hover:underline flex items-center gap-1 font-mono shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xs"
                           >
                             <BadgeCheck size={13} />
                             <span>View Full</span>
@@ -459,11 +460,11 @@ export function Education() {
             >
               {/* Header Floating Action Bar */}
               <div className="w-full flex items-center justify-between pb-3 text-white">
-                <div className="space-y-0.5 min-w-0 pr-4">
+                <div className="flex flex-col gap-0.5 min-w-0 pr-4">
                   <p className="text-xs sm:text-sm font-semibold truncate">
                     {activeCert.title}
                   </p>
-                  <p className="text-[11px] text-zinc-400 font-mono">
+                  <p className="text-[11px] text-zinc-400 font-mono tabular-nums">
                     {activeCert.issuer} · {activeCert.period}
                   </p>
                 </div>

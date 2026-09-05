@@ -19,13 +19,13 @@ export function Hero() {
     <section id="about" className="relative pt-24 pb-8 sm:pt-32 sm:pb-12 md:pt-36 md:pb-16 overflow-hidden">
       {/* Precision Subtle Background Grid */}
       <div className="absolute inset-0 -z-10">
-        <div className="hidden md:block absolute inset-0 bg-[radial-gradient(circle,#71717a_1px,transparent_1px)] dark:bg-[radial-gradient(circle,#3f3f46_1px,transparent_1px)] [background-size:28px_28px] opacity-35" />
+        <div className="hidden md:block absolute inset-0 bg-[radial-gradient(circle,hsl(var(--muted-foreground)/0.25)_1px,transparent_1px)] [background-size:28px_28px] opacity-35" />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          className="space-y-6 sm:space-y-8"
+          className="flex flex-col gap-6 sm:gap-8"
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
@@ -33,20 +33,20 @@ export function Hero() {
           {/* Availability Eyebrow */}
           <motion.div variants={staggerItem}>
             <Badge 
-              variant="outline" 
-              className="gap-2 px-3 py-1 text-xs font-medium border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-emerald-500/10"
+              variant="success" 
+              className="gap-2 px-3 py-1 text-xs font-medium"
             >
-              <span className="relative flex h-2 w-2">
+              <span className="relative flex size-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <span className="relative inline-flex rounded-full size-2 bg-emerald-500" />
               </span>
               {personalInfo.availability.message}
             </Badge>
           </motion.div>
 
           {/* Headline & Sub-headline */}
-          <motion.div variants={staggerItem} className="space-y-2">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+          <motion.div variants={staggerItem} className="flex flex-col gap-2">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance">
               <span className="text-foreground">Hi, I&apos;m </span>
               <span className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent">
                 {personalInfo.name}
@@ -54,7 +54,7 @@ export function Hero() {
               <span className="text-primary">.</span>
             </h1>
 
-            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium">
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium text-balance">
               {personalInfo.subHeadline}
             </p>
           </motion.div>
@@ -62,7 +62,7 @@ export function Hero() {
           {/* Genuine Bio */}
           <motion.p
             variants={staggerItem}
-            className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl leading-relaxed"
+            className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl leading-relaxed text-pretty"
           >
             {personalInfo.bio}
           </motion.p>
@@ -89,7 +89,7 @@ export function Hero() {
 
           {/* Primary Action Buttons (Balanced 50/50 on Mobile, Flex on Desktop) */}
           <motion.div variants={staggerItem} className="pt-2 grid grid-cols-2 gap-2.5 sm:flex sm:items-center sm:gap-3 max-w-md sm:max-w-none">
-            <Button onClick={scrollToProjects} size="lg" className="gap-2 shadow-xs text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto px-3 sm:px-5">
+            <Button onClick={scrollToProjects} size="lg" className="ps-5 pe-4 gap-2 shadow-xs text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto">
               <span>Explore Projects</span>
               <ArrowDown size={15} />
             </Button>
@@ -118,8 +118,8 @@ export function Hero() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {institutionalTrust.map((partner) => {
                 const content = (
-                  <div className="flex items-start gap-3 p-3.5 rounded-xl border border-border/80 bg-card/50 hover:bg-card hover:border-primary/40 transition-all group h-full">
-                    <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-background border border-border/80 shrink-0 p-1 mt-0.5">
+                  <div className="flex items-start gap-3 p-3 rounded-2xl border border-border/80 bg-card/50 hover:bg-card hover:border-primary/40 transition-[background-color,border-color,box-shadow] duration-200 group h-full">
+                    <div className="relative size-10 rounded-xl overflow-hidden bg-background border border-border/80 shrink-0 p-1 mt-0.5 image-outline">
                       <Image
                         src={partner.logo}
                         alt={partner.name}
@@ -128,7 +128,7 @@ export function Hero() {
                         className="object-contain p-0.5"
                       />
                     </div>
-                    <div className="space-y-1 min-w-0 flex-1">
+                    <div className="flex flex-col gap-1 min-w-0 flex-1">
                       <p className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
                         {partner.name}
                       </p>

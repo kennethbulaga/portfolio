@@ -273,11 +273,12 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
                 placeholder="Type a command or jump to section..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full bg-transparent py-3.5 text-sm outline-none placeholder:text-muted-foreground text-foreground"
+                className="w-full bg-transparent py-3.5 text-base sm:text-sm outline-none placeholder:text-muted-foreground text-foreground"
               />
               <button
+                type="button"
                 onClick={onClose}
-                className="p-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label="Close command palette"
               >
                 <X size={16} />
@@ -296,14 +297,15 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
                     <p className="px-2 pb-1 text-[11px] font-mono uppercase tracking-wider text-muted-foreground">
                       {group.category}
                     </p>
-                    <div className="space-y-0.5">
+                    <div className="flex flex-col gap-0.5">
                       {group.items.map((item) => {
                         const Icon = item.icon;
                         return (
                           <button
+                            type="button"
                             key={item.id}
                             onClick={item.action}
-                            className="w-full flex items-center justify-between px-2.5 py-2 text-xs sm:text-sm rounded-lg hover:bg-muted/80 text-foreground transition-colors text-left group"
+                            className="w-full flex items-center justify-between px-2.5 py-2 text-xs sm:text-sm rounded-lg hover:bg-muted/80 text-foreground transition-[background-color,color] duration-150 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring text-left group"
                           >
                             <span className="flex items-center gap-2.5">
                               <Icon

@@ -100,12 +100,12 @@ body {
 
 /* Enhanced Card Hover Effects */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 25px -5px hsl(var(--foreground) / 0.08), 0 8px 10px -6px hsl(var(--foreground) / 0.05);
 }
 
 /* Subtle code & telemetry badge font */
@@ -113,24 +113,20 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* 1px inner image depth outline (better-ui) */
+.image-outline {
+  outline: 1px solid oklch(0 0 0 / 0.1);
+  outline-offset: -1px;
+}
+
+:where(.dark) .image-outline {
+  outline-color: oklch(1 0 0 / 0.1);
+}
+
 /* Selection styling */
 ::selection {
   background-color: hsl(var(--primary) / 0.2);
   color: hsl(var(--foreground));
-}
-
-/* Native CSS Marquee Fallback & Hover Pause */
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-marquee {
-  animation: marquee 30s linear infinite;
 }
 
 .animate-marquee:hover {

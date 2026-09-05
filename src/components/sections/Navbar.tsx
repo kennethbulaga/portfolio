@@ -29,7 +29,7 @@ export function Navbar({ onOpenCaseStudy }: NavbarProps) {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-40 transition-[background-color,border-color,box-shadow] duration-200",
           isScrolled
             ? "bg-background/90 backdrop-blur-md border-b border-border shadow-sm"
             : "bg-background/60 backdrop-blur-sm"
@@ -75,13 +75,15 @@ export function Navbar({ onOpenCaseStudy }: NavbarProps) {
             {/* Mobile Actions */}
             <div className="flex md:hidden items-center gap-1.5">
               <ThemeToggle />
-              <button
-                className="p-2 text-muted-foreground hover:text-foreground rounded-lg hover:bg-muted transition-colors border border-border/60"
+              <Button
+                variant="outline"
+                size="icon"
+                className="size-9 text-muted-foreground hover:text-foreground"
                 onClick={() => setIsMobileNavOpen(true)}
                 aria-label="Open navigation menu"
               >
-                <Menu size={20} />
-              </button>
+                <Menu size={18} />
+              </Button>
             </div>
           </div>
         </nav>
