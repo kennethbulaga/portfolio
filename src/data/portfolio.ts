@@ -351,7 +351,7 @@ export const flagshipProjects: FlagshipProject[] = [
     link: "https://jp-connect.vercel.app",
     focus: "Institutional Campus Operations Platform",
     description:
-      "Architected and deployed an institutional web platform serving 5,500+ active university users across 3 administrative departments. Replaced manual spreadsheets and physical queues with an automated 3-way conflict resolver, optical QR passes, and cryptographically verified role-based access.",
+      "Institutional campus platform serving 5,500+ students and faculty. Replaces manual queues and spreadsheets with an automated 3-way exam collision resolver and Google SSO RBAC.",
     image: "/projects/jp-connect/1. LandingPage.webp",
     screenshots: [
       { label: "Landing & Student", image: "/projects/jp-connect/1. LandingPage.webp" },
@@ -378,9 +378,9 @@ export const flagshipProjects: FlagshipProject[] = [
       "Schedule Collisions": "0",
     },
     highlights: [
-      "3-Way Algorithmic Conflict Resolver: Eliminates room collisions, proctoring overlaps, and self-proctoring violations.",
-      "Defense-in-Depth RBAC: Next.js 16 proxy gate + Google Workspace SSO + PostgreSQL Row-Level Security.",
-      "Batch RFID Ingestion & Sanctions Engine: Reconciles offline scanner hardware logs against the masterlist via set difference to automate absentee fines and e-clearances.",
+      "3-Way Conflict Resolver: O(N log N) sweep eliminating room, proctor, and self-proctoring collisions.",
+      "Defense-in-Depth RBAC: Next.js 16 proxy boundary + Google Workspace SSO + PostgreSQL RLS.",
+      "Batch Attendance Reconciler: Ingests raw RFID scans and computes set differences to automate clearance.",
     ],
     hasCaseStudy: true,
   },
@@ -390,7 +390,7 @@ export const flagshipProjects: FlagshipProject[] = [
     link: "#",
     focus: "Regional Client Satisfaction Measurement & Analytics Platform",
     description:
-      "Engineered and deployed a centralized web platform for OWWA Regional Welfare Office XI, replacing manual spreadsheets across 9 frontline service units with automated Likert satisfaction matrices, live multi-office validation, and 1-click ARTA/CSC-compliant master spreadsheet generation.",
+      "Regional citizen satisfaction analytics platform for OWWA Region XI. Consolidates monthly survey feedback across 10 units with real-time arithmetic validation and 1-click ARTA Excel synthesis.",
     image: "/projects/owwa-csmr/landing.webp",
     screenshots: [
       { label: "Public Landing", image: "/projects/owwa-csmr/landing.webp" },
@@ -417,9 +417,9 @@ export const flagshipProjects: FlagshipProject[] = [
       "Consolidation Time": "<1s (1-Click)",
     },
     highlights: [
-      "Zero-Drift Virtual Consolidation: On-demand functional aggregation summing sub-unit matrices into a single regional masterlist.",
-      "ARTA/CSC Compliant ExcelJS Engine: 2,100+ line spreadsheet synthesis pipeline generating official formatted workbooks.",
-      "Universal Law of Sums Live Validation: Real-time client arithmetic verification eliminating mathematical submission errors.",
+      "Virtual Consolidation: On-demand functional reduction calculating regional master metrics in <100ms.",
+      "ARTA/CSC ExcelJS Engine: 2,100+ line pipeline compiling styled, formula-driven workbooks in <1s.",
+      "Live Arithmetic Validation: Zero-drift input validation eliminating mathematical discrepancies at entry.",
     ],
     hasCaseStudy: true,
   },
@@ -429,7 +429,7 @@ export const flagshipProjects: FlagshipProject[] = [
     link: "https://jp-intrams.vercel.app",
     focus: "Real-Time Arena Broadcast & Campus Tournament Platform",
     description:
-      "Architected and deployed a high-concurrency tournament engine and digital signage broadcast system for St. John Paul II College of Davao Intramurals. Powers live score feeds across 22 official tournament sports and 23+ competitive events for 9 academic departments, broadcasted live to campus arena projectors, gym TVs, and thousands of concurrent student mobile devices.",
+      "High-concurrency tournament engine and digital signage broadcast platform. Powers sub-500ms score sync across 22 sports for 9 colleges, streamed live to gym projectors and student devices.",
     image: "/projects/jp-intrams/desktop.webp",
     screenshots: [
       { label: "Desktop Leaderboard", image: "/projects/jp-intrams/desktop.webp" },
@@ -455,9 +455,9 @@ export const flagshipProjects: FlagshipProject[] = [
       "System Uptime": "99.9%",
     },
     highlights: [
-      "Supabase Realtime Sync: Instant WebSocket change streams broadcasting score and podium recalculations to thousands of concurrent devices in <500ms.",
-      "Dedicated 24/7 Digital Signage (/tv): Auto-cycling 5-screen broadcast kiosk with 3D Olympic podium and celebration confetti designed for campus auditorium projectors and gym LED walls.",
-      "High-Velocity Cheer Engine: Offloads high-frequency student cheer voting to Upstash Redis with atomic SETNX rate-limiting and CDN edge caching to eliminate thundering herd database spikes.",
+      "Sub-500ms Realtime Sync: Supabase WebSocket change streams recalculating standings instantly on match logs.",
+      "24/7 Digital Signage (/tv): Auto-cycling 5-screen arena broadcast kiosk designed for gym projectors & LED walls.",
+      "High-Velocity Cheer Engine: Upstash Redis SETNX rate-limiting protecting PostgreSQL from championship traffic spikes.",
     ],
     hasCaseStudy: true,
   },
