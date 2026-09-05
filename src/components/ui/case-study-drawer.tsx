@@ -97,16 +97,9 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
             <div className="p-3.5 sm:p-6 border-b border-border bg-card/95 sm:bg-card/60 backdrop-blur-md shrink-0">
               <div className="flex items-start justify-between gap-3">
                 <div className="space-y-1.5 min-w-0 flex-1">
-                  <div className="flex items-center gap-1.5 flex-wrap">
+                  <div className="flex items-center gap-1.5">
                     <Badge variant="outline" className="text-[10px] sm:text-xs bg-primary/10 text-primary border-primary/20 px-2 py-0.5">
                       Production Case Study
-                    </Badge>
-                    <Badge variant="outline" className="text-[10px] sm:text-xs font-mono px-2 py-0.5 max-w-[240px] sm:max-w-none truncate">
-                      {study.id === "owwa-csmr"
-                        ? "Next.js 16 · PostgreSQL · Supabase · ExcelJS"
-                        : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard"
-                        ? "Next.js 16 · Supabase Realtime · Upstash Redis · Framer Motion"
-                        : "Next.js 16 · Supabase SSR · PostgreSQL RLS"}
                     </Badge>
                   </div>
                   <h2 className="text-lg sm:text-2xl font-bold tracking-tight text-foreground leading-snug">
