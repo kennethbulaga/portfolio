@@ -138,6 +138,7 @@ export interface CaseStudyData {
     caption: string;
     image: string;
     aspect?: string;
+    tags?: string[];
   };
   deepDives: {
     title: string;
@@ -799,6 +800,7 @@ export const jpConnectCaseStudy: CaseStudyData = {
       "Live operational display of JP Connect exam schedules and campus clearances projected on the vertical lobby displays at St. John Paul II College of Davao.",
     image: "/projects/jp-connect/6. projector.webp",
     aspect: "9/16",
+    tags: ["Vertical Digital Stand", "Campus Lobby Kiosk", "5,500+ Daily Foot Traffic"],
   },
   architectureSummary:
     "Built on a Defense-in-Depth philosophy: the Next.js 16 network gate (proxy.ts) enforces role claims before rendering, Google Workspace SSO locks access to @sjp2cd.edu.ph, and PostgreSQL Row-Level Security (RLS) guarantees complete database isolation with auth.uid() = student_id.",
@@ -1000,11 +1002,12 @@ export const jpIntramsCaseStudy: CaseStudyData = {
     },
   ],
   liveDeployment: {
-    title: "Campus Arena Projector & Gymnasium TV Broadcast",
+    title: "Main Stage Projector & Quadrangle Broadcast",
     caption:
-      "Live operational display of the JP Intrams leaderboard auto-cycling across the main campus auditorium projector and gymnasium LED screens during live tournament play.",
+      "Photograph taken live during tournament play: JP Intrams leaderboard projected onto the main stage projector in the school quadrangle, broadcasting live standings to students and athletes.",
     image: "/projects/jp-intrams/projector.webp",
     aspect: "16/9",
+    tags: ["Main Stage Projector", "School Quadrangle", "Live Tournament Broadcast"],
   },
   architectureSummary:
     "Built on a decoupled real-time architecture: Supabase Realtime WebSockets handle instantaneous score and rank recalculations (<500ms), Upstash Redis absorbs high-velocity cheer votes with atomic rate-limiting, and Next.js 16 App Router powers a dedicated 24/7 Digital Signage Kiosk route (/tv) designed for arena displays and LED walls.",

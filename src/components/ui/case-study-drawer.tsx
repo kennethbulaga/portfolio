@@ -335,12 +335,18 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                       </div>
 
                       <div className="flex flex-col sm:flex-row gap-4 items-center">
-                        <div className="relative w-full sm:w-44 aspect-[9/16] rounded-xl overflow-hidden border-2 border-border bg-background shadow-md shrink-0">
+                        <div
+                          className={`relative w-full rounded-xl overflow-hidden border-2 border-border bg-background shadow-md shrink-0 ${
+                            study.liveDeployment.aspect === "16/9"
+                              ? "sm:w-64 aspect-[16/9]"
+                              : "sm:w-44 aspect-[9/16]"
+                          }`}
+                        >
                           <Image
                             src={study.liveDeployment.image}
                             alt={study.liveDeployment.title}
                             fill
-                            sizes="(max-width: 640px) 100vw, 200px"
+                            sizes="(max-width: 640px) 100vw, 260px"
                             className="object-cover"
                           />
                         </div>
@@ -351,17 +357,18 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                           <p className="text-xs text-muted-foreground leading-relaxed">
                             {study.liveDeployment.caption}
                           </p>
-                          <div className="pt-1 flex flex-wrap gap-1.5">
-                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-background border border-border/70 text-foreground">
-                              Vertical Digital Stand
-                            </span>
-                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-background border border-border/70 text-foreground">
-                              Campus Lobby Kiosk
-                            </span>
-                            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-background border border-border/70 text-foreground">
-                              5,500+ Daily Foot Traffic
-                            </span>
-                          </div>
+                          {study.liveDeployment.tags && study.liveDeployment.tags.length > 0 && (
+                            <div className="pt-1 flex flex-wrap gap-1.5">
+                              {study.liveDeployment.tags.map((tag, idx) => (
+                                <span
+                                  key={idx}
+                                  className="text-[10px] font-mono px-2 py-0.5 rounded bg-background border border-border/70 text-foreground"
+                                >
+                                  {tag}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
