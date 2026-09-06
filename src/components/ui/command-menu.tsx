@@ -45,6 +45,16 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
   const [copied, setCopied] = useState(false);
   const { theme, setTheme } = useTheme();
 
+  // Reset query when closed without triggering cascading render effect
+  const [prevIsOpen, setPrevIsOpen] = useState(isOpen);
+  if (prevIsOpen !== isOpen) {
+    setPrevIsOpen(isOpen);
+    if (!isOpen) {
+      setQuery("");
+    }
+  }
+
+
   // Keyboard shortcut listener for Cmd+K / Ctrl+K & Escape
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

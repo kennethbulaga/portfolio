@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,22 +14,36 @@ interface FloatingParticle {
   text: string;
 }
 
+function subscribe(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener("local-likes-updated", callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("local-likes-updated", callback);
+  };
+}
+
+function getSnapshot(): number {
+  try {
+    return parseInt(localStorage.getItem("portfolio_user_likes") || "0", 10) || 0;
+  } catch {
+    return 0;
+  }
+}
+
+function getServerSnapshot(): number {
+  return 0;
+}
+
 export function IWasHereButton() {
   const [likes, setLikes] = useState<number | null>(null);
-  const [userClicks, setUserClicks] = useState<number>(0);
+  const userClicks = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [particles, setParticles] = useState<FloatingParticle[]>([]);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Sync client-only localStorage and fetch initial likes count
+  // Fetch initial likes count
   useEffect(() => {
     let isMounted = true;
-
-    try {
-      const stored = localStorage.getItem("portfolio_user_likes");
-      if (stored) {
-        setUserClicks(parseInt(stored, 10) || 0);
-      }
-    } catch {}
 
     async function fetchLikes() {
       try {
@@ -58,13 +72,11 @@ export function IWasHereButton() {
 
     // Optimistic increment
     setLikes((prev) => (prev !== null ? prev + 1 : 1));
-    setUserClicks((prev) => {
-      const next = Math.min(prev + 1, MAX_CLAPS);
-      try {
-        localStorage.setItem("portfolio_user_likes", next.toString());
-      } catch {}
-      return next;
-    });
+    const next = Math.min(userClicks + 1, MAX_CLAPS);
+    try {
+      localStorage.setItem("portfolio_user_likes", next.toString());
+      window.dispatchEvent(new Event("local-likes-updated"));
+    } catch {}
 
     // Spawn floating particle
     const randomX = (Math.random() - 0.5) * 50;
@@ -89,7 +101,7 @@ export function IWasHereButton() {
     } catch (err) {
       console.error("Failed to increment likes:", err);
     }
-  }, [isMaxReached]);
+  }, [isMaxReached, userClicks]);
 
   const removeParticle = (id: number) => {
     setParticles((prev) => prev.filter((p) => p.id !== id));

@@ -1,16 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navbar, Hero, Projects, Experience, Education, Footer } from "@/components/sections";
 import { CaseStudyDrawer } from "@/components/ui/case-study-drawer";
+import { CommandMenu } from "@/components/ui/command-menu";
 import { SectionDivider } from "@/components/ui/section-divider";
 
 export default function Home() {
   const [activeCaseStudyId, setActiveCaseStudyId] = useState<string | null>(null);
+  const [isCommandMenuOpen, setIsCommandMenuOpen] = useState(false);
+
+  // Global keyboard shortcut listener for Cmd+K / Ctrl+K
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setIsCommandMenuOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   return (
     <>
-      <Navbar onOpenCaseStudy={(studyId) => setActiveCaseStudyId(studyId || "jp-connect")} />
+      <Navbar
+        onOpenCaseStudy={(studyId) => setActiveCaseStudyId(studyId || "jp-connect")}
+        onOpenCommandMenu={() => setIsCommandMenuOpen(true)}
+      />
       
       {/* Global Ambient Depth Light */}
       <div className="fixed inset-0 -z-20 pointer-events-none overflow-hidden">
@@ -33,6 +50,13 @@ export default function Home() {
         isOpen={!!activeCaseStudyId}
         studyId={activeCaseStudyId}
         onClose={() => setActiveCaseStudyId(null)}
+      />
+
+      {/* Global Command Palette (Cmd+K / Ctrl+K) */}
+      <CommandMenu
+        isOpen={isCommandMenuOpen}
+        onClose={() => setIsCommandMenuOpen(false)}
+        onOpenCaseStudy={(studyId) => setActiveCaseStudyId(studyId || "jp-connect")}
       />
     </>
   );

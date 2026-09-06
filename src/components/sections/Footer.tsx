@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Github, Linkedin, Mail, Check, Copy, ArrowUpRight, MessageSquare, MapPin, Coffee, Headphones, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 import { IWasHereButton } from "@/components/ui/i-was-here";
 import { socialLinks, personalInfo, personalInterests, spotifyPlaylists } from "@/data/portfolio";

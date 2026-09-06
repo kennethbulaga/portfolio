@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -16,7 +17,6 @@ import {
   Briefcase,
   GraduationCap,
   Mail,
-  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -178,7 +178,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
               {onOpenCaseStudy && (
                 <div className="flex flex-col gap-1.5 pt-3 border-t border-border/70">
                   <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-semibold px-2 pb-0.5 flex items-center gap-1">
-                    <Sparkles size={11} className="text-primary" />
+                    <Layers size={11} className="text-primary" />
                     <span>System Architecture Deep-Dives</span>
                   </p>
                   <div className="grid grid-cols-1 gap-1.5">
@@ -191,8 +191,8 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                       className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group shadow-2xs"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="size-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-mono text-xs font-bold shrink-0">
-                          ⚡
+                        <div className="size-7 rounded-lg bg-muted/60 flex items-center justify-center shrink-0 overflow-hidden">
+                          <Image src="/logos/jp-connect-logo.webp" alt="JP Connect" width={20} height={20} className="object-contain" />
                         </div>
                         <div className="min-w-0">
                           <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">
@@ -215,8 +215,8 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                       className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group shadow-2xs"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="size-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-mono text-xs font-bold shrink-0">
-                          🏛️
+                        <div className="size-7 rounded-lg bg-muted/60 flex items-center justify-center shrink-0 overflow-hidden">
+                          <Image src="/logos/owwa-logo.webp" alt="OWWA" width={20} height={20} className="object-contain" />
                         </div>
                         <div className="min-w-0">
                           <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">
@@ -239,12 +239,12 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                       className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group shadow-2xs"
                     >
                       <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="size-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-mono text-xs font-bold shrink-0">
-                          🏆
+                        <div className="size-7 rounded-lg bg-muted/60 flex items-center justify-center shrink-0 overflow-hidden">
+                          <Image src="/logos/school-logo-nobg.webp" alt="JP Intrams" width={20} height={20} className="object-contain" />
                         </div>
                         <div className="min-w-0">
                           <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                            JP Intrams Arena Engine
+                            JP Intrams
                           </p>
                           <p className="text-[10px] font-mono text-muted-foreground truncate">
                             9 Units · 23 Events · &lt;500ms

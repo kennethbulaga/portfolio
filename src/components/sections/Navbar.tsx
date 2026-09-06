@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, Eye } from "lucide-react";
+import { Menu, Eye, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/ui/mobile-nav";
@@ -11,9 +11,10 @@ import { cn } from "@/lib/utils";
 
 interface NavbarProps {
   onOpenCaseStudy?: (studyId?: string) => void;
+  onOpenCommandMenu?: () => void;
 }
 
-export function Navbar({ onOpenCaseStudy }: NavbarProps) {
+export function Navbar({ onOpenCaseStudy, onOpenCommandMenu }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
 
@@ -60,6 +61,21 @@ export function Navbar({ onOpenCaseStudy }: NavbarProps) {
               ))}
 
               <div className="ml-1 flex items-center gap-2">
+                {/* Cmd+K Quick Action Trigger */}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onOpenCommandMenu}
+                  className="h-8 gap-2 px-2.5 text-xs text-muted-foreground hover:text-foreground font-normal border-border/80 bg-muted/30"
+                  aria-label="Open command palette (Press ⌘K or Ctrl+K)"
+                >
+                  <Search size={13} className="text-muted-foreground" />
+                  <span className="hidden lg:inline">Search...</span>
+                  <kbd className="pointer-events-none inline-flex h-4 select-none items-center gap-0.5 rounded border border-border bg-background px-1 font-mono text-[10px] font-medium text-muted-foreground">
+                    <span className="text-xs">⌘</span>K
+                  </kbd>
+                </Button>
+
                 <ThemeToggle />
 
                 {/* Resume Link */}
@@ -74,6 +90,15 @@ export function Navbar({ onOpenCaseStudy }: NavbarProps) {
 
             {/* Mobile Actions */}
             <div className="flex md:hidden items-center gap-1.5">
+              <Button
+                variant="outline"
+                size="icon"
+                className="size-9 text-muted-foreground hover:text-foreground"
+                onClick={onOpenCommandMenu}
+                aria-label="Open command palette"
+              >
+                <Search size={16} />
+              </Button>
               <ThemeToggle />
               <Button
                 variant="outline"

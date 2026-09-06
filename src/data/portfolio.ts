@@ -2,15 +2,12 @@
 
 export interface PersonalInfo {
   name: string;
-  nickname: string;
-  headline: string;
   subHeadline: string;
   bio: string;
   location: string;
   email: string;
   avatar?: string;
   availability: {
-    status: "available" | "busy" | "limited";
     message: string;
   };
 }
@@ -23,12 +20,6 @@ export interface TechMarqueeItem {
   darkIcon?: string;
   invertInLight?: boolean;
   invertInDark?: boolean;
-}
-
-export interface TechCategory {
-  title: string;
-  description: string;
-  skills: { name: string; detail?: string }[];
 }
 
 export interface TrustPartner {
@@ -101,8 +92,6 @@ export interface Credential {
   link?: string;
 }
 
-export type Certification = Credential;
-
 export interface Experience {
   organization: string;
   role: string;
@@ -164,15 +153,12 @@ export interface PersonalInterest {
 
 export const personalInfo: PersonalInfo = {
   name: "Kenneth Bulaga",
-  nickname: "Kenzo",
-  headline: "Hi, I'm Kenneth Bulaga.",
   subHeadline: "Full-Stack Developer",
   bio: "Full-stack developer specializing in web applications and automated workflows. Focused on reducing manual friction, improving operational efficiency, and building reliable tools that solve real everyday bottlenecks.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
   email: "kennethbulaga.dev@gmail.com",
   avatar: "/profile/avatar.webp",
   availability: {
-    status: "available",
     message: "Available for Freelance & Full-time Roles",
   },
 };
@@ -262,8 +248,6 @@ export const spotifyPlaylists: SpotifyPlaylist[] = [
   },
 ];
 
-export const spotifyPlaylistUrl = spotifyPlaylists[0].embedUrl;
-
 // Institutional Trust Partners
 
 export const institutionalTrust: TrustPartner[] = [
@@ -297,52 +281,6 @@ export const techMarqueeItems: TechMarqueeItem[] = [
   { id: "github", name: "Git & GitHub", category: "Version Control", icon: "/tech-stack/github.svg", invertInDark: true },
   { id: "vercel", name: "Vercel", category: "Edge Platform", icon: "/tech-stack/vercel.svg", invertInLight: true },
   { id: "framer", name: "Framer Motion", category: "Motion & UI", icon: "/tech-stack/framer.svg", invertInDark: true },
-];
-
-// Tech Stack Categories ("What I Build With")
-
-export const techCategories: TechCategory[] = [
-  {
-    title: "Frontend Development",
-    description: "Building fast, accessible, and responsive user interfaces.",
-    skills: [
-      { name: "Next.js 16 (App Router)", detail: "Server Components & Routing" },
-      { name: "React 19", detail: "Compiler & Modern Hooks" },
-      { name: "TypeScript", detail: "Strict Type Safety" },
-      { name: "Tailwind CSS v4", detail: "Modern CSS-first Styling" },
-    ],
-  },
-  {
-    title: "Backend & Database",
-    description: "Designing reliable APIs, auth flows, and relational schemas.",
-    skills: [
-      { name: "Supabase SSR", detail: "Auth, Realtime & Cookie Sessions" },
-      { name: "PostgreSQL", detail: "Row-Level Security (RLS) & Schemas" },
-      { name: "Upstash Redis", detail: "Serverless Caching & Rate-Limiting" },
-      { name: "Node.js", detail: "Server Actions & Route Handlers" },
-      { name: "pg_cron", detail: "Automated Database Jobs" },
-    ],
-  },
-  {
-    title: "Mobile & APIs",
-    description: "Cross-platform development and structured web services.",
-    skills: [
-      { name: "React Native", detail: "Cross-Platform Mobile" },
-      { name: "Expo", detail: "Rapid Mobile Prototyping" },
-      { name: "REST APIs", detail: "Endpoint Design & Consumption" },
-      { name: "Zod", detail: "End-to-End Schema Validation" },
-    ],
-  },
-  {
-    title: "Tools & Workflow",
-    description: "Daily engineering tools for version control, automation, and testing.",
-    skills: [
-      { name: "Git & GitHub", detail: "Branching & Code Reviews" },
-      { name: "AI Workflows", detail: "LLM Tooling & Workflow Automation" },
-      { name: "Vercel", detail: "Zero-Latency Edge Deployments" },
-      { name: "Vitest & Playwright", detail: "Unit & End-to-End Testing" },
-    ],
-  },
 ];
 
 // Flagship Projects
@@ -697,9 +635,6 @@ export const featuredCredentials: Credential[] = [
   },
 ];
 
-export const credentials: Credential[] = [...cloudCertifications, ...featuredCredentials];
-export const certifications = credentials;
-
 // Work Experience
 
 export const experience: Experience[] = [
@@ -900,7 +835,7 @@ export const jpConnectCaseStudy: CaseStudyData = {
   ],
 };
 
-export const owwaCsmrCaseStudy: CaseStudyData = {
+const owwaCsmrCaseStudy: CaseStudyData = {
   id: "owwa-csmr",
   title: "OWWA CSMR: Regional Citizen Satisfaction Measurement Platform",
   subtitle: "Multi-Office Data Intake, Automated ARTA Compliance & Enterprise ExcelJS Consolidation",
@@ -991,7 +926,7 @@ export const owwaCsmrCaseStudy: CaseStudyData = {
   ],
 };
 
-export const jpIntramsCaseStudy: CaseStudyData = {
+const jpIntramsCaseStudy: CaseStudyData = {
   id: "jp-intrams",
   title: "JP Intrams: Real-Time Arena Broadcast & Leaderboard Engine",
   subtitle: "High-Concurrency Tournament State, Digital Signage Kiosk & Upstash Cheer Pipeline",
