@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Github, Linkedin, Mail, Check, Copy, ArrowUpRight, MessageSquare, MapPin, Sparkles, Headphones, ChevronLeft, ChevronRight } from "lucide-react";
+import { Github, Linkedin, Mail, Check, Copy, ArrowUpRight, MessageSquare, MapPin, Coffee, Headphones, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -129,7 +129,7 @@ export function Footer() {
           {/* Personal Touch: Outside of Coding */}
           <div className="mt-6 pt-5 border-t border-border/60 flex flex-col gap-2.5 text-left">
             <p className="text-[11px] font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
-              <Sparkles size={13} className="text-primary" />
+              <Coffee size={13} className="text-primary" />
               <span>Beyond the Terminal / Outside of Coding</span>
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
