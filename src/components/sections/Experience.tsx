@@ -2,9 +2,11 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Cloud, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { experience } from "@/data/portfolio";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { experience, cloudCertifications } from "@/data/portfolio";
 import { fadeInUp } from "@/components/motion";
 
 export function Experience() {
@@ -17,9 +19,9 @@ export function Experience() {
       viewport={{ once: true, margin: "-100px" }}
       variants={fadeInUp}
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
         {/* Section Header */}
-        <motion.div className="flex flex-col gap-2 mb-8 sm:mb-12" variants={fadeInUp}>
+        <motion.div className="flex flex-col gap-2 mb-2 sm:mb-4" variants={fadeInUp}>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground text-balance">
             Work Experience
           </h2>
@@ -107,6 +109,77 @@ export function Experience() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Dedicated: Active Cloud & Technical Certifications */}
+        {cloudCertifications && cloudCertifications.length > 0 && (
+          <Card className="rounded-2xl transition-[box-shadow,border-color] duration-200 hover:shadow-lg border-border/80 bg-card/70 overflow-hidden">
+            <CardHeader className="pb-3 border-b border-border/60 bg-muted/20">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold text-foreground text-balance">
+                  <Cloud size={19} className="text-amber-500 shrink-0" />
+                  <span>Active Cloud Certifications & Upskilling</span>
+                </CardTitle>
+                <Badge variant="warning" className="text-[11px] px-2.5 py-1 flex items-center gap-1.5">
+                  <span className="size-1.5 rounded-full bg-amber-500 animate-pulse" />
+                  <span>In Progress (2026)</span>
+                </Badge>
+              </div>
+            </CardHeader>
+
+            <CardContent className="p-4 sm:p-6 flex flex-col gap-4">
+              {cloudCertifications.map((cert) => (
+                <div
+                  key={cert.id}
+                  className="p-4 sm:p-5 rounded-xl border border-border/70 bg-card/50 hover:bg-card hover:border-primary/40 transition-[background-color,border-color,box-shadow] duration-200 flex flex-col gap-3"
+                >
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="flex flex-col gap-0.5">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h4 className="font-bold text-foreground text-base sm:text-lg text-balance">
+                          {cert.title}
+                        </h4>
+                        {cert.code && (
+                          <Badge variant="warning" className="text-xs px-2 py-0">
+                            {cert.code}
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-xs sm:text-sm text-muted-foreground">
+                        {cert.issuer} · <span className="font-mono tabular-nums text-xs">{cert.period}</span>
+                      </p>
+                    </div>
+
+                    {cert.link && (
+                      <Button asChild size="sm" variant="outline" className="h-8 px-3 text-xs gap-1.5 shrink-0">
+                        <a href={cert.link} target="_blank" rel="noopener noreferrer">
+                          <span>Syllabus & Exam Roadmap</span>
+                          <ExternalLink size={13} />
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+
+                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-pretty">
+                      {cert.description}
+                    </p>
+
+                    {cert.skills && (
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {cert.skills.map((s) => (
+                          <span
+                            key={s}
+                            className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-muted/70 text-muted-foreground border border-border/50"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        )}
       </div>
     </motion.section>
   );

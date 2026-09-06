@@ -278,6 +278,190 @@ function FlagshipCard({
   );
 }
 
+function ClientProjectCard({
+  project,
+  onZoom,
+}: {
+  project: ClientProject;
+  onZoom: (initialIndex: number) => void;
+}) {
+  const [activeScreenshotIdx, setActiveScreenshotIdx] = useState(0);
+
+  const screenshots =
+    project.screenshots && project.screenshots.length > 0
+      ? project.screenshots
+      : project.image
+      ? [{ label: project.title, image: project.image }]
+      : [];
+
+  const activeImage = screenshots[activeScreenshotIdx]?.image || project.image;
+
+  return (
+    <SpotlightCard className="rounded-2xl hover:border-primary/40 transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-md h-full w-full flex flex-col justify-between bg-card/60">
+      <div className="flex flex-col">
+        <div className="p-4 sm:p-5 pb-2.5">
+          <div className="flex items-start justify-between gap-2">
+            <div className="flex items-start gap-3 min-w-0">
+              {project.logo && (
+                <div className="relative size-9 rounded-lg overflow-hidden bg-background shrink-0 border border-border/60 p-0.5 image-outline">
+                  <Image
+                    src={project.logo}
+                    alt={project.title}
+                    fill
+                    sizes="36px"
+                    className="object-contain p-0.5"
+                  />
+                </div>
+              )}
+              <div className="flex flex-col gap-0.5 min-w-0">
+                <CardTitle className="text-sm sm:text-base font-semibold text-foreground text-balance">
+                  {project.title}
+                </CardTitle>
+                <p className="text-[11px] sm:text-xs text-primary font-medium text-pretty">
+                  {project.client}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-1.5 shrink-0">
+              {project.screenshots && project.screenshots.length > 1 && (
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20 shrink-0 font-medium">
+                  {project.screenshots.length} Screens
+                </span>
+              )}
+              {project.link && project.link !== "#" && (
+                <Button asChild size="sm" variant="ghost" className="gap-1 shrink-0 text-xs h-7 px-2">
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open ${project.title}`}
+                  >
+                    <span>Live App</span>
+                    <ArrowUpRight size={13} />
+                  </a>
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Screenshot Image Preview */}
+        {activeImage && (
+          <div className="px-4 sm:px-5 pb-2.5 flex flex-col gap-1.5">
+            <div
+              onClick={() => onZoom(activeScreenshotIdx)}
+              className="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-border/70 bg-muted/40 cursor-zoom-in group/img"
+              title="Click to view full screenshot"
+            >
+              {screenshots.map((screen, idx) => (
+                <div
+                  key={screen.image}
+                  className={`absolute inset-0 transition-opacity duration-200 ${
+                    activeScreenshotIdx === idx ? "opacity-100 z-1" : "opacity-0 z-0 pointer-events-none"
+                  }`}
+                >
+                  <Image
+                    src={screen.image}
+                    alt={`${project.title} — ${screen.label}`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 400px"
+                    className="object-cover transition-transform duration-300 group-hover/img:scale-[1.02]"
+                  />
+                </div>
+              ))}
+
+              {/* Prev / Next Arrow Overlay for Quick Cycling */}
+              {screenshots.length > 1 && (
+                <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-20 opacity-0 group-hover/img:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveScreenshotIdx((prev) => (prev > 0 ? prev - 1 : screenshots.length - 1));
+                    }}
+                    className="pointer-events-auto size-7 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-95"
+                    aria-label="Previous screenshot"
+                  >
+                    <ChevronLeft size={14} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveScreenshotIdx((prev) => (prev < screenshots.length - 1 ? prev + 1 : 0));
+                    }}
+                    className="pointer-events-auto size-7 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-95"
+                    aria-label="Next screenshot"
+                  >
+                    <ChevronRight size={14} />
+                  </button>
+                </div>
+              )}
+
+              <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/30 transition-colors flex items-center justify-center pointer-events-none z-10">
+                <div className="opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/75 backdrop-blur-xs text-white text-[11px] font-mono px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-lg">
+                  <ZoomIn size={12} />
+                  <span>Click to Zoom</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Multi-Screenshot 2x2 Switcher (Compact & Tight) */}
+            {project.screenshots && project.screenshots.length > 1 && (
+              <div className="grid grid-cols-2 gap-1 pt-0.5">
+                {project.screenshots.map((screen, idx) => (
+                  <button
+                    type="button"
+                    key={screen.label}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveScreenshotIdx(idx);
+                    }}
+                    className={`px-2 py-1 rounded-md text-[10.5px] font-mono transition-[background-color,color,border-color,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring text-center font-medium ${
+                      activeScreenshotIdx === idx
+                        ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                        : "bg-card border border-border/70 text-muted-foreground hover:text-foreground hover:bg-muted"
+                    }`}
+                  >
+                    {screen.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="p-4 sm:p-5 pt-0 flex flex-col gap-2.5">
+          <CardDescription className="text-xs leading-relaxed text-muted-foreground text-pretty">
+            {project.objective}
+          </CardDescription>
+
+          {/* Visual Key Impact Callout */}
+          {project.impact && (
+            <div className="p-2 rounded-lg bg-primary/5 border border-primary/15 text-[11px] text-foreground leading-snug flex items-start gap-1.5">
+              <span className="text-primary font-bold shrink-0">⚡</span>
+              <span>{project.impact}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="p-4 sm:p-5 pt-0">
+        {project.techStack && project.techStack.length > 0 && (
+          <div className="flex flex-wrap gap-1 pt-1">
+            {project.techStack.map((tech) => (
+              <Badge key={tech} variant="outline" className="text-[10px] font-mono">
+                {tech}
+              </Badge>
+            ))}
+          </div>
+        )}
+      </div>
+    </SpotlightCard>
+  );
+}
+
 export function Projects({ onOpenCaseStudy }: ProjectsProps) {
   const [zoomState, setZoomState] = useState<ZoomState | null>(null);
 
@@ -356,7 +540,7 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
             </h2>
           </div>
           <p className="text-muted-foreground max-w-2xl text-sm sm:text-base text-pretty">
-            Mission-critical institutional platforms, real-time community systems, and client solutions built with modern full-stack architectures.
+            Practical web and mobile platforms built for school operations, government workflows, and freelance clients.
           </p>
         </motion.div>
 
@@ -410,79 +594,10 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
                 variants={staggerItem}
                 className="w-[85vw] max-w-[340px] sm:w-auto sm:max-w-none shrink-0 sm:shrink snap-center flex"
               >
-                <SpotlightCard className="rounded-2xl hover:border-primary/40 transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-md h-full w-full flex flex-col justify-between bg-card/60">
-                  <div className="p-4 sm:p-5 pb-2">
-                    <div className="flex items-start gap-3">
-                      {project.logo && (
-                        <div className="relative size-9 rounded-lg overflow-hidden bg-background shrink-0 border border-border/60 p-0.5 image-outline">
-                          <Image
-                            src={project.logo}
-                            alt={project.title}
-                            fill
-                            sizes="36px"
-                            className="object-contain p-0.5"
-                          />
-                        </div>
-                      )}
-                      <div className="flex flex-col gap-0.5">
-                        <CardTitle className="text-sm sm:text-base font-semibold text-foreground text-balance">
-                          {project.title}
-                        </CardTitle>
-                        <p className="text-[11px] sm:text-xs text-primary font-medium">
-                          {project.client}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {project.image && (
-                    <div className="px-4 sm:px-5 pb-3">
-                      <div
-                        onClick={() => handleOpenZoom(project)}
-                        className="relative w-full aspect-[16/9] rounded-xl overflow-hidden border border-border/70 bg-muted/40 cursor-zoom-in group/img"
-                        title="Click to view full screenshot"
-                      >
-                        <Image
-                          src={project.image}
-                          alt={project.title}
-                          fill
-                          sizes="(max-width: 640px) 100vw, 400px"
-                          className="object-cover transition-transform duration-300 group-hover/img:scale-[1.02]"
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover/img:bg-black/30 transition-colors flex items-center justify-center">
-                          <div className="opacity-0 group-hover/img:opacity-100 transition-opacity bg-black/75 backdrop-blur-xs text-white text-[11px] font-mono px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-lg">
-                            <ZoomIn size={12} />
-                            <span>Preview</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="p-4 sm:p-5 pt-0 flex flex-col gap-3">
-                    <CardDescription className="text-xs leading-relaxed text-muted-foreground text-pretty">
-                      {project.objective}
-                    </CardDescription>
-
-                    {/* Visual Key Impact Callout */}
-                    {project.impact && (
-                      <div className="p-2.5 rounded-lg bg-primary/5 border border-primary/15 text-[11px] text-foreground leading-snug flex items-start gap-1.5">
-                        <span className="text-primary font-bold shrink-0">⚡</span>
-                        <span>{project.impact}</span>
-                      </div>
-                    )}
-
-                    {project.techStack && project.techStack.length > 0 && (
-                      <div className="flex flex-wrap gap-1 pt-1">
-                        {project.techStack.map((tech) => (
-                          <Badge key={tech} variant="outline" className="text-[10px] font-mono">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </SpotlightCard>
+                <ClientProjectCard
+                  project={project}
+                  onZoom={(idx) => handleOpenZoom(project, idx)}
+                />
               </motion.div>
             ))}
           </motion.div>

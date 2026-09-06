@@ -24,23 +24,22 @@ const fungela = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kennethbulaga.dev"),
   title: {
-    default: "Kenneth Bulaga — Full-Stack Web & Mobile Developer",
+    default: "Kenneth Bulaga — Full-Stack Developer",
     template: "%s | Kenneth Bulaga",
   },
   description:
-    "Full-Stack Web & Mobile Developer building practical web apps, mobile platforms, and institutional systems. Proven production scale with 5,500+ active university users.",
+    "Full-stack developer specializing in scalable web applications and automated workflows using Next.js, TypeScript, and modern backend systems. Serving 5,500+ active users.",
   keywords: [
     "Kenneth Bulaga",
     "Kenzo",
-    "Full-Stack Web Developer",
-    "Full-Stack Mobile Developer",
+    "Full-Stack Developer",
+    "Web Developer",
     "React Native",
     "Next.js 16",
     "React 19",
     "Tailwind CSS v4",
     "Supabase",
     "Davao Developer",
-    "Institutional Software",
     "JP Connect",
     "Freelance Developer",
   ],
@@ -50,14 +49,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://kennethbulaga.dev",
-    title: "Kenneth Bulaga — Full-Stack Web & Mobile Developer",
+    title: "Kenneth Bulaga — Full-Stack Developer",
     description:
-      "Full-Stack Web & Mobile Developer building practical, accessible platforms and institutional systems. Serving 5,500+ active users.",
+      "Full-stack developer specializing in scalable web applications and automated workflows using Next.js, TypeScript, and modern backend systems.",
     siteName: "Kenneth Bulaga Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kenneth Bulaga — Full-Stack Web & Mobile Developer",
+    title: "Kenneth Bulaga — Full-Stack Developer",
     description:
       "Building practical web and mobile applications with Next.js, React Native, and Supabase.",
     creator: "@kenzodev69",

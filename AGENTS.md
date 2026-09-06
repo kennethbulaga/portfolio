@@ -7,10 +7,10 @@ This document provides foundational architecture rules, technical standards, and
 ## 1. Project Overview & Identity
 
 * **Developer:** Kenneth Bulaga ("Kenzo")
-* **Professional Positioning:** Full-Stack Web & Mobile Developer & Independent Contractor
-* **Core Specialty:** Practical, accessible web and mobile platforms, multi-role RBAC, institutional tooling, and zero-downtime community systems.
-* **Target Audience:** Modern tech startups, corporate engineering teams, institutional and private clients.
-* **Core Design Ethos:** "Approachable Craftsman & Genuine Utility" — clean typography, high contrast, zero fluff, zero redundant buzzwords, and verifiable evidence of real-world impact.
+* **Professional Positioning:** Full-Stack Developer & Independent Contractor
+* **Core Specialty:** Building scalable web applications, real-time architectures, automated workflows, and production-ready tools.
+* **Target Roles:** Full-Stack Developer, Web/Mobile Developer, Software Engineer.
+* **Core Design Ethos:** "High-Signal Craftsman & Genuine Utility" — clean typography, high contrast, zero fluff, transparent and honest communication, grounded in real problem-solving and demonstrable production systems.
 
 ---
 
@@ -90,19 +90,19 @@ portfolio/
 * **Rule:** Never hardcode text, project descriptions, numbers, or links directly in React section components.
 * **Action:** Always add or edit fields in `src/data/portfolio.ts`, update the TypeScript interfaces accordingly, and consume them via typed imports in components.
 
-### B. Anti-Redundancy & Human Tone
-* **Rule:** Never repeat titles, buzzwords, or tags adjacent to each other.
-  * Navbar logo: `Kenzo / dev` (no redundant job title pill next to it).
-  * Hero Eyebrow: `● Freelancing & Open to Full-Time Roles`.
-  * Hero Sub-headline: `Full-Stack Web & Mobile Developer`.
-* Maintain a humble, approachable, craftsman tone without corporate fluff or excessive telemetry widgets.
+### B. Genuine, Value-Driven & Grounded Tone
+* **Rule:** Avoid both extremes: do not use empty pretentious buzzwords (e.g. avoid claiming "veteran architect" or "enterprise visionary"), but do NOT undersell yourself as a helpless student asking for a chance.
+* **Positioning:** Frame Kenneth as an agile, highly capable **Full-Stack Developer** who builds real, production-ready systems (e.g., serving 5,500+ users, government operations, and real-time community apps) and reduces operational friction with automated workflows.
+  * Navbar logo: `Kenzo / dev`
+  * Hero Eyebrow: `● Available for Freelance & Full-time Roles`
+  * Hero Sub-headline: `Full-Stack Developer`
+* Focus on value delivered, problem-solving, clean architecture, and technical execution.
 
 ### C. Truth in Metrics
 * **JP Connect:** 5,536 Registered SSO Users, 14,778 Masterlist Records, 658 Exam Schedules across 9 colleges, 0 Overlaps.
 * **OWWA CSMR System:** 4,632+ Citizen/OFW survey feedback responses consolidated, 72 monthly report submissions across 10 regional units, 100% ARTA/CSC compliance, <1s 1-click ExcelJS master consolidation.
 * **SJP2CD Leaderboard:** Highlight real-time match tracking, instant mobile accessibility, and zero downtime during intramurals (do not quote 1.4M request claims).
 * **OWWA SPRS Platform:** Capstone statistical reporting and performance analytics engine engineered and presented for OWWA Region XI.
-* **CSWDO Davao:** City Social Welfare event & inventory tracking system.
 
 ### D. Styling & Tailwind v4 Conventions
 * Use Tailwind v4 `@theme inline` tokens and semantic classes (`bg-background`, `text-foreground`, `border-border`, `text-muted-foreground`, `bg-muted`).

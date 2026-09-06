@@ -108,9 +108,6 @@ export function Footer() {
                   <h3 className="text-xl sm:text-2xl font-bold text-foreground text-balance">
                     {personalInfo.name}
                   </h3>
-                  <Badge variant="outline" className="text-xs font-mono">
-                    {personalInfo.nickname}
-                  </Badge>
                 </div>
                 <p className="text-xs sm:text-sm text-primary font-medium">
                   {personalInfo.subHeadline}
@@ -118,7 +115,7 @@ export function Footer() {
               </div>
 
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-xl text-pretty">
-                Open for full-time software engineering roles, independent contracting, and building mission-critical web & mobile platforms.
+                Available for full-time engineering roles, freelance contracts, and building high-utility web applications & automated workflows.
               </p>
 
               {/* Location Meta */}

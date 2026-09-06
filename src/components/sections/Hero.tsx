@@ -115,7 +115,7 @@ export function Hero() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {institutionalTrust.map((partner) => {
                 const content = (
                   <div className="flex items-start gap-3 p-3 rounded-2xl border border-border/80 bg-card/50 hover:bg-card hover:border-primary/40 transition-[background-color,border-color,box-shadow] duration-200 group h-full">

@@ -731,10 +731,14 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
             </div>
 
             {/* Footer Bar */}
-            <div className="p-3 sm:p-4 border-t border-border bg-card/95 sm:bg-muted/30 flex items-center justify-between gap-2 shrink-0">
-              <span className="text-[10px] sm:text-[11px] text-muted-foreground font-mono truncate">
-                {study.institution} · Production Verified
-              </span>
+            <div className="p-3 sm:p-4 border-t border-border bg-card/95 sm:bg-muted/30 flex items-center justify-between gap-3 shrink-0 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <span className="size-1.5 rounded-full bg-emerald-500 shrink-0" />
+                <span className="text-[11px] sm:text-xs text-muted-foreground font-mono truncate">
+                  <span className="hidden md:inline">{study.institution} · </span>
+                  <span className="text-foreground font-medium">Production Verified</span>
+                </span>
+              </div>
               <Button size="sm" variant="default" onClick={onClose} className="h-8 text-xs shrink-0 px-3">
                 Close Case Study
               </Button>

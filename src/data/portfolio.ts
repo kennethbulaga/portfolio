@@ -61,6 +61,8 @@ export interface ClientProject {
   impact?: string;
   logo?: string;
   image?: string;
+  screenshots?: { label: string; image: string }[];
+  keyModules?: { name: string; description: string }[];
   link?: string;
   techStack?: string[];
 }
@@ -87,13 +89,14 @@ export interface Credential {
   id: string;
   title: string;
   issuer: string;
-  category: "Cloud & Industry" | "Government & Public Sector" | "Hackathons & Competitions" | "Institutional Honors" | "Student Leadership" | "Hackathons & Workshops";
+  category: "Cloud & Industry" | "Public Sector" | "Government & Public Sector" | "Hackathons & Competitions" | "Institutional Honors" | "Student Leadership" | "Hackathons & Workshops";
   period: string;
   status?: "In Progress" | "Completed" | "Active Production" | "Official Recognition" | "Highest Honor" | "Awardee" | "Honored" | "Participant";
   description: string;
   code?: string;
   skills?: string[];
   image?: string;
+  gallery?: { label: string; image: string; caption?: string }[];
   signatories?: string[];
   link?: string;
 }
@@ -163,14 +166,14 @@ export const personalInfo: PersonalInfo = {
   name: "Kenneth Bulaga",
   nickname: "Kenzo",
   headline: "Hi, I'm Kenneth Bulaga.",
-  subHeadline: "Full-Stack Web & Mobile Developer",
-  bio: "I build practical, accessible web and mobile apps that solve real day-to-day headaches for schools and organizations. Currently freelancing, upskilling with modern web and cross-platform tech, and excited to join a collaborative engineering team.",
+  subHeadline: "Full-Stack Developer",
+  bio: "Full-stack developer specializing in web applications and automated workflows. Focused on reducing manual friction, improving operational efficiency, and building reliable tools that solve real everyday bottlenecks.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
   email: "kennethbulaga.dev@gmail.com",
   avatar: "/profile/avatar.webp",
   availability: {
     status: "available",
-    message: "Freelancing & Open to Full-Time Roles",
+    message: "Available for Freelance & Full-time Roles",
   },
 };
 
@@ -182,16 +185,15 @@ export const personalInterests: PersonalInterest[] = [
     detail: "One Piece, Demon Slayer, Solo Leveling, Tower of God & many more",
   },
   {
+    icon: "⚡",
+    label: "AI Workflows & Automation",
+    detail: "Using modern LLM tooling & scripting to streamline repetitive tasks",
+  },
+  {
     svgIcon: "/interest/book-education.svg",
     icon: "📖",
     label: "Books & Philosophy",
     detail: "Naval Ravikant, Atomic Habits, Philosophy 101, 48 Laws of Power",
-  },
-  {
-    svgIcon: "/interest/codm-logo.webp",
-    icon: "🎯",
-    label: "COD: Mobile",
-    detail: "Solo vs Squad, kasi malakas ako",
   },
   {
     svgIcon: "/interest/gym-dumbbell.svg",
@@ -267,20 +269,15 @@ export const spotifyPlaylistUrl = spotifyPlaylists[0].embedUrl;
 export const institutionalTrust: TrustPartner[] = [
   {
     name: "St. John Paul II College of Davao",
-    role: "Campus Web Platforms & Student Portals",
+    role: "Campus Operations & Real-Time Portals",
     logo: "/logos/school-logo-nobg.webp",
     link: "https://www.facebook.com/sjp2cdofficial",
   },
   {
     name: "OWWA Region XI",
-    role: "Overseas Workers Welfare Administration",
+    role: "Statistical Reporting & Citizen Feedback Systems",
     logo: "/logos/owwa-logo.webp",
     link: "https://www.facebook.com/owwadavao.lco",
-  },
-  {
-    name: "CSWDO Davao",
-    role: "City Social Welfare & Development",
-    logo: "/logos/cswdo-logo.webp",
   },
 ];
 
@@ -338,12 +335,12 @@ export const techCategories: TechCategory[] = [
   },
   {
     title: "Tools & Workflow",
-    description: "Daily engineering tools for version control and deployment.",
+    description: "Daily engineering tools for version control, automation, and testing.",
     skills: [
       { name: "Git & GitHub", detail: "Branching & Code Reviews" },
+      { name: "AI Workflows", detail: "LLM Tooling & Workflow Automation" },
       { name: "Vercel", detail: "Zero-Latency Edge Deployments" },
-      { name: "Vitest", detail: "Unit Testing Suites" },
-      { name: "Playwright", detail: "End-to-End UI Testing" },
+      { name: "Vitest & Playwright", detail: "Unit & End-to-End Testing" },
     ],
   },
 ];
@@ -473,64 +470,48 @@ export const flagshipProjects: FlagshipProject[] = [
 
 export const clientProjects: ClientProject[] = [
   {
-    id: "clip-and-style",
-    title: "Clip & Style",
-    client: "Capstone Project · Salon & Barber Tech",
-    objective:
-      "Web-based appointment portal for barbershops addressing operational bottlenecks with a real-time queuing engine, service catalog, and automated customer alerts.",
-    impact: "Capstone Project: Real-time appointment queuing engine with Zod schema validation gate.",
-    image: "/projects/clip-and-style.webp",
-    logo: "/logos/clipnstyle-logo.webp",
-    techStack: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "Zod"],
-  },
-  {
     id: "owwa-sprs",
     title: "OWWA SPRS Platform",
     client: "Overseas Workers Welfare Administration (Region XI)",
     objective:
-      "Engineered and presented a centralized Statistical Performance Reporting System for OWWA Region XI administrative workflows, designed to consolidate regional operations data and KPI monitoring.",
-    impact: "Regional Capstone: Consolidated multi-department performance metrics, statistical data aggregation, and KPI monitoring.",
+      "Replaced decentralized, error-prone spreadsheet reporting across regional divisions with a unified, audit-ready consolidation platform. The system streamlines monthly statistical performance submissions, enforces rigorous programmatic target tracking, and automates regional accomplishment aggregation.",
     logo: "/logos/owwa-logo.webp",
-    techStack: ["Next.js", "TypeScript", "Database Architecture", "Tailwind CSS", "KPI Dashboards"],
+    image: "/projects/owwa-sprs/consolidation.webp",
+    screenshots: [
+      { label: "Consolidation & Export", image: "/projects/owwa-sprs/consolidation.webp" },
+      { label: "Template Builder", image: "/projects/owwa-sprs/template-builder.webp" },
+      { label: "Public Landing", image: "/projects/owwa-sprs/landing.webp" },
+      { label: "System Modules", image: "/projects/owwa-sprs/dashboard.webp" },
+    ],
+    techStack: [
+      "Next.js",
+      "TypeScript",
+      "Supabase (PostgreSQL & RLS)",
+      "Tailwind CSS",
+      "Recharts",
+      "ExcelJS",
+    ],
   },
   {
-    id: "cswdo-management",
-    title: "CSWDO Management System",
-    client: "Government / Social Services",
+    id: "clip-and-style",
+    title: "Clip & Style Portal",
+    client: "Barbershop Operations & Queuing Platform",
+    link: "https://www.clipandstyle.tech",
     objective:
-      "Engineered an event and inventory tracking system filtered by date and category. Built employee assignment monitoring with automated expiration alerts and real-time notifications.",
-    impact: "Automated Operations: Date/category inventory filters and automated employee assignment expiration alerts.",
-    logo: "/logos/cswdo-logo.webp",
-    techStack: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "TanStack Table", "Recharts"],
-  },
-  {
-    id: "voicecook",
-    title: "VoiceCook",
-    client: "Culinary Tech",
-    objective:
-      "Developed a hands-free, voice-activated system for Philippine cuisine. Integrated 'meal analytics' to visualize nutritional consumption and generate data-driven dietary reports.",
-    impact: "Hands-Free Voice AI: Voice-activated recipe navigation & automated nutritional dietary analytics.",
-    logo: "/logos/voicecook-logo.webp",
-    techStack: ["React Native", "Expo", "TypeScript", "Supabase", "Voice Recognition", "Edamam API"],
-  },
-  {
-    id: "moodlift",
-    title: "MoodLift",
-    client: "Health Tech",
-    objective:
-      "Created an accessible mental health tool featuring an automated chatbot, daily mood tracking analytics, and an interactive resource library.",
-    impact: "AI Assistant & Telemetry: Integrated Google Gemini chatbot with daily mood tracking and self-care resources.",
-    logo: "/logos/moodlift-logo.webp",
-    techStack: ["React Native", "Expo", "TypeScript", "Supabase", "Google Gemini"],
-  },
-  {
-    id: "csu-intramurals",
-    title: "CSU Intramurals System",
-    client: "Cagayan State University",
-    objective:
-      "Deployed a high-performance event tracking engine capable of handling real-time score updates for university-wide sports events.",
-    impact: "Zero-Latency Scoring: Real-time university sports bracket and match standings engine.",
-    techStack: ["HTML5", "CSS3", "PHP", "JavaScript", "MySQL"],
+      "Modern barbershop management and walk-in queuing platform developed as an academic capstone for Davao City shops. Features real-time appointment scheduling with conflict detection, 4-tier role-based access (Admin, Owner, Barber, Customer), live walk-in queue tracking, automated Resend email alerts, and Gemini AI assistance.",
+    image: "/projects/clip-and-style.webp",
+    logo: "/logos/clipnstyle-logo.webp",
+    techStack: [
+      "Next.js",
+      "React 19",
+      "TypeScript",
+      "Supabase (PostgreSQL & RLS)",
+      "Tailwind CSS",
+      "Resend",
+      "TanStack Query",
+      "Zod",
+      "Google Gemini",
+    ],
   },
 ];
 
@@ -610,13 +591,35 @@ export const featuredCredentials: Credential[] = [
     id: "owwa-csmr-cert",
     title: "OWWA Client Satisfaction Measurement Report System",
     issuer: "Overseas Workers Welfare Administration (Region XI)",
-    category: "Government & Public Sector",
+    category: "Public Sector",
     status: "Active Production",
     period: "May 14, 2026",
     description:
       "Officially recognized for developing and implementing the OWWA CSMR System—actively running in daily regional operations today to streamline citizen feedback collection and compliance reporting.",
     skills: ["Government IT", "Feedback Analytics", "Compliance Reporting", "Full-Stack Web"],
     image: "/certificates/ojt/csmr.webp",
+    gallery: [
+      {
+        label: "Official Commendation",
+        image: "/certificates/ojt/csmr.webp",
+        caption: "Official signed OWWA Certificate of Commendation for CSMR deployment",
+      },
+      {
+        label: "System Pitch & Presentation",
+        image: "/profile/1. pitching.webp",
+        caption: "Live system presentation and pitch to OWWA Region XI officers and stakeholders",
+      },
+      {
+        label: "Supervision & Handover",
+        image: "/profile/3. group_photo.webp",
+        caption: "With Co-Intern and IT Head / OJT Supervisor of OWWA Region XI",
+      },
+      {
+        label: "Agency Presentation Assembly",
+        image: "/profile/2. all_employee.webp",
+        caption: "Full assembly presentation with OWWA Region XI administrative staff",
+      },
+    ],
     signatories: [
       "Jhon David S. Tumbaga — OJT Supervisor / IT Instructor",
       "Aileen D. Casiller — Supervising Administrative Officer",
@@ -626,13 +629,35 @@ export const featuredCredentials: Credential[] = [
     id: "owwa-sprs-cert",
     title: "OWWA Statistical Performance Reporting System",
     issuer: "Overseas Workers Welfare Administration (Region XI)",
-    category: "Government & Public Sector",
+    category: "Public Sector",
     status: "Official Recognition",
     period: "May 14, 2026",
     description:
       "Officially recognized for developing and presenting the OWWA SPRS platform, designed to consolidate regional administrative statistical reporting, KPI monitoring, and operational data.",
     skills: ["Enterprise Systems", "Statistical Reporting", "Performance KPIs", "Data Management"],
     image: "/certificates/ojt/sprs.webp",
+    gallery: [
+      {
+        label: "Official Recognition",
+        image: "/certificates/ojt/sprs.webp",
+        caption: "Official signed OWWA Certificate of Recognition for SPRS platform",
+      },
+      {
+        label: "Live System Pitch",
+        image: "/profile/1. pitching.webp",
+        caption: "Presenting the SPRS statistical reporting architecture to OWWA Region XI",
+      },
+      {
+        label: "IT Mentorship & Handover",
+        image: "/profile/3. group_photo.webp",
+        caption: "With Co-Intern and IT Head / OJT Supervisor of OWWA Region XI",
+      },
+      {
+        label: "Regional Staff Assembly",
+        image: "/profile/2. all_employee.webp",
+        caption: "Full regional staff assembly during our capstone deployment presentation",
+      },
+    ],
     signatories: [
       "Jhon David S. Tumbaga — OJT Supervisor / IT Instructor",
       "Aileen D. Casiller — Supervising Administrative Officer",
@@ -680,18 +705,18 @@ export const certifications = credentials;
 export const experience: Experience[] = [
   {
     organization: "Independent Contractor & Freelance Developer",
-    role: "Full-Stack Web & Mobile Developer",
+    role: "Full-Stack Developer",
     period: "May 2026–Present",
     description:
-      "Building practical web portals, appointment platforms, and database-driven tools for local organizations, schools, and private clients.",
+      "Engineering scalable web portals, automated queuing engines, and database-driven solutions for organizations, institutions, and private clients.",
     isCurrent: true,
   },
   {
     organization: "Overseas Workers Welfare Administration (OWWA) Region 11 — Davao Region",
-    role: "System Development & IT Solutions (Internship)",
+    role: "Software Developer Intern",
     period: "Jan 19, 2026 – May 14, 2026",
     description:
-      "Architected the OWWA Client Satisfaction Measurement Report System (CSMR)—actively running in regional operations today—and engineered the Statistical Performance Reporting System (SPRS) presented as a capstone administrative analytics platform.",
+      "Developed the OWWA Client Satisfaction Measurement Report System (CSMR)—actively running in regional operations today—and contributed to the Statistical Performance Reporting System (SPRS) under IT supervision.",
     logo: "/logos/owwa-logo.webp",
     link: "https://www.facebook.com/owwadavao.lco",
     isCurrent: false,
