@@ -5,7 +5,7 @@ import { MapPin, Mail, ArrowDown, ShieldCheck, FileText } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { personalInfo, institutionalTrust } from "@/data/portfolio";
+import { personalInfo, institutionalTrust, resumePath } from "@/data/portfolio";
 import { staggerContainer, staggerItem } from "@/components/motion";
 import { TechMarquee } from "./TechMarquee";
 
@@ -95,14 +95,15 @@ export function Hero() {
             </Button>
 
             <Button
-              disabled
+              asChild
               size="lg"
               variant="outline"
-              className="text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto px-3 sm:px-5 gap-1.5 sm:gap-2 cursor-not-allowed opacity-60"
-              title="Resume is currently being updated"
+              className="text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto px-3 sm:px-5 gap-1.5 sm:gap-2 shadow-xs group"
             >
-              <FileText size={16} className="text-muted-foreground shrink-0" />
-              <span>Resume (Updating)</span>
+              <a href={resumePath} target="_blank" rel="noopener noreferrer">
+                <FileText size={16} className="text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
+                <span>View Resume</span>
+              </a>
             </Button>
           </motion.div>
 
