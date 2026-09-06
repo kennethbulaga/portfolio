@@ -7,9 +7,9 @@ This document provides foundational architecture rules, technical standards, and
 ## 1. Project Overview & Identity
 
 * **Developer:** Kenneth Bulaga ("Kenzo")
-* **Professional Positioning:** Full-Stack Developer & Independent Contractor
-* **Core Specialty:** Building scalable web applications, real-time architectures, automated workflows, and production-ready tools.
-* **Target Roles:** Full-Stack Developer, Web/Mobile Developer, Software Engineer.
+* **Professional Positioning:** Full-Stack Software Engineer & Independent Contractor
+* **Core Specialty:** Building scalable web architectures, real-time systems, automated workflows, and production-ready tools.
+* **Target Roles:** Full-Stack Software Engineer, Software Engineer, Full-Stack Developer.
 * **Core Design Ethos:** "High-Signal Craftsman & Genuine Utility" — clean typography, high contrast, zero fluff, transparent and honest communication, grounded in real problem-solving and demonstrable production systems.
 
 ---
@@ -92,10 +92,10 @@ portfolio/
 
 ### B. Genuine, Value-Driven & Grounded Tone
 * **Rule:** Avoid both extremes: do not use empty pretentious buzzwords (e.g. avoid claiming "veteran architect" or "enterprise visionary"), but do NOT undersell yourself as a helpless student asking for a chance.
-* **Positioning:** Frame Kenneth as an agile, highly capable **Full-Stack Developer** who builds real, production-ready systems (e.g., serving 5,500+ users, government operations, and real-time community apps) and reduces operational friction with automated workflows.
+* **Positioning:** Frame Kenneth as an agile, highly capable **Full-Stack Software Engineer** who builds real, production-ready systems (e.g., serving 5,500+ users, government operations, and real-time community apps) and reduces operational friction with automated workflows.
   * Navbar logo: `Kenzo / dev`
   * Hero Eyebrow: `● Available for Freelance & Full-time Roles`
-  * Hero Sub-headline: `Full-Stack Developer`
+  * Hero Sub-headline: `Full-Stack Software Engineer`
 * Focus on value delivered, problem-solving, clean architecture, and technical execution.
 
 ### C. Truth in Metrics

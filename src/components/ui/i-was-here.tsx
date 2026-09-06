@@ -6,7 +6,7 @@ import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const MAX_CLAPS = 10;
+const MAX_CLAPS = 3;
 
 interface FloatingParticle {
   id: number;

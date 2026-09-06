@@ -270,7 +270,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                 <Button asChild size="sm" variant="outline" className="h-9 gap-1.5 text-xs">
                   <a
                     href={resumePath}
-                    download="KennethBulaga_FullStackDev_Jan2026.pdf"
+                    download="KennethBulaga_Resume.pdf"
                     rel="noopener noreferrer"
                   >
                     <Download size={14} />

@@ -16,14 +16,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kennethbulaga.dev"),
   title: {
-    default: "Kenneth Bulaga — Full-Stack Developer",
+    default: "Kenneth Bulaga — Full-Stack Software Engineer",
     template: "%s | Kenneth Bulaga",
   },
   description:
-    "Full-stack developer specializing in scalable web applications and automated workflows using Next.js, TypeScript, and modern backend systems. Serving 5,500+ active users.",
+    "Full-stack software engineer specializing in scalable web architectures, real-time data pipelines, and automated workflows using Next.js, TypeScript, and modern PostgreSQL systems. Serving 5,500+ active users.",
   keywords: [
     "Kenneth Bulaga",
     "Kenzo",
+    "Full-Stack Software Engineer",
+    "Software Engineer",
+    "Full-Stack Engineer",
     "Full-Stack Developer",
     "Web Developer",
     "React Native",
@@ -31,9 +34,11 @@ export const metadata: Metadata = {
     "React 19",
     "Tailwind CSS v4",
     "Supabase",
+    "PostgreSQL",
     "Davao Developer",
     "JP Connect",
-    "Freelance Developer",
+    "OWWA CSMR",
+    "Independent Contractor",
   ],
   authors: [{ name: "Kenneth Bulaga", url: "https://github.com/kennethbulaga" }],
   creator: "Kenneth Bulaga",
@@ -41,16 +46,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://kennethbulaga.dev",
-    title: "Kenneth Bulaga — Full-Stack Developer",
+    title: "Kenneth Bulaga — Full-Stack Software Engineer",
     description:
-      "Full-stack developer specializing in scalable web applications and automated workflows using Next.js, TypeScript, and modern backend systems.",
+      "Full-stack software engineer specializing in scalable web architectures, real-time data pipelines, and automated workflows using Next.js, TypeScript, and modern PostgreSQL systems.",
     siteName: "Kenneth Bulaga Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kenneth Bulaga — Full-Stack Developer",
+    title: "Kenneth Bulaga — Full-Stack Software Engineer",
     description:
-      "Building practical web and mobile applications with Next.js, React Native, and Supabase.",
+      "Full-stack software engineer building production web and mobile architectures with Next.js, TypeScript, React Native, and Supabase.",
     creator: "@kenzodev69",
   },
   robots: {

@@ -239,44 +239,37 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Primary Action Buttons (Copy Email & Direct Message) */}
-          <div className="mt-6 pt-5 border-t border-border/60 flex flex-wrap items-center justify-center md:justify-between gap-4">
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              <Button
-                size="default"
-                onClick={handleCopyEmail}
-                className="gap-2 shadow-xs"
+          {/* Primary Action Button (Direct Message) & Copyable Email */}
+          <div className="mt-6 pt-5 border-t border-border/60 flex flex-wrap items-center justify-between gap-4">
+            <Button asChild size="default" className="gap-2 shadow-xs">
+              <a
+                href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(personalInfo.email)}`}
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                {copied ? (
-                  <>
-                    <Check size={16} className="text-emerald-400" />
-                    <span>Email Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy size={16} />
-                    <span>Copy Email</span>
-                  </>
-                )}
-              </Button>
+                <Mail size={16} />
+                <span>Open in Gmail</span>
+              </a>
+            </Button>
 
-              <Button asChild size="default" variant="outline" className="gap-2">
-                <a
-                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(personalInfo.email)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Mail size={16} />
-                  <span>Open in Gmail</span>
-                </a>
-              </Button>
-
-              <IWasHereButton />
-            </div>
-
-            <p className="text-xs font-mono text-muted-foreground tabular-nums">
-              {personalInfo.email}
-            </p>
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors tabular-nums group cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-md px-2 py-1.5 hover:bg-muted/50 border border-transparent hover:border-border/60"
+              title="Click to copy email address"
+            >
+              {copied ? (
+                <>
+                  <Check size={13} className="text-emerald-500" />
+                  <span className="text-emerald-500 font-medium">Copied to clipboard!</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={13} className="text-muted-foreground group-hover:text-foreground transition-colors" />
+                  <span>{personalInfo.email}</span>
+                </>
+              )}
+            </button>
           </div>
         </SpotlightCard>
 
@@ -385,6 +378,11 @@ export function Footer() {
                 <span>TikTok</span>
               </a>
             )}
+          </div>
+
+          {/* Visitor Community Stamp */}
+          <div className="flex justify-center pt-3">
+            <IWasHereButton />
           </div>
         </div>
 

@@ -153,8 +153,8 @@ export interface PersonalInterest {
 
 export const personalInfo: PersonalInfo = {
   name: "Kenneth Bulaga",
-  subHeadline: "Full-Stack Developer",
-  bio: "Full-stack developer specializing in web applications and automated workflows. Focused on reducing manual friction, improving operational efficiency, and building reliable tools that solve real everyday bottlenecks.",
+  subHeadline: "Full-Stack Software Engineer",
+  bio: "Full-stack software engineer specializing in scalable web architectures, real-time data pipelines, and automated workflows. Focused on reducing operational friction, data integrity, and building reliable tools that solve real bottlenecks.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
   email: "kennethbulaga.dev@gmail.com",
   avatar: "/profile/avatar.webp",
@@ -640,7 +640,7 @@ export const featuredCredentials: Credential[] = [
 export const experience: Experience[] = [
   {
     organization: "Independent Contractor & Freelance Developer",
-    role: "Full-Stack Developer",
+    role: "Full-Stack Software Engineer",
     period: "May 2026–Present",
     description:
       "Engineering scalable web portals, automated queuing engines, and database-driven solutions for organizations, institutions, and private clients.",
@@ -706,7 +706,7 @@ export const navItems = [
 
 // Resume
 
-export const resumePath = "/KennethBulaga_FullStackDev_Jan2026.pdf";
+export const resumePath = "/KennethBulaga_Resume.pdf";
 
 // Detailed JP Connect Case Study Data
 
