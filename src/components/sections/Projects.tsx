@@ -126,6 +126,41 @@ function FlagshipCard({
                   />
                 )}
                 
+                {/* Prev / Next Arrow Overlay for Multiple Screenshots */}
+                {project.screenshots && project.screenshots.length > 1 && (
+                  <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveScreenshotIdx((prev) => (prev > 0 ? prev - 1 : project.screenshots!.length - 1));
+                      }}
+                      className="pointer-events-auto size-7 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-95"
+                      aria-label="Previous screenshot"
+                    >
+                      <ChevronLeft size={14} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveScreenshotIdx((prev) => (prev < project.screenshots!.length - 1 ? prev + 1 : 0));
+                      }}
+                      className="pointer-events-auto size-7 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-95"
+                      aria-label="Next screenshot"
+                    >
+                      <ChevronRight size={14} />
+                    </button>
+                  </div>
+                )}
+
+                {/* Multi-Screenshot Indicator Pill Overlay */}
+                {project.screenshots && project.screenshots.length > 1 && (
+                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full border border-white/15 text-[10px] font-mono text-white/90">
+                    <span>{activeScreenshotIdx + 1}/{project.screenshots.length}</span>
+                  </div>
+                )}
+                
                 {/* Clean Hover Zoom Indicator */}
                 <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
                   <div className="px-3 py-1.5 rounded-full bg-zinc-900/90 text-white text-xs font-medium backdrop-blur-md shadow-md flex items-center gap-1.5 border border-white/20">
@@ -396,6 +431,13 @@ function ClientProjectCard({
                   >
                     <ChevronRight size={14} />
                   </button>
+                </div>
+              )}
+
+              {/* Multi-Screenshot Indicator Pill Overlay */}
+              {screenshots.length > 1 && (
+                <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-black/60 backdrop-blur-xs px-2 py-0.5 rounded-full border border-white/15 text-[10px] font-mono text-white/90">
+                  <span>{activeScreenshotIdx + 1}/{screenshots.length}</span>
                 </div>
               )}
 
