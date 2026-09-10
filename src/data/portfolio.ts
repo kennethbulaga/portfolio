@@ -507,21 +507,7 @@ export const leadership: Leadership[] = [
 ];
 
 // Cloud & Technical Certifications
-export const cloudCertifications: Credential[] = [
-  {
-    id: "aws-clf",
-    title: "AWS Certified Cloud Practitioner",
-    issuer: "Amazon Web Services (AWS)",
-    category: "Cloud & Industry",
-    code: "CLF-C02",
-    status: "In Progress",
-    period: "2026",
-    description:
-      "Active exam preparation covering AWS cloud architecture, IAM security policies, S3 storage, serverless compute (Lambda), and cloud cost optimization.",
-    skills: ["AWS Cloud", "IAM Policies", "S3 Storage", "Serverless Lambda", "Cloud Economics"],
-    link: "https://aws.amazon.com/certification/certified-cloud-practitioner/",
-  },
-];
+export const cloudCertifications: Credential[] = [];
 
 // Featured Technical Milestones, Government Systems & Institutional Honors
 export const featuredCredentials: Credential[] = [
@@ -639,11 +625,11 @@ export const featuredCredentials: Credential[] = [
 
 export const experience: Experience[] = [
   {
-    organization: "Independent Contractor & Freelance Developer",
-    role: "Full-Stack Software Engineer",
-    period: "May 2026–Present",
+    organization: "Freelance / Self-Employed",
+    role: "Freelance Software Engineer",
+    period: "Nov 2024 – Present",
     description:
-      "Engineering scalable web portals, automated queuing engines, and database-driven solutions for organizations, institutions, and private clients.",
+      "Engineering scalable web portals, automated queuing engines, and database-driven solutions for collegiate clients, academic capstones, and institutional teams.",
     isCurrent: true,
   },
   {
@@ -673,7 +659,7 @@ export const socialLinks: SocialLink[] = [
   },
   {
     platform: "LinkedIn",
-    url: "https://www.linkedin.com/in/kenneth-bulaga-691893433/",
+    url: "https://www.linkedin.com/in/kenneth-bulaga/",
     username: "kenneth-bulaga",
   },
   {
@@ -706,7 +692,7 @@ export const navItems = [
 
 // Resume
 
-export const resumePath = "/KennethBulaga_Resume.pdf";
+export const resumePath = "/Kenneth_Bulaga_Resume.pdf";
 
 // Detailed JP Connect Case Study Data
 

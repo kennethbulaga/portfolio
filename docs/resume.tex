@@ -1,0 +1,166 @@
+%-------------------------
+% Resume in LaTeX (Jake Gutierrez Template)
+% Author: Kenneth Bulaga
+% Target Role: Junior Software Engineer
+% Based off of: https://github.com/sb2nov/resume
+% License: MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+% Set 0.5in margins to fit single-page budget
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.0in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure generated PDF is machine readable / ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Kenneth Bulaga} \\ \vspace{2pt}
+    \textbf{\large Junior Software Engineer} \\ \vspace{2pt}
+    \small Davao City, Philippines $|$ +63\,951\,392\,9917 $|$ \href{mailto:kennethbulaga.dev@gmail.com}{\underline{kennethbulaga.dev@gmail.com}} \\ \vspace{1pt}
+    \href{https://kennethbulaga.dev}{\underline{kennethbulaga.dev}} $|$
+    \href{https://github.com/kennethbulaga}{\underline{github.com/kennethbulaga}} $|$
+    \href{https://www.linkedin.com/in/kenneth-bulaga/}{\underline{linkedin.com/in/kenneth-bulaga}}
+\end{center}
+
+%-----------PROGRAMMING SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Databases \& Back-End}{: PostgreSQL, MySQL, Supabase, Upstash Redis, RESTful APIs, Server Actions} \\
+     \textbf{Languages}{: SQL, TypeScript, JavaScript (ES6+), PHP, HTML5, CSS3} \\
+     \textbf{Frameworks \& Libraries}{: Node.js, Next.js, React, React Native, Tailwind CSS, Zod, ExcelJS, Framer Motion} \\
+     \textbf{Developer Tools}{: Git, GitHub, Docker, Chrome DevTools, Postman, Vitest, CI/CD, Automation}
+    }}
+ \end{itemize}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Software Developer Intern}{Jan. 2026 -- May 2026}
+      {Overseas Workers Welfare Administration Region XI}{Davao City, Philippines}
+      \resumeItemListStart
+        \resumeItem{Developed the \textbf{OWWA CSMR System} (Client Satisfaction Measurement Report), a regional government web platform consolidating \textbf{4,632+ citizen feedback records} across 10 regional units into daily operations.}
+        \resumeItem{Automated a 4-day manual spreadsheet consolidation process into a sub-second server-side aggregation pipeline using Next.js Server Actions, eliminating calculation bottlenecks across regional divisions.}
+        \resumeItem{Built an automated ExcelJS export pipeline compiling multi-tab workbooks with embedded formulas and audit styling for national ARTA/CSC compliance, earning an official \textbf{Certificate of Commendation}.}
+        \resumeItem{Enforced strict schema-level constraints in PostgreSQL alongside dynamic Zod validations, ensuring zero invalid submissions across 9 frontline field units.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Freelance Software Engineer}{Nov. 2024 -- Present}
+      {Self-Employed}{Davao City, Philippines}
+      \resumeItemListStart
+        \resumeItem{Delivered full-cycle software development contracts for educational and local business clients, translating administrative workflows into production-ready web apps with custom role-based access control (RBAC).}
+        \resumeItem{Engineered real-time booking, queuing, and automated email confirmation pipelines using the Resend API, Next.js Server Actions, and Supabase authentication.}
+        \resumeItem{Developed responsive, mobile-first client frontends with Next.js and Tailwind CSS, leveraging dynamic server rendering and asset caching to achieve 95+ Core Web Vitals performance scores.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\href{https://jp-connect.vercel.app}{\textbf{\underline{JP Connect}}} $|$ \emph{PostgreSQL, Next.js, React, TypeScript, Supabase, Tailwind CSS}}{Aug. 2025 -- Present}
+          \resumeItemListStart
+            \resumeItem{Delivered as a freelance contract for St. John Paul II College of Davao, developing a campus operations platform serving \textbf{5,536 registered students and faculty} across 9 collegiate departments.}
+            \resumeItem{Engineered an automated conflict-detection scheduling algorithm that eliminated exam timetable collisions across \textbf{658 exam slots}.}
+            \resumeItem{Built an automated attendance pipeline validating RFID scan logs against \textbf{14,778 registrar records} for digital clearance, secured by Google Workspace SSO and PostgreSQL Row-Level Security.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\href{https://jp-intrams.vercel.app}{\textbf{\underline{JP Intrams}}} $|$ \emph{Supabase Realtime, Upstash Redis, Next.js, React, Tailwind CSS}}{Oct. 2025 -- Present}
+          \resumeItemListStart
+            \resumeItem{Built a live tournament leaderboard delivering \textbf{sub-500ms score synchronization} across 22 sports divisions using Supabase WebSocket real-time change streams.}
+            \resumeItem{Protected PostgreSQL database connection pools from exhaustion during peak concurrent traffic by implementing distributed Redis rate-limiting at the API gateway.}
+            \resumeItem{Designed an auto-cycling arena display mode deployed live across campus gym projectors and mobile spectator devices for continuous match score updates.}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {St. John Paul II College of Davao}{Davao City, Philippines}
+      {Bachelor of Science in Information Technology}{Class of 2026}
+      \resumeItemListStart
+        \resumeItem{\textbf{Honors \& Leadership:} Institutional Service Award (Highest Student Honor, 2026), Dean's Lister}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-------------------------------------------
+\end{document}

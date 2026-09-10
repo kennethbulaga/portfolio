@@ -192,7 +192,7 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
           action: () => {
             const link = document.createElement("a");
             link.href = resumePath;
-            link.download = "KennethBulaga_Resume.pdf";
+            link.download = "Kenneth_Bulaga_Resume.pdf";
             link.click();
             onClose();
           },
