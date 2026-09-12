@@ -117,10 +117,29 @@ export function Footer() {
                 Available for full-time software engineering roles, freelance projects, and building practical web applications and automated tools.
               </p>
 
-              {/* Location Meta */}
-              <div className="flex items-center justify-center md:justify-start gap-1.5 text-xs text-muted-foreground pt-1">
-                <MapPin size={13} className="text-primary shrink-0" />
-                <span>{personalInfo.location}</span>
+              {/* Location & Current Learning Meta */}
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1.5 text-xs text-muted-foreground pt-1">
+                <div className="flex items-center gap-1.5">
+                  <MapPin size={13} className="text-primary shrink-0" />
+                  <span>{personalInfo.location}</span>
+                </div>
+                {personalInfo.currentlyExploring && (
+                  <>
+                    <span className="hidden sm:inline text-border">•</span>
+                    <div className="flex items-center gap-1.5 font-mono text-[11px]">
+                      <span className="relative flex size-1.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full size-1.5 bg-amber-500" />
+                      </span>
+                      <span>
+                        Currently exploring:{" "}
+                        <span className="text-foreground font-medium">
+                          {personalInfo.currentlyExploring}
+                        </span>
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

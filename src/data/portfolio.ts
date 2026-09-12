@@ -10,6 +10,7 @@ export interface PersonalInfo {
   availability: {
     message: string;
   };
+  currentlyExploring?: string;
 }
 
 export interface TechMarqueeItem {
@@ -158,6 +159,7 @@ export const personalInfo: PersonalInfo = {
   subHeadline: "Full-Stack Software Engineer",
   bio: "I build web applications and internal tools focused on simplicity, performance, and reliability. I'm especially interested in workflow automation, intuitive design, and building software that helps teams and organizations operate more smoothly.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
+  currentlyExploring: "AWS Cloud Quest (Cloud Practitioner)",
   email: "kennethbulaga.dev@gmail.com",
   avatar: "/profile/avatar.webp",
   availability: {
