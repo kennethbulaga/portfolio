@@ -117,28 +117,26 @@ export function Footer() {
                 Available for full-time software engineering roles, freelance projects, and building practical web applications and automated tools.
               </p>
 
-              {/* Location & Current Learning Meta */}
-              <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-3 gap-y-1.5 text-xs text-muted-foreground pt-1">
+              {/* Meta Details: Location & Current Focus */}
+              <div className="flex flex-col items-center md:items-start gap-2 pt-1 text-xs text-muted-foreground">
                 <div className="flex items-center gap-1.5">
                   <MapPin size={13} className="text-primary shrink-0" />
                   <span>{personalInfo.location}</span>
                 </div>
+
                 {personalInfo.currentlyExploring && (
-                  <>
-                    <span className="hidden sm:inline text-border">•</span>
-                    <div className="flex items-center gap-1.5 font-mono text-[11px]">
-                      <span className="relative flex size-1.5">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
-                        <span className="relative inline-flex rounded-full size-1.5 bg-amber-500" />
-                      </span>
-                      <span>
-                        Currently exploring:{" "}
-                        <span className="text-foreground font-medium">
-                          {personalInfo.currentlyExploring}
-                        </span>
-                      </span>
-                    </div>
-                  </>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/70 bg-muted/40 text-[11px] font-mono text-muted-foreground">
+                    <span className="relative flex size-2 shrink-0">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full size-2 bg-amber-500" />
+                    </span>
+                    <span>
+                      Currently exploring:{" "}
+                      <strong className="font-semibold text-foreground">
+                        {personalInfo.currentlyExploring}
+                      </strong>
+                    </span>
+                  </div>
                 )}
               </div>
             </div>
