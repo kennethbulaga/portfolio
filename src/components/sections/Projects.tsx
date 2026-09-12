@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { ArrowUpRight, Layers, ZoomIn, X, ChevronLeft, ChevronRight, CheckCircle2 } from "lucide-react";
+import { ArrowUpRight, Layers, ZoomIn, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -42,7 +42,7 @@ function FlagshipCard({
       : project.title;
 
   return (
-    <SpotlightCard className="overflow-hidden rounded-2xl border border-border/80 bg-card hover:border-primary/40 transition-[border-color,box-shadow] duration-200 shadow-sm hover:shadow-xl">
+    <SpotlightCard className="overflow-hidden rounded-2xl border border-border/70 bg-card hover:border-border transition-[border-color,box-shadow] duration-200 shadow-xs hover:shadow-xl dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]">
       {/* Mobile Header: Logo, Title & Live Link First (Mobile Only) */}
       <div className="md:hidden p-4 pb-3 border-b border-border/70 flex items-start justify-between gap-3 bg-muted/15">
         <div className="flex items-center gap-3">
@@ -89,7 +89,7 @@ function FlagshipCard({
       <div className="flex flex-col md:flex-row">
         {/* Visual Showcase & 2x2 Tabs */}
         {activeImage && (
-          <div className="md:w-[48%] lg:w-[46%] shrink-0 flex flex-col bg-muted/25 p-3.5 sm:p-4 border-b md:border-b-0 md:border-r border-border/70 gap-3.5">
+          <div className="md:w-[50%] lg:w-[52%] shrink-0 flex flex-col bg-muted/20 p-3.5 sm:p-4 border-b md:border-b-0 md:border-r border-border/70 gap-3 justify-center">
             <div className="flex flex-col gap-2.5">
               {/* Clickable Image Preview Container with Preloaded Instant Switcher */}
               <div
@@ -109,7 +109,7 @@ function FlagshipCard({
                         src={screen.image}
                         alt={`${project.title} — ${screen.label}`}
                         fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 550px"
                         priority
                         className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                       />
@@ -120,13 +120,13 @@ function FlagshipCard({
                     src={activeImage}
                     alt={currentLabel}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 550px"
                     priority={project.id === "jp-connect"}
                     className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 )}
                 
-                {/* Prev / Next Arrow Overlay for Multiple Screenshots */}
+                {/* Prev / Next Arrow Overlay for Multiple Screenshots (44x44px touch target) */}
                 {project.screenshots && project.screenshots.length > 1 && (
                   <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-20 opacity-0 group-hover:opacity-100 transition-opacity">
                     <button
@@ -135,10 +135,10 @@ function FlagshipCard({
                         e.stopPropagation();
                         setActiveScreenshotIdx((prev) => (prev > 0 ? prev - 1 : project.screenshots!.length - 1));
                       }}
-                      className="pointer-events-auto size-7 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-95"
+                      className="pointer-events-auto min-h-[44px] min-w-[44px] size-11 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
                       aria-label="Previous screenshot"
                     >
-                      <ChevronLeft size={14} />
+                      <ChevronLeft size={18} />
                     </button>
                     <button
                       type="button"
@@ -146,10 +146,10 @@ function FlagshipCard({
                         e.stopPropagation();
                         setActiveScreenshotIdx((prev) => (prev < project.screenshots!.length - 1 ? prev + 1 : 0));
                       }}
-                      className="pointer-events-auto size-7 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-95"
+                      className="pointer-events-auto min-h-[44px] min-w-[44px] size-11 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
                       aria-label="Next screenshot"
                     >
-                      <ChevronRight size={14} />
+                      <ChevronRight size={18} />
                     </button>
                   </div>
                 )}
@@ -181,7 +181,7 @@ function FlagshipCard({
                         e.stopPropagation();
                         setActiveScreenshotIdx(idx);
                       }}
-                      className={`px-2.5 py-1.5 rounded-lg text-[11px] font-mono transition-[background-color,color,border-color,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring text-center font-medium ${
+                      className={`px-2.5 py-2 sm:py-1.5 rounded-lg text-[11px] font-mono transition-[background-color,color,border-color,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring text-center font-medium ${
                         activeScreenshotIdx === idx
                           ? "bg-primary text-primary-foreground font-semibold shadow-xs"
                           : "bg-card border border-border/70 text-muted-foreground hover:text-foreground hover:bg-muted"
@@ -193,24 +193,6 @@ function FlagshipCard({
                 </div>
               )}
             </div>
-
-            {/* Left Column Highlights (Desktop Only to keep Mobile Compact & Fast to Scroll) */}
-            {project.highlights && project.highlights.length > 0 && (
-              <div className="hidden md:flex flex-col gap-1.5 pt-3 border-t border-border/60">
-                <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1">
-                  <CheckCircle2 size={12} className="text-primary shrink-0" />
-                  <span>Key Architecture Highlights</span>
-                </p>
-                <ul className="flex flex-col gap-1.5">
-                  {project.highlights.map((hl, i) => (
-                    <li key={i} className="text-[11px] text-muted-foreground leading-snug flex items-start gap-1.5">
-                      <span className="text-primary font-bold mt-0.5 shrink-0">•</span>
-                      <span>{hl}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
           </div>
         )}
 
@@ -285,27 +267,27 @@ function FlagshipCard({
             )}
           </div>
 
-          {/* Bottom Row: Tech Stack & Case Study Action */}
-          <div className="pt-3 flex flex-wrap items-center justify-between gap-2.5 border-t border-border/50">
-            <div className="flex flex-wrap gap-1 sm:gap-1.5">
+          {/* Bottom Row: Tech Stack & Case Study Action (Responsive Full-Width Action on Mobile) */}
+          <div className="pt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-border/50">
+            {project.hasCaseStudy && (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => onOpenCaseStudy(project.id)}
+                className="w-full sm:w-auto order-1 sm:order-2 gap-1.5 text-xs text-primary hover:text-primary font-medium h-10 sm:h-8 rounded-xl active:scale-[0.96]"
+              >
+                <Layers size={14} />
+                <span>Inspect Architecture</span>
+              </Button>
+            )}
+
+            <div className="flex flex-wrap gap-1 sm:gap-1.5 order-2 sm:order-1">
               {project.techStack.map((tech) => (
                 <Badge key={tech} variant="secondary" className="text-[10px] font-mono px-2 py-0.5">
                   {tech}
                 </Badge>
               ))}
             </div>
-
-            {project.hasCaseStudy && (
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => onOpenCaseStudy(project.id)}
-                className="gap-1.5 text-xs text-primary hover:text-primary font-medium h-8"
-              >
-                <Layers size={13} />
-                <span>Inspect Architecture</span>
-              </Button>
-            )}
           </div>
         </div>
       </div>
@@ -332,7 +314,7 @@ function ClientProjectCard({
   const activeImage = screenshots[activeScreenshotIdx]?.image || project.image;
 
   return (
-    <SpotlightCard className="rounded-2xl hover:border-primary/40 transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:shadow-md h-full w-full flex flex-col justify-between bg-card/60">
+    <SpotlightCard className="rounded-2xl border border-border/70 hover:border-border transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 shadow-xs hover:shadow-md h-full w-full flex flex-col justify-between bg-card/60 dark:bg-card/40 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
       <div className="flex flex-col">
         <div className="p-4 sm:p-5 pb-2.5">
           <div className="flex items-start justify-between gap-2">
@@ -573,7 +555,7 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
       viewport={{ once: true, margin: "-100px" }}
       variants={fadeInUp}
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div className="flex flex-col gap-2 mb-8 sm:mb-12" variants={fadeInUp}>
           <div className="flex items-center gap-2">
@@ -607,24 +589,26 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
           </motion.div>
         </div>
 
-        {/* Client & Departmental Solutions */}
+        {/* Government & Regional Solutions */}
         <div>
           <div className="mb-5 flex items-center justify-between flex-wrap gap-2">
             <div>
               <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground text-balance">
-                Client & Government Solutions
+                Government Internship Systems
               </h3>
               <p className="text-xs sm:text-sm text-muted-foreground text-pretty">
-                Custom systems and tooling built for government services, academic events, and private clients.
+                Internal tools built during my internship at OWWA Region XI to automate monthly reporting and citizen feedback.
               </p>
             </div>
-            <span className="sm:hidden text-[10px] font-mono text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0">
-              <span>Swipe →</span>
-            </span>
+            {clientProjects.length > 1 && (
+              <span className="sm:hidden text-[10px] font-mono text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0">
+                <span>Swipe →</span>
+              </span>
+            )}
           </div>
 
           <motion.div
-            className="flex sm:grid overflow-x-auto sm:overflow-visible snap-x snap-mandatory gap-4 pb-2 sm:pb-0 no-scrollbar sm:grid-cols-2"
+            className={`flex sm:grid gap-4 ${clientProjects.length === 1 ? "max-w-2xl" : "sm:grid-cols-2"}`}
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -634,7 +618,7 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
               <motion.div
                 key={project.id}
                 variants={staggerItem}
-                className="w-[85vw] max-w-[340px] sm:w-auto sm:max-w-none shrink-0 sm:shrink snap-center flex"
+                className="w-full flex"
               >
                 <ClientProjectCard
                   project={project}
@@ -679,10 +663,10 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
                 )}
                 <button
                   onClick={() => setZoomState(null)}
-                  className="p-1.5 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-colors"
+                  className="min-h-[44px] min-w-[44px] size-11 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white transition-all flex items-center justify-center active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Close image preview"
                 >
-                  <X size={16} />
+                  <X size={18} />
                 </button>
               </div>
             </div>
@@ -696,7 +680,7 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
               {zoomState.images.length > 1 && (
                 <button
                   onClick={handlePrev}
-                  className="absolute left-2 sm:left-4 z-30 p-2.5 sm:p-3 rounded-full bg-black/75 hover:bg-black/95 text-white border border-white/20 backdrop-blur-md shadow-2xl transition-all hover:scale-110 active:scale-95"
+                  className="absolute left-2 sm:left-4 z-30 min-h-[44px] min-w-[44px] size-11 sm:size-12 rounded-full bg-black/75 hover:bg-black/95 text-white border border-white/20 backdrop-blur-md shadow-2xl transition-all active:scale-[0.96] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Previous image"
                 >
                   <ChevronLeft size={22} />
@@ -728,7 +712,7 @@ export function Projects({ onOpenCaseStudy }: ProjectsProps) {
               {zoomState.images.length > 1 && (
                 <button
                   onClick={handleNext}
-                  className="absolute right-2 sm:right-4 z-30 p-2.5 sm:p-3 rounded-full bg-black/75 hover:bg-black/95 text-white border border-white/20 backdrop-blur-md shadow-2xl transition-all hover:scale-110 active:scale-95"
+                  className="absolute right-2 sm:right-4 z-30 min-h-[44px] min-w-[44px] size-11 sm:size-12 rounded-full bg-black/75 hover:bg-black/95 text-white border border-white/20 backdrop-blur-md shadow-2xl transition-all active:scale-[0.96] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Next image"
                 >
                   <ChevronRight size={22} />

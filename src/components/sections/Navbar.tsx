@@ -32,16 +32,16 @@ export function Navbar({ onOpenCaseStudy, onOpenCommandMenu }: NavbarProps) {
         className={cn(
           "fixed top-0 left-0 right-0 z-40 transition-[background-color,border-color,box-shadow] duration-200",
           isScrolled
-            ? "bg-background/90 backdrop-blur-md border-b border-border shadow-sm"
-            : "bg-background/60 backdrop-blur-sm"
+            ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-xs dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]"
+            : "bg-background/55 backdrop-blur-md"
         )}
       >
-        <nav className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo / Monogram: Kenzo / dev */}
             <Link
               href="/"
-              className="group flex items-center gap-1.5 font-mono text-base sm:text-lg font-bold text-foreground hover:text-primary transition-colors tracking-tight"
+              className="group flex items-center gap-1.5 font-mono text-base sm:text-lg font-bold text-foreground hover:text-primary transition-all active:scale-[0.98] tracking-tight"
             >
               <span>Kenzo</span>
               <span className="text-primary font-normal">/</span>
@@ -54,7 +54,7 @@ export function Navbar({ onOpenCaseStudy, onOpenCommandMenu }: NavbarProps) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="px-2.5 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-muted/50"
+                  className="px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-all rounded-lg hover:bg-muted/60 active:scale-[0.98]"
                 >
                   {item.label}
                 </Link>
@@ -66,12 +66,12 @@ export function Navbar({ onOpenCaseStudy, onOpenCommandMenu }: NavbarProps) {
                   variant="outline"
                   size="sm"
                   onClick={onOpenCommandMenu}
-                  className="h-8 gap-2 px-2.5 text-xs text-muted-foreground hover:text-foreground font-normal border-border/80 bg-muted/30"
+                  className="h-8 gap-2 px-2.5 text-xs text-muted-foreground hover:text-foreground font-normal border-border/60 bg-muted/30 rounded-xl"
                   aria-label="Open command palette (Press ⌘K or Ctrl+K)"
                 >
                   <Search size={13} className="text-muted-foreground" />
                   <span className="hidden lg:inline">Search...</span>
-                  <kbd className="pointer-events-none inline-flex h-4 select-none items-center gap-0.5 rounded border border-border bg-background px-1 font-mono text-[10px] font-medium text-muted-foreground">
+                  <kbd className="pointer-events-none inline-flex h-4 select-none items-center gap-0.5 rounded border border-border/70 bg-background/80 px-1 font-mono text-[10px] font-medium text-muted-foreground">
                     <span className="text-xs">⌘</span>K
                   </kbd>
                 </Button>
@@ -79,7 +79,7 @@ export function Navbar({ onOpenCaseStudy, onOpenCommandMenu }: NavbarProps) {
                 <ThemeToggle />
 
                 {/* Resume Link */}
-                <Button asChild size="sm" variant="outline" className="gap-1.5 text-xs">
+                <Button asChild size="sm" variant="outline" className="gap-1.5 text-xs rounded-xl">
                   <a href={resumePath} target="_blank" rel="noopener noreferrer">
                     <Eye size={14} />
                     <span>Resume</span>

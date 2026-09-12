@@ -67,7 +67,7 @@ export function Footer() {
       viewport={{ once: true, margin: "-100px" }}
       variants={fadeInUp}
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-12">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-12">
         {/* Human Behind the Code Profile & Contact Card */}
         <SpotlightCard className="p-6 sm:p-8 md:p-10 rounded-2xl border border-border/80 bg-card/70 shadow-sm relative overflow-hidden">
           {/* Subtle Ambient Accent */}
@@ -114,7 +114,7 @@ export function Footer() {
               </div>
 
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-xl text-pretty">
-                Available for full-time engineering roles, freelance contracts, and building high-utility web applications & automated workflows.
+                Available for full-time software engineering roles, freelance projects, and building practical web applications and automated tools.
               </p>
 
               {/* Location Meta */}

@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | Kenneth Bulaga",
   },
   description:
-    "Full-stack software engineer specializing in scalable web architectures, real-time data pipelines, and automated workflows using Next.js, TypeScript, and modern PostgreSQL systems. Serving 5,500+ active users.",
+    "Full-stack software engineer building web applications and internal tools focused on simplicity, performance, and reliability with Next.js, TypeScript, and PostgreSQL.",
   keywords: [
     "Kenneth Bulaga",
     "Kenzo",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     url: "https://kennethbulaga.dev",
     title: "Kenneth Bulaga — Full-Stack Software Engineer",
     description:
-      "Full-stack software engineer specializing in scalable web architectures, real-time data pipelines, and automated workflows using Next.js, TypeScript, and modern PostgreSQL systems.",
+      "Full-stack software engineer building web applications and internal tools focused on simplicity, performance, and reliability with Next.js, TypeScript, and PostgreSQL.",
     siteName: "Kenneth Bulaga Portfolio",
   },
   twitter: {
@@ -90,7 +90,7 @@ export default function RootLayout({
     "@type": "Person",
     name: "Kenneth Bulaga",
     alternateName: "Kenzo",
-    jobTitle: "Full-Stack Systems Engineer",
+    jobTitle: "Full-Stack Software Engineer",
     url: "https://kennethbulaga.dev",
     address: {
       "@type": "PostalAddress",
@@ -111,9 +111,9 @@ export default function RootLayout({
       "TypeScript",
       "PostgreSQL",
       "Supabase",
-      "High-Concurrency Architecture",
+      "Real-Time Systems & WebSockets",
       "Tailwind CSS",
-      "Zero-Cost Cloud Infrastructure",
+      "Serverless Cloud Architecture",
     ],
   };
 

@@ -19,14 +19,14 @@ export function Experience() {
       viewport={{ once: true, margin: "-100px" }}
       variants={fadeInUp}
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
         {/* Section Header */}
         <motion.div className="flex flex-col gap-2 mb-2 sm:mb-4" variants={fadeInUp}>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground text-balance">
             Work Experience
           </h2>
           <p className="text-muted-foreground text-pretty">
-            Contract engagements, institutional engineering roles, and public solutions.
+            Practical software development from my government internship and independent freelance projects.
           </p>
         </motion.div>
 
@@ -82,10 +82,31 @@ export function Experience() {
                             {exp.role}
                           </p>
 
-                          {exp.description && (
+                          {exp.highlights && exp.highlights.length > 0 && (
+                            <ul className="flex flex-col gap-1.5 pt-1">
+                              {exp.highlights.map((hl, i) => (
+                                <li key={i} className="text-xs sm:text-sm text-muted-foreground leading-relaxed flex items-start gap-2 text-pretty">
+                                  <span className="text-primary font-bold mt-0.5 shrink-0">•</span>
+                                  <span>{hl}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+
+                          {exp.description && !exp.highlights && (
                             <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pt-0.5 text-pretty">
                               {exp.description}
                             </p>
+                          )}
+
+                          {exp.techStack && exp.techStack.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5 pt-1.5">
+                              {exp.techStack.map((tech) => (
+                                <Badge key={tech} variant="secondary" className="text-[10px] font-mono px-2 py-0.5">
+                                  {tech}
+                                </Badge>
+                              ))}
+                            </div>
                           )}
                         </div>
                       );

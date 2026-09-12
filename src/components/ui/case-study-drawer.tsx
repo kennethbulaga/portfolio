@@ -29,7 +29,7 @@ interface CaseStudyDrawerProps {
   studyId?: string | null;
 }
 
-type TabType = "overview" | "architecture" | "deepdives" | "interview";
+type TabType = "overview" | "engineering";
 
 export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerProps) {
   const [activeTab, setActiveTab] = useState<TabType>("overview");
@@ -91,14 +91,14 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
             exit={{ opacity: 0, scale: 0.98, y: 10 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
             style={{ willChange: "transform, opacity" }}
-            className="relative w-full h-[100dvh] sm:h-auto sm:max-h-[92dvh] max-w-4xl flex flex-col overflow-hidden rounded-none sm:rounded-2xl border-0 sm:border border-border bg-card text-card-foreground shadow-2xl z-10"
+            className="relative w-full h-[100dvh] sm:h-auto sm:max-h-[92dvh] max-w-4xl flex flex-col overflow-hidden rounded-none sm:rounded-3xl border-0 sm:border border-border/70 bg-card text-card-foreground shadow-2xl z-10 dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06),0_20px_60px_rgba(0,0,0,0.6)]"
           >
             {/* Header */}
-            <div className="p-3.5 sm:p-6 border-b border-border bg-card/95 sm:bg-card/60 backdrop-blur-md shrink-0">
+            <div className="p-4 sm:p-6 border-b border-border/60 bg-card/95 sm:bg-card/70 backdrop-blur-xl shrink-0">
               <div className="flex items-start justify-between gap-3">
                 <div className="space-y-1.5 min-w-0 flex-1">
                   <div className="flex items-center gap-1.5">
-                    <Badge variant="outline" className="text-[10px] sm:text-xs bg-primary/10 text-primary border-primary/20 px-2 py-0.5">
+                    <Badge variant="outline" className="text-[10px] sm:text-xs bg-primary/10 text-primary border-primary/20 px-2.5 py-0.5 rounded-full">
                       Production Case Study
                     </Badge>
                   </div>
@@ -112,7 +112,7 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
 
                 <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
                   {project?.link && project.link !== "#" && (
-                    <Button asChild size="sm" variant="outline" className="hidden sm:inline-flex gap-1 text-xs h-8">
+                    <Button asChild size="sm" variant="outline" className="hidden sm:inline-flex gap-1 text-xs h-8 rounded-xl">
                       <a href={project.link} target="_blank" rel="noopener noreferrer">
                         <span>Live Site</span>
                         <ExternalLink size={13} />
@@ -121,59 +121,39 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                   )}
                   <button
                     onClick={onClose}
-                    className="p-1.5 sm:p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors border border-border/50 sm:border-transparent"
+                    className="min-h-[44px] min-w-[44px] size-11 sm:size-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/70 transition-all border border-border/60 flex items-center justify-center active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     aria-label="Close modal"
                   >
-                    <X size={19} />
+                    <X size={18} />
                   </button>
                 </div>
               </div>
 
-              {/* Tabs Navigation */}
-              <div className="flex items-center gap-1 sm:gap-2 mt-3 sm:mt-4 overflow-x-auto pt-1 no-scrollbar">
+              {/* Tabs Navigation: Apple iOS Segmented Control (Full-width 2-column grid on mobile, inline-flex on desktop) */}
+              <div className="w-full sm:w-auto sm:inline-flex grid grid-cols-2 p-1 rounded-xl bg-muted/80 border border-border/50 mt-3 sm:mt-4 gap-1">
                 <button
+                  type="button"
                   onClick={() => setActiveTab("overview")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap ${
+                  className={`w-full justify-center px-3 sm:px-3.5 py-2 sm:py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 whitespace-nowrap active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                     activeTab === "overview"
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                      ? "bg-background text-foreground shadow-xs border border-border/40 font-semibold"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  <Layers size={14} />
-                  Overview & Scale
+                  <Layers size={13} />
+                  <span>Overview & Impact</span>
                 </button>
                 <button
-                  onClick={() => setActiveTab("architecture")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap ${
-                    activeTab === "architecture"
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  type="button"
+                  onClick={() => setActiveTab("engineering")}
+                  className={`w-full justify-center px-3 sm:px-3.5 py-2 sm:py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 whitespace-nowrap active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                    activeTab === "engineering"
+                      ? "bg-background text-foreground shadow-xs border border-border/40 font-semibold"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  <ShieldCheck size={14} />
-                  Security & Architecture
-                </button>
-                <button
-                  onClick={() => setActiveTab("deepdives")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap ${
-                    activeTab === "deepdives"
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  }`}
-                >
-                  <Cpu size={14} />
-                  Technical Deep-Dives
-                </button>
-                <button
-                  onClick={() => setActiveTab("interview")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 whitespace-nowrap ${
-                    activeTab === "interview"
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  }`}
-                >
-                  <HelpCircle size={14} />
-                  Architecture & Decisions FAQ
+                  <Cpu size={13} />
+                  <span>Engineering & Decisions</span>
                 </button>
               </div>
             </div>
@@ -186,7 +166,7 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                   {/* Executive Summary */}
                   <div className="p-4 rounded-xl border border-border bg-muted/30">
                     <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-1">
-                      Institutional Scope & Context
+                      Project Scope & Context
                     </p>
                     <p className="text-sm leading-relaxed text-foreground">
                       {study.scaleSummary}
@@ -196,7 +176,7 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                   {/* Production Metrics Grid */}
                   <div>
                     <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3">
-                      Live Production Metrics ({study.id === "owwa-csmr" ? "8 Reporting Cycles Active" : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard" ? "2 Tournament Seasons (2025 Archive & 2026 Live)" : "2 Semesters Active"})
+                      Production Metrics ({study.id === "owwa-csmr" ? "8 Reporting Cycles Active" : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard" ? "2 Tournament Seasons (2025 Archive & 2026 Live)" : "2 Semesters Active"})
                     </h3>
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                       {study.metrics.map((m, idx) => (
@@ -242,7 +222,7 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                   {/* Problem Statements Solved */}
                   <div>
                     <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3">
-                      Institutional Bottlenecks Solved
+                      Operational Challenges Solved
                     </h3>
                     <div className="grid sm:grid-cols-3 gap-3">
                       {study.problemStatements.map((item, idx) => (
@@ -272,7 +252,7 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                           <span>Stakeholder Endorsement & Commendation</span>
                         </p>
                         <span className="text-[10px] font-mono text-primary bg-primary/10 border border-primary/20 px-2.5 py-0.5 rounded-full font-medium">
-                          Verified Leadership Commendation
+                          Official Commendation
                         </span>
                       </div>
 
@@ -367,11 +347,11 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                     </div>
                   )}
 
-                  {/* Production System Surfaces & Dashboards Gallery */}
+                  {/* System Interfaces & Workflows Gallery */}
                   {projectScreenshots.length > 0 && (
                     <div>
                       <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3">
-                        Production System Surfaces & Dashboards
+                        System Interfaces & Workflows
                       </h3>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         {projectScreenshots.map((item, idx) => (
@@ -396,350 +376,132 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                 </div>
               )}
 
-              {/* TAB 2: ARCHITECTURE & SECURITY */}
-              {activeTab === "architecture" && (
+              {/* TAB 2: ENGINEERING & DECISIONS */}
+              {activeTab === "engineering" && (
                 <div className="space-y-6">
-                  {/* Visual Production Request & Data Flow */}
-                  <div className="p-4 sm:p-5 rounded-xl border border-border bg-card space-y-3">
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
+                  {/* Section 1: Core Implementation Challenges */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
                         <Cpu size={14} className="text-primary" />
-                        <span>Production Request & Data Pipeline</span>
-                      </p>
-                      <span className="text-[10px] font-mono text-emerald-500 font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                        {study.id === "owwa-csmr"
-                          ? "● 100% ARTA / CSC Parity"
-                          : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard"
-                          ? "● <500ms Realtime Sync"
-                          : "● 0 Overlap Guarantee"}
+                        <span>Core Implementation Challenges</span>
+                      </h3>
+                      <span className="text-[10px] font-mono text-muted-foreground">
+                        3 Deep Dives
                       </span>
                     </div>
 
-                    {study.id === "owwa-csmr" ? (
-                      <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
-                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
-                          <span className="text-[10px] text-primary font-bold">01. Smart Matrix</span>
-                          <p className="text-xs font-semibold text-foreground">Live Arithmetic</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">Client-side sum check & Likert scale validation</p>
-                        </div>
-
-                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
-                          <span className="text-[10px] text-sky-500 font-bold">02. JWT & Zod Gate</span>
-                          <p className="text-xs font-semibold text-foreground">Server Actions</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">jose HS256 tokens & multi-office permission verification</p>
-                        </div>
-
-                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
-                          <span className="text-[10px] text-amber-500 font-bold">03. JSONB Core</span>
-                          <p className="text-xs font-semibold text-foreground">Postgres Storage</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">Unique key on (office_id, month, year) + snapshots</p>
-                        </div>
-
-                        <div className="p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/5 relative space-y-1">
-                          <span className="text-[10px] text-emerald-500 font-bold">04. ExcelJS Engine</span>
-                          <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">ARTA Consolidation</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">1-click server-side master workbook synthesis in &lt;1s</p>
-                        </div>
-                      </div>
-                    ) : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard" ? (
-                      <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
-                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
-                          <span className="text-[10px] text-primary font-bold">01. Realtime WS</span>
-                          <p className="text-xs font-semibold text-foreground">Supabase Channel</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">WebSocket change stream on points_log in &lt;500ms</p>
-                        </div>
-
-                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
-                          <span className="text-[10px] text-sky-500 font-bold">02. Upstash Gate</span>
-                          <p className="text-xs font-semibold text-foreground">Serverless Redis</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">Atomic SETNX device locks & pipelined cheer voting</p>
-                        </div>
-
-                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
-                          <span className="text-[10px] text-amber-500 font-bold">03. Dynamic Podium</span>
-                          <p className="text-xs font-semibold text-foreground">Framer Motion</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">Live 3D podium calculation & celebration confetti</p>
-                        </div>
-
-                        <div className="p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/5 relative space-y-1">
-                          <span className="text-[10px] text-emerald-500 font-bold">04. Arena /tv Kiosk</span>
-                          <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Digital Signage</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">Auto-cycling 5-screen display for gym TVs & projectors</p>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-1 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
-                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
-                          <span className="text-[10px] text-primary font-bold">01. SSO Entry</span>
-                          <p className="text-xs font-semibold text-foreground">Google OAuth</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">@sjp2cd.edu.ph domain locked for 5,536 users</p>
-                        </div>
-
-                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
-                          <span className="text-[10px] text-sky-500 font-bold">02. Edge Guard</span>
-                          <p className="text-xs font-semibold text-foreground">Next.js 16 SSR</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">Route handlers & RBAC permission verification</p>
-                        </div>
-
-                        <div className="p-3 rounded-lg border border-border bg-muted/40 relative space-y-1">
-                          <span className="text-[10px] text-amber-500 font-bold">03. RLS Isolation</span>
-                          <p className="text-xs font-semibold text-foreground">Postgres RLS</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">Row-level security: zero cross-college data leaks</p>
-                        </div>
-
-                        <div className="p-3 rounded-lg border border-emerald-500/30 bg-emerald-500/5 relative space-y-1">
-                          <span className="text-[10px] text-emerald-500 font-bold">04. Conflict-Free</span>
-                          <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">Schedule Engine</p>
-                          <p className="text-[10px] text-muted-foreground font-sans">Automated validator for 658 multi-room exam slots</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Architecture Diagram Visualization */}
-                  <div className="p-5 rounded-xl border border-border bg-muted/20 space-y-4">
-                    <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground">
-                      Three-Tier Defense-in-Depth Architecture
-                    </p>
-
-                    <div className="space-y-3 font-mono text-xs">
-                      {study.id === "owwa-csmr" ? (
-                        <>
-                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <ShieldCheck size={16} className="text-primary shrink-0" />
-                              <div>
-                                <span className="font-semibold text-foreground">Layer 1: Stateless Cryptographic Auth</span>
-                                <p className="text-[11px] text-muted-foreground">jose JWT HS256 tokens in HttpOnly secure cookies with multi-office claims</p>
-                              </div>
-                            </div>
-                            <Badge variant="outline" className="text-[10px] w-fit">
-                              Stateless JWT Gate
-                            </Badge>
+                    <div className="space-y-3">
+                      {study.deepDives.map((dive, idx) => (
+                        <div key={idx} className="p-4 sm:p-5 rounded-2xl border border-border/70 bg-card space-y-3 shadow-xs dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-semibold">
+                              0{idx + 1}
+                            </span>
+                            <h4 className="text-sm sm:text-base font-semibold text-foreground">
+                              {dive.title}
+                            </h4>
                           </div>
 
-                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <Users size={16} className="text-sky-500 shrink-0" />
-                              <div>
-                                <span className="font-semibold text-foreground">Layer 2: Real-Time Arithmetic & Zod Gate</span>
-                                <p className="text-[11px] text-muted-foreground">AutoCalcTableInput live validation + Next.js Server Action Zod verification</p>
-                              </div>
+                          <div className="grid sm:grid-cols-3 gap-3 text-xs">
+                            <div className="p-3.5 rounded-xl bg-muted/40 border border-border/40 space-y-1">
+                              <p className="font-mono text-[10px] uppercase tracking-wider text-amber-500 font-medium flex items-center gap-1">
+                                <AlertTriangle size={12} />
+                                The Challenge
+                              </p>
+                              <p className="text-muted-foreground leading-relaxed">
+                                {dive.challenge}
+                              </p>
                             </div>
-                            <Badge variant="outline" className="text-[10px] w-fit">
-                              0 Sum Drift
-                            </Badge>
-                          </div>
 
-                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <Database size={16} className="text-emerald-500 shrink-0" />
-                              <div>
-                                <span className="font-semibold text-foreground">Layer 3: Compound Constraints & Audit Ledger</span>
-                                <p className="text-[11px] text-muted-foreground">Unique (office_id, month, year) compound index + immutable audit_logs</p>
-                              </div>
+                            <div className="p-3.5 rounded-xl bg-muted/40 border border-border/40 space-y-1">
+                              <p className="font-mono text-[10px] uppercase tracking-wider text-sky-500 font-medium flex items-center gap-1">
+                                <Cpu size={12} />
+                                Engineered Solution
+                              </p>
+                              <p className="text-muted-foreground leading-relaxed">
+                                {dive.solution}
+                              </p>
                             </div>
-                            <Badge variant="outline" className="text-[10px] w-fit">
-                              Zero Duplicate Reports
-                            </Badge>
-                          </div>
-                        </>
-                      ) : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard" ? (
-                        <>
-                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <ShieldCheck size={16} className="text-primary shrink-0" />
-                              <div>
-                                <span className="font-semibold text-foreground">Layer 1: Real-Time WebSocket Channel</span>
-                                <p className="text-[11px] text-muted-foreground">Supabase Realtime channels with instantaneous cumulative rank recalculations</p>
-                              </div>
-                            </div>
-                            <Badge variant="outline" className="text-[10px] w-fit">
-                              &lt;500ms Sync
-                            </Badge>
-                          </div>
 
-                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <Users size={16} className="text-sky-500 shrink-0" />
-                              <div>
-                                <span className="font-semibold text-foreground">Layer 2: High-Velocity Voting Decoupling</span>
-                                <p className="text-[11px] text-muted-foreground">Upstash Serverless Redis REST API with atomic SETNX rate-limiting</p>
-                              </div>
+                            <div className="p-3.5 rounded-xl bg-muted/40 border border-border/40 space-y-1">
+                              <p className="font-mono text-[10px] uppercase tracking-wider text-emerald-500 font-medium flex items-center gap-1">
+                                <CheckCircle2 size={12} />
+                                Production Outcome
+                              </p>
+                              <p className="text-foreground leading-relaxed font-medium">
+                                {dive.outcome}
+                              </p>
                             </div>
-                            <Badge variant="outline" className="text-[10px] w-fit">
-                              Zero DB CPU Spikes
-                            </Badge>
                           </div>
-
-                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <Database size={16} className="text-emerald-500 shrink-0" />
-                              <div>
-                                <span className="font-semibold text-foreground">Layer 3: Edge CDN & Arena Signage Kiosk</span>
-                                <p className="text-[11px] text-muted-foreground">Next.js 16 App Router /tv digital signage with jittered client polling fallback</p>
-                              </div>
-                            </div>
-                            <Badge variant="outline" className="text-[10px] w-fit">
-                              24/7 Arena Broadcast
-                            </Badge>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <ShieldCheck size={16} className="text-primary shrink-0" />
-                              <div>
-                                <span className="font-semibold text-foreground">Layer 1: Network Gate</span>
-                                <p className="text-[11px] text-muted-foreground">Next.js 16 proxy.ts route matcher & RBAC</p>
-                              </div>
-                            </div>
-                            <Badge variant="outline" className="text-[10px] w-fit">
-                              HTTP Request Boundary
-                            </Badge>
-                          </div>
-
-                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <Users size={16} className="text-sky-500 shrink-0" />
-                              <div>
-                                <span className="font-semibold text-foreground">Layer 2: Identity SSO Gate</span>
-                                <p className="text-[11px] text-muted-foreground">Google Workspace OAuth locked to @sjp2cd.edu.ph</p>
-                              </div>
-                            </div>
-                            <Badge variant="outline" className="text-[10px] w-fit">
-                              Cryptographic Claims
-                            </Badge>
-                          </div>
-
-                          <div className="p-3 rounded-lg border border-border bg-card flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <Database size={16} className="text-emerald-500 shrink-0" />
-                              <div>
-                                <span className="font-semibold text-foreground">Layer 3: Database Isolation (PostgreSQL RLS)</span>
-                                <p className="text-[11px] text-muted-foreground">Supabase SSR + Row-Level Security: auth.uid() = student_id</p>
-                              </div>
-                            </div>
-                            <Badge variant="outline" className="text-[10px] w-fit">
-                              Zero Tenant Leakage
-                            </Badge>
-                          </div>
-                        </>
-                      )}
-                    </div>
-
-                    <p className="text-xs text-muted-foreground leading-relaxed pt-2">
-                      {study.architectureSummary}
-                    </p>
-                  </div>
-
-                  {/* Security Highlights */}
-                  <div>
-                    <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-3">
-                      Core Security Enforcements
-                    </h3>
-                    <div className="space-y-2">
-                      {study.securityPoints.map((point, index) => (
-                        <div key={index} className="flex items-start gap-2.5 p-2.5 rounded-lg border border-border/70 bg-card/60 text-xs">
-                          <CheckCircle2 size={16} className="text-primary shrink-0 mt-0.5" />
-                          <span className="text-foreground">{point}</span>
                         </div>
                       ))}
                     </div>
                   </div>
-                </div>
-              )}
 
-              {/* TAB 3: DEEP DIVES */}
-              {activeTab === "deepdives" && (
-                <div className="space-y-4">
-                  {study.deepDives.map((dive, idx) => (
-                    <div key={idx} className="p-4 rounded-xl border border-border bg-card space-y-3">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-mono px-2 py-0.5 rounded bg-primary/10 text-primary font-semibold">
-                          Deep Dive {idx + 1}
+                  {/* Section 2: Architectural Decisions & Trade-Offs */}
+                  {study.qaList && study.qaList.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
+                          <HelpCircle size={14} className="text-primary" />
+                          <span>Architectural Decisions & Trade-Offs</span>
+                        </h3>
+                        <span className="text-[10px] font-mono text-muted-foreground">
+                          Technical Rationale
                         </span>
-                        <h4 className="text-sm sm:text-base font-semibold text-foreground">
-                          {dive.title}
-                        </h4>
                       </div>
 
-                      <div className="grid sm:grid-cols-3 gap-3 text-xs">
-                        <div className="p-3 rounded-lg bg-muted/40 space-y-1">
-                          <p className="font-mono text-[10px] uppercase tracking-wider text-amber-500 font-medium flex items-center gap-1">
-                            <AlertTriangle size={12} />
-                            The Challenge
-                          </p>
-                          <p className="text-muted-foreground leading-relaxed">
-                            {dive.challenge}
-                          </p>
-                        </div>
-
-                        <div className="p-3 rounded-lg bg-muted/40 space-y-1">
-                          <p className="font-mono text-[10px] uppercase tracking-wider text-sky-500 font-medium flex items-center gap-1">
-                            <Cpu size={12} />
-                            Engineered Solution
-                          </p>
-                          <p className="text-muted-foreground leading-relaxed">
-                            {dive.solution}
-                          </p>
-                        </div>
-
-                        <div className="p-3 rounded-lg bg-muted/40 space-y-1">
-                          <p className="font-mono text-[10px] uppercase tracking-wider text-emerald-500 font-medium flex items-center gap-1">
-                            <CheckCircle2 size={12} />
-                            Production Outcome
-                          </p>
-                          <p className="text-foreground leading-relaxed font-medium">
-                            {dive.outcome}
-                          </p>
-                        </div>
+                      <div className="space-y-2.5">
+                        {study.qaList.map((item, idx) => (
+                          <div key={idx} className="p-4 rounded-xl border border-border/70 bg-card/60 space-y-1.5 shadow-xs dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.03)]">
+                            <h4 className="text-xs sm:text-sm font-semibold text-foreground flex items-start gap-2">
+                              <span className="text-primary font-mono text-xs mt-0.5">#{idx + 1}</span>
+                              <span>{item.question}</span>
+                            </h4>
+                            <p className="text-xs text-muted-foreground leading-relaxed pl-5 border-l border-border/80">
+                              {item.answer}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
+                  )}
 
-              {/* TAB 4: ARCHITECTURE & DECISIONS FAQ */}
-              {activeTab === "interview" && (
-                <div className="space-y-4">
-                  <div className="p-3.5 rounded-xl border border-border bg-muted/30">
-                    <p className="text-xs font-mono uppercase tracking-wider text-primary font-semibold mb-1">
-                      System Architecture & Engineering Decisions FAQ
-                    </p>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      Direct answers on the technical architecture, security trade-offs, and cloud optimizations engineered while building and scaling {study.id === "owwa-csmr" ? "the OWWA CSMR System" : study.id === "jp-intrams" || study.id === "sjp2cd-leaderboard" ? "JP Intrams" : "JP Connect"}.
-                    </p>
-                  </div>
-
+                  {/* Section 3: Data Integrity & System Safeguards */}
                   <div className="space-y-3">
-                    {study.qaList.map((item, idx) => (
-                      <div key={idx} className="p-4 rounded-xl border border-border bg-card space-y-2">
-                        <h4 className="text-xs sm:text-sm font-semibold text-foreground flex items-start gap-2">
-                          <span className="text-primary font-mono">Q{idx + 1}:</span>
-                          <span>&ldquo;{item.question}&rdquo;</span>
-                        </h4>
-                        <p className="text-xs text-muted-foreground leading-relaxed pl-6 border-l border-primary/30">
-                          {item.answer}
-                        </p>
-                      </div>
-                    ))}
+                    <h3 className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
+                      <ShieldCheck size={14} className="text-primary" />
+                      <span>Data Integrity & System Safeguards</span>
+                    </h3>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {study.securityPoints.map((point, index) => (
+                        <div key={index} className="flex items-start gap-2.5 p-3.5 rounded-xl border border-border/70 bg-card/60 text-xs shadow-xs">
+                          <CheckCircle2 size={15} className="text-primary shrink-0 mt-0.5" />
+                          <span className="text-foreground leading-relaxed">{point}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <p className="text-xs text-muted-foreground leading-relaxed p-3.5 rounded-xl border border-border/60 bg-muted/20 font-sans">
+                      {study.architectureSummary}
+                    </p>
                   </div>
                 </div>
               )}
             </div>
 
             {/* Footer Bar */}
-            <div className="p-3 sm:p-4 border-t border-border bg-card/95 sm:bg-muted/30 flex items-center justify-between gap-3 shrink-0 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+            <div className="p-3.5 sm:p-4 border-t border-border/60 bg-card/95 sm:bg-muted/30 backdrop-blur-md flex items-center justify-between gap-3 shrink-0 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
               <div className="flex items-center gap-1.5 min-w-0">
-                <span className="size-1.5 rounded-full bg-emerald-500 shrink-0" />
+                <span className="size-2 rounded-full bg-emerald-500 shrink-0 animate-pulse" />
                 <span className="text-[11px] sm:text-xs text-muted-foreground font-mono truncate">
                   <span className="hidden md:inline">{study.institution} · </span>
                   <span className="text-foreground font-medium">Production Verified</span>
                 </span>
               </div>
-              <Button size="sm" variant="default" onClick={onClose} className="h-8 text-xs shrink-0 px-3">
+              <Button size="sm" variant="default" onClick={onClose} className="h-8 text-xs shrink-0 px-3.5 rounded-xl">
                 Close Case Study
               </Button>
             </div>

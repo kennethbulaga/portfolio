@@ -83,7 +83,7 @@ function CredentialCard({
               </div>
             ))}
 
-            {/* Prev / Next Arrow Overlay for Multiple Photos */}
+            {/* Prev / Next Arrow Overlay for Multiple Photos (44x44px touch target) */}
             {gallery.length > 1 && (
               <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-20 opacity-0 group-hover/img:opacity-100 transition-opacity">
                 <button
@@ -92,10 +92,10 @@ function CredentialCard({
                     e.stopPropagation();
                     setActivePhotoIdx((prev) => (prev > 0 ? prev - 1 : gallery.length - 1));
                   }}
-                  className="pointer-events-auto size-7 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-95"
+                  className="pointer-events-auto min-h-[44px] min-w-[44px] size-11 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Previous photo"
                 >
-                  <ChevronLeft size={14} />
+                  <ChevronLeft size={18} />
                 </button>
                 <button
                   type="button"
@@ -103,10 +103,10 @@ function CredentialCard({
                     e.stopPropagation();
                     setActivePhotoIdx((prev) => (prev < gallery.length - 1 ? prev + 1 : 0));
                   }}
-                  className="pointer-events-auto size-7 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-95"
+                  className="pointer-events-auto min-h-[44px] min-w-[44px] size-11 rounded-full bg-black/75 hover:bg-black text-white flex items-center justify-center border border-white/20 shadow-md transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Next photo"
                 >
-                  <ChevronRight size={14} />
+                  <ChevronRight size={18} />
                 </button>
               </div>
             )}
@@ -267,7 +267,7 @@ export function Education() {
         viewport={{ once: true, margin: "-100px" }}
         variants={fadeInUp}
       >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
           {/* Section Header */}
           <motion.div className="flex items-start justify-between flex-wrap gap-2 mb-2 sm:mb-4" variants={fadeInUp}>
             <div className="flex flex-col gap-1">
@@ -275,7 +275,7 @@ export function Education() {
                 Education & Leadership
               </h2>
               <p className="text-muted-foreground text-sm sm:text-base text-pretty">
-                Academic degree credentials, student governance appointments, and technical milestones.
+                College degree, student leadership roles, and verified technical recognitions.
               </p>
             </div>
             <span className="md:hidden text-[10px] font-mono text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded-full flex items-center gap-1 shrink-0 mt-1">
@@ -510,7 +510,7 @@ export function Education() {
 
                 <button
                   onClick={() => setActiveCert(null)}
-                  className="p-2 rounded-full bg-zinc-800/90 text-zinc-200 hover:text-white hover:bg-zinc-700 transition-colors border border-white/10 shrink-0"
+                  className="min-h-[44px] min-w-[44px] size-11 rounded-full bg-zinc-800/90 text-zinc-200 hover:text-white hover:bg-zinc-700 transition-all border border-white/10 shrink-0 flex items-center justify-center active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Close modal"
                 >
                   <X size={18} />
@@ -523,10 +523,10 @@ export function Education() {
                 {gallery.length > 1 && (
                   <button
                     onClick={handlePrevSlide}
-                    className="absolute left-2 sm:left-4 z-30 p-2 sm:p-2.5 rounded-full bg-black/75 hover:bg-black/95 text-white border border-white/20 backdrop-blur-md shadow-2xl transition-all hover:scale-110 active:scale-95"
+                    className="absolute left-2 sm:left-4 z-30 min-h-[44px] min-w-[44px] size-11 sm:size-12 rounded-full bg-black/75 hover:bg-black/95 text-white border border-white/20 backdrop-blur-md shadow-2xl transition-all active:scale-[0.96] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
                     aria-label="Previous image"
                   >
-                    <ChevronLeft size={20} />
+                    <ChevronLeft size={22} />
                   </button>
                 )}
 
@@ -552,10 +552,10 @@ export function Education() {
                 {gallery.length > 1 && (
                   <button
                     onClick={handleNextSlide}
-                    className="absolute right-2 sm:right-4 z-30 p-2 sm:p-2.5 rounded-full bg-black/75 hover:bg-black/95 text-white border border-white/20 backdrop-blur-md shadow-2xl transition-all hover:scale-110 active:scale-95"
+                    className="absolute right-2 sm:right-4 z-30 min-h-[44px] min-w-[44px] size-11 sm:size-12 rounded-full bg-black/75 hover:bg-black/95 text-white border border-white/20 backdrop-blur-md shadow-2xl transition-all active:scale-[0.96] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
                     aria-label="Next image"
                   >
-                    <ChevronRight size={20} />
+                    <ChevronRight size={22} />
                   </button>
                 )}
               </div>

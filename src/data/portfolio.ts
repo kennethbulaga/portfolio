@@ -97,6 +97,8 @@ export interface Experience {
   role: string;
   period: string;
   description?: string;
+  highlights?: string[];
+  techStack?: string[];
   logo?: string;
   link?: string;
   isCurrent?: boolean;
@@ -154,7 +156,7 @@ export interface PersonalInterest {
 export const personalInfo: PersonalInfo = {
   name: "Kenneth Bulaga",
   subHeadline: "Full-Stack Software Engineer",
-  bio: "Full-stack software engineer specializing in scalable web architectures, real-time data pipelines, and automated workflows. Focused on reducing operational friction, data integrity, and building reliable tools that solve real bottlenecks.",
+  bio: "I build web applications and internal tools focused on simplicity, performance, and reliability. I'm especially interested in workflow automation, intuitive design, and building software that helps teams and organizations operate more smoothly.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
   email: "kennethbulaga.dev@gmail.com",
   avatar: "/profile/avatar.webp",
@@ -171,9 +173,9 @@ export const personalInterests: PersonalInterest[] = [
     detail: "One Piece, Demon Slayer, Solo Leveling, Tower of God & many more",
   },
   {
-    icon: "⚡",
-    label: "AI Workflows & Automation",
-    detail: "Using modern LLM tooling & scripting to streamline repetitive tasks",
+    icon: "💭",
+    label: "Daydreaming",
+    detail: "Staring at the ceiling, plotting how to be successful",
   },
   {
     svgIcon: "/interest/book-education.svg",
@@ -253,13 +255,13 @@ export const spotifyPlaylists: SpotifyPlaylist[] = [
 export const institutionalTrust: TrustPartner[] = [
   {
     name: "St. John Paul II College of Davao",
-    role: "Campus Operations & Real-Time Portals",
+    role: "Student Portal, Exam Scheduler & Live Leaderboard",
     logo: "/logos/school-logo-nobg.webp",
     link: "https://www.facebook.com/sjp2cdofficial",
   },
   {
     name: "OWWA Region XI",
-    role: "Statistical Reporting & Citizen Feedback Systems",
+    role: "Citizen Feedback (CSMR) & Statistical Reporting (SPRS)",
     logo: "/logos/owwa-logo.webp",
     link: "https://www.facebook.com/owwadavao.lco",
   },
@@ -290,9 +292,9 @@ export const flagshipProjects: FlagshipProject[] = [
     id: "jp-connect",
     title: "JP Connect",
     link: "https://jp-connect.vercel.app",
-    focus: "Institutional Campus Operations Platform",
+    focus: "Campus Portal & Exam Scheduling Platform",
     description:
-      "Institutional campus platform serving 5,500+ students and faculty. Replaces manual queues and spreadsheets with an automated 3-way exam collision resolver and Google SSO RBAC.",
+      "Campus portal built for St. John Paul II College of Davao, serving 5,500+ students and faculty. Replaces physical queues and spreadsheet scheduling with automated conflict detection and Google SSO.",
     image: "/projects/jp-connect/1. LandingPage.webp",
     screenshots: [
       { label: "Landing & Student", image: "/projects/jp-connect/1. LandingPage.webp" },
@@ -313,15 +315,15 @@ export const flagshipProjects: FlagshipProject[] = [
       "pg_cron",
     ],
     metrics: {
-      "Active Users": "5,536",
+      "Registered SSO Users": "5,536",
       "Masterlist Records": "14,778",
       "Exam Schedules": "658",
-      "Schedule Collisions": "0",
+      "Schedule Overlaps": "0",
     },
     highlights: [
-      "3-Way Conflict Resolver: O(N log N) sweep eliminating room, proctor, and self-proctoring collisions.",
-      "Defense-in-Depth RBAC: Next.js 16 proxy boundary + Google Workspace SSO + PostgreSQL RLS.",
-      "Batch Attendance Reconciler: Ingests raw RFID scans and computes set differences to automate clearance.",
+      "Conflict-Free Scheduler: Implemented an interval sweep algorithm that checks and prevents room, proctor, and time-slot collisions across 658 exam sessions.",
+      "Role-Based Access: Configured domain-locked Google Workspace SSO (@sjp2cd.edu.ph) paired with PostgreSQL Row-Level Security to isolate student and faculty data.",
+      "Automated Clearance: Reconciles offline RFID attendance logs against registrar rosters to clear student event sanctions in under 5 seconds.",
     ],
     hasCaseStudy: true,
   },
@@ -329,9 +331,9 @@ export const flagshipProjects: FlagshipProject[] = [
     id: "owwa-csmr",
     title: "OWWA CSMR System",
     link: "#",
-    focus: "Regional Client Satisfaction Measurement & Analytics Platform",
+    focus: "Regional Citizen Satisfaction & Feedback System",
     description:
-      "Regional citizen satisfaction analytics platform for OWWA Region XI. Consolidates monthly survey feedback across 10 units with real-time arithmetic validation and 1-click ARTA Excel synthesis.",
+      "Internal reporting system built during my OWWA Region XI internship. Consolidates monthly feedback across 10 regional offices with live balance validation and 1-click ARTA/CSC-compliant Excel export.",
     image: "/projects/owwa-csmr/landing.webp",
     screenshots: [
       { label: "Public Landing", image: "/projects/owwa-csmr/landing.webp" },
@@ -352,15 +354,15 @@ export const flagshipProjects: FlagshipProject[] = [
       "TanStack Table",
     ],
     metrics: {
-      "Survey Responses": "4,632+",
+      "Citizen Responses": "4,632+",
       "Monthly Reports": "72 Submissions",
-      "Regional Offices": "10 Units",
+      "Regional Units": "10 Units",
       "Consolidation Time": "<1s (1-Click)",
     },
     highlights: [
-      "Virtual Consolidation: On-demand functional reduction calculating regional master metrics in <100ms.",
-      "ARTA/CSC ExcelJS Engine: 2,100+ line pipeline compiling styled, formula-driven workbooks in <1s.",
-      "Live Arithmetic Validation: Zero-drift input validation eliminating mathematical discrepancies at entry.",
+      "On-Demand Aggregation: Aggregates regional survey metrics on the fly in Next.js Server Actions from JSONB survey snapshots in under 100ms without saving redundant table rows.",
+      "Automated Excel Export: Built an in-memory ExcelJS generator that outputs fully styled, formula-compliant ARTA master workbooks in under 1 second.",
+      "Input Verification: Built live client-side balance checks with Zod validation so sub-category tallies always match respondent totals before submission.",
     ],
     hasCaseStudy: true,
   },
@@ -368,9 +370,9 @@ export const flagshipProjects: FlagshipProject[] = [
     id: "jp-intrams",
     title: "JP Intrams",
     link: "https://jp-intrams.vercel.app",
-    focus: "Real-Time Arena Broadcast & Campus Tournament Platform",
+    focus: "Real-Time Tournament Leaderboard & Campus Signage",
     description:
-      "High-concurrency tournament engine and digital signage broadcast platform. Powers sub-500ms score sync across 22 sports for 9 colleges, streamed live to gym projectors and student devices.",
+      "Live tournament leaderboard and display app for college intramurals. Updates scores across 23 events for 9 academic departments in under 500ms, displayed on gym screens and mobile devices.",
     image: "/projects/jp-intrams/desktop.webp",
     screenshots: [
       { label: "Desktop Leaderboard", image: "/projects/jp-intrams/desktop.webp" },
@@ -390,15 +392,15 @@ export const flagshipProjects: FlagshipProject[] = [
       "Framer Motion",
     ],
     metrics: {
-      "Competing Units": "9 Departments",
-      "Tracked Events": "22 Sports / 23+ Events",
+      "Collegiate Units": "9 Departments",
+      "Tracked Events": "23 Divisions",
       "Broadcast Latency": "<500ms",
-      "System Uptime": "99.9%",
+      "Operational Uptime": "100% (Zero Downtime)",
     },
     highlights: [
-      "Sub-500ms Realtime Sync: Supabase WebSocket change streams recalculating standings instantly on match logs.",
-      "24/7 Digital Signage (/tv): Auto-cycling 5-screen arena broadcast kiosk designed for gym projectors & LED walls.",
-      "High-Velocity Cheer Engine: Upstash Redis SETNX rate-limiting protecting PostgreSQL from championship traffic spikes.",
+      "Live Score Sync: Subscribed to Supabase Realtime WebSockets on database changes to recalculate and push standings to all devices in under 500ms.",
+      "Gym Display Mode (/tv): Built an auto-cycling presentation view with smooth transitions and keyboard controls for gym LED screens and projectors.",
+      "Rate-Limited Reactions: Used Upstash Redis atomic locks (5 taps/sec per IP) to handle live spectator cheer taps without overloading PostgreSQL.",
     ],
     hasCaseStudy: true,
   },
@@ -412,7 +414,7 @@ export const clientProjects: ClientProject[] = [
     title: "OWWA SPRS Platform",
     client: "Overseas Workers Welfare Administration (Region XI)",
     objective:
-      "Replaced decentralized, error-prone spreadsheet reporting across regional divisions with a unified, audit-ready consolidation platform. The system streamlines monthly statistical performance submissions, enforces rigorous programmatic target tracking, and automates regional accomplishment aggregation.",
+      "Developed and presented a performance reporting platform for OWWA Region XI, replacing scattered office spreadsheets with centralized target tracking and automated Excel accomplishment reports.",
     logo: "/logos/owwa-logo.webp",
     image: "/projects/owwa-sprs/consolidation.webp",
     screenshots: [
@@ -430,37 +432,16 @@ export const clientProjects: ClientProject[] = [
       "ExcelJS",
     ],
   },
-  {
-    id: "clip-and-style",
-    title: "Clip & Style Portal",
-    client: "Barbershop Operations & Queuing Platform",
-    link: "https://www.clipandstyle.tech",
-    objective:
-      "Modern barbershop management and walk-in queuing platform developed as an academic capstone for Davao City shops. Features real-time appointment scheduling with conflict detection, 4-tier role-based access (Admin, Owner, Barber, Customer), live walk-in queue tracking, automated Resend email alerts, and Gemini AI assistance.",
-    image: "/projects/clip-and-style.webp",
-    logo: "/logos/clipnstyle-logo.webp",
-    techStack: [
-      "Next.js",
-      "React 19",
-      "TypeScript",
-      "Supabase (PostgreSQL & RLS)",
-      "Tailwind CSS",
-      "Resend",
-      "TanStack Query",
-      "Zod",
-      "Google Gemini",
-    ],
-  },
 ];
 
 // Education
 
 export const education: EducationItem[] = [
   {
-    level: "College Degree",
+    level: "Bachelor's Degree",
     institution: "St. John Paul II College of Davao",
     program: "Bachelor of Science in Information Technology",
-    status: "Graduated July 2026 • Class of 2026",
+    status: "Class of 2026",
     logo: "/logos/school-logo-nobg.webp",
     isCurrent: false,
   },
@@ -519,7 +500,7 @@ export const featuredCredentials: Credential[] = [
     status: "Active Production",
     period: "May 14, 2026",
     description:
-      "Officially recognized for developing and implementing the OWWA CSMR System—actively running in daily regional operations today to streamline citizen feedback collection and compliance reporting.",
+      "Awarded an official Certificate of Commendation from OWWA Region XI for developing and deploying the CSMR system, which consolidated 4,632+ citizen feedback responses across 10 regional offices into compliant Excel reports.",
     skills: ["Government IT", "Feedback Analytics", "Compliance Reporting", "Full-Stack Web"],
     image: "/certificates/ojt/csmr.webp",
     gallery: [
@@ -557,7 +538,7 @@ export const featuredCredentials: Credential[] = [
     status: "Official Recognition",
     period: "May 14, 2026",
     description:
-      "Officially recognized for developing and presenting the OWWA SPRS platform, designed to consolidate regional administrative statistical reporting, KPI monitoring, and operational data.",
+      "Awarded an official Certificate of Recognition for developing and presenting the OWWA SPRS capstone system, built to help regional units track monthly performance targets and automate accomplishment reporting.",
     skills: ["Enterprise Systems", "Statistical Reporting", "Performance KPIs", "Data Management"],
     image: "/certificates/ojt/sprs.webp",
     gallery: [
@@ -595,7 +576,7 @@ export const featuredCredentials: Credential[] = [
     status: "Participant",
     period: "July 30, 2025",
     description:
-      "Competed in the 2025 Mindanao Interschool Hackathon, architecting rapid prototypes and PropTech solutions focused on AI workflows and digital property transactions under competitive time constraints.",
+      "Competed in the 2025 Mindanao Interschool Hackathon, building a property listing and inquiry prototype using Next.js and Supabase in 48 hours.",
     skills: ["Rapid Prototyping", "PropTech Solutions", "AI Workflows", "Full-Stack Development"],
     image: "/certificates/hackathon/proptech.webp",
     signatories: [
@@ -610,8 +591,8 @@ export const featuredCredentials: Credential[] = [
     status: "Highest Honor",
     period: "May 13, 2026",
     description:
-      "Conferred with the institution's highest student honor for exemplary leadership throughout AY 2025–2026. Elected SSC Senator directing campus student affairs, cross-department operations, Intramurals 2025, and Extravaganza 2026 logistics.",
-    skills: ["Institutional Service", "Student Governance", "Campus Operations", "Executive Leadership"],
+      "Received the school's Institutional Service Award for student leadership in AY 2025–2026 as an elected SSC Senator, helping coordinate campus events, student services, and Intramurals 2025.",
+    skills: ["Institutional Service", "Student Governance", "Campus Operations", "Event Coordination"],
     image: "/certificates/school/2. insti-service-reward.webp",
     signatories: [
       "Jocelyn P. Rodriguez, MAEd-GC, RGC — Dean of Student Affairs",
@@ -628,16 +609,22 @@ export const experience: Experience[] = [
     organization: "Freelance / Self-Employed",
     role: "Freelance Software Engineer",
     period: "Nov 2024 – Present",
-    description:
-      "Engineering scalable web portals, automated queuing engines, and database-driven solutions for collegiate clients, academic capstones, and institutional teams.",
+    highlights: [
+      "Engineered web systems for collegiate operations, digital signage, and tournament broadcasting.",
+      "Implemented Google Workspace SSO RBAC, 3-way conflict detection, and Excel export pipelines.",
+    ],
+    techStack: ["Next.js 16", "Supabase", "PostgreSQL", "TypeScript", "Tailwind CSS"],
     isCurrent: true,
   },
   {
     organization: "Overseas Workers Welfare Administration (OWWA) Region 11 — Davao Region",
     role: "Software Developer Intern",
     period: "Jan 19, 2026 – May 14, 2026",
-    description:
-      "Developed the OWWA Client Satisfaction Measurement Report System (CSMR)—actively running in regional operations today—and contributed to the Statistical Performance Reporting System (SPRS) under IT supervision.",
+    highlights: [
+      "Deployed regional CSMR platform consolidating 4,632+ citizen surveys across 10 regional units (<1s Excel export).",
+      "Engineered statistical reporting and target tracking engine for the regional OWWA SPRS platform.",
+    ],
+    techStack: ["PostgreSQL", "Supabase SSR", "ExcelJS", "TypeScript", "Recharts"],
     logo: "/logos/owwa-logo.webp",
     link: "https://www.facebook.com/owwadavao.lco",
     isCurrent: false,
@@ -698,23 +685,23 @@ export const resumePath = "/Kenneth_Bulaga_Resume.pdf";
 
 export const jpConnectCaseStudy: CaseStudyData = {
   id: "jp-connect",
-  title: "JP Connect: Institutional Student Services Platform",
-  subtitle: "Multi-Role University Operations & Automated Conflict-Free Examination Suite",
-  role: "Lead Full-Stack Developer (Institutional Engagement)",
+  title: "JP Connect: Campus Operations & Student Services Portal",
+  subtitle: "Campus clearance automation, conflict-free exam scheduling, and Google SSO role-based access",
+  role: "Full-Stack Developer",
   institution: "St. John Paul II College of Davao (SJPIICD)",
   scaleSummary:
-    "Multi-office operations platform serving 5,500+ active university users across 3 administrative departments, replacing manual spreadsheets and paper queues with automated conflict detection, digital ID passes, and role-based clearance.",
+    "Student services platform serving 5,500+ students and faculty across 3 campus administrative offices, replacing manual paper queues and spreadsheet schedules with automated conflict detection, digital student passes, and role-based clearance.",
   metrics: [
-    { label: "5,536", value: "Authenticated Profiles", desc: "5,426 students, 107 faculty across 2 active semesters" },
+    { label: "5,536", value: "Registered SSO Users", desc: "5,426 students, 107 faculty across 2 active semesters" },
     { label: "14,778", value: "Masterlist Records", desc: "Ingested across 9 collegiate degree programs" },
     { label: "658", value: "Exam Schedules", desc: "100% automated 3-way conflict verification" },
-    { label: "0", value: "Paper Bottlenecks", desc: "Eliminated physical lines via digital clearances" },
+    { label: "0", value: "Schedule Overlaps", desc: "Guaranteed across 658 exam slots via O(N log N) interval sweep" },
   ],
   costArchitecture: {
-    title: "Cost-Aware Cloud Architecture",
+    title: "Zero-Cost Cloud Infrastructure",
     points: [
-      "Engineered for $0 baseline idle infrastructure cost on Vercel & Supabase Free Tiers through client-side parsing, zero-egress SVG rendering, and indexed PostgreSQL queries.",
-      "The system dynamically scales to dedicated compute tiers only during peak university bursts (Exam Week and Semester-End Clearance rush).",
+      "Operated completely within Vercel and Supabase free tier limits by offloading Excel parsing and digital ID rendering to the client browser, eliminating server compute overhead.",
+      "Added B-tree indexes on foreign keys (student_id, schedule_id) and utilized Supabase connection pooling (pgbouncer) to handle concurrent traffic spikes during clearance week without hitting connection limits.",
     ],
   },
   problemStatements: [
@@ -727,8 +714,8 @@ export const jpConnectCaseStudy: CaseStudyData = {
       desc: "Deans submitted conflicting Excel files. Schedulers spent days manually cross-referencing hundreds of time slots to detect room collisions or instructors assigned to two rooms concurrently.",
     },
     {
-      title: "Data Privacy & Multi-Role Hazards",
-      desc: "Strict compliance with the Philippine Data Privacy Act of 2012 required absolute cryptographic isolation so no student could inspect another's sanctions or academic standing.",
+      title: "Data Privacy Across Shared Campus Terminals",
+      desc: "Students accessed the platform from public computer labs and shared devices. Relying on client-side routing alone risked exposing student clearance sanctions and disciplinary records to other students.",
     },
   ],
   endorsement: {
@@ -749,14 +736,14 @@ export const jpConnectCaseStudy: CaseStudyData = {
     tags: ["Vertical Digital Stand", "Campus Lobby Kiosk", "5,500+ Daily Foot Traffic"],
   },
   architectureSummary:
-    "Built on a Defense-in-Depth philosophy: the Next.js 16 network gate (proxy.ts) enforces role claims before rendering, Google Workspace SSO locks access to @sjp2cd.edu.ph, and PostgreSQL Row-Level Security (RLS) guarantees complete database isolation with auth.uid() = student_id.",
+    "Enforces authorization at every boundary: Next.js Edge Middleware checks session tokens before route evaluation, Google Workspace OAuth limits access to active @sjp2cd.edu.ph accounts, and PostgreSQL Row-Level Security (RLS) enforces row access directly in the database engine (auth.uid() = student_id).",
   securityPoints: [
-    "Front Door Gate (proxy.ts): Next.js 16 network boundary intercepting incoming requests and enforcing RBAC before page render.",
-    "Passwordless Google SSO & Delegated Compute: 100% passwordless via Google Workspace OAuth (@sjp2cd.edu.ph), offloading auth compute to Google (50k free-tier MAU ceiling) and eliminating password-hashing CPU spikes and reset overhead.",
-    "Registrar Masterlist Verification Gate: First-time onboarding verifies Student/Employee IDs directly against each semester's imported Registrar roster; unlisted or unenrolled IDs are strictly blocked, preventing ghost accounts.",
-    "Interactive 1:1 Identity Claiming: Enrolled users visually confirm their inferred degree program, year level, and college in an interactive dialog before establishing an immutable 1:1 database binding.",
-    "Database RLS (Supabase SSR): Defense-in-depth PostgreSQL policies (auth.uid() = student_id) prevent client data leaks even under direct HTTP API inspection.",
-    "Strict Type Safety: React 19 Compiler, zero any TypeScript, and Vitest/Playwright test suites.",
+    "Next.js 16 Edge Middleware: Intercepts incoming requests and validates session cookies and user roles before page rendering.",
+    "Google Workspace SSO Integration: Restricts authentication to verified @sjp2cd.edu.ph accounts via OAuth, eliminating credential storage liability and avoiding the need for dedicated password-reset email infrastructure.",
+    "Registrar Masterlist Verification: Onboarding validates student and employee IDs directly against imported registrar rosters; unlisted IDs are strictly blocked.",
+    "1:1 Identity Claiming: Enrolled users visually confirm their degree program and year level before establishing an immutable 1:1 database record binding.",
+    "PostgreSQL Row-Level Security (RLS): Enforces data isolation at the database layer (auth.uid() = student_id), preventing record leaks even under direct client API inspection.",
+    "Relational Constraints & Foreign Keys: Foreign key cascades and unique compound indexes prevent duplicate clearance sign-offs and orphaned attendance logs.",
   ],
   deepDives: [
     {
@@ -764,27 +751,27 @@ export const jpConnectCaseStudy: CaseStudyData = {
       challenge:
         "Raw departmental Excel sheets had erratic proctor names (nicknames, typos, abbreviations) and irregular times, creating room/proctor collisions and manual delays notifying 100+ faculty.",
       solution:
-        "Engineered a safe read-excel-file parser, an O(N log N) 3-way collision engine (Room, Proctor, Self-Proctoring), and a PostgreSQL name-normalization engine (normalized_match_key alias mapping) that auto-binds published schedules to instructor Google SSO accounts.",
+        "Built an in-browser Excel parser paired with an interval overlap algorithm that sorts time slots and checks room, proctor, and self-proctoring conflicts in O(N log N) time. Created an alias lookup table in PostgreSQL (normalized_match_key) to map inconsistent faculty name variations to verified Google SSO emails.",
       outcome:
         "658 schedules parsed with 0 collisions and instantly populated across 107 instructor dashboards upon publishing.",
     },
     {
-      title: "2. Defense-in-Depth Multi-Role RBAC",
+      title: "2. Role-Based Access Control on Shared Devices",
       challenge:
         "Managing 6 distinct roles (Super Admin, OSA Admin, SSC Admin, Checker, Instructor, Student) across public school terminals without session leakage.",
       solution:
         "Built with @supabase/ssr using HTTP-only secure cookies, React Server Component validations, and strict PostgreSQL RLS policies.",
       outcome:
-        "Zero unauthorized record extractions or role elevation exploits across 5,500+ active user accounts.",
+        "Verified role isolation across 6 user tiers. Tested direct Supabase PostgREST client queries to confirm student tokens cannot view sanction records or other students' profiles.",
     },
     {
-      title: "3. Batch RFID Ingestion & Sanctions Engine",
+      title: "3. Batch RFID Ingestion & Sanctions Reconciliation",
       challenge:
         "Standalone physical RFID event scanners produced unlinked logs, requiring manual spreadsheet checks to find absent students and compute fines.",
       solution:
         "Built a batch ingestion tool where SSC officers import scanned IDs; the system auto-reconciles against the masterlist to flag absentees and apply fines.",
       outcome:
-        "Replaced days of manual cross-referencing with instant automated sanctions and real-time student e-clearance tracking.",
+        "Automated attendance reconciliation across 14,778 student records by ingesting offline RFID scans and computing set differences (Masterlist \\ Scanned), reducing clearance processing time from 3 days to under 5 seconds.",
     },
   ],
   qaList: [
@@ -794,19 +781,19 @@ export const jpConnectCaseStudy: CaseStudyData = {
         "Access is restricted to Google Workspace accounts with the @sjp2cd.edu.ph domain. On first sign-in, students input their Student ID, which is validated against the active semester's Registrar masterlist. The UI renders an interactive confirmation preview (Name, Course, Year Level) for visual verification before executing an atomic database transaction that binds auth.users.id to the student record with an immutable 1:1 unique constraint.",
     },
     {
-      question: "How did you ensure authentication wouldn't buckle during peak morning traffic?",
+      question: "Why choose Google Workspace SSO instead of building custom email and password authentication?",
       answer:
-        "Rather than running CPU-bound password hashing algorithms (bcrypt/argon2) on our application runtime, we delegated credential authentication to Google Workspace OAuth. This eliminated compute spikes, bypassed transactional email (SMTP) bottlenecks during password resets, and utilized Supabase connection pooling to maintain zero-cost operation within the 50,000 MAU free tier.",
+        "As a solo developer building for a university, implementing custom authentication means maintaining password hashing, email verification, password reset flows, and SMTP services. Delegating to Google Workspace OAuth locked access to active @sjp2cd.edu.ph accounts out of the box, eliminated password storage risks, and allowed the application to remain within Supabase's 50,000 MAU free tier.",
     },
     {
       question: "How does attendance reconciliation handle raw hardware logs?",
       answer:
-        "Standalone physical RFID scanners capture event taps offline. SSC officers export these raw logs into JP Connect, where our ingestion pipeline deduplicates multi-tap scanner noise into a clean unique ID set. The engine then computes the set difference (Masterlist \\ Scanned), automatically flagging unscanned IDs as absent and applying pre-set sanction fees.",
+        "Standalone physical RFID scanners capture event taps offline. SSC officers export these raw logs into JP Connect, where our ingestion pipeline deduplicates multi-tap scanner noise into a clean unique ID set. The system then computes the set difference (Masterlist \\ Scanned), automatically flagging unscanned IDs as absent and applying pre-set sanction fees.",
     },
     {
       question: "How did you manage cloud infrastructure and hosting costs for the school?",
       answer:
-        "The platform maintains a $0 baseline idle cost on Vercel and Supabase Free Tiers by utilizing zero-egress client parsing and caching React Server Components. We established an operational playbook to provision paid database compute tiers only during scheduled high-concurrency windows (Finals week and end-of-term Clearance).",
+        "The platform maintains a $0 baseline cost on Vercel and Supabase Free Tiers by offloading parsing to the client browser and leveraging Supabase connection pooling. Indexes on foreign keys ensured query execution times stayed fast without exceeding compute limits.",
     },
     {
       question: "How does the 3-Way Exam Conflict Resolver work algorithmically?",
@@ -824,22 +811,22 @@ export const jpConnectCaseStudy: CaseStudyData = {
 const owwaCsmrCaseStudy: CaseStudyData = {
   id: "owwa-csmr",
   title: "OWWA CSMR: Regional Citizen Satisfaction Measurement Platform",
-  subtitle: "Multi-Office Data Intake, Automated ARTA Compliance & Enterprise ExcelJS Consolidation",
-  role: "Full-Stack Software Engineer & System Architect",
+  subtitle: "Multi-office survey intake, automated ARTA compliance, and in-memory ExcelJS report generation",
+  role: "Full-Stack Developer",
   institution: "Overseas Workers Welfare Administration (OWWA Region XI)",
   scaleSummary:
-    "Architected and deployed a regional reporting engine for OWWA Regional Welfare Office XI (Davao Region) that consolidated 72 monthly unit submissions representing 4,632+ physical citizen and OFW survey responses across 9 frontline regional offices.",
+    "Built and deployed a regional reporting web app for OWWA Regional Welfare Office XI (Davao Region) that consolidated 72 monthly unit submissions representing 4,632+ citizen and OFW survey responses across 10 regional units.",
   metrics: [
-    { label: "4,632", value: "Survey Responses Consolidated", desc: "Citizen & OFW survey feedback records ingested across 8 cycles" },
+    { label: "4,632+", value: "Survey Responses Consolidated", desc: "Citizen & OFW survey feedback records ingested across 8 cycles" },
     { label: "72", value: "Monthly Submissions", desc: "53 finalized reports + 19 active drafts" },
     { label: "10", value: "Regional Units", desc: "9 frontline units + 1 IT Head consolidator" },
-    { label: "<1s", value: "Master Consolidation", desc: "1-click ARTA/CSC-compliant Excel synthesis" },
+    { label: "<1s", value: "Master Consolidation", desc: "1-click ARTA/CSC-compliant Excel export" },
   ],
   costArchitecture: {
-    title: "Zero-Redundancy Virtual Aggregation",
+    title: "On-Demand Aggregation vs. Database Bloat",
     points: [
-      "Engineered an on-demand functional reduction pipeline in Next.js Server Actions that aggregates sub-unit survey matrices on the fly without persisting redundant aggregate rows.",
-      "Eliminates database bloat, guarantees mathematical parity across all reports, and computes regional summaries in sub-100ms compute cycles.",
+      "Calculated regional summaries in-memory inside Next.js Server Actions instead of persisting pre-aggregated totals in the database, preventing desynchronization when past reports were unlocked for edits.",
+      "Kept database storage minimal by storing raw unit submissions as structured JSONB payloads and computing regional totals on export in under 100ms.",
     ],
   },
   problemStatements: [
@@ -857,40 +844,40 @@ const owwaCsmrCaseStudy: CaseStudyData = {
     },
   ],
   architectureSummary:
-    "Architected on a centralized hub-and-spoke model: stateless cryptographic JWT sessions (jose) enforce multi-office authorization, live-validating smart matrices anchor arithmetic in real time, and an ExcelJS pipeline synthesizes official multi-section workbooks in-memory.",
+    "Centralized reporting architecture: Next.js Server Actions with jose JWT session validation, client-side input validation with React Hook Form and Zod, and an in-memory ExcelJS workbook generator.",
   securityPoints: [
-    "Stateless Cryptographic JWTs (jose): HS256 token verification stored in HttpOnly secure cookies with multi-office assignment claims.",
-    "PostgreSQL Composite Integrity: Unique compound key on (office_id, month, year) physically preventing duplicate submissions per reporting cycle.",
-    "JSONB Structured Payloads: Document snapshot architecture accommodating 52+ evolving frontline service classifications without schema migrations.",
-    "Immutable Audit Logging: Super-edits, period re-openings, and administrative interventions logged with timestamps and user references in audit_logs.",
+    "Stateless JWT Sessions (jose): Verifies office roles and user identity via signed tokens stored in HttpOnly cookies.",
+    "PostgreSQL Composite Constraint: Unique compound key on (office_id, month, year) physically prevents accidental duplicate submissions for the same cycle.",
+    "JSONB Document Payloads: Stores survey data matrices as JSONB to support changing government service categories without requiring database schema migrations.",
+    "Audit Logging: Changes to locked reports and administrative unlock actions are recorded with timestamps and user IDs in an audit_logs table.",
   ],
   deepDives: [
     {
-      title: "1. Zero-Drift On-Demand Aggregation Pipeline",
+      title: "1. On-Demand Report Aggregation Without Redundant Records",
       challenge:
-        "Each office submits deeply nested survey datasets (9 SQD Likert dimensions with 6 rating tiers, 52 services availed, demographics). Storing static aggregate rows caused desynchronization whenever an admin unlocked a report.",
+        "Each office submits nested survey datasets (9 SQD Likert dimensions with 6 rating tiers, 52 services, and demographics). Storing separate pre-calculated summary rows risked data drift whenever an admin unlocked and corrected a unit report.",
       solution:
-        "Implemented an on-demand virtual reduction engine in Next.js Server Actions. It fetches submitted snapshots via Supabase and executes a functional accumulator pipeline calculating global distributions on the fly.",
+        "Wrote an in-memory aggregation function in Next.js Server Actions that fetches active unit submissions and reduces the dataset on the fly when generating regional reports.",
       outcome:
-        "Guaranteed mathematical parity across all reports with zero redundant data; master reports compute in sub-100ms.",
+        "Eliminated out-of-sync summary records and computed regional totals in under 100ms on demand.",
     },
     {
-      title: "2. Server-Side ARTA-Compliant Master Workbook Synthesis",
+      title: "2. Generating ARTA-Compliant Excel Workbooks with ExcelJS",
       challenge:
-        "Government reporting mandates rigid formatting: exact border hierarchies, cell fills, merged headers, dynamic formulas, and narrative commentary blocks that standard CSV generators cannot deliver.",
+        "Government reporting rules from ARTA and CSC require specific cell border hierarchies, header fills, formula rows, and narrative remarks that standard CSV exports cannot satisfy.",
       solution:
-        "Engineered a 2,100+ line spreadsheet synthesis pipeline using ExcelJS, calculating cell coordinates dynamically, applying government styling tokens, and compiling clean binary streams in-memory.",
+        "Built an export script with ExcelJS that maps aggregated survey matrices to the exact cell coordinates, styles, and formulas mandated by regional templates, streaming the finished .xlsx file directly to the user.",
       outcome:
-        "Consolidated master reports generated in under 1 second with 100% layout fidelity to official regional templates.",
+        "Replaced 3–4 days of manual spreadsheet formatting per month with a 1-click export generated in under 1 second.",
     },
     {
-      title: "3. 'Universal Law of Sums' Client-Side Live Validation",
+      title: "3. Client-Side Arithmetic Balance Verification with Zod",
       challenge:
-        "Encoders frequently made arithmetic mistakes where sub-category responses did not equal total declared respondents, invalidating regional metrics.",
+        "Staff members frequently entered numbers where demographic or service tallies did not add up to the total number of survey respondents, invalidating percentage metrics.",
       solution:
-        "Engineered AutoCalcTableInput and SmartMatrixInput components linked to React Hook Form and Zod refinements, anchoring all inputs to the master total with real-time color-coded balance indicators.",
+        "Built interactive matrix inputs with React Hook Form and Zod schema refinements that compare input subtotals against the declared respondent count and highlight mismatches before allowing submission.",
       outcome:
-        "Eliminated mathematical submission errors at the source, reducing invalid submissions to zero.",
+        "Prevented arithmetic entry mistakes before records reached the database, cutting invalid submissions to zero.",
     },
   ],
   qaList: [
@@ -902,7 +889,7 @@ const owwaCsmrCaseStudy: CaseStudyData = {
     {
       question: "How are data validation and server-side report generation handled?",
       answer:
-        "Enforces a multi-layered validation strategy: on the client, custom validation hooks perform live arithmetic checks to ensure sub-category tallies match anchor totals. On the server, Next.js Server Actions validate payloads against strict Zod schemas before persisting. For exports, an ExcelJS pipeline constructs the complete aggregated workbook in-memory with exact typography, cell borders, and narrative template injections.",
+        "Uses a multi-step validation approach: on the client, React Hook Form and Zod check that sub-category counts match total respondents. On the server, Server Actions re-validate payloads against Zod schemas before saving to Supabase. For downloads, ExcelJS formats the aggregated numbers into official government report layouts in-memory.",
     },
     {
       question: "How does the system ensure data accuracy and prevent duplicate or unauthorized entries?",
@@ -914,23 +901,23 @@ const owwaCsmrCaseStudy: CaseStudyData = {
 
 const jpIntramsCaseStudy: CaseStudyData = {
   id: "jp-intrams",
-  title: "JP Intrams: Real-Time Arena Broadcast & Leaderboard Engine",
-  subtitle: "High-Concurrency Tournament State, Digital Signage Kiosk & Upstash Cheer Pipeline",
-  role: "Lead Full-Stack Developer & Real-Time Architect",
+  title: "JP Intrams: Real-Time Tournament Leaderboard & Campus Signage",
+  subtitle: "Live score updates, automated gym projector display mode, and Redis rate-limiting",
+  role: "Full-Stack Developer",
   institution: "St. John Paul II College of Davao (SJPIICD)",
   scaleSummary:
-    "Architected and deployed a real-time tournament operations and arena broadcast platform for university intramurals. Powers live score feeds across 22 official tournament sports and 23+ competitive events (including major sports, minor events, esports, and socio-cultural categories) for 9 academic departments, broadcasted live to campus gym projectors, auditorium LED walls, and thousands of concurrent student mobile devices.",
+    "Built and deployed a real-time tournament leaderboard and display app for university intramurals. Handled live score updates across 23 events (18 major sports, 4 minor sports, and socio-cultural competitions) for 9 academic departments, displayed live on campus gym projectors, auditorium screens, and student mobile devices.",
   metrics: [
-    { label: "9", value: "Academic Units", desc: "Colleges & SHS competing across multi-division brackets" },
-    { label: "22 / 23+", value: "Sports & Events", desc: "18 Major sports, 4 Minor sports & socio-cultural award categories" },
-    { label: "<500ms", value: "Broadcast Latency", desc: "Instant Supabase Realtime WebSocket point sync" },
-    { label: "5,400+", value: "Student Cheers", desc: "High-velocity votes processed via Upstash Redis" },
+    { label: "9", value: "Academic Units", desc: "Colleges and Senior High School departments competing across brackets" },
+    { label: "23", value: "Sports & Events", desc: "18 major sports, 4 minor sports, and socio-cultural competitions" },
+    { label: "<500ms", value: "Update Latency", desc: "Live score updates via Supabase Realtime WebSocket events" },
+    { label: "100%", value: "Uptime During Games", desc: "Zero downtime recorded across the tournament days" },
   ],
   costArchitecture: {
-    title: "Edge CDN & Jittered Polling Architecture",
+    title: "Protecting Database Connections Under High Traffic",
     points: [
-      "Decoupled high-velocity student cheer voting from PostgreSQL to Upstash Redis using atomic SETNX device rate-limiting and pipelined batch updates, protecting the primary database from connection exhaustion.",
-      "Implemented Edge CDN caching headers (s-maxage=5, stale-while-revalidate=15) alongside randomized client polling jitter (15s–30s ± random delta) to completely eliminate thundering herd spikes during championship game finals.",
+      "Offloaded high-frequency match voting from PostgreSQL to Upstash Redis using atomic SETNX rate-limiting (5 votes/sec/IP), protecting the primary database connection pool from spikes during close games.",
+      "Added Cache-Control headers (s-maxage=5, stale-while-revalidate=15) and slight client polling jitter (15s–30s) so simultaneous spectator devices didn't hit the server at the exact same millisecond.",
     ],
   },
   problemStatements: [
@@ -943,71 +930,70 @@ const jpIntramsCaseStudy: CaseStudyData = {
       desc: "Auditorium LED walls and gym projectors required staff to manually refresh browser pages and resize window zoom levels, creating awkward display freezes and downtime during live ceremonies.",
     },
     {
-      title: "High-Concurrency Championship Surges",
-      desc: "Championship finals caused thousands of simultaneous student devices to refresh the leaderboard at the exact same second, risking server crashes and database connection pool exhaustion.",
+      title: "Simultaneous Traffic During Finals",
+      desc: "Championship games caused hundreds of students to check the leaderboard at the same moment, risking database connection spikes on a free-tier hosting plan.",
     },
   ],
   liveDeployment: {
-    title: "Main Stage Projector & Quadrangle Broadcast",
+    title: "Main Stage Projector & Quadrangle Display",
     caption:
-      "Photograph taken live during tournament play: JP Intrams leaderboard projected onto the main stage projector in the school quadrangle, broadcasting live standings to students and athletes.",
+      "Photograph taken live during tournament play: JP Intrams leaderboard projected onto the main stage in the school quadrangle, showing live standings to students and athletes.",
     image: "/projects/jp-intrams/projector.webp",
     aspect: "16/9",
-    tags: ["Main Stage Projector", "School Quadrangle", "Live Tournament Broadcast"],
+    tags: ["Main Stage Projector", "School Quadrangle", "Live Tournament Display"],
   },
   architectureSummary:
-    "Built on a decoupled real-time architecture: Supabase Realtime WebSockets handle instantaneous score and rank recalculations (<500ms), Upstash Redis absorbs high-velocity cheer votes with atomic rate-limiting, and Next.js 16 App Router powers a dedicated 24/7 Digital Signage Kiosk route (/tv) designed for arena displays and LED walls.",
+    "Real-time tournament architecture: Supabase Realtime WebSockets push score updates to mobile devices and displays in <500ms, Upstash Redis buffers spectator votes with rate-limiting, and a dedicated /tv route provides a hands-free display for gym projectors.",
   securityPoints: [
-    "Atomic Device Rate-Limiting: Upstash Redis SETNX locks prevent cheer vote ballot-stuffing and script abuse while allowing instant sub-millisecond voting.",
-    "Supabase Realtime WebSocket Channels: postgres_changes stream on points_log triggers atomic rank recalculation on the fly with zero client polling overhead.",
-    "Dedicated Fullscreen Digital Signage (/tv): Auto-cycling 5-screen broadcast kiosk (Podium, Standings, Cheer Meter, Results, Champion Showcase) with keyboard shortcuts for tournament directors.",
-    "Thundering Herd Defense: Edge CDN caching (s-maxage=5) combined with jittered client fallback intervals prevents sudden database connection exhaustion during peak traffic.",
-    "Row-Level Security (PostgreSQL RLS): Admin score creation and audit logs are strictly protected by role-based database policies.",
+    "PostgreSQL Row-Level Security: Score submissions and department points can only be updated by authorized student committee accounts.",
+    "Redis Rate-Limiting (SETNX): Caps vote requests to 5 per second per IP to prevent automated voting scripts and spam.",
+    "Edge Response Caching: Uses Cache-Control headers (s-maxage=5) to cache public leaderboard data at the CDN edge.",
+    "Atomic Database Transactions: Match results and overall medal standings update atomically in PostgreSQL to prevent partial records.",
   ],
   deepDives: [
     {
-      title: "1. Zero-Latency Real-Time Score Broadcast Engine",
+      title: "1. Sub-Second Real-Time Score Updates",
       challenge:
-        "When tournament referees submit game results, thousands of student spectators on campus Wi-Fi and mobile data need immediate updates without manual page refreshes.",
+        "When game results were entered, hundreds of students across campus gyms and fields needed to see updated standings without constantly refreshing the page.",
       solution:
-        "The client subscribes to Supabase Realtime WebSocket change streams on points_log and departments. Upon receiving an event, the useLeaderboard hook triggers an instant, optimized refetch of the aggregated leaderboard view and merges live Upstash Redis cheer tallies.",
+        "Subscribed client devices to Supabase Realtime WebSocket events on points_log. When an official entered points, connected clients received the event and re-fetched the calculated standings, merging in live Redis vote totals.",
       outcome:
-        "Podium rankings, medal tables, and department points broadcast to all connected devices in <500ms without full page reloads or blind high-frequency polling.",
+        "Updated podium standings and medal tallies appeared on student screens in under 500ms without continuous background polling.",
     },
     {
-      title: "2. 24/7 Digital Signage & Arena Kiosk Route (/tv)",
+      title: "2. Hands-Free Projector & Big-Screen Display Mode (/tv)",
       challenge:
-        "Arena projectors and campus TVs needed a continuous, hands-free display that visually showcased the Olympic podium, live standings, and recent results without human intervention.",
+        "Campus gym projectors and auditorium screens needed a full-screen display that cycled through standings, recent winners, and podium ranks without an AV operator having to click or scroll.",
       solution:
-        "Built a dedicated /tv route with Framer Motion and canvas-confetti that automatically cycles across 5 broadcast screens on 15-second intervals, featuring keyboard navigation (Space, Arrow keys) and an interactive glassmorphic dock.",
+        "Built a standalone /tv route that automatically rotates between 5 display views every 15 seconds, complete with keyboard controls (Space to pause, Arrows to skip) and responsive sizing for projector resolutions.",
       outcome:
-        "Zero-downtime, professional television-grade broadcast running continuously on campus auditorium projectors and gym LED screens.",
+        "Ran unattended on the main quadrangle projector and gymnasium screens throughout the multi-day tournament.",
     },
     {
-      title: "3. High-Velocity Cheer Engine & Concurrency Decoupling",
+      title: "3. Redis Rate-Limiting & High-Traffic Buffering",
       challenge:
-        "Allowing 5,400+ students to cheer and vote live during games could easily overwhelm the PostgreSQL transactional database with tens of thousands of write requests.",
+        "Allowing students to vote and cheer live during matches created short spikes in write traffic that could exhaust PostgreSQL connection limits.",
       solution:
-        "Decoupled the cheer engine entirely into Upstash Serverless Redis REST API, using atomic operations and pipelining, while Edge CDN caching shielded the main leaderboard endpoints.",
+        "Handled spectator voting via Upstash Redis REST calls with atomic SETNX rate limits (5 taps per second per IP), keeping high-frequency write operations completely separate from the relational database.",
       outcome:
-        "Sub-millisecond voting response times with 100% database stability and zero CPU spikes during championship game finals.",
+        "Maintained responsive voting feedback and zero database connection errors during championship finals.",
     },
   ],
   qaList: [
     {
-      question: "How does the real-time scoring engine broadcast updates without overwhelming the database?",
+      question: "How did you handle live score updates without running out of database connections?",
       answer:
-        "The client subscribes to Supabase Realtime WebSocket change streams (realtime-leaderboard-2026) on points_log and departments. Upon receiving an event, the useLeaderboard hook triggers an instant, optimized refetch of the aggregated leaderboard view and merges live Upstash Redis cheer tallies in <500ms—eliminating full page reloads and blind high-frequency polling.",
+        "Clients listened to Supabase Realtime WebSocket events on points_log and departments. When game coordinators entered a score, the event notified connected devices to refresh their cached view. Separating live spectator cheers into Upstash Redis ensured the main database wasn't flooded by vote requests.",
     },
     {
-      question: "How does the /tv Arena Display Mode work for campus projectors and TVs?",
+      question: "How does the /tv display mode work on campus projectors?",
       answer:
-        "The /tv route is engineered as a standalone 24/7 digital kiosk. It utilizes an interval timer to auto-cycle through 5 distinct broadcast views: 3D Olympic Podium, Live Standings, Cheer Meter, Recent Results, and Champion Showcase. It includes keyboard hotkeys (Space to pause/resume, Arrows to skip) and full viewport scaling so campus AV operators can display it on any projector or TV resolution.",
+        "The /tv route was designed specifically for venue screens. It runs an automated interval timer that smoothly cycles through 5 screens: Podium Standings, Full Department Table, Live Vote Meter, Recent Match Results, and Overall Champions. It includes hotkeys (Space to pause/play, Arrows to navigate) so event coordinators could control it easily from an AV laptop.",
     },
     {
-      question: "How did you prevent thundering herd crashes during championship game finals?",
+      question: "How did you handle traffic surges during championship games?",
       answer:
-        "We implemented a two-tier strategy: First, high-frequency cheer voting was offloaded entirely to Upstash Redis with atomic SETNX rate-limiting. Second, leaderboard GET endpoints use Next.js Cache-Control headers (s-maxage=5, stale-while-revalidate=15) paired with a randomized client polling jitter (15s–30s ± delta), ensuring thousands of concurrent devices never hit the origin server at the exact same millisecond.",
+        "We used two simple safeguards: first, spectator cheers were routed to Upstash Redis with per-IP rate-limiting rather than hitting PostgreSQL. Second, public leaderboard endpoints used Next.js Cache-Control headers (s-maxage=5, stale-while-revalidate=15) so repeated requests from student phones were served directly from the edge cache.",
     },
   ],
 };

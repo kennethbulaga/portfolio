@@ -137,7 +137,7 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
       items: [
         {
           id: "case-study-jpconnect",
-          label: "Inspect JP Connect Architecture (5,536 Users)",
+          label: "Inspect JP Connect Architecture (5,536 Registered SSO Users)",
           icon: Sparkles,
           action: () => {
             onClose();
@@ -157,7 +157,7 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
         },
         {
           id: "case-study-jpintrams",
-          label: "Inspect JP Intrams Arena Architecture (Real-Time Websockets)",
+          label: "Inspect JP Intrams Arena Architecture (Real-Time WebSockets)",
           icon: Sparkles,
           action: () => {
             onClose();

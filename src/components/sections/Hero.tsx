@@ -23,7 +23,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="flex flex-col gap-6 sm:gap-8"
           initial="hidden"
@@ -34,7 +34,7 @@ export function Hero() {
           <motion.div variants={staggerItem}>
             <Badge 
               variant="success" 
-              className="gap-2 px-3 py-1 text-xs font-medium"
+              className="gap-2 px-3.5 py-1 text-xs font-medium rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-xs shadow-xs"
             >
               <span className="relative flex size-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -89,7 +89,7 @@ export function Hero() {
 
           {/* Primary Action Buttons (Balanced 50/50 on Mobile, Flex on Desktop) */}
           <motion.div variants={staggerItem} className="pt-2 grid grid-cols-2 gap-2.5 sm:flex sm:items-center sm:gap-3 max-w-md sm:max-w-none">
-            <Button onClick={scrollToProjects} size="lg" className="ps-5 pe-4 gap-2 shadow-xs text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto">
+            <Button onClick={scrollToProjects} size="lg" className="ps-5 pe-4 gap-2 shadow-xs text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto rounded-xl">
               <span>Explore Projects</span>
               <ArrowDown size={15} />
             </Button>
@@ -98,7 +98,7 @@ export function Hero() {
               asChild
               size="lg"
               variant="outline"
-              className="text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto px-3 sm:px-5 gap-1.5 sm:gap-2 shadow-xs group"
+              className="text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto px-3 sm:px-5 gap-1.5 sm:gap-2 shadow-xs group rounded-xl"
             >
               <a href={resumePath} target="_blank" rel="noopener noreferrer">
                 <FileText size={16} className="text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
@@ -112,15 +112,15 @@ export function Hero() {
             <div className="flex items-center justify-between mb-4">
               <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
                 <ShieldCheck size={14} className="text-primary" />
-                Collaborations & Institutional Deployments
+                Institutions & Organizations I&apos;ve Built For
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {institutionalTrust.map((partner) => {
                 const content = (
-                  <div className="flex items-start gap-3 p-3 rounded-2xl border border-border/80 bg-card/50 hover:bg-card hover:border-primary/40 transition-[background-color,border-color,box-shadow] duration-200 group h-full">
-                    <div className="relative size-10 rounded-xl overflow-hidden bg-background border border-border/80 shrink-0 p-1 mt-0.5 image-outline">
+                  <div className="flex items-start gap-3 p-3.5 rounded-2xl border border-border/70 bg-card/60 dark:bg-card/40 hover:bg-card dark:hover:bg-card/80 hover:border-border transition-all duration-200 group h-full shadow-xs dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
+                    <div className="relative size-10 rounded-xl overflow-hidden bg-background border border-border/70 shrink-0 p-1 mt-0.5 image-outline">
                       <Image
                         src={partner.logo}
                         alt={partner.name}
