@@ -16,20 +16,18 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://kennethbulaga.dev"),
   title: {
-    default: "Kenneth Bulaga — Full-Stack Software Engineer",
+    default: "Kenneth Bulaga — Full-stack Developer",
     template: "%s | Kenneth Bulaga",
   },
   description:
-    "Full-stack software engineer building web applications and internal tools focused on simplicity, performance, and reliability with Next.js, TypeScript, and PostgreSQL.",
+    "Full-stack developer building web applications and internal tools that turn slow, manual processes into fast, dependable software with Next.js, TypeScript, and PostgreSQL.",
   keywords: [
     "Kenneth Bulaga",
     "Kenzo",
-    "Full-Stack Software Engineer",
-    "Software Engineer",
-    "Full-Stack Engineer",
+    "Full-stack Developer",
     "Full-Stack Developer",
+    "Junior Software Developer",
     "Web Developer",
-    "React Native",
     "Next.js 16",
     "React 19",
     "Tailwind CSS v4",
@@ -46,16 +44,16 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://kennethbulaga.dev",
-    title: "Kenneth Bulaga — Full-Stack Software Engineer",
+    title: "Kenneth Bulaga — Full-stack Developer",
     description:
-      "Full-stack software engineer building web applications and internal tools focused on simplicity, performance, and reliability with Next.js, TypeScript, and PostgreSQL.",
+      "Full-stack developer building web applications and internal tools that turn slow, manual processes into fast, dependable software with Next.js, TypeScript, and PostgreSQL.",
     siteName: "Kenneth Bulaga Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kenneth Bulaga — Full-Stack Software Engineer",
+    title: "Kenneth Bulaga — Full-stack Developer",
     description:
-      "Full-stack software engineer building production web and mobile architectures with Next.js, TypeScript, React Native, and Supabase.",
+      "Full-stack developer building practical web applications with Next.js, TypeScript, and Supabase.",
     creator: "@kenzodev69",
   },
   robots: {
@@ -90,7 +88,7 @@ export default function RootLayout({
     "@type": "Person",
     name: "Kenneth Bulaga",
     alternateName: "Kenzo",
-    jobTitle: "Full-Stack Software Engineer",
+    jobTitle: "Full-stack Developer",
     url: "https://kennethbulaga.dev",
     address: {
       "@type": "PostalAddress",
@@ -111,9 +109,9 @@ export default function RootLayout({
       "TypeScript",
       "PostgreSQL",
       "Supabase",
-      "Real-Time Systems & WebSockets",
+      "Real-Time Systems",
       "Tailwind CSS",
-      "Serverless Cloud Architecture",
+      "Cloud & Serverless Deployment",
     ],
   };
 

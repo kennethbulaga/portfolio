@@ -156,8 +156,8 @@ export interface PersonalInterest {
 
 export const personalInfo: PersonalInfo = {
   name: "Kenneth Bulaga",
-  subHeadline: "Full-Stack Software Engineer",
-  bio: "I build web applications and internal tools focused on simplicity, performance, and reliability. I'm especially interested in workflow automation, intuitive design, and building software that helps teams and organizations operate more smoothly.",
+  subHeadline: "Full-stack Developer",
+  bio: "I build full-stack web applications and internal tools that turn slow, manual processes into fast, dependable software. Working across Next.js, TypeScript, and PostgreSQL, I focus on building practical systems that just work—from database schema design to clean, responsive interfaces.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
   currentlyExploring: "AWS Cloud Quest",
   email: "kennethbulaga.dev@gmail.com",
@@ -294,9 +294,9 @@ export const flagshipProjects: FlagshipProject[] = [
     id: "jp-connect",
     title: "JP Connect",
     link: "https://jp-connect.vercel.app",
-    focus: "Campus Portal & Exam Scheduling Platform",
+    focus: "Student Services & Exam Scheduling Platform",
     description:
-      "Campus portal built for St. John Paul II College of Davao, serving 5,500+ students and faculty. Replaces physical queues and spreadsheet scheduling with automated conflict detection and Google SSO.",
+      "Student services and exam scheduling portal built for St. John Paul II College of Davao, serving 5,536 registered users across 9 academic departments. Replaces physical queues and spreadsheet scheduling with automated interval-sweep scheduling and role-based clearance passes.",
     image: "/projects/jp-connect/1. LandingPage.webp",
     screenshots: [
       { label: "Landing & Student", image: "/projects/jp-connect/1. LandingPage.webp" },
@@ -323,9 +323,9 @@ export const flagshipProjects: FlagshipProject[] = [
       "Schedule Overlaps": "0",
     },
     highlights: [
-      "Conflict-Free Scheduler: Implemented an interval sweep algorithm that checks and prevents room, proctor, and time-slot collisions across 658 exam sessions.",
+      "Conflict-Free Scheduler: Implemented automated interval-sweep scheduling to eliminate timetable conflicts across 658 exam slots, replacing manual spreadsheet validation.",
       "Role-Based Access: Configured domain-locked Google Workspace SSO (@sjp2cd.edu.ph) paired with PostgreSQL Row-Level Security to isolate student and faculty data.",
-      "Automated Clearance: Reconciles offline RFID attendance logs against registrar rosters to clear student event sanctions in under 5 seconds.",
+      "Automated Clearance: Automated campus clearance by processing offline RFID scanner logs against 14,778 registrar records, reducing processing time from days to under 5 seconds.",
     ],
     hasCaseStudy: true,
   },
@@ -333,9 +333,9 @@ export const flagshipProjects: FlagshipProject[] = [
     id: "owwa-csmr",
     title: "OWWA CSMR System",
     link: "#",
-    focus: "Regional Citizen Satisfaction & Feedback System",
+    focus: "Internal Citizen Satisfaction & Feedback Reporting Tool",
     description:
-      "Internal reporting system built during my OWWA Region XI internship. Consolidates monthly feedback across 10 regional offices with live balance validation and 1-click ARTA/CSC-compliant Excel export.",
+      "Internal reporting tool built during my OWWA Region XI internship, consolidating 4,632+ citizen feedback records across 10 regional units with live balance validation and 1-click Excel export for ARTA/CSC reporting requirements.",
     image: "/projects/owwa-csmr/landing.webp",
     screenshots: [
       { label: "Public Landing", image: "/projects/owwa-csmr/landing.webp" },
@@ -356,14 +356,14 @@ export const flagshipProjects: FlagshipProject[] = [
       "TanStack Table",
     ],
     metrics: {
-      "Citizen Responses": "4,632+",
+      "Citizen Feedback Records": "4,632+",
       "Monthly Reports": "72 Submissions",
       "Regional Units": "10 Units",
-      "Consolidation Time": "<1s (1-Click)",
+      "Report Generation Time": "<1s (1-Click)",
     },
     highlights: [
       "On-Demand Aggregation: Aggregates regional survey metrics on the fly in Next.js Server Actions from JSONB survey snapshots in under 100ms without saving redundant table rows.",
-      "Automated Excel Export: Built an in-memory ExcelJS generator that outputs fully styled, formula-compliant ARTA master workbooks in under 1 second.",
+      "In-Memory Excel Engine: Built an in-memory ExcelJS export engine generating multi-tab workbooks with formulas and audit styling for ARTA/CSC reporting requirements, reducing report generation time to under 1 second.",
       "Input Verification: Built live client-side balance checks with Zod validation so sub-category tallies always match respondent totals before submission.",
     ],
     hasCaseStudy: true,
@@ -374,12 +374,12 @@ export const flagshipProjects: FlagshipProject[] = [
     link: "https://jp-intrams.vercel.app",
     focus: "Real-Time Tournament Leaderboard & Campus Signage",
     description:
-      "Live tournament leaderboard and display app for college intramurals. Updates scores across 23 events for 9 academic departments in under 500ms, displayed on gym screens and mobile devices.",
+      "Live tournament leaderboard delivering real-time score synchronization across 23 sports divisions for 9 departments using Supabase Realtime, with an auto-cycling display mode for gym screens and mobile spectator devices.",
     image: "/projects/jp-intrams/desktop.webp",
     screenshots: [
       { label: "Desktop Leaderboard", image: "/projects/jp-intrams/desktop.webp" },
       { label: "Mobile Spectator", image: "/projects/jp-intrams/iphone HD.webp" },
-      { label: "Arena TV Mode", image: "/projects/jp-intrams/tv(desktop).webp" },
+      { label: "Gym Display Mode", image: "/projects/jp-intrams/tv(desktop).webp" },
       { label: "Campus Projector", image: "/projects/jp-intrams/projector.webp" },
     ],
     logo: "/logos/school-logo-nobg.webp",
@@ -394,15 +394,15 @@ export const flagshipProjects: FlagshipProject[] = [
       "Framer Motion",
     ],
     metrics: {
-      "Collegiate Units": "9 Departments",
-      "Tracked Events": "23 Divisions",
-      "Broadcast Latency": "<500ms",
+      "Competing Departments": "9 Departments",
+      "Sports Divisions": "23 Divisions",
+      "Score Sync": "Real-Time",
       "Operational Uptime": "100% (Zero Downtime)",
     },
     highlights: [
-      "Live Score Sync: Subscribed to Supabase Realtime WebSockets on database changes to recalculate and push standings to all devices in under 500ms.",
-      "Gym Display Mode (/tv): Built an auto-cycling presentation view with smooth transitions and keyboard controls for gym LED screens and projectors.",
-      "Rate-Limited Reactions: Used Upstash Redis atomic locks (5 taps/sec per IP) to handle live spectator cheer taps without overloading PostgreSQL.",
+      "Live Score Sync: Delivered real-time score synchronization across 23 sports divisions using Supabase Realtime to push live standings to student devices.",
+      "Auto-Cycling Display Mode: Developed an auto-cycling display mode deployed across campus gym screens and mobile spectator devices for continuous live score broadcasts.",
+      "Distributed Redis Rate Limiting: Implemented distributed Redis rate limiting at the API layer to prevent PostgreSQL connection exhaustion during concurrent tournament traffic.",
     ],
     hasCaseStudy: true,
   },
@@ -416,7 +416,7 @@ export const clientProjects: ClientProject[] = [
     title: "OWWA SPRS Platform",
     client: "Overseas Workers Welfare Administration (Region XI)",
     objective:
-      "Developed and presented a performance reporting platform for OWWA Region XI, replacing scattered office spreadsheets with centralized target tracking and automated Excel accomplishment reports.",
+      "Developed and presented a performance reporting platform for OWWA Region XI, implementing KPI aggregation and accomplishment reporting modules using PostgreSQL constraints and Zod validation to enforce data integrity.",
     logo: "/logos/owwa-logo.webp",
     image: "/projects/owwa-sprs/consolidation.webp",
     screenshots: [
@@ -428,10 +428,12 @@ export const clientProjects: ClientProject[] = [
     techStack: [
       "Next.js",
       "TypeScript",
-      "Supabase (PostgreSQL & RLS)",
-      "Tailwind CSS",
-      "Recharts",
+      "PostgreSQL",
+      "Supabase SSR",
+      "Zod",
       "ExcelJS",
+      "Recharts",
+      "Tailwind CSS",
     ],
   },
 ];
@@ -502,14 +504,14 @@ export const featuredCredentials: Credential[] = [
     status: "Active Production",
     period: "May 14, 2026",
     description:
-      "Awarded an official Certificate of Commendation from OWWA Region XI for developing and deploying the CSMR system, which consolidated 4,632+ citizen feedback responses across 10 regional offices into compliant Excel reports.",
+      "Awarded an official Certificate of Recognition from OWWA Region XI for developing and deploying the CSMR system, consolidating 4,632+ citizen feedback records across 10 regional units into multi-tab workbooks for ARTA/CSC reporting requirements.",
     skills: ["Government IT", "Feedback Analytics", "Compliance Reporting", "Full-Stack Web"],
     image: "/certificates/ojt/csmr.webp",
     gallery: [
       {
-        label: "Official Commendation",
+        label: "Official Recognition",
         image: "/certificates/ojt/csmr.webp",
-        caption: "Official signed OWWA Certificate of Commendation for CSMR deployment",
+        caption: "Official signed OWWA Certificate of Recognition for CSMR deployment",
       },
       {
         label: "System Pitch & Presentation",
@@ -541,7 +543,7 @@ export const featuredCredentials: Credential[] = [
     period: "May 14, 2026",
     description:
       "Awarded an official Certificate of Recognition for developing and presenting the OWWA SPRS capstone system, built to help regional units track monthly performance targets and automate accomplishment reporting.",
-    skills: ["Enterprise Systems", "Statistical Reporting", "Performance KPIs", "Data Management"],
+    skills: ["Government IT Systems", "Statistical Reporting", "Performance KPIs", "Data Management"],
     image: "/certificates/ojt/sprs.webp",
     gallery: [
       {
@@ -552,7 +554,7 @@ export const featuredCredentials: Credential[] = [
       {
         label: "Live System Pitch",
         image: "/profile/1. pitching.webp",
-        caption: "Presenting the SPRS statistical reporting architecture to OWWA Region XI",
+        caption: "Presenting the SPRS statistical reporting platform to OWWA Region XI",
       },
       {
         label: "IT Mentorship & Handover",
@@ -609,24 +611,27 @@ export const featuredCredentials: Credential[] = [
 export const experience: Experience[] = [
   {
     organization: "Freelance / Self-Employed",
-    role: "Freelance Software Engineer",
+    role: "Freelance Full-stack Developer",
     period: "Nov 2024 – Present",
     highlights: [
-      "Engineered web systems for collegiate operations, digital signage, and tournament broadcasting.",
-      "Implemented Google Workspace SSO RBAC, 3-way conflict detection, and Excel export pipelines.",
+      "Built and deployed full-stack web applications for educational and local business clients, replacing manual workflows with responsive, role-based web systems.",
+      "Automated multi-role authorization and clearance workflows using Next.js Edge Middleware and PostgreSQL Row-Level Security (RLS) to protect student and faculty records.",
+      "Developed transactional notification and booking workflows using Next.js Server Actions, the Resend API, and Supabase SSR to streamline client operations.",
     ],
-    techStack: ["Next.js 16", "Supabase", "PostgreSQL", "TypeScript", "Tailwind CSS"],
+    techStack: ["Next.js 16", "Supabase SSR", "PostgreSQL RLS", "TypeScript", "Tailwind CSS", "Resend API"],
     isCurrent: true,
   },
   {
-    organization: "Overseas Workers Welfare Administration (OWWA) Region 11 — Davao Region",
+    organization: "Overseas Workers Welfare Administration Region XI",
     role: "Software Developer Intern",
-    period: "Jan 19, 2026 – May 14, 2026",
+    period: "Jan 2026 – May 2026",
     highlights: [
-      "Deployed regional CSMR platform consolidating 4,632+ citizen surveys across 10 regional units (<1s Excel export).",
-      "Engineered statistical reporting and target tracking engine for the regional OWWA SPRS platform.",
+      "Developed an internal reporting tool for OWWA Region XI's Client Satisfaction Measurement Reports, consolidating 4,632+ citizen feedback records across 10 regional units.",
+      "Automated a 4-day manual spreadsheet consolidation workflow, reducing report generation time to under 1 second through server-side aggregation with Next.js Server Actions.",
+      "Built an in-memory ExcelJS export engine generating multi-tab workbooks with formulas and audit styling for ARTA/CSC reporting requirements, earning an official Certificate of Recognition.",
+      "Implemented KPI aggregation and accomplishment reporting modules for the OWWA SPRS Platform, using PostgreSQL constraints and Zod validation to enforce data integrity.",
     ],
-    techStack: ["PostgreSQL", "Supabase SSR", "ExcelJS", "TypeScript", "Recharts"],
+    techStack: ["Next.js Server Actions", "PostgreSQL", "Supabase SSR", "Zod", "ExcelJS", "TypeScript", "Recharts"],
     logo: "/logos/owwa-logo.webp",
     link: "https://www.facebook.com/owwadavao.lco",
     isCurrent: false,
@@ -687,15 +692,15 @@ export const resumePath = "/Kenneth_Bulaga_Resume.pdf";
 
 export const jpConnectCaseStudy: CaseStudyData = {
   id: "jp-connect",
-  title: "JP Connect: Campus Operations & Student Services Portal",
+  title: "JP Connect: Student Services & Exam Scheduling Portal",
   subtitle: "Campus clearance automation, conflict-free exam scheduling, and Google SSO role-based access",
-  role: "Full-Stack Developer",
+  role: "Full-stack Developer",
   institution: "St. John Paul II College of Davao (SJPIICD)",
   scaleSummary:
-    "Student services platform serving 5,500+ students and faculty across 3 campus administrative offices, replacing manual paper queues and spreadsheet schedules with automated conflict detection, digital student passes, and role-based clearance.",
+    "Student services and exam scheduling platform serving 5,536 registered users across 9 academic departments, replacing manual paper queues and spreadsheet validation with automated interval-sweep scheduling, digital student passes, and role-based clearance.",
   metrics: [
     { label: "5,536", value: "Registered SSO Users", desc: "5,426 students, 107 faculty across 2 active semesters" },
-    { label: "14,778", value: "Masterlist Records", desc: "Ingested across 9 collegiate degree programs" },
+    { label: "14,778", value: "Masterlist Records", desc: "Ingested across 9 departments" },
     { label: "658", value: "Exam Schedules", desc: "100% automated 3-way conflict verification" },
     { label: "0", value: "Schedule Overlaps", desc: "Guaranteed across 658 exam slots via O(N log N) interval sweep" },
   ],
@@ -812,17 +817,17 @@ export const jpConnectCaseStudy: CaseStudyData = {
 
 const owwaCsmrCaseStudy: CaseStudyData = {
   id: "owwa-csmr",
-  title: "OWWA CSMR: Regional Citizen Satisfaction Measurement Platform",
-  subtitle: "Multi-office survey intake, automated ARTA compliance, and in-memory ExcelJS report generation",
-  role: "Full-Stack Developer",
+  title: "OWWA CSMR: Internal Citizen Satisfaction Reporting Tool",
+  subtitle: "Multi-office survey intake, ARTA/CSC reporting requirements, and in-memory ExcelJS report generation",
+  role: "Full-stack Developer",
   institution: "Overseas Workers Welfare Administration (OWWA Region XI)",
   scaleSummary:
-    "Built and deployed a regional reporting web app for OWWA Regional Welfare Office XI (Davao Region) that consolidated 72 monthly unit submissions representing 4,632+ citizen and OFW survey responses across 10 regional units.",
+    "Built and deployed an internal reporting tool for OWWA Regional Welfare Office XI (Davao Region) that consolidated 72 monthly unit submissions representing 4,632+ citizen feedback records across 10 regional units.",
   metrics: [
-    { label: "4,632+", value: "Survey Responses Consolidated", desc: "Citizen & OFW survey feedback records ingested across 8 cycles" },
+    { label: "4,632+", value: "Citizen Feedback Records", desc: "Consolidated feedback records across 10 regional units and 8 cycles" },
     { label: "72", value: "Monthly Submissions", desc: "53 finalized reports + 19 active drafts" },
     { label: "10", value: "Regional Units", desc: "9 frontline units + 1 IT Head consolidator" },
-    { label: "<1s", value: "Master Consolidation", desc: "1-click ARTA/CSC-compliant Excel export" },
+    { label: "<1s", value: "Report Generation Time", desc: "1-click Excel export for ARTA/CSC reporting requirements" },
   ],
   costArchitecture: {
     title: "On-Demand Aggregation vs. Database Bloat",
@@ -833,7 +838,7 @@ const owwaCsmrCaseStudy: CaseStudyData = {
   },
   problemStatements: [
     {
-      title: "The Multi-Office 'Excel Hell' Bottleneck",
+      title: "Multi-Office Spreadsheet Fragmentation",
       desc: "9 frontline units (Social Benefits, Reintegration, Education, PDOS, etc.) independently formatted and emailed spreadsheets each month. The IT Unit spent 3–4 working days manually fixing broken formulas and consolidating rows.",
     },
     {
@@ -841,7 +846,7 @@ const owwaCsmrCaseStudy: CaseStudyData = {
       desc: "Encoders frequently made entry errors where demographic and service tallies did not balance with total declared respondents (N), invalidating regional satisfaction percentages.",
     },
     {
-      title: "Rigid Government Compliance Mandates",
+      title: "Strict Government Reporting Requirements",
       desc: "Anti-Red Tape Authority (ARTA) and Civil Service Commission (CSC) guidelines require precise formatting, specific cell border styling, and formula rows that standard CSV dumpers cannot output.",
     },
   ],
@@ -864,13 +869,13 @@ const owwaCsmrCaseStudy: CaseStudyData = {
         "Eliminated out-of-sync summary records and computed regional totals in under 100ms on demand.",
     },
     {
-      title: "2. Generating ARTA-Compliant Excel Workbooks with ExcelJS",
+      title: "2. Generating Multi-Tab Workbooks for ARTA/CSC Reporting with ExcelJS",
       challenge:
         "Government reporting rules from ARTA and CSC require specific cell border hierarchies, header fills, formula rows, and narrative remarks that standard CSV exports cannot satisfy.",
       solution:
         "Built an export script with ExcelJS that maps aggregated survey matrices to the exact cell coordinates, styles, and formulas mandated by regional templates, streaming the finished .xlsx file directly to the user.",
       outcome:
-        "Replaced 3–4 days of manual spreadsheet formatting per month with a 1-click export generated in under 1 second.",
+        "Automated a 4-day manual spreadsheet consolidation workflow, reducing report generation time to under 1 second through server-side aggregation with Next.js Server Actions.",
     },
     {
       title: "3. Client-Side Arithmetic Balance Verification with Zod",
@@ -904,19 +909,19 @@ const owwaCsmrCaseStudy: CaseStudyData = {
 const jpIntramsCaseStudy: CaseStudyData = {
   id: "jp-intrams",
   title: "JP Intrams: Real-Time Tournament Leaderboard & Campus Signage",
-  subtitle: "Live score updates, automated gym projector display mode, and Redis rate-limiting",
-  role: "Full-Stack Developer",
+  subtitle: "Live score synchronization, auto-cycling display mode, and distributed Redis rate limiting",
+  role: "Full-stack Developer",
   institution: "St. John Paul II College of Davao (SJPIICD)",
   scaleSummary:
     "Built and deployed a real-time tournament leaderboard and display app for university intramurals. Handled live score updates across 23 events (18 major sports, 4 minor sports, and socio-cultural competitions) for 9 academic departments, displayed live on campus gym projectors, auditorium screens, and student mobile devices.",
   metrics: [
     { label: "9", value: "Academic Units", desc: "Colleges and Senior High School departments competing across brackets" },
     { label: "23", value: "Sports & Events", desc: "18 major sports, 4 minor sports, and socio-cultural competitions" },
-    { label: "<500ms", value: "Update Latency", desc: "Live score updates via Supabase Realtime WebSocket events" },
+    { label: "Real-Time", value: "Score Updates", desc: "Live score synchronization via Supabase Realtime" },
     { label: "100%", value: "Uptime During Games", desc: "Zero downtime recorded across the tournament days" },
   ],
   costArchitecture: {
-    title: "Protecting Database Connections Under High Traffic",
+    title: "Protecting Database Connections Under Concurrent Tournament Traffic",
     points: [
       "Offloaded high-frequency match voting from PostgreSQL to Upstash Redis using atomic SETNX rate-limiting (5 votes/sec/IP), protecting the primary database connection pool from spikes during close games.",
       "Added Cache-Control headers (s-maxage=5, stale-while-revalidate=15) and slight client polling jitter (15s–30s) so simultaneous spectator devices didn't hit the server at the exact same millisecond.",
@@ -928,7 +933,7 @@ const jpIntramsCaseStudy: CaseStudyData = {
       desc: "Scores were traditionally tabulated on manual clipboards and posted hours after games ended. Students scattered across outdoor courts and gymnasiums had no live way to track overall medal standings.",
     },
     {
-      title: "Big-Screen Arena & Projector Bottlenecks",
+      title: "Big-Screen Gym & Projector Bottlenecks",
       desc: "Auditorium LED walls and gym projectors required staff to manually refresh browser pages and resize window zoom levels, creating awkward display freezes and downtime during live ceremonies.",
     },
     {
@@ -945,7 +950,7 @@ const jpIntramsCaseStudy: CaseStudyData = {
     tags: ["Main Stage Projector", "School Quadrangle", "Live Tournament Display"],
   },
   architectureSummary:
-    "Real-time tournament architecture: Supabase Realtime WebSockets push score updates to mobile devices and displays in <500ms, Upstash Redis buffers spectator votes with rate-limiting, and a dedicated /tv route provides a hands-free display for gym projectors.",
+    "Real-time tournament architecture: Supabase Realtime pushes live score updates to mobile spectator devices and campus displays, distributed Upstash Redis rate limiting prevents PostgreSQL connection exhaustion, and a dedicated auto-cycling /tv route provides a hands-free display for gym projectors.",
   securityPoints: [
     "PostgreSQL Row-Level Security: Score submissions and department points can only be updated by authorized student committee accounts.",
     "Redis Rate-Limiting (SETNX): Caps vote requests to 5 per second per IP to prevent automated voting scripts and spam.",
@@ -954,13 +959,13 @@ const jpIntramsCaseStudy: CaseStudyData = {
   ],
   deepDives: [
     {
-      title: "1. Sub-Second Real-Time Score Updates",
+      title: "1. Real-Time Score Synchronization",
       challenge:
         "When game results were entered, hundreds of students across campus gyms and fields needed to see updated standings without constantly refreshing the page.",
       solution:
-        "Subscribed client devices to Supabase Realtime WebSocket events on points_log. When an official entered points, connected clients received the event and re-fetched the calculated standings, merging in live Redis vote totals.",
+        "Subscribed client devices to Supabase Realtime database change channels on points_log. When an official entered points, connected clients received the event and re-fetched the calculated standings, merging in live Redis vote totals.",
       outcome:
-        "Updated podium standings and medal tallies appeared on student screens in under 500ms without continuous background polling.",
+        "Updated podium standings and medal tallies appeared on student screens in real time without continuous background polling.",
     },
     {
       title: "2. Hands-Free Projector & Big-Screen Display Mode (/tv)",
@@ -972,7 +977,7 @@ const jpIntramsCaseStudy: CaseStudyData = {
         "Ran unattended on the main quadrangle projector and gymnasium screens throughout the multi-day tournament.",
     },
     {
-      title: "3. Redis Rate-Limiting & High-Traffic Buffering",
+      title: "3. Distributed Redis Rate Limiting & Concurrent Traffic Buffering",
       challenge:
         "Allowing students to vote and cheer live during matches created short spikes in write traffic that could exhaust PostgreSQL connection limits.",
       solution:
@@ -985,7 +990,7 @@ const jpIntramsCaseStudy: CaseStudyData = {
     {
       question: "How did you handle live score updates without running out of database connections?",
       answer:
-        "Clients listened to Supabase Realtime WebSocket events on points_log and departments. When game coordinators entered a score, the event notified connected devices to refresh their cached view. Separating live spectator cheers into Upstash Redis ensured the main database wasn't flooded by vote requests.",
+        "Clients listened to Supabase Realtime change channels on points_log and departments. When game coordinators entered a score, the event notified connected devices to refresh their cached view. Separating live spectator cheers into Upstash Redis ensured the main database wasn't flooded by vote requests.",
     },
     {
       question: "How does the /tv display mode work on campus projectors?",

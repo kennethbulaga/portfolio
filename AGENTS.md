@@ -7,10 +7,10 @@ This document provides foundational architecture rules, technical standards, and
 ## 1. Project Overview & Identity
 
 * **Developer:** Kenneth Bulaga ("Kenzo")
-* **Professional Positioning:** Full-Stack Software Engineer & Independent Contractor
-* **Core Specialty:** Building scalable web architectures, real-time systems, automated workflows, and production-ready tools.
-* **Target Roles:** Full-Stack Software Engineer, Software Engineer, Full-Stack Developer.
-* **Core Design Ethos:** "High-Signal Craftsman & Genuine Utility" — clean typography, high contrast, zero fluff, transparent and honest communication, grounded in real problem-solving and demonstrable production systems.
+* **Professional Positioning:** Full-stack Developer
+* **Core Specialty:** Building scalable web applications, internal tools, automated workflows, and production-ready systems.
+* **Target Roles:** Full-stack Developer, Junior Software Developer, Web Developer.
+* **Core Design Ethos:** "High-Signal Craftsman & Genuine Utility" — humble, always a student in the game, zero fluff, clean typography, transparent communication, grounded in real problem-solving and practical engineering execution.
 
 ---
 
@@ -90,18 +90,18 @@ portfolio/
 * **Rule:** Never hardcode text, project descriptions, numbers, or links directly in React section components.
 * **Action:** Always add or edit fields in `src/data/portfolio.ts`, update the TypeScript interfaces accordingly, and consume them via typed imports in components.
 
-### B. Genuine, Value-Driven & Grounded Tone
-* **Rule:** Avoid both extremes: do not use empty pretentious buzzwords (e.g. avoid claiming "veteran architect" or "enterprise visionary"), but do NOT undersell yourself as a helpless student asking for a chance.
-* **Positioning:** Frame Kenneth as an agile, highly capable **Full-Stack Software Engineer** who builds real, production-ready systems (e.g., serving 5,500+ users, government operations, and real-time community apps) and reduces operational friction with automated workflows.
+### B. Genuine, Value-Driven & Grounded Tone ("Always a Student in the Game")
+* **Rule:** Always be a student in the game. Never present as "all-knowing", arrogant, or posturing as a senior enterprise know-it-all. Speak with humility, curiosity, and respect for engineering craft and real user needs.
+* **Positioning:** Frame Kenneth as a grounded, highly capable **Full-stack Developer** who builds practical web applications and internal tools (e.g., serving 5,536 registered users, regional government operations, and real-time community apps) and reduces operational friction with automated workflows.
   * Navbar logo: `Kenzo / dev`
   * Hero Eyebrow: `● Available for Freelance & Full-time Roles`
-  * Hero Sub-headline: `Full-Stack Software Engineer`
-* Focus on value delivered, problem-solving, clean architecture, and technical execution.
+  * Hero Sub-headline: `Full-stack Developer`
+* Focus on value delivered, problem-solving, clean code, and practical execution.
 
 ### C. Truth in Metrics
-* **JP Connect:** 5,536 Registered SSO Users, 14,778 Masterlist Records, 658 Exam Schedules across 9 colleges, 0 Overlaps.
-* **OWWA CSMR System:** 4,632+ Citizen/OFW survey feedback responses consolidated, 72 monthly report submissions across 10 regional units, 100% ARTA/CSC compliance, <1s 1-click ExcelJS master consolidation.
-* **SJP2CD Leaderboard:** Highlight real-time match tracking, instant mobile accessibility, and zero downtime during intramurals (do not quote 1.4M request claims).
+* **JP Connect:** Student Services & Exam Scheduling Portal: 5,536 Registered SSO Users, 14,778 Masterlist Records, 658 Exam Slots across 9 academic departments, 0 Overlaps.
+* **OWWA CSMR System:** Internal reporting tool: 4,632+ citizen feedback records consolidated across 10 regional units, 72 monthly report submissions, multi-tab workbooks for ARTA/CSC reporting requirements (avoid claiming "100% compliance"), <1s report generation time via Next.js Server Actions and ExcelJS.
+* **JP Intrams:** Real-time score synchronization across 23 sports divisions using Supabase Realtime (avoid unmeasured "sub-500ms" latency claims), distributed Redis rate limiting at API layer to prevent PostgreSQL connection exhaustion during concurrent tournament traffic, auto-cycling display mode for gym screens and mobile spectator devices.
 * **OWWA SPRS Platform:** Capstone statistical reporting and performance analytics engine engineered and presented for OWWA Region XI.
 
 ### D. Styling & Tailwind v4 Conventions

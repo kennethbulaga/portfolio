@@ -147,7 +147,7 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
         },
         {
           id: "case-study-owwacsmr",
-          label: "Inspect OWWA CSMR Architecture (4,632 Survey Responses)",
+          label: "Inspect OWWA CSMR Architecture (4,632+ Citizen Feedback Records)",
           icon: Sparkles,
           action: () => {
             onClose();
@@ -157,7 +157,7 @@ export function CommandMenu({ isOpen, onClose, onOpenCaseStudy }: CommandMenuPro
         },
         {
           id: "case-study-jpintrams",
-          label: "Inspect JP Intrams Arena Architecture (Real-Time WebSockets)",
+          label: "Inspect JP Intrams Architecture (Supabase Realtime & Redis)",
           icon: Sparkles,
           action: () => {
             onClose();

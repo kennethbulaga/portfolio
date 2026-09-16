@@ -223,7 +223,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                             OWWA CSMR Platform
                           </p>
                           <p className="text-[10px] font-mono text-muted-foreground truncate">
-                            4,632 Responses · 10 Units · &lt;1s
+                            4,632+ Records · 10 Units · &lt;1s
                           </p>
                         </div>
                       </div>
@@ -247,7 +247,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                             JP Intrams
                           </p>
                           <p className="text-[10px] font-mono text-muted-foreground truncate">
-                            9 Units · 23 Events · &lt;500ms
+                            9 Depts · 23 Divisions · Realtime
                           </p>
                         </div>
                       </div>

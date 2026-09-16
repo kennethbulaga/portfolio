@@ -114,7 +114,7 @@ export function Footer() {
               </div>
 
               <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed max-w-xl text-pretty">
-                Available for full-time software engineering roles, freelance projects, and building practical web applications and automated tools.
+                Available for full-time full-stack developer roles, freelance projects, and building practical web applications and automated tools.
               </p>
 
               {/* Meta Details: Location & Current Focus */}

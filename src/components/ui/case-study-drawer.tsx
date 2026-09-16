@@ -417,7 +417,7 @@ export function CaseStudyDrawer({ isOpen, onClose, studyId }: CaseStudyDrawerPro
                             <div className="p-3.5 rounded-xl bg-muted/40 border border-border/40 space-y-1">
                               <p className="font-mono text-[10px] uppercase tracking-wider text-sky-500 font-medium flex items-center gap-1">
                                 <Cpu size={12} />
-                                Engineered Solution
+                                Implemented Solution
                               </p>
                               <p className="text-muted-foreground leading-relaxed">
                                 {dive.solution}
