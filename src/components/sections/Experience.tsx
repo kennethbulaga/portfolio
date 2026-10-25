@@ -1,206 +1,145 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Briefcase, Cloud, ExternalLink } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowUpRight, Terminal } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { experience, cloudCertifications } from "@/data/portfolio";
+import { experience } from "@/data/portfolio";
 import { fadeInUp } from "@/components/motion";
 
-export function Experience() {
+interface ExperienceProps {
+  previewMode?: boolean;
+}
+
+export function Experience({ previewMode = false }: ExperienceProps) {
   return (
     <motion.section
       id="work-experience"
-      className="py-12 sm:py-16 md:py-24"
+      className="py-12 sm:py-16"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-100px" }}
+      viewport={{ once: true, margin: "-80px" }}
       variants={fadeInUp}
     >
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-8">
+      <div className="flex flex-col gap-8">
         {/* Section Header */}
-        <motion.div className="flex flex-col gap-2 mb-2 sm:mb-4" variants={fadeInUp}>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-foreground text-balance">
-            Work Experience
-          </h2>
-          <p className="text-muted-foreground text-pretty">
-            Practical software development from my government internship and independent freelance projects.
+        <div className="flex flex-col gap-2">
+          <div className="flex items-baseline justify-between gap-4 flex-wrap">
+            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground text-balance">
+              Work Experience
+            </h2>
+            {previewMode ? (
+              <Link
+                href="/experience"
+                className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <span>Full experience dossier</span>
+                <ArrowUpRight size={13} />
+              </Link>
+            ) : (
+              <span className="text-xs font-mono tabular-nums text-muted-foreground">
+                {String(experience.length).padStart(2, "0")} ROLES
+              </span>
+            )}
+          </div>
+          <p className="text-muted-foreground max-w-2xl text-sm sm:text-base text-pretty">
+            Production software engineering across a paid institutional contract and a regional government internship.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Experience Timeline */}
-        <Card className="rounded-2xl transition-[box-shadow,border-color] duration-200 hover:shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg">
-              <Briefcase size={20} className="text-primary" />
-              Professional Experience
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-5 top-0 bottom-0 w-px bg-border" />
+        {/* Hairline Experience Dossier */}
+        <div className="rounded-[14px] border border-border bg-card overflow-hidden divide-y divide-border">
+          {experience.map((exp, index) => {
+            const visibleHighlights = previewMode
+              ? exp.highlights?.slice(0, 2)
+              : exp.highlights;
 
-              <ul className="flex flex-col gap-6 sm:gap-8">
-                {experience.map((exp, index) => (
-                  <li key={index} className="relative pl-12">
-                    {/* Timeline logo or indicator */}
-                    <div className="absolute left-0 size-10 flex items-center justify-center">
-                      {exp.logo ? (
-                        <div className="relative size-10 rounded-full overflow-hidden bg-background border-2 border-border z-10 image-outline">
-                          <Image
-                            src={exp.logo}
-                            alt={exp.organization}
-                            fill
-                            className="object-contain p-1"
-                            sizes="40px"
-                          />
-                        </div>
-                      ) : (
-                        <div className="size-10 rounded-full bg-background border-2 border-primary flex items-center justify-center z-10 shadow-sm">
-                          <div className="size-3 rounded-full bg-primary" />
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Content */}
-                    {(() => {
-                      const content = (
-                        <div className="flex flex-col gap-1.5">
-                          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-3">
-                            <h4 className="font-semibold text-foreground text-sm sm:text-base group-hover:text-primary transition-colors">
-                              {exp.organization}
-                            </h4>
-                            <span className="text-xs font-mono tabular-nums text-muted-foreground whitespace-nowrap shrink-0">
-                              {exp.period}
-                            </span>
-                          </div>
-
-                          <p className="text-xs sm:text-sm text-primary font-medium">
-                            {exp.role}
-                          </p>
-
-                          {exp.highlights && exp.highlights.length > 0 && (
-                            <ul className="flex flex-col gap-1.5 pt-1">
-                              {exp.highlights.map((hl, i) => (
-                                <li key={i} className="text-xs sm:text-sm text-muted-foreground leading-relaxed flex items-start gap-2 text-pretty">
-                                  <span className="text-primary font-bold mt-0.5 shrink-0">•</span>
-                                  <span>{hl}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-
-                          {exp.description && !exp.highlights && (
-                            <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed pt-0.5 text-pretty">
-                              {exp.description}
-                            </p>
-                          )}
-
-                          {exp.techStack && exp.techStack.length > 0 && (
-                            <div className="flex flex-wrap gap-1.5 pt-1.5">
-                              {exp.techStack.map((tech) => (
-                                <Badge key={tech} variant="secondary" className="text-[10px] font-mono px-2 py-0.5">
-                                  {tech}
-                                </Badge>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      );
-
-                      return exp.link ? (
-                        <a
-                          href={exp.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block group"
-                        >
-                          {content}
-                        </a>
-                      ) : (
-                        content
-                      );
-                    })()}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Dedicated: Active Cloud & Technical Certifications */}
-        {cloudCertifications && cloudCertifications.length > 0 && (
-          <Card className="rounded-2xl transition-[box-shadow,border-color] duration-200 hover:shadow-lg border-border/80 bg-card/70 overflow-hidden">
-            <CardHeader className="pb-3 border-b border-border/60 bg-muted/20">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold text-foreground text-balance">
-                  <Cloud size={19} className="text-amber-500 shrink-0" />
-                  <span>Active Cloud Certifications & Upskilling</span>
-                </CardTitle>
-                <Badge variant="warning" className="text-[11px] px-2.5 py-1 flex items-center gap-1.5">
-                  <span className="size-1.5 rounded-full bg-amber-500 animate-pulse" />
-                  <span>In Progress (2026)</span>
-                </Badge>
-              </div>
-            </CardHeader>
-
-            <CardContent className="p-4 sm:p-6 flex flex-col gap-4">
-              {cloudCertifications.map((cert) => (
-                <div
-                  key={cert.id}
-                  className="p-4 sm:p-5 rounded-xl border border-border/70 bg-card/50 hover:bg-card hover:border-primary/40 transition-[background-color,border-color,box-shadow] duration-200 flex flex-col gap-3"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div className="flex flex-col gap-0.5">
+            return (
+              <article
+                key={`${exp.organization}-${exp.role}`}
+                className="p-5 sm:p-6 flex flex-col gap-4 transition-colors hover:bg-muted/15"
+              >
+                {/* Role Header Row */}
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                  <div className="flex items-start gap-3.5 min-w-0">
+                    {exp.logo && (
+                      <div className="relative size-10 rounded-[10px] overflow-hidden bg-background border border-border shrink-0 p-1 image-outline">
+                        <Image
+                          src={exp.logo}
+                          alt={exp.organization}
+                          fill
+                          className="object-contain p-1"
+                          sizes="40px"
+                        />
+                      </div>
+                    )}
+                    <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h4 className="font-bold text-foreground text-base sm:text-lg text-balance">
-                          {cert.title}
-                        </h4>
-                        {cert.code && (
-                          <Badge variant="warning" className="text-xs px-2 py-0">
-                            {cert.code}
-                          </Badge>
+                        <h3 className="font-bold text-foreground text-base sm:text-lg text-balance leading-snug">
+                          {exp.organization}
+                        </h3>
+                        {exp.link && (
+                          <a
+                            href={exp.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
+                            aria-label={`Visit ${exp.organization}`}
+                          >
+                            <ArrowUpRight size={14} />
+                          </a>
                         )}
                       </div>
-                      <p className="text-xs sm:text-sm text-muted-foreground">
-                        {cert.issuer} · <span className="font-mono tabular-nums text-xs">{cert.period}</span>
+                      <p className="text-xs sm:text-sm font-mono text-foreground/80 mt-0.5">
+                        {exp.role}
                       </p>
                     </div>
-
-                    {cert.link && (
-                      <Button asChild size="sm" variant="outline" className="h-8 px-3 text-xs gap-1.5 shrink-0">
-                        <a href={cert.link} target="_blank" rel="noopener noreferrer">
-                          <span>Syllabus & Exam Roadmap</span>
-                          <ExternalLink size={13} />
-                        </a>
-                      </Button>
-                    )}
                   </div>
 
-                    <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-pretty">
-                      {cert.description}
-                    </p>
-
-                    {cert.skills && (
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        {cert.skills.map((s) => (
-                          <span
-                            key={s}
-                            className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-muted/70 text-muted-foreground border border-border/50"
-                          >
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+                  <div className="flex items-center gap-2 shrink-0 self-start">
+                    <span className="text-[11px] font-mono tabular-nums text-muted-foreground px-2.5 py-1 rounded-[6px] border border-border bg-background">
+                      {String(index + 1).padStart(2, "0")} · {exp.period}
+                    </span>
+                  </div>
                 </div>
-              ))}
-            </CardContent>
-          </Card>
-        )}
+
+                {/* Engineering Highlights */}
+                {visibleHighlights && visibleHighlights.length > 0 && (
+                  <ul className="flex flex-col gap-2 pl-0 sm:pl-[54px]">
+                    {visibleHighlights.map((hl, i) => (
+                      <li
+                        key={i}
+                        className="text-xs sm:text-sm text-muted-foreground leading-relaxed flex items-start gap-2.5 text-pretty"
+                      >
+                        <Terminal
+                          size={13}
+                          className="text-emerald-500 mt-1 shrink-0"
+                        />
+                        <span>{hl}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {/* Tech Stack */}
+                {exp.techStack && exp.techStack.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pl-0 sm:pl-[54px] pt-1">
+                    {exp.techStack.map((tech) => (
+                      <Badge
+                        key={tech}
+                        variant="secondary"
+                        className="text-[10px] font-mono px-2 py-0.5"
+                      >
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+              </article>
+            );
+          })}
+        </div>
       </div>
     </motion.section>
   );

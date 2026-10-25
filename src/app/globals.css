@@ -22,70 +22,76 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-serif), Georgia, serif;
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
-  
-  --animate-marquee: marquee 30s linear infinite;
-
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
-    100% {
-      transform: translateX(-50%);
-    }
-  }
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--border)) transparent;
 }
 
+/* Warm Alabaster Paper (Light) & Matte Carbon Zinc (Dark) */
 :root {
-  --background: 0 0% 100%;
-  --foreground: 240 10% 3.9%;
+  --background: 60 14% 99%;
+  --foreground: 240 6% 7%;
   --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
+  --card-foreground: 240 6% 7%;
   --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 3.9%;
-  --primary: 240 5.9% 10%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 240 4.8% 95.9%;
-  --secondary-foreground: 240 5.9% 10%;
-  --muted: 240 4.8% 95.9%;
-  --muted-foreground: 240 3.8% 46.1%;
-  --accent: 240 4.8% 95.9%;
-  --accent-foreground: 240 5.9% 10%;
+  --popover-foreground: 240 6% 7%;
+  --primary: 240 6% 7%;
+  --primary-foreground: 60 14% 99%;
+  --secondary: 60 5% 95.5%;
+  --secondary-foreground: 240 6% 12%;
+  --muted: 60 5% 95.5%;
+  --muted-foreground: 240 4% 43%;
+  --accent: 60 5% 94%;
+  --accent-foreground: 240 6% 7%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 5.9% 90%;
-  --input: 240 5.9% 90%;
-  --ring: 240 10% 3.9%;
-  --radius: 0.5rem;
+  --border: 60 4% 89.5%;
+  --input: 60 4% 89.5%;
+  --ring: 240 6% 7%;
+  --radius: 0.75rem;
+  --rail-outer-bg: #f2f2ef;
+  --rail-outer-border: #e2e2de;
+  --rail-inner-border: #e6e6e2;
+  --status-green: #2f9e5b;
+  --status-green-ink: #1e6b3a;
+  --status-green-tint: #e6f4ea;
 }
 
 .dark {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 0 0% 98%;
-  --primary-foreground: 240 5.9% 10%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
+  --background: 240 6% 6%;
+  --foreground: 240 5% 93%;
+  --card: 240 6% 9.5%;
+  --card-foreground: 240 5% 93%;
+  --popover: 240 6% 9.5%;
+  --popover-foreground: 240 5% 93%;
+  --primary: 240 5% 93%;
+  --primary-foreground: 240 6% 7%;
+  --secondary: 240 5% 13.5%;
+  --secondary-foreground: 240 5% 93%;
+  --muted: 240 5% 13%;
+  --muted-foreground: 240 4% 58%;
+  --accent: 240 5% 14.5%;
+  --accent-foreground: 240 5% 93%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 240 4.9% 83.9%;
+  --border: 240 5% 15.5%;
+  --input: 240 5% 15.5%;
+  --ring: 240 5% 84%;
+  --rail-outer-bg: #141417;
+  --rail-outer-border: #232327;
+  --rail-inner-border: #28282d;
+  --status-green: #2f9e5b;
+  --status-green-ink: #5fd08a;
+  --status-green-tint: rgba(47, 158, 91, 0.14);
 }
 
 * {
@@ -101,46 +107,124 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Apple Pro Specular Highlights & Glass Materials */
-.apple-surface {
-  border: 1px solid hsl(var(--border) / 0.7);
+a {
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 2px solid hsl(var(--foreground));
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Single italic serif emphasis voice */
+.serif-emphasis {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Tactile Double-Framed Floating Rail (Marwie-inspired craft) */
+.rail-shell {
+  background-color: var(--rail-outer-bg);
+  border: 1px solid var(--rail-outer-border);
+  border-radius: 26px;
+  padding: 5px;
+}
+
+.rail-panel {
   background-color: hsl(var(--card));
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--rail-inner-border);
+  border-radius: 21px;
 }
 
-:where(.dark) .apple-surface {
-  border-color: hsl(var(--border) / 0.5);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06), 0 2px 8px 0 rgba(0, 0, 0, 0.25);
+/* Tactile Pill CTA inside Rail */
+.rail-cta {
+  background-color: hsl(var(--background));
+  border: 1px solid var(--rail-outer-border);
+  transition: background-color 140ms ease, border-color 140ms ease, transform 140ms ease;
 }
 
-.apple-glass {
-  background-color: hsl(var(--background) / 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-color: hsl(var(--border) / 0.45);
+.rail-cta:hover {
+  background-color: hsl(var(--muted));
+  border-color: hsl(var(--foreground) / 0.25);
 }
 
-:where(.dark) .apple-glass {
-  background-color: hsl(var(--background) / 0.7);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04);
+.rail-cta:active {
+  transform: translateY(1px);
 }
 
-/* 1px inner image depth outline (better-ui) */
+/* Pixel-resolve canvas overlay */
+.pixel-name {
+  position: relative;
+}
+.pixel-name.is-pixel {
+  color: transparent;
+}
+.pixel-name canvas {
+  position: absolute;
+  left: 0;
+  top: 0;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+/* 1px inner image depth outline */
 .image-outline {
-  outline: 1px solid oklch(0 0 0 / 0.1);
+  outline: 1px solid oklch(0 0 0 / 0.08);
   outline-offset: -1px;
 }
 
 :where(.dark) .image-outline {
-  outline-color: oklch(1 0 0 / 0.1);
+  outline-color: oklch(1 0 0 / 0.09);
 }
 
-/* Selection styling */
+/* Selection & Scrollbar styling */
 ::selection {
-  background-color: hsl(var(--primary) / 0.2);
-  color: hsl(var(--foreground));
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+  will-change: transform;
 }
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

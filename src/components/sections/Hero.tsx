@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { MapPin, Mail, ArrowDown, ShieldCheck, FileText } from "lucide-react";
-import { motion } from "framer-motion";
+import { MapPin, Mail, ArrowDown, FileText, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { personalInfo, institutionalTrust, resumePath } from "@/data/portfolio";
-import { staggerContainer, staggerItem } from "@/components/motion";
+import {
+  personalInfo,
+  heroHeadline,
+  institutionalTrust,
+  resumePath,
+} from "@/data/portfolio";
+import { PixelName } from "@/components/ui/pixel-name";
 import { TechMarquee } from "./TechMarquee";
 
 export function Hero() {
@@ -16,150 +19,144 @@ export function Hero() {
   };
 
   return (
-    <section id="about" className="relative pt-24 pb-8 sm:pt-32 sm:pb-12 md:pt-36 md:pb-16 overflow-hidden">
-      {/* Precision Subtle Background Grid */}
-      <div className="absolute inset-0 -z-10">
-        <div className="hidden md:block absolute inset-0 bg-[radial-gradient(circle,hsl(var(--muted-foreground)/0.25)_1px,transparent_1px)] [background-size:28px_28px] opacity-35" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
-      </div>
-
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="flex flex-col gap-6 sm:gap-8"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          {/* Availability Eyebrow */}
-          <motion.div variants={staggerItem}>
-            <Badge 
-              variant="success" 
-              className="gap-2 px-3.5 py-1 text-xs font-medium rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-xs shadow-xs"
-            >
-              <span className="relative flex size-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full size-2 bg-emerald-500" />
-              </span>
-              {personalInfo.availability.message}
-            </Badge>
-          </motion.div>
-
-          {/* Headline & Sub-headline */}
-          <motion.div variants={staggerItem} className="flex flex-col gap-2">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance">
-              <span className="text-foreground">Hi, I&apos;m </span>
-              <span className="bg-gradient-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent">
-                {personalInfo.name}
-              </span>
-              <span className="text-primary">.</span>
-            </h1>
-
-            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground font-medium text-balance">
+    <section id="about" className="pt-2 sm:pt-4 flex flex-col gap-8">
+      {/* Top Identity Row & Availability Status Pill */}
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
+        <div className="flex items-center gap-3.5">
+          {personalInfo.avatar && (
+            <div className="relative size-14 rounded-full overflow-hidden bg-muted border border-border shrink-0 image-outline">
+              <Image
+                src={personalInfo.avatar}
+                alt={personalInfo.name}
+                fill
+                sizes="56px"
+                priority
+                className="object-cover"
+              />
+            </div>
+          )}
+          <div className="flex flex-col">
+            <span className="text-lg font-semibold tracking-[-0.015em] text-foreground">
+              <PixelName text={personalInfo.name} />
+            </span>
+            <span className="text-sm text-muted-foreground font-medium">
               {personalInfo.subHeadline}
-            </p>
-          </motion.div>
-
-          {/* Genuine Bio */}
-          <motion.p
-            variants={staggerItem}
-            className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl leading-relaxed text-pretty"
-          >
-            {personalInfo.bio}
-          </motion.p>
-
-          {/* Location & Contact Meta */}
-          <motion.div
-            variants={staggerItem}
-            className="flex flex-wrap items-center gap-4 text-xs sm:text-sm text-muted-foreground"
-          >
-            <span className="flex items-center gap-1.5">
-              <MapPin size={15} className="text-primary" />
-              {personalInfo.location}
             </span>
-            <span className="flex items-center gap-1.5">
-              <Mail size={15} className="text-primary" />
-              <a
-                href={`mailto:${personalInfo.email}`}
-                className="hover:text-foreground transition-colors underline-offset-4 hover:underline"
-              >
-                {personalInfo.email}
-              </a>
-            </span>
-          </motion.div>
+          </div>
+        </div>
 
-          {/* Primary Action Buttons (Balanced 50/50 on Mobile, Flex on Desktop) */}
-          <motion.div variants={staggerItem} className="pt-2 grid grid-cols-2 gap-2.5 sm:flex sm:items-center sm:gap-3 max-w-md sm:max-w-none">
-            <Button onClick={scrollToProjects} size="lg" className="ps-5 pe-4 gap-2 shadow-xs text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto rounded-xl">
-              <span>Explore Projects</span>
-              <ArrowDown size={15} />
-            </Button>
-
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="text-xs sm:text-sm h-11 sm:h-12 w-full sm:w-auto px-3 sm:px-5 gap-1.5 sm:gap-2 shadow-xs group rounded-xl"
-            >
-              <a href={resumePath} target="_blank" rel="noopener noreferrer">
-                <FileText size={16} className="text-muted-foreground group-hover:text-foreground transition-colors shrink-0" />
-                <span>View Resume</span>
-              </a>
-            </Button>
-          </motion.div>
-
-          {/* Institutional Trust & Collaboration Bar */}
-          <motion.div variants={staggerItem} className="pt-8 border-t border-border/60">
-            <div className="flex items-center justify-between mb-4">
-              <p className="text-xs font-mono uppercase tracking-wider text-muted-foreground font-semibold flex items-center gap-1.5">
-                <ShieldCheck size={14} className="text-primary" />
-                Institutions & Organizations I&apos;ve Built For
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {institutionalTrust.map((partner) => {
-                const content = (
-                  <div className="flex items-start gap-3 p-3.5 rounded-2xl border border-border/70 bg-card/60 dark:bg-card/40 hover:bg-card dark:hover:bg-card/80 hover:border-border transition-all duration-200 group h-full shadow-xs dark:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]">
-                    <div className="relative size-10 rounded-xl overflow-hidden bg-background border border-border/70 shrink-0 p-1 mt-0.5 image-outline">
-                      <Image
-                        src={partner.logo}
-                        alt={partner.name}
-                        fill
-                        sizes="40px"
-                        className="object-contain p-0.5"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1 min-w-0 flex-1">
-                      <p className="text-xs sm:text-sm font-semibold text-foreground group-hover:text-primary transition-colors leading-snug">
-                        {partner.name}
-                      </p>
-                      <p className="text-[11px] text-muted-foreground leading-snug">
-                        {partner.role}
-                      </p>
-                    </div>
-                  </div>
-                );
-
-                return partner.link ? (
-                  <a
-                    key={partner.name}
-                    href={partner.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block h-full"
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <div key={partner.name} className="h-full">{content}</div>
-                );
-              })}
-            </div>
-          </motion.div>
-        </motion.div>
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#2f9e5b]/30 bg-[#2f9e5b]/10 text-xs font-medium text-[#1e6b3a] dark:text-[#5fd08a]">
+          <span className="size-2 rounded-full bg-[#2f9e5b]" />
+          <span>{personalInfo.availability.message}</span>
+        </div>
       </div>
 
-      {/* Tech Stack Animated Marquee Loop at Hero bottom edge */}
+      {/* Main Thesis Headline (Single Italic Serif Emphasis Word) & Bio */}
+      <div className="flex flex-col gap-5">
+        <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] leading-[1.16] text-foreground text-balance max-w-[24ch]">
+          {heroHeadline.prefix}
+          <span className="serif-emphasis font-normal">{heroHeadline.emphasis}</span>
+          {heroHeadline.suffix}
+        </h1>
+
+        <p className="text-sm sm:text-base text-muted-foreground max-w-[68ch] leading-[1.65] text-pretty">
+          {personalInfo.bio}
+        </p>
+
+        {/* Location & Direct Email Meta */}
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground pt-0.5">
+          <span className="inline-flex items-center gap-1.5">
+            <MapPin size={14} className="text-muted-foreground shrink-0" />
+            <span>{personalInfo.location}</span>
+          </span>
+          <a
+            href={`mailto:${personalInfo.email}`}
+            className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors underline decoration-border hover:decoration-foreground"
+          >
+            <Mail size={14} className="text-muted-foreground shrink-0" />
+            <span className="font-mono">{personalInfo.email}</span>
+          </a>
+        </div>
+
+        {/* Tactile Pill Action Bar */}
+        <div className="pt-1 flex flex-wrap items-center gap-2.5">
+          <Button
+            onClick={scrollToProjects}
+            className="h-10 px-5 rounded-full gap-2 text-xs font-medium cursor-pointer"
+          >
+            <span>Inspect Production Systems</span>
+            <ArrowDown size={14} />
+          </Button>
+
+          <Button
+            asChild
+            variant="outline"
+            className="h-10 px-4 rounded-full gap-2 text-xs font-medium bg-card hover:bg-muted"
+          >
+            <a href={resumePath} target="_blank" rel="noopener noreferrer">
+              <FileText size={14} className="text-muted-foreground" />
+              <span>Resume PDF</span>
+            </a>
+          </Button>
+        </div>
+      </div>
+
+      {/* Institutional Provenance Hairline Rows */}
+      <div className="pt-4 border-t border-border flex flex-col gap-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xs font-medium text-muted-foreground">
+            Institutional & Regional Deployments
+          </h2>
+          <span className="font-mono text-xs tabular-nums text-muted-foreground">02</span>
+        </div>
+
+        <div className="divide-y divide-border border-y border-border">
+          {institutionalTrust.map((partner) => {
+            const row = (
+              <div className="py-3.5 px-2 -mx-2 rounded-lg hover:bg-muted/50 transition-colors flex items-center justify-between gap-4 group">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="relative size-9 rounded-lg overflow-hidden bg-card border border-border shrink-0 p-1 image-outline">
+                    <Image
+                      src={partner.logo}
+                      alt={partner.name}
+                      fill
+                      sizes="36px"
+                      className="object-contain p-0.5"
+                    />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium text-foreground truncate">
+                      {partner.name}
+                    </p>
+                    <p className="text-xs text-muted-foreground truncate">
+                      {partner.role}
+                    </p>
+                  </div>
+                </div>
+                <ArrowUpRight
+                  size={15}
+                  className="text-muted-foreground group-hover:text-foreground transition-colors shrink-0"
+                />
+              </div>
+            );
+
+            return partner.link ? (
+              <a
+                key={partner.name}
+                href={partner.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                {row}
+              </a>
+            ) : (
+              <div key={partner.name}>{row}</div>
+            );
+          })}
+        </div>
+      </div>
+
       <TechMarquee />
     </section>
   );

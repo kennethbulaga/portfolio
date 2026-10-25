@@ -6,7 +6,7 @@
 % License: MIT
 %------------------------
 
-\documentclass[letterpaper,11pt]{article}
+\documentclass[a4paper,11pt]{article}
 
 \usepackage[T1]{fontenc}
 \usepackage{latexsym}
@@ -98,14 +98,18 @@
     \href{https://www.linkedin.com/in/kenneth-bulaga}{\underline{linkedin.com/in/kenneth-bulaga}}
 \end{center}
 
+%-----------SUMMARY-----------
+\section{Summary}
+\small{Full-stack Developer (BS Information Technology, 2026) building web applications with React, Next.js, TypeScript, and Supabase (PostgreSQL). Delivered a paid student services portal with 7,125 student and faculty accounts, and built two internal reporting systems for a government agency during my internship. Uses AI coding agents daily and reviews all generated code before shipping.}
+
 %-----------PROGRAMMING SKILLS-----------
 \section{Technical Skills}
  \begin{itemize}[leftmargin=0.15in, label={}]
     \small{\item{
-     \textbf{Languages}{: TypeScript, JavaScript, SQL (PostgreSQL), PHP, HTML/CSS} \\
-     \textbf{Frameworks \& Libraries}{: Next.js (App Router), React, Tailwind CSS, TanStack Query, Zod, Shadcn UI} \\
-     \textbf{Backend \& Data}{: Node.js, PostgreSQL, Supabase SSR, Redis, RESTful APIs} \\
-     \textbf{Testing \& Tools}{: Vitest, Playwright, Docker, Git, GitHub Actions (CI/CD), Postman}
+     \textbf{Languages}{: TypeScript, JavaScript, SQL, HTML, CSS} \\
+     \textbf{Frontend}{: React, Next.js (App Router), Tailwind CSS, shadcn/ui} \\
+     \textbf{Backend \& Data}{: Supabase (PostgreSQL, Auth, Realtime, Row-Level Security), Next.js Server Actions, Upstash Redis, Zod, ExcelJS} \\
+     \textbf{Tools}{: Git, GitHub, Vercel, AI-assisted development (Antigravity, Gemini, Claude)}
     }}
  \end{itemize}
 
@@ -114,22 +118,25 @@
   \resumeSubHeadingListStart
 
     \resumeSubheading
-      {Software Developer Intern}{Jan. 2026 -- May 2026}
-      {Overseas Workers Welfare Administration Region XI}{Davao City, Philippines}
+      {Full-stack Developer (Freelance Contract)}{Aug. 2025 -- Present}
+      {St. John Paul II College of Davao --- \href{https://jp-connect.vercel.app}{\underline{JP Connect}}}{Davao City, Philippines}
       \resumeItemListStart
-        \resumeItem{Developed an internal reporting tool for OWWA Region XI's Client Satisfaction Measurement Reports, consolidating \textbf{4,632+ citizen feedback records} across 10 regional units.}
-        \resumeItem{Automated a 4-day manual spreadsheet consolidation workflow, reducing report generation time to under 1 second through server-side aggregation with Next.js Server Actions.}
-        \resumeItem{Built an in-memory ExcelJS export engine generating multi-tab workbooks with formulas and audit styling for ARTA/CSC reporting requirements, earning an official \textbf{Certificate of Recognition}.}
-        \resumeItem{Implemented KPI aggregation and accomplishment reporting modules for the \textbf{OWWA SPRS Platform}, using PostgreSQL constraints and Zod validation to enforce data integrity.}
+        \resumeItem{Built and deployed JP Connect, a paid student services and exam scheduling portal with \textbf{7,125 Google SSO accounts} (students and 249 faculty) across 9 academic departments.}
+        \resumeItem{Implemented an interval-sweep conflict check that validates \textbf{658 exam slots} for room and instructor overlaps (0 conflicts), replacing manual cross-checking of departmental Excel files.}
+        \resumeItem{Automated end-of-semester clearance by matching offline RFID attendance logs against \textbf{14,778 registrar records} in under 5 seconds, replacing physical queues across campus.}
+        \resumeItem{Enforced data isolation across 6 user roles with PostgreSQL Row-Level Security and Next.js middleware, so students on shared lab computers can only see their own records.}
+        \resumeItem{Built a sanctions and payments module for the Supreme Student Council that links clearance to settled sanctions and logs every payment and expense, recording \textbf{PHP 707,750} in collections over one clearance period (Dec. 2025 -- Jan. 2026).}
       \resumeItemListEnd
 
     \resumeSubheading
-      {Freelance Full-stack Developer}{Nov. 2024 -- Present}
-      {Self-Employed}{Davao City, Philippines}
+      {Software Developer Intern}{Jan. 2026 -- May 2026}
+      {Overseas Workers Welfare Administration (OWWA) Region XI}{Davao City, Philippines}
       \resumeItemListStart
-        \resumeItem{Built and deployed full-stack web applications for educational and local business clients, replacing manual workflows with responsive, role-based web systems.}
-        \resumeItem{Automated multi-role authorization and clearance workflows using Next.js Edge Middleware and PostgreSQL Row-Level Security (RLS) to protect student and faculty records.}
-        \resumeItem{Developed transactional notification and booking workflows using Next.js Server Actions, the Resend API, and Supabase SSR to streamline client operations.}
+        \resumeItem{Developed the Client Satisfaction Measurement Report (CSMR) system, consolidating \textbf{4,632+ citizen feedback records} and 72 monthly report submissions from 10 regional units.}
+        \resumeItem{Replaced a 4-day manual spreadsheet consolidation with on-demand report generation that runs in under 1 second, using Next.js Server Actions for server-side aggregation.}
+        \resumeItem{Built an ExcelJS export that generates multi-tab workbooks with formulas and formatting required for ARTA/CSC reporting, so staff no longer rebuild reports by hand.}
+        \resumeItem{Built the Statistical Performance Reporting System (SPRS) as the \textbf{sole developer}, tracking monthly KPI targets and accomplishment reports, with PostgreSQL constraints and Zod validation on every submission.}
+        \resumeItem{Received two official \textbf{Certificates of Recognition} from OWWA Region XI (CSMR and SPRS) and presented both systems to regional staff.}
       \resumeItemListEnd
 
   \resumeSubHeadingListEnd
@@ -138,20 +145,12 @@
 \section{Projects}
     \resumeSubHeadingListStart
       \resumeProjectHeading
-          {\href{https://jp-connect.vercel.app}{\textbf{\underline{JP Connect}}} --- Student Services \& Exam Portal}{Aug. 2025 -- Present}
-          {Next.js 16, TypeScript, PostgreSQL, Supabase, Tailwind CSS}
-          \resumeItemListStart
-            \resumeItem{Built a student services and exam scheduling portal serving \textbf{5,536 registered users} across 9 academic departments.}
-            \resumeItem{Implemented automated interval-sweep scheduling to eliminate timetable conflicts across \textbf{658 exam slots}, replacing manual spreadsheet validation.}
-            \resumeItem{Automated campus clearance by processing offline RFID scanner logs against \textbf{14,778 registrar records}, reducing processing time from days to under 5 seconds.}
-          \resumeItemListEnd
-      \resumeProjectHeading
-          {\href{https://jp-intrams.vercel.app}{\textbf{\underline{JP Intrams}}} --- Real-time Tournament Platform}{Oct. 2025 -- Present}
+          {\href{https://jp-intrams.vercel.app}{\textbf{\underline{JP Intrams}}} --- Real-time Tournament Leaderboard}{Oct. 2025}
           {Next.js, TypeScript, Supabase Realtime, Upstash Redis, Tailwind CSS}
           \resumeItemListStart
-            \resumeItem{Built a live tournament leaderboard delivering \textbf{real-time score synchronization} across 23 sports divisions using Supabase Realtime.}
-            \resumeItem{Implemented distributed Redis rate limiting at the API layer to prevent PostgreSQL connection exhaustion during concurrent tournament traffic.}
-            \resumeItem{Developed an auto-cycling display mode deployed across campus gym screens and mobile spectator devices for continuous live score broadcasts.}
+            \resumeItem{Built a live leaderboard for the college's Intramurals, syncing scores across \textbf{23 sports divisions} in real time with Supabase Realtime.}
+            \resumeItem{Added Redis rate limiting at the API layer to protect PostgreSQL connections during peak tournament traffic.}
+            \resumeItem{Developed an auto-cycling display mode shown on campus gym screens and spectators' phones.}
           \resumeItemListEnd
     \resumeSubHeadingListEnd
 
@@ -159,10 +158,11 @@
 \section{Education}
   \resumeSubHeadingListStart
     \resumeSubheading
-      {St. John Paul II College of Davao}{2022 -- 2026}
+      {St. John Paul II College of Davao}{Graduated May 2026}
       {Bachelor of Science in Information Technology}{Davao City, Philippines}
       \resumeItemListStart
-        \resumeItem{\textbf{Honors \& Leadership:} Institutional Service Award (Highest Student Honor, 2026), SSC Senator, Dean's Lister}
+        \resumeItem{\textbf{Honors \& Leadership:} Institutional Service Award (Highest Student Honor, 2026), Dean's Lister, SSC Senator}
+        \resumeItem{\textbf{Hackathon:} Davao HackEstate 2025 --- built a property listing and inquiry prototype with Next.js and Supabase in 48 hours}
       \resumeItemListEnd
   \resumeSubHeadingListEnd
 

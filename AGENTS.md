@@ -64,12 +64,13 @@ portfolio/
     │   │   ├── badge.tsx        # Tech stack pills
     │   │   ├── button.tsx       # Standardized button variants
     │   │   ├── card.tsx         # Bordered container cards
-    │   │   ├── command-menu.tsx # Cmd+K / Ctrl+K quick actions palette
+    │   │   ├── click-burst.tsx  # 5-line tactile ink burst on pointer click
     │   │   ├── mobile-nav.tsx   # Responsive slide-over navigation sheet
+    │   │   ├── pixel-name.tsx   # Canvas pixel-block name resolution
     │   │   ├── section-divider.tsx # Subtle section separation rules
     │   │   └── case-study-drawer.tsx # Slide-over deep-dive for flagship architectures
     │   └── sections/            # Organism components (page blocks)
-    │       ├── Navbar.tsx       # Sticky top nav (Kenzo / dev) + Cmd+K trigger
+    │       ├── Navbar.tsx       # Floating left rail (Kenzo / dev) + mobile top bar
     │       ├── Hero.tsx         # Friendly headline, open-to-work badge, trust bar
     │       ├── TechMarquee.tsx  # Continuous looping tech stack ticker with icons
     │       ├── Projects.tsx     # Flagship cards (with case study triggers) + client cards
@@ -92,17 +93,17 @@ portfolio/
 
 ### B. Genuine, Value-Driven & Grounded Tone ("Always a Student in the Game")
 * **Rule:** Always be a student in the game. Never present as "all-knowing", arrogant, or posturing as a senior enterprise know-it-all. Speak with humility, curiosity, and respect for engineering craft and real user needs.
-* **Positioning:** Frame Kenneth as a grounded, highly capable **Full-stack Developer** who builds practical web applications and internal tools (e.g., serving 5,536 registered users, regional government operations, and real-time community apps) and reduces operational friction with automated workflows.
+* **Positioning:** Frame Kenneth as a grounded, highly capable **Full-stack Developer** who builds practical web applications and internal tools (e.g., serving 7,125 Google SSO accounts, regional government operations, and real-time community apps) and reduces operational friction with automated workflows.
   * Navbar logo: `Kenzo / dev`
   * Hero Eyebrow: `● Available for Freelance & Full-time Roles`
   * Hero Sub-headline: `Full-stack Developer`
 * Focus on value delivered, problem-solving, clean code, and practical execution.
 
 ### C. Truth in Metrics
-* **JP Connect:** Student Services & Exam Scheduling Portal: 5,536 Registered SSO Users, 14,778 Masterlist Records, 658 Exam Slots across 9 academic departments, 0 Overlaps.
+* **JP Connect:** Student Services & Exam Scheduling Portal: 7,125 Google SSO Accounts (students & 249 faculty), 14,778 Masterlist Records, 658 Exam Slots across 9 academic departments, 0 Overlaps, PHP 707,750 in tracked SSC clearance collections (Dec 2025 – Jan 2026).
 * **OWWA CSMR System:** Internal reporting tool: 4,632+ citizen feedback records consolidated across 10 regional units, 72 monthly report submissions, multi-tab workbooks for ARTA/CSC reporting requirements (avoid claiming "100% compliance"), <1s report generation time via Next.js Server Actions and ExcelJS.
 * **JP Intrams:** Real-time score synchronization across 23 sports divisions using Supabase Realtime (avoid unmeasured "sub-500ms" latency claims), distributed Redis rate limiting at API layer to prevent PostgreSQL connection exhaustion during concurrent tournament traffic, auto-cycling display mode for gym screens and mobile spectator devices.
-* **OWWA SPRS Platform:** Capstone statistical reporting and performance analytics engine engineered and presented for OWWA Region XI.
+* **OWWA SPRS Platform:** Statistical reporting and performance analytics engine engineered as sole developer and presented for OWWA Region XI.
 
 ### D. Styling & Tailwind v4 Conventions
 * Use Tailwind v4 `@theme inline` tokens and semantic classes (`bg-background`, `text-foreground`, `border-border`, `text-muted-foreground`, `bg-muted`).

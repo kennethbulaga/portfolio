@@ -3,7 +3,6 @@
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const MAX_CLAPS = 3;
@@ -39,9 +38,7 @@ export function IWasHereButton() {
   const [likes, setLikes] = useState<number | null>(null);
   const userClicks = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [particles, setParticles] = useState<FloatingParticle[]>([]);
-  const [isHovered, setIsHovered] = useState(false);
 
-  // Fetch initial likes count
   useEffect(() => {
     let isMounted = true;
 
@@ -70,7 +67,6 @@ export function IWasHereButton() {
   const handleClick = useCallback(async () => {
     if (isMaxReached) return;
 
-    // Optimistic increment
     setLikes((prev) => (prev !== null ? prev + 1 : 1));
     const next = Math.min(userClicks + 1, MAX_CLAPS);
     try {
@@ -78,18 +74,16 @@ export function IWasHereButton() {
       window.dispatchEvent(new Event("local-likes-updated"));
     } catch {}
 
-    // Spawn floating particle
-    const randomX = (Math.random() - 0.5) * 50;
-    const emojis = ["❤️", "💖", "+1", "🔥"];
-    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+    const randomX = (Math.random() - 0.5) * 40;
+    const tokens = ["+1", "ACK", "200 OK"];
+    const randomToken = tokens[Math.floor(Math.random() * tokens.length)];
     const newParticle: FloatingParticle = {
       id: Date.now() + Math.random(),
       x: randomX,
-      text: randomEmoji,
+      text: randomToken,
     };
     setParticles((prev) => [...prev, newParticle]);
 
-    // Send POST request
     try {
       const res = await fetch("/api/likes", { method: "POST" });
       if (res.ok) {
@@ -108,77 +102,61 @@ export function IWasHereButton() {
   };
 
   return (
-    <div className="relative inline-flex items-center">
-      {/* Floating Heart Particles */}
-      <AnimatePresence>
-        {particles.map((particle) => (
-          <motion.span
-            key={particle.id}
-            initial={{ opacity: 1, y: 0, x: particle.x, scale: 0.8 }}
-            animate={{ opacity: 0, y: -45, scale: 1.3 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            onAnimationComplete={() => removeParticle(particle.id)}
-            className="absolute -top-3 left-1/2 -translate-x-1/2 pointer-events-none text-xs font-bold font-mono select-none z-30"
-          >
-            {particle.text}
-          </motion.span>
-        ))}
-      </AnimatePresence>
-
-      <Button
-        onClick={handleClick}
-        disabled={isMaxReached}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        variant="outline"
-        size="sm"
-        className={cn(
-          "relative group h-9 px-3.5 rounded-full border-border/80 transition-[background-color,border-color,box-shadow] duration-200 shadow-xs",
-          isMaxReached
-            ? "bg-rose-500/10 border-rose-500/30 cursor-default opacity-90"
-            : "bg-background/80 hover:bg-muted/80 hover:border-rose-500/40"
-        )}
-        title={
-          isMaxReached
-            ? `Max ${MAX_CLAPS} likes reached! Thanks for stopping by!`
-            : `Click to leave a like (${userClicks}/${MAX_CLAPS})`
-        }
-      >
-        <span className="flex items-center gap-2">
-          <motion.span
-            animate={
-              isHovered && !isMaxReached
-                ? { scale: [1, 1.25, 1] }
-                : isMaxReached
-                ? { scale: 1 }
-                : {}
-            }
-            transition={{ duration: 0.3 }}
-            className="flex items-center"
-          >
-            <Heart
-              size={14}
-              className={cn(
-                "transition-[color,fill,transform] duration-200",
-                userClicks > 0
-                  ? "text-rose-500 fill-rose-500 scale-110"
-                  : "text-muted-foreground group-hover:text-rose-500"
-              )}
-            />
-          </motion.span>
-
-          <span className="text-xs font-semibold text-foreground font-mono">
-            {isMaxReached ? "Thanks!" : "I was here"}
-          </span>
-
-          <span className="h-3.5 w-px bg-border/80 mx-0.5" />
-
-          <span className="text-xs font-mono font-bold text-rose-500 dark:text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full border border-rose-500/20 tabular-nums">
-            {likes !== null ? likes.toLocaleString() : "..."}
-          </span>
+    <div className="relative flex items-center justify-between gap-2 px-2 py-2">
+      <div className="flex flex-col min-w-0">
+        <span className="text-xs font-medium text-foreground font-mono tabular-nums truncate">
+          {likes !== null ? `${likes.toLocaleString()} stamps` : "... stamps"}
         </span>
-      </Button>
+        <span className="text-[11px] text-muted-foreground truncate">
+          Visitor log
+        </span>
+      </div>
+
+      <div className="relative shrink-0">
+        <AnimatePresence>
+          {particles.map((particle) => (
+            <motion.span
+              key={particle.id}
+              initial={{ opacity: 1, y: 0, x: particle.x, scale: 0.8 }}
+              animate={{ opacity: 0, y: -38, scale: 1.15 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.65, ease: "easeOut" }}
+              onAnimationComplete={() => removeParticle(particle.id)}
+              className="absolute -top-3 left-1/2 -translate-x-1/2 pointer-events-none text-[11px] font-bold font-mono text-emerald-500 select-none z-30 whitespace-nowrap"
+            >
+              {particle.text}
+            </motion.span>
+          ))}
+        </AnimatePresence>
+
+        <button
+          type="button"
+          onClick={handleClick}
+          disabled={isMaxReached}
+          className={cn(
+            "h-8 px-3 rounded-[9px] border text-xs font-mono font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer",
+            isMaxReached
+              ? "bg-rose-500/10 border-rose-500/30 text-rose-600 dark:text-rose-400 cursor-default"
+              : "bg-background hover:bg-muted border-border text-foreground"
+          )}
+          title={
+            isMaxReached
+              ? `Max ${MAX_CLAPS} stamps reached`
+              : `Leave a visitor stamp (${userClicks}/${MAX_CLAPS})`
+          }
+        >
+          <Heart
+            size={13}
+            className={cn(
+              "transition-colors",
+              userClicks > 0
+                ? "text-rose-500 fill-rose-500"
+                : "text-muted-foreground"
+            )}
+          />
+          <span>{isMaxReached ? "Thanks!" : "I was here"}</span>
+        </button>
+      </div>
     </div>
   );
 }

@@ -37,7 +37,7 @@ export interface FlagshipProject {
   focus: string;
   description: string;
   image?: string;
-  screenshots?: { label: string; image: string }[];
+  screenshots?: { label: string; image: string; primitive?: string }[];
   logo?: string;
   techStack: string[];
   metrics?: Record<string, string>;
@@ -53,7 +53,7 @@ export interface ClientProject {
   impact?: string;
   logo?: string;
   image?: string;
-  screenshots?: { label: string; image: string }[];
+  screenshots?: { label: string; image: string; primitive?: string }[];
   keyModules?: { name: string; description: string }[];
   link?: string;
   techStack?: string[];
@@ -157,7 +157,7 @@ export interface PersonalInterest {
 export const personalInfo: PersonalInfo = {
   name: "Kenneth Bulaga",
   subHeadline: "Full-stack Developer",
-  bio: "I build full-stack web applications and internal tools that turn slow, manual processes into fast, dependable software. Working across Next.js, TypeScript, and PostgreSQL, I focus on building practical systems that just work—from database schema design to clean, responsive interfaces.",
+  bio: "I build full-stack web applications and internal tools that turn slow, manual processes into fast, dependable software. Working across Next.js, TypeScript, and PostgreSQL, I focus on building practical systems that just work—from database schema design to clean, responsive interfaces. I use AI coding agents daily and review all generated code before it ships.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
   currentlyExploring: "AWS Cloud Quest",
   email: "kennethbulaga.dev@gmail.com",
@@ -276,16 +276,56 @@ export const techMarqueeItems: TechMarqueeItem[] = [
   { id: "react", name: "React 19", category: "UI Library", icon: "/tech-stack/react.svg" },
   { id: "typescript", name: "TypeScript", category: "Strict Type Safety", icon: "/tech-stack/typescript.svg" },
   { id: "tailwind", name: "Tailwind CSS v4", category: "Modern Styling", icon: "/tech-stack/tailwind.svg" },
-  { id: "supabase", name: "Supabase SSR", category: "Auth & Realtime", icon: "/tech-stack/supabase.svg" },
+  { id: "supabase", name: "Supabase", category: "Auth, Realtime & RLS", icon: "/tech-stack/supabase.svg" },
   { id: "upstash", name: "Upstash Redis", category: "Serverless Cache & Queue", icon: "/tech-stack/upstash-light.svg", darkIcon: "/tech-stack/upstash-dark.svg" },
   { id: "postgres", name: "PostgreSQL", category: "Relational DB" },
   { id: "nodejs", name: "Node.js", category: "Server Runtime" },
-  { id: "reactnative", name: "React Native", category: "Mobile Apps", icon: "/tech-stack/react.svg" },
   { id: "zod", name: "Zod", category: "Schema Validation", icon: "/tech-stack/zod.svg" },
   { id: "github", name: "Git & GitHub", category: "Version Control", icon: "/tech-stack/github.svg", invertInDark: true },
   { id: "vercel", name: "Vercel", category: "Edge Platform", icon: "/tech-stack/vercel.svg", invertInLight: true },
   { id: "framer", name: "Framer Motion", category: "Motion & UI", icon: "/tech-stack/framer.svg", invertInDark: true },
 ];
+
+// JP Connect Production Metrics (from the live admin analytics dashboard)
+
+export const jpConnectMetrics = {
+  accounts: "7,125",
+  faculty: "249",
+  masterlist: "14,778",
+  exams: "658",
+  overlaps: "0",
+  sanctionsCollected: "PHP 707,750",
+  sanctionsPeriod: "Dec 2025 – Jan 2026",
+} as const;
+
+export const heroHeadline = {
+  prefix: "Building ",
+  emphasis: "dependable",
+  suffix: " web systems that replace manual bottlenecks.",
+} as const;
+
+export const heroLedger = [
+  {
+    value: jpConnectMetrics.accounts,
+    label: "Google SSO Accounts",
+    context: "JP Connect · Students & 249 Faculty",
+  },
+  {
+    value: jpConnectMetrics.sanctionsCollected,
+    label: "Tracked SSC Clearance Ledger",
+    context: "1 Clearance Period (Dec 2025 – Jan 2026)",
+  },
+  {
+    value: "4,632+",
+    label: "Citizen Feedback Records",
+    context: "OWWA Region XI · 10 Regional Units",
+  },
+  {
+    value: "0 Overlaps",
+    label: "Validated Exam Schedules",
+    context: "658 Slots · 9 Academic Depts",
+  },
+] as const;
 
 // Flagship Projects
 
@@ -296,15 +336,39 @@ export const flagshipProjects: FlagshipProject[] = [
     link: "https://jp-connect.vercel.app",
     focus: "Student Services & Exam Scheduling Platform",
     description:
-      "Student services and exam scheduling portal built for St. John Paul II College of Davao, serving 5,536 registered users across 9 academic departments. Replaces physical queues and spreadsheet scheduling with automated interval-sweep scheduling and role-based clearance passes.",
+      `Paid freelance contract for St. John Paul II College of Davao: a student services and exam scheduling portal with ${jpConnectMetrics.accounts} Google SSO accounts (students and ${jpConnectMetrics.faculty} faculty) across 9 academic departments. Replaces physical queues and spreadsheet scheduling with automated interval-sweep scheduling, role-based clearance passes, and a tracked sanctions ledger for the Supreme Student Council.`,
     image: "/projects/jp-connect/1. LandingPage.webp",
     screenshots: [
-      { label: "Landing & Student", image: "/projects/jp-connect/1. LandingPage.webp" },
-      { label: "Exam Schedules", image: "/projects/jp-connect/2. PersonalizedExam.webp" },
-      { label: "Instructor Portal", image: "/projects/jp-connect/3 InstructorDashboard.webp" },
-      { label: "SSC & Campus", image: "/projects/jp-connect/4. SSC&Campus.webp" },
-      { label: "Program Head Email", image: "/projects/jp-connect/5. pg-email.webp" },
-      { label: "Campus Projector", image: "/projects/jp-connect/6. projector.webp" },
+      {
+        label: "Landing & Student",
+        image: "/projects/jp-connect/1. LandingPage.webp",
+        primitive: "Google Workspace OAuth (@sjp2cd.edu.ph) + PostgreSQL RLS (auth.uid() = student_id)",
+      },
+      {
+        label: "Exam Schedules",
+        image: "/projects/jp-connect/2. PersonalizedExam.webp",
+        primitive: "O(N log N) Interval-Sweep Resolver · 658 Slots Validated with 0 Collisions",
+      },
+      {
+        label: "Instructor Portal",
+        image: "/projects/jp-connect/3 InstructorDashboard.webp",
+        primitive: "Normalized Proctor Alias Lookup Table Mapping 249 Faculty Accounts",
+      },
+      {
+        label: "SSC & Campus",
+        image: "/projects/jp-connect/4. SSC&Campus.webp",
+        primitive: "Offline RFID Set-Difference Reconciliation (14,778 Records) + PHP 707,750 Sanctions Ledger",
+      },
+      {
+        label: "Program Head Email",
+        image: "/projects/jp-connect/5. pg-email.webp",
+        primitive: "Written Commendation from CICT Program Head (St. John Paul II College of Davao)",
+      },
+      {
+        label: "Campus Projector",
+        image: "/projects/jp-connect/6. projector.webp",
+        primitive: "Live Vertical Lobby Display Broadcasting Real-Time Exam Schedules & Clearance Status",
+      },
     ],
     logo: "/logos/jp-connect-logo.webp",
     techStack: [
@@ -317,15 +381,16 @@ export const flagshipProjects: FlagshipProject[] = [
       "pg_cron",
     ],
     metrics: {
-      "Registered SSO Users": "5,536",
-      "Masterlist Records": "14,778",
-      "Exam Schedules": "658",
-      "Schedule Overlaps": "0",
+      "Google SSO Accounts": jpConnectMetrics.accounts,
+      "Masterlist Records": jpConnectMetrics.masterlist,
+      "Exam Schedules": jpConnectMetrics.exams,
+      "Schedule Overlaps": jpConnectMetrics.overlaps,
     },
     highlights: [
       "Conflict-Free Scheduler: Implemented automated interval-sweep scheduling to eliminate timetable conflicts across 658 exam slots, replacing manual spreadsheet validation.",
       "Role-Based Access: Configured domain-locked Google Workspace SSO (@sjp2cd.edu.ph) paired with PostgreSQL Row-Level Security to isolate student and faculty data.",
-      "Automated Clearance: Automated campus clearance by processing offline RFID scanner logs against 14,778 registrar records, reducing processing time from days to under 5 seconds.",
+      "Automated Clearance: Matches offline RFID attendance logs against 14,778 registrar records in under 5 seconds, replacing physical clearance queues across campus.",
+      `Sanctions Ledger: Built a sanctions and payments module for the Supreme Student Council that links clearance to settled sanctions and logs every payment and expense, recording ${jpConnectMetrics.sanctionsCollected} in collections over one clearance period (${jpConnectMetrics.sanctionsPeriod}).`,
     ],
     hasCaseStudy: true,
   },
@@ -338,10 +403,26 @@ export const flagshipProjects: FlagshipProject[] = [
       "Internal reporting tool built during my OWWA Region XI internship, consolidating 4,632+ citizen feedback records across 10 regional units with live balance validation and 1-click Excel export for ARTA/CSC reporting requirements.",
     image: "/projects/owwa-csmr/landing.webp",
     screenshots: [
-      { label: "Public Landing", image: "/projects/owwa-csmr/landing.webp" },
-      { label: "Secure Role Login", image: "/projects/owwa-csmr/login.webp" },
-      { label: "Dashboard", image: "/projects/owwa-csmr/dashboard.webp" },
-      { label: "Manage Offices", image: "/projects/owwa-csmr/manage_offices.webp" },
+      {
+        label: "Public Landing",
+        image: "/projects/owwa-csmr/landing.webp",
+        primitive: "Multi-Office Survey Intake Across 10 OWWA Region XI Frontline Units",
+      },
+      {
+        label: "Secure Role Login",
+        image: "/projects/owwa-csmr/login.webp",
+        primitive: "Stateless jose JWT Session Validation in HttpOnly Cookies + Office Role Claims",
+      },
+      {
+        label: "Dashboard",
+        image: "/projects/owwa-csmr/dashboard.webp",
+        primitive: "On-Demand JSONB Aggregation in Next.js Server Actions (<100ms) + ExcelJS Export (<1s)",
+      },
+      {
+        label: "Manage Offices",
+        image: "/projects/owwa-csmr/manage_offices.webp",
+        primitive: "Compound Unique Constraint (office_id, month, year) + Zod Arithmetic Balance Checks",
+      },
     ],
     logo: "/logos/owwa-logo.webp",
     techStack: [
@@ -377,10 +458,26 @@ export const flagshipProjects: FlagshipProject[] = [
       "Live tournament leaderboard delivering real-time score synchronization across 23 sports divisions for 9 departments using Supabase Realtime, with an auto-cycling display mode for gym screens and mobile spectator devices.",
     image: "/projects/jp-intrams/desktop.webp",
     screenshots: [
-      { label: "Desktop Leaderboard", image: "/projects/jp-intrams/desktop.webp" },
-      { label: "Mobile Spectator", image: "/projects/jp-intrams/iphone HD.webp" },
-      { label: "Gym Display Mode", image: "/projects/jp-intrams/tv(desktop).webp" },
-      { label: "Campus Projector", image: "/projects/jp-intrams/projector.webp" },
+      {
+        label: "Desktop Leaderboard",
+        image: "/projects/jp-intrams/desktop.webp",
+        primitive: "Supabase Realtime Change Channels on points_log Across 23 Sports Divisions",
+      },
+      {
+        label: "Mobile Spectator",
+        image: "/projects/jp-intrams/iphone HD.webp",
+        primitive: "Upstash Redis Atomic SETNX Rate Limiting (5 Votes/s/IP) + Edge CDN Cache (s-maxage=5)",
+      },
+      {
+        label: "Gym Display Mode",
+        image: "/projects/jp-intrams/tv(desktop).webp",
+        primitive: "Dedicated /tv Route Rotating 5 Standings Views Every 15s with AV Hotkeys",
+      },
+      {
+        label: "Campus Projector",
+        image: "/projects/jp-intrams/projector.webp",
+        primitive: "Live Quadrangle Stage Projection During SJPIICD Intramurals Tournament",
+      },
     ],
     logo: "/logos/school-logo-nobg.webp",
     techStack: [
@@ -416,14 +513,30 @@ export const clientProjects: ClientProject[] = [
     title: "OWWA SPRS Platform",
     client: "Overseas Workers Welfare Administration (Region XI)",
     objective:
-      "Developed and presented a performance reporting platform for OWWA Region XI, implementing KPI aggregation and accomplishment reporting modules using PostgreSQL constraints and Zod validation to enforce data integrity.",
+      "Built as the sole developer during my OWWA Region XI internship: a performance reporting platform that tracks monthly KPI targets and accomplishment reports, with PostgreSQL constraints and Zod validation on every submission.",
     logo: "/logos/owwa-logo.webp",
     image: "/projects/owwa-sprs/consolidation.webp",
     screenshots: [
-      { label: "Consolidation & Export", image: "/projects/owwa-sprs/consolidation.webp" },
-      { label: "Template Builder", image: "/projects/owwa-sprs/template-builder.webp" },
-      { label: "Public Landing", image: "/projects/owwa-sprs/landing.webp" },
-      { label: "System Modules", image: "/projects/owwa-sprs/dashboard.webp" },
+      {
+        label: "Consolidation & Export",
+        image: "/projects/owwa-sprs/consolidation.webp",
+        primitive: "Regional KPI Consolidation & Multi-Sheet ExcelJS Accomplishment Export",
+      },
+      {
+        label: "Template Builder",
+        image: "/projects/owwa-sprs/template-builder.webp",
+        primitive: "Dynamic Indicator Schema Builder with Zod Validation & PostgreSQL Constraints",
+      },
+      {
+        label: "Public Landing",
+        image: "/projects/owwa-sprs/landing.webp",
+        primitive: "Sole-Developer Statistical Performance Reporting Platform for OWWA Region XI",
+      },
+      {
+        label: "System Modules",
+        image: "/projects/owwa-sprs/dashboard.webp",
+        primitive: "Monthly Target vs. Actual Accomplishment Tracking Across Regional Programs",
+      },
     ],
     techStack: [
       "Next.js",
@@ -445,7 +558,7 @@ export const education: EducationItem[] = [
     level: "Bachelor's Degree",
     institution: "St. John Paul II College of Davao",
     program: "Bachelor of Science in Information Technology",
-    status: "Class of 2026",
+    status: "Graduated May 2026",
     logo: "/logos/school-logo-nobg.webp",
     isCurrent: false,
   },
@@ -542,7 +655,7 @@ export const featuredCredentials: Credential[] = [
     status: "Official Recognition",
     period: "May 14, 2026",
     description:
-      "Awarded an official Certificate of Recognition for developing and presenting the OWWA SPRS capstone system, built to help regional units track monthly performance targets and automate accomplishment reporting.",
+      "Awarded an official Certificate of Recognition for developing SPRS as the sole developer during my internship, built to help regional units track monthly performance targets and automate accomplishment reporting.",
     skills: ["Government IT Systems", "Statistical Reporting", "Performance KPIs", "Data Management"],
     image: "/certificates/ojt/sprs.webp",
     gallery: [
@@ -564,7 +677,7 @@ export const featuredCredentials: Credential[] = [
       {
         label: "Regional Staff Assembly",
         image: "/profile/2. all_employee.webp",
-        caption: "Full regional staff assembly during our capstone deployment presentation",
+        caption: "Full regional staff assembly during the SPRS system presentation",
       },
     ],
     signatories: [
@@ -610,15 +723,19 @@ export const featuredCredentials: Credential[] = [
 
 export const experience: Experience[] = [
   {
-    organization: "Freelance / Self-Employed",
-    role: "Freelance Full-stack Developer",
-    period: "Nov 2024 – Present",
+    organization: "St. John Paul II College of Davao",
+    role: "Full-stack Developer (Freelance Contract)",
+    period: "Aug 2025 – Present",
     highlights: [
-      "Built and deployed full-stack web applications for educational and local business clients, replacing manual workflows with responsive, role-based web systems.",
-      "Automated multi-role authorization and clearance workflows using Next.js Edge Middleware and PostgreSQL Row-Level Security (RLS) to protect student and faculty records.",
-      "Developed transactional notification and booking workflows using Next.js Server Actions, the Resend API, and Supabase SSR to streamline client operations.",
+      `Built and deployed JP Connect, a paid student services and exam scheduling portal with ${jpConnectMetrics.accounts} Google SSO accounts (students and ${jpConnectMetrics.faculty} faculty) across 9 academic departments.`,
+      "Implemented an interval-sweep conflict check that validates 658 exam slots for room and instructor overlaps (0 conflicts), replacing manual cross-checking of departmental Excel files.",
+      "Automated end-of-semester clearance by matching offline RFID attendance logs against 14,778 registrar records in under 5 seconds, replacing physical queues across campus.",
+      "Enforced data isolation across 6 user roles with PostgreSQL Row-Level Security and Next.js middleware, so students on shared lab computers can only see their own records.",
+      `Built a sanctions and payments module for the Supreme Student Council that links clearance to settled sanctions and logs every payment and expense, recording ${jpConnectMetrics.sanctionsCollected} in collections over one clearance period (${jpConnectMetrics.sanctionsPeriod}).`,
     ],
-    techStack: ["Next.js 16", "Supabase SSR", "PostgreSQL RLS", "TypeScript", "Tailwind CSS", "Resend API"],
+    techStack: ["Next.js 16", "TypeScript", "Supabase", "PostgreSQL RLS", "Tailwind CSS", "pg_cron"],
+    logo: "/logos/school-logo-nobg.webp",
+    link: "https://jp-connect.vercel.app",
     isCurrent: true,
   },
   {
@@ -626,10 +743,11 @@ export const experience: Experience[] = [
     role: "Software Developer Intern",
     period: "Jan 2026 – May 2026",
     highlights: [
-      "Developed an internal reporting tool for OWWA Region XI's Client Satisfaction Measurement Reports, consolidating 4,632+ citizen feedback records across 10 regional units.",
-      "Automated a 4-day manual spreadsheet consolidation workflow, reducing report generation time to under 1 second through server-side aggregation with Next.js Server Actions.",
-      "Built an in-memory ExcelJS export engine generating multi-tab workbooks with formulas and audit styling for ARTA/CSC reporting requirements, earning an official Certificate of Recognition.",
-      "Implemented KPI aggregation and accomplishment reporting modules for the OWWA SPRS Platform, using PostgreSQL constraints and Zod validation to enforce data integrity.",
+      "Developed the Client Satisfaction Measurement Report (CSMR) system, consolidating 4,632+ citizen feedback records and 72 monthly report submissions from 10 regional units.",
+      "Replaced a 4-day manual spreadsheet consolidation with on-demand report generation that runs in under 1 second, using Next.js Server Actions for server-side aggregation.",
+      "Built an ExcelJS export that generates multi-tab workbooks with formulas and formatting required for ARTA/CSC reporting, so staff no longer rebuild reports by hand.",
+      "Built the Statistical Performance Reporting System (SPRS) as the sole developer, tracking monthly KPI targets and accomplishment reports, with PostgreSQL constraints and Zod validation on every submission.",
+      "Received two official Certificates of Recognition from OWWA Region XI (CSMR and SPRS) and presented both systems to regional staff.",
     ],
     techStack: ["Next.js Server Actions", "PostgreSQL", "Supabase SSR", "Zod", "ExcelJS", "TypeScript", "Recharts"],
     logo: "/logos/owwa-logo.webp",
@@ -676,13 +794,100 @@ export const socialLinks: SocialLink[] = [
 // Navigation
 
 export const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Stack", href: "#stack" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#work-experience" },
-  { label: "Education", href: "#education" },
-  { label: "Contact", href: "#contact" },
+  { label: "Overview", href: "/", count: "00" },
+  { label: "Systems", href: "/systems", count: "04" },
+  { label: "Experience", href: "/experience", count: "02" },
+  { label: "Credentials", href: "/credentials", count: "04" },
+  { label: "Stack", href: "/stack", count: "20" },
 ] as const;
+
+export interface ShippingSoonItem {
+  id: string;
+  title: string;
+  tagline: string;
+  status: string;
+  eta: string;
+  description: string;
+  plannedPrimitives: string[];
+  techStack: string[];
+  href: string;
+}
+
+export const shippingSoonProjects: ShippingSoonItem[] = [
+  {
+    id: "davao-spots",
+    title: "DavaoSpots",
+    tagline: "Geospatial Work & Study Directory · Davao City",
+    status: "Shipping Soon",
+    eta: "2026 Release",
+    description:
+      "While Google Maps rates food and coffee flavor, DavaoSpots rates pure work-readiness—helping remote workers, freelancers, and students in Davao City find study-friendly cafes and coworking hubs with verified Wi-Fi, table socket density, late/24-7 hours, and backup generators during city power interruptions.",
+    plannedPrimitives: [
+      "1-Tap Panic Filters: Instant 0ms client-side filtering for Generator Backup, Sockets Every Table, Open 24/7, and Call-Friendly workspaces",
+      "Geofenced Wi-Fi Benchmarks: Crowd-sourced speed tests verified only when physically inside a spot (<=250m radius)",
+      "Frictionless Community Submissions: Zero-login spot reports protected by Upstash Redis rate limiting and PostgreSQL RLS",
+    ],
+    techStack: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "MapLibre GL",
+      "OpenFreeMap",
+      "Supabase (PostgreSQL & RLS)",
+      "Upstash Redis",
+    ],
+    href: "/systems#shipping-soon",
+  },
+];
+
+export interface StackCategory {
+  category: string;
+  items: string[];
+}
+
+export const stackCatalog: StackCategory[] = [
+  {
+    category: "Frontend",
+    items: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Framer Motion",
+    ],
+  },
+  {
+    category: "Backend & database",
+    items: [
+      "Supabase",
+      "PostgreSQL",
+      "Upstash Redis",
+      "Resend",
+      "Node.js",
+      "Zod",
+    ],
+  },
+  {
+    category: "Data, maps & visualization",
+    items: [
+      "ExcelJS",
+      "SheetJS",
+      "MapLibre GL",
+      "Recharts",
+    ],
+  },
+  {
+    category: "AI & workflow",
+    items: [
+      "Claude Code",
+      "Cursor",
+      "Vercel",
+      "Git & GitHub",
+    ],
+  },
+];
 
 // Resume
 
@@ -697,9 +902,9 @@ export const jpConnectCaseStudy: CaseStudyData = {
   role: "Full-stack Developer",
   institution: "St. John Paul II College of Davao (SJPIICD)",
   scaleSummary:
-    "Student services and exam scheduling platform serving 5,536 registered users across 9 academic departments, replacing manual paper queues and spreadsheet validation with automated interval-sweep scheduling, digital student passes, and role-based clearance.",
+    `Paid freelance contract: a student services and exam scheduling platform with ${jpConnectMetrics.accounts} Google SSO accounts across 9 academic departments, replacing manual paper queues and spreadsheet validation with automated interval-sweep scheduling, digital student passes, role-based clearance, and a tracked sanctions ledger.`,
   metrics: [
-    { label: "5,536", value: "Registered SSO Users", desc: "5,426 students, 107 faculty across 2 active semesters" },
+    { label: jpConnectMetrics.accounts, value: "Google SSO Accounts", desc: `Students and ${jpConnectMetrics.faculty} faculty` },
     { label: "14,778", value: "Masterlist Records", desc: "Ingested across 9 departments" },
     { label: "658", value: "Exam Schedules", desc: "100% automated 3-way conflict verification" },
     { label: "0", value: "Schedule Overlaps", desc: "Guaranteed across 658 exam slots via O(N log N) interval sweep" },
@@ -740,7 +945,7 @@ export const jpConnectCaseStudy: CaseStudyData = {
       "Live operational display of JP Connect exam schedules and campus clearances projected on the vertical lobby displays at St. John Paul II College of Davao.",
     image: "/projects/jp-connect/6. projector.webp",
     aspect: "9/16",
-    tags: ["Vertical Digital Stand", "Campus Lobby Kiosk", "5,500+ Daily Foot Traffic"],
+    tags: ["Vertical Digital Stand", "Campus Lobby Kiosk", "Exam Schedules & Clearance"],
   },
   architectureSummary:
     "Enforces authorization at every boundary: Next.js Edge Middleware checks session tokens before route evaluation, Google Workspace OAuth limits access to active @sjp2cd.edu.ph accounts, and PostgreSQL Row-Level Security (RLS) enforces row access directly in the database engine (auth.uid() = student_id).",
@@ -760,7 +965,7 @@ export const jpConnectCaseStudy: CaseStudyData = {
       solution:
         "Built an in-browser Excel parser paired with an interval overlap algorithm that sorts time slots and checks room, proctor, and self-proctoring conflicts in O(N log N) time. Created an alias lookup table in PostgreSQL (normalized_match_key) to map inconsistent faculty name variations to verified Google SSO emails.",
       outcome:
-        "658 schedules parsed with 0 collisions and instantly populated across 107 instructor dashboards upon publishing.",
+        "658 schedules parsed with 0 collisions and published straight to each assigned instructor's dashboard.",
     },
     {
       title: "2. Role-Based Access Control on Shared Devices",
@@ -778,7 +983,7 @@ export const jpConnectCaseStudy: CaseStudyData = {
       solution:
         "Built a batch ingestion tool where SSC officers import scanned IDs; the system auto-reconciles against the masterlist to flag absentees and apply fines.",
       outcome:
-        "Automated attendance reconciliation across 14,778 student records by ingesting offline RFID scans and computing set differences (Masterlist \\ Scanned), reducing clearance processing time from 3 days to under 5 seconds.",
+        `Reconciles attendance across 14,778 student records in under 5 seconds by computing set differences (Masterlist \\ Scanned), replacing about 3 days of manual checking. Every sanction payment and SSC expense is logged; ${jpConnectMetrics.sanctionsCollected} in collections was recorded in one clearance period (${jpConnectMetrics.sanctionsPeriod}).`,
     },
   ],
   qaList: [

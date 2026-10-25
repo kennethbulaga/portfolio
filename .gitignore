@@ -45,6 +45,7 @@ next-env.d.ts
 
 # agentskillz
 .agents/
+.kiro/
 
 # script
 scripts/

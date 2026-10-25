@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -20,20 +19,20 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { IWasHereButton } from "@/components/ui/i-was-here";
 import { navItems, resumePath, socialLinks } from "@/data/portfolio";
 
 interface MobileNavProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpenCaseStudy?: (studyId?: string) => void;
 }
 
 const navIconMap: Record<string, React.ElementType> = {
-  About: User,
-  Stack: Layers,
-  Projects: FolderGit2,
+  Overview: User,
+  Systems: FolderGit2,
   Experience: Briefcase,
-  Education: GraduationCap,
+  Credentials: GraduationCap,
+  Stack: Layers,
   Contact: Mail,
 };
 
@@ -61,8 +60,7 @@ function TikTokIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
   );
 }
 
-export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) {
-  // Lock body scroll and listen for Escape key
+export function MobileNav({ isOpen, onClose }: MobileNavProps) {
   useEffect(() => {
     if (!isOpen) return;
 
@@ -88,7 +86,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-50 md:hidden flex justify-end">
+        <div className="fixed inset-0 z-50 lg:hidden flex justify-end">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -106,7 +104,7 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 220 }}
-            className="relative w-[88%] max-w-sm h-full bg-background border-l border-border shadow-2xl flex flex-col justify-between p-5 sm:p-6 z-10 overflow-y-auto"
+            className="relative w-[88%] max-w-sm h-full bg-background border-l border-border flex flex-col justify-between p-5 sm:p-6 z-10 overflow-y-auto"
             role="dialog"
             aria-modal="true"
             aria-label="Mobile Navigation Menu"
@@ -173,93 +171,14 @@ export function MobileNav({ isOpen, onClose, onOpenCaseStudy }: MobileNavProps) 
                   })}
                 </nav>
               </div>
-
-              {/* Flagship Case Studies Quick Action */}
-              {onOpenCaseStudy && (
-                <div className="flex flex-col gap-1.5 pt-3 border-t border-border/70">
-                  <p className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-semibold px-2 pb-0.5 flex items-center gap-1">
-                    <Layers size={11} className="text-primary" />
-                    <span>System Architecture Deep-Dives</span>
-                  </p>
-                  <div className="grid grid-cols-1 gap-1.5">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onClose();
-                        onOpenCaseStudy("jp-connect");
-                      }}
-                      className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group shadow-2xs"
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="size-7 rounded-lg bg-muted/60 flex items-center justify-center shrink-0 overflow-hidden">
-                          <Image src="/logos/jp-connect-logo.webp" alt="JP Connect" width={20} height={20} className="object-contain" />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                            JP Connect Architecture
-                          </p>
-                          <p className="text-[10px] font-mono text-muted-foreground truncate">
-                            5,536 Users · 658 Exams
-                          </p>
-                        </div>
-                      </div>
-                      <ArrowRight size={13} className="text-muted-foreground group-hover:text-primary transition-colors shrink-0 ml-1.5" />
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onClose();
-                        onOpenCaseStudy("owwa-csmr");
-                      }}
-                      className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group shadow-2xs"
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="size-7 rounded-lg bg-muted/60 flex items-center justify-center shrink-0 overflow-hidden">
-                          <Image src="/logos/owwa-logo.webp" alt="OWWA" width={20} height={20} className="object-contain" />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                            OWWA CSMR Platform
-                          </p>
-                          <p className="text-[10px] font-mono text-muted-foreground truncate">
-                            4,632+ Records · 10 Units · &lt;1s
-                          </p>
-                        </div>
-                      </div>
-                      <ArrowRight size={13} className="text-muted-foreground group-hover:text-primary transition-colors shrink-0 ml-1.5" />
-                    </button>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        onClose();
-                        onOpenCaseStudy("jp-intrams");
-                      }}
-                      className="flex items-center justify-between p-2.5 rounded-xl border border-border/70 bg-card/60 hover:bg-card hover:border-primary/40 text-left transition-[background-color,border-color,box-shadow,transform] duration-150 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring group shadow-2xs"
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="size-7 rounded-lg bg-muted/60 flex items-center justify-center shrink-0 overflow-hidden">
-                          <Image src="/logos/school-logo-nobg.webp" alt="JP Intrams" width={20} height={20} className="object-contain" />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors truncate">
-                            JP Intrams
-                          </p>
-                          <p className="text-[10px] font-mono text-muted-foreground truncate">
-                            9 Depts · 23 Divisions · Realtime
-                          </p>
-                        </div>
-                      </div>
-                      <ArrowRight size={13} className="text-muted-foreground group-hover:text-primary transition-colors shrink-0 ml-1.5" />
-                    </button>
-                  </div>
-                </div>
-              )}
             </div>
 
-            {/* Bottom Section: Resume Actions & Full Socials */}
+            {/* Bottom Section: Visitor Stamp, Resume Actions & Full Socials */}
             <div className="pt-4 border-t border-border/80 flex flex-col gap-3.5">
+              <div className="pb-2 border-b border-border/60">
+                <IWasHereButton />
+              </div>
+
               <div className="grid grid-cols-2 gap-2">
                 <Button asChild size="sm" variant="default" className="h-9 gap-1.5 text-xs">
                   <a href={resumePath} target="_blank" rel="noopener noreferrer">
