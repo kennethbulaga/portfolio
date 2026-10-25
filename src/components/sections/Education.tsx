@@ -361,7 +361,7 @@ export function Education({ previewMode = false }: EducationProps) {
                   Academic Background, Hackathons & Leadership Dossier
                 </p>
                 <p className="text-xs font-mono text-muted-foreground">
-                  Includes OWWA SPRS Certificate, HackEstate 2025 National Finalist, BSIT Degree & SSC Senator roles
+                  Includes OWWA SPRS Certificate, Davao HackEstate 2025, BSIT Degree & SSC Senator roles
                 </p>
               </div>
               <Button asChild variant="outline" size="sm" className="rounded-full font-mono text-xs gap-1.5 shrink-0">

@@ -257,7 +257,7 @@ export const spotifyPlaylists: SpotifyPlaylist[] = [
 export const institutionalTrust: TrustPartner[] = [
   {
     name: "St. John Paul II College of Davao",
-    role: "Student Portal, Exam Scheduler & Live Leaderboard",
+    role: "Student Services, Exam Scheduling & RFID Clearance Portal",
     logo: "/logos/school-logo-nobg.webp",
     link: "https://www.facebook.com/sjp2cdofficial",
   },
@@ -711,6 +711,28 @@ export const featuredCredentials: Credential[] = [
       "Received the school's Institutional Service Award for student leadership in AY 2025–2026 as an elected SSC Senator, helping coordinate campus events, student services, and Intramurals 2025.",
     skills: ["Institutional Service", "Student Governance", "Campus Operations", "Event Coordination"],
     image: "/certificates/school/2. insti-service-reward.webp",
+    gallery: [
+      {
+        label: "Institutional Service Award",
+        image: "/certificates/school/2. insti-service-reward.webp",
+        caption: "Highest student service honor awarded by St. John Paul II College of Davao (AY 2025–2026)",
+      },
+      {
+        label: "Student Leadership Appreciation",
+        image: "/certificates/school/1. appreciation.webp",
+        caption: "Certificate of Appreciation for exemplary leadership as an elected SSC Senator (AY 2025–2026)",
+      },
+      {
+        label: "Intramurals Leadership",
+        image: "/certificates/school/3. leadership-intramurals.webp",
+        caption: "Leadership recognition for organizing and coordinating SJPIICD Intramurals 2025",
+      },
+      {
+        label: "Extravaganza Leadership",
+        image: "/certificates/school/4. leadership-extravaganza.webp",
+        caption: "Leadership recognition for campus-wide student events and governance",
+      },
+    ],
     signatories: [
       "Jocelyn P. Rodriguez, MAEd-GC, RGC — Dean of Student Affairs",
       "Engr. Joselito B. Lim, Jr. — AVP for Student Services",
