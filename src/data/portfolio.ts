@@ -126,7 +126,7 @@ export const personalInfo: PersonalInfo = {
 export const institutionalTrust: TrustPartner[] = [
   {
     name: "St. John Paul II College of Davao",
-    role: "Student Services, Exam Scheduling & RFID Clearance Portal",
+    role: "Exam Schedules, Attendance & SSC Clearance Portal",
     logo: "/logos/school-logo-nobg.webp",
     link: "https://www.facebook.com/sjp2cdofficial",
   },
@@ -226,7 +226,7 @@ export const flagshipProjects: FlagshipProject[] = [
       {
         label: "SSC & Campus",
         image: "/projects/jp-connect/4. SSC&Campus.webp",
-        primitive: "Offline RFID Set-Difference Reconciliation (14,778 Records) + PHP 707,750 Sanctions Ledger",
+        primitive: "Event Attendance Set-Difference Reconciliation (14,778 Records) + PHP 707,750 Sanctions Ledger",
       },
       {
         label: "Program Head Email",
@@ -258,7 +258,7 @@ export const flagshipProjects: FlagshipProject[] = [
     highlights: [
       "Conflict-Free Scheduler: Implemented automated interval-sweep scheduling to eliminate timetable conflicts across 658 exam slots, replacing manual spreadsheet validation.",
       "Role-Based Access: Configured domain-locked Google Workspace SSO (@sjp2cd.edu.ph) paired with PostgreSQL Row-Level Security to isolate student and faculty data.",
-      "Automated Clearance: Matches offline RFID attendance logs against 14,778 registrar records in under 5 seconds, replacing physical clearance queues across campus.",
+      "Automated Clearance: Reconciles event attendee ID uploads against 14,778 registrar records in under 5 seconds, auto-flagging absences and calculating SSC sanctions.",
       `Sanctions Ledger: Built a sanctions and payments module for the Supreme Student Council that links clearance to settled sanctions and logs every payment and expense, recording ${jpConnectMetrics.sanctionsCollected} in collections over one clearance period (${jpConnectMetrics.sanctionsPeriod}).`,
     ],
   },
@@ -612,7 +612,7 @@ export const experience: Experience[] = [
     highlights: [
       `Built and deployed JP Connect, a paid student services and exam scheduling portal with ${jpConnectMetrics.accounts} Google SSO accounts (students and ${jpConnectMetrics.faculty} faculty) across 9 academic departments.`,
       "Implemented an interval-sweep conflict check that validates 658 exam slots for room and instructor overlaps (0 conflicts), replacing manual cross-checking of departmental Excel files.",
-      "Automated end-of-semester clearance by matching offline RFID attendance logs against 14,778 registrar records in under 5 seconds, replacing physical queues across campus.",
+      "Automated end-of-semester clearance by reconciling event attendee ID uploads against 14,778 registrar records in under 5 seconds, auto-flagging absences and calculating SSC sanctions.",
       "Enforced data isolation across 6 user roles with PostgreSQL Row-Level Security and Next.js middleware, so students on shared lab computers can only see their own records.",
       `Built a sanctions and payments module for the Supreme Student Council that links clearance to settled sanctions and logs every payment and expense, recording ${jpConnectMetrics.sanctionsCollected} in collections over one clearance period (${jpConnectMetrics.sanctionsPeriod}).`,
     ],
