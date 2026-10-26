@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/sections/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Projects } from "@/components/sections/Projects";
+import { GithubContributions } from "@/components/ui/github-contributions";
 import { Footer } from "@/components/sections/Footer";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function Home() {
         <div className="max-w-[980px] mx-auto flex flex-col gap-14 sm:gap-16">
           <Hero />
           <Projects previewMode />
+          <GithubContributions />
           <Footer />
         </div>
       </main>
