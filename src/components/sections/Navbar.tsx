@@ -122,18 +122,11 @@ export function Navbar() {
                   className="group inline-flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-foreground"
                 >
                   <Image
-                    src={personalInfo.logo.light}
-                    alt={personalInfo.name}
-                    width={26}
-                    height={26}
-                    className="size-6.5 rounded-[6px] shrink-0 dark:hidden"
-                  />
-                  <Image
                     src={personalInfo.logo.dark}
                     alt={personalInfo.name}
                     width={26}
                     height={26}
-                    className="size-6.5 rounded-[6px] shrink-0 hidden dark:block"
+                    className="size-6.5 rounded-[6px] shrink-0"
                   />
                   <PixelName text={personalInfo.name} />
                 </Link>
@@ -295,18 +288,11 @@ export function Navbar() {
           className="inline-flex items-center gap-2 font-mono text-sm font-semibold text-foreground tracking-tight"
         >
           <Image
-            src={personalInfo.logo.light}
-            alt={personalInfo.name}
-            width={30}
-            height={30}
-            className="size-7.5 rounded-[7px] shrink-0 dark:hidden"
-          />
-          <Image
             src={personalInfo.logo.dark}
             alt={personalInfo.name}
             width={30}
             height={30}
-            className="size-7.5 rounded-[7px] shrink-0 hidden dark:block"
+            className="size-7.5 rounded-[7px] shrink-0"
           />
           <span
             className={cn(

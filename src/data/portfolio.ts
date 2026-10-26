@@ -108,7 +108,7 @@ export interface SocialLink {
 export const personalInfo: PersonalInfo = {
   name: "Kenneth Bulaga",
   logo: {
-    light: "/logos/kb-logo-light.svg",
+    light: "/logos/kb-logo-dark.svg",
     dark: "/logos/kb-logo-dark.svg",
   },
   subHeadline: "Full-stack Developer",

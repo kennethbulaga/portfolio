@@ -118,18 +118,11 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                   className="flex items-center gap-2 font-mono text-sm font-bold text-foreground tracking-tight"
                 >
                   <Image
-                    src={personalInfo.logo.light}
-                    alt={personalInfo.name}
-                    width={28}
-                    height={28}
-                    className="size-7 rounded-[7px] shrink-0 dark:hidden"
-                  />
-                  <Image
                     src={personalInfo.logo.dark}
                     alt={personalInfo.name}
                     width={28}
                     height={28}
-                    className="size-7 rounded-[7px] shrink-0 hidden dark:block"
+                    className="size-7 rounded-[7px] shrink-0"
                   />
                   <span>{personalInfo.name}</span>
                 </Link>
