@@ -28,11 +28,10 @@ export const metadata: Metadata = {
     template: "%s | Kenneth Bulaga",
   },
   description:
-    "Full-stack developer building web applications and internal tools that turn slow, manual processes into fast, dependable software with Next.js, TypeScript, and PostgreSQL.",
+    "Full-stack developer building scalable web applications, internal tools, and automated workflows with Next.js, TypeScript, and PostgreSQL.",
   keywords: [
     "Kenneth Bulaga",
     "Full-stack Developer",
-    "Full-Stack Developer",
     "Junior Software Developer",
     "Web Developer",
     "Next.js 16",
@@ -40,10 +39,11 @@ export const metadata: Metadata = {
     "Tailwind CSS v4",
     "Supabase",
     "PostgreSQL",
+    "Upstash Redis",
     "Davao Developer",
     "JP Connect",
     "OWWA CSMR",
-    "Independent Contractor",
+    "Automated Workflows",
   ],
   authors: [{ name: "Kenneth Bulaga", url: "https://github.com/kennethbulaga" }],
   creator: "Kenneth Bulaga",
@@ -53,14 +53,14 @@ export const metadata: Metadata = {
     url: "https://kennethbulaga.dev",
     title: "Kenneth Bulaga — Full-stack Developer",
     description:
-      "Full-stack developer building web applications and internal tools that turn slow, manual processes into fast, dependable software with Next.js, TypeScript, and PostgreSQL.",
+      "Full-stack developer building practical web apps, internal tools, and automated workflows with Next.js & TypeScript.",
     siteName: "Kenneth Bulaga Portfolio",
   },
   twitter: {
     card: "summary_large_image",
     title: "Kenneth Bulaga — Full-stack Developer",
     description:
-      "Full-stack developer building practical web applications with Next.js, TypeScript, and Supabase.",
+      "Full-stack developer building practical web apps, internal tools, and automated workflows with Next.js & TypeScript.",
     creator: "@kenzodev69",
   },
   robots: {
@@ -120,6 +120,7 @@ export default function RootLayout({
         sameAs: [
           "https://github.com/kennethbulaga",
           "https://www.linkedin.com/in/kenneth-bulaga/",
+          "https://x.com/kenzodev69",
         ],
         knowsAbout: [
           "Next.js",
@@ -127,9 +128,9 @@ export default function RootLayout({
           "TypeScript",
           "PostgreSQL",
           "Supabase",
-          "Real-Time Systems",
+          "Upstash Redis",
           "Tailwind CSS",
-          "Cloud & Serverless Deployment",
+          "Automated Workflows",
         ],
       },
     ],
