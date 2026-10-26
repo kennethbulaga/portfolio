@@ -1,5 +1,5 @@
 ---
-name: The Kenzo System — Studio Proof Contact Sheet & Floating Rail
+name: Kenneth Bulaga Portfolio — Studio Proof Contact Sheet & Floating Rail
 description: Warm-alabaster and matte-carbon engineering portfolio with a double-framed floating left rail and hairline-ruled contact-sheet proof frames.
 colors:
   signal-emerald: "#22c55e"
@@ -87,13 +87,13 @@ components:
     padding: "20px"
 ---
 
-# Design System: The Kenzo System
+# Design System: Kenneth Bulaga Portfolio
 
 ## Overview
 
 **Creative North Star: "The Studio Proof Contact Sheet & Floating Rail"**
 
-The Kenzo System pairs the tactile intimacy of a double-framed floating left navigation rail with the analytical clarity of an architectural contact sheet. Rather than hiding production work behind decorative gradients or generic SaaS cards, the interface treats every deployed platform (`JP Connect`, `OWWA CSMR System`, `JP Intrams`, `OWWA SPRS Platform`) as a numbered, inspectable proof frame backed by verified database and financial metrics.
+The Kenneth Bulaga Portfolio pairs the tactile intimacy of a double-framed floating left navigation rail with the analytical clarity of an architectural contact sheet. Rather than hiding production work behind decorative gradients or generic SaaS cards, the interface treats every deployed platform (`JP Connect`, `OWWA CSMR System`, `JP Intrams`, `OWWA SPRS Platform`) as a numbered, inspectable proof frame backed by verified database and financial metrics.
 
 The surface stays quiet so the evidence speaks first: warm alabaster paper in light mode, matte carbon in dark mode, 1px hairline rules, tabular monospace counters, and numbered multi-screenshot contact strips with primitive callouts directly beneath each active frame.
 

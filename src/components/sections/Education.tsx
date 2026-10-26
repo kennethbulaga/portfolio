@@ -8,7 +8,6 @@ import {
   GraduationCap,
   Award,
   BadgeCheck,
-  Cloud,
   Code,
   Landmark,
   Trophy,
@@ -31,12 +30,9 @@ import {
 import { fadeInUp } from "@/components/motion";
 
 const categoryIconMap: Record<string, React.ElementType> = {
-  "Cloud & Industry": Cloud,
   "Public Sector": Landmark,
-  "Government & Public Sector": Landmark,
   "Hackathons & Competitions": Code,
   "Institutional Honors": Trophy,
-  "Student Leadership": Award,
 };
 
 function CredentialCard({
@@ -317,23 +313,14 @@ export function Education({ previewMode = false }: EducationProps) {
               <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground text-balance">
                 {previewMode ? "Verified Credentials & Proofs" : "Credentials, Honors & Education"}
               </h2>
-              {previewMode ? (
-                <Link
-                  href="/credentials"
-                  className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  <span>View all 04 proofs & degree</span>
-                  <ArrowUpRight size={13} />
-                </Link>
-              ) : (
-                <span className="text-xs font-mono tabular-nums text-muted-foreground flex items-center gap-1.5">
-                  <FileCheck size={13} className="text-emerald-500" />
-                  <span>
-                    {String(featuredCredentials.length).padStart(2, "0")} VERIFIED
-                    PROOFS
-                  </span>
+              <span className="text-xs font-mono tabular-nums text-muted-foreground flex items-center gap-1.5">
+                <FileCheck size={13} className="text-emerald-500" />
+                <span>
+                  {previewMode
+                    ? "02 OF 04 PROOFS"
+                    : `${String(featuredCredentials.length).padStart(2, "0")} VERIFIED PROOFS`}
                 </span>
-              )}
+              </span>
             </div>
             <p className="text-muted-foreground max-w-2xl text-sm sm:text-base text-pretty">
               Signed government certificates of recognition, national hackathon awards, academic degree, and campus leadership records.
@@ -466,13 +453,16 @@ export function Education({ previewMode = false }: EducationProps) {
                           <h4 className="font-semibold text-foreground text-sm leading-snug">
                             {position.organization}
                           </h4>
-                          {position.isCurrent && (
-                            <Badge
-                              variant="success"
-                              className="text-[10px] font-mono px-2 py-0.5"
+                          {position.link && (
+                            <a
+                              href={position.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
+                              aria-label={`Visit ${position.organization}`}
                             >
-                              Active
-                            </Badge>
+                              <ArrowUpRight size={13} />
+                            </a>
                           )}
                         </div>
                         <p className="text-xs sm:text-sm text-muted-foreground">
@@ -509,8 +499,8 @@ export function Education({ previewMode = false }: EducationProps) {
               {/* Header Floating Action Bar */}
               <div className="w-full flex items-center justify-between pb-3 text-white">
                 <div className="flex flex-col gap-0.5 min-w-0 pr-4">
-                  <div className="flex items-center gap-2">
-                    <p className="text-xs sm:text-base font-bold truncate">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="text-xs sm:text-base font-bold text-balance leading-snug">
                       {activeCert.title}
                     </p>
                     {gallery.length > 1 && (
@@ -578,11 +568,11 @@ export function Education({ previewMode = false }: EducationProps) {
               {/* Slide Caption & Dots */}
               <div className="w-full pt-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs sm:text-sm font-semibold text-white truncate">
+                  <p className="text-xs sm:text-sm font-semibold text-white text-balance leading-snug">
                     {gallery[activeSlide].label}
                   </p>
                   {gallery[activeSlide].caption && (
-                    <p className="text-[11px] text-zinc-400 leading-snug">
+                    <p className="text-[11px] text-zinc-400 leading-snug text-pretty">
                       {gallery[activeSlide].caption}
                     </p>
                   )}
@@ -594,7 +584,7 @@ export function Education({ previewMode = false }: EducationProps) {
                       <button
                         key={idx}
                         onClick={() => setActiveSlide(idx)}
-                        className={`h-1.5 transition-all rounded-full ${
+                        className={`h-1.5 transition-[width,background-color] rounded-full ${
                           activeSlide === idx
                             ? "w-6 bg-white"
                             : "w-1.5 bg-zinc-600 hover:bg-zinc-400"

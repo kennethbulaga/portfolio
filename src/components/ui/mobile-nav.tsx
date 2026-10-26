@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -15,12 +16,11 @@ import {
   FolderGit2,
   Briefcase,
   GraduationCap,
-  Mail,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { IWasHereButton } from "@/components/ui/i-was-here";
-import { navItems, resumePath, socialLinks } from "@/data/portfolio";
+import { navItems, personalInfo, resumePath, socialLinks } from "@/data/portfolio";
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -33,7 +33,6 @@ const navIconMap: Record<string, React.ElementType> = {
   Experience: Briefcase,
   Credentials: GraduationCap,
   Stack: Layers,
-  Contact: Mail,
 };
 
 function XIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
@@ -116,11 +115,23 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                 <Link
                   href="/"
                   onClick={onClose}
-                  className="flex items-center gap-1.5 font-mono text-base font-bold text-foreground"
+                  className="flex items-center gap-2 font-mono text-sm font-bold text-foreground tracking-tight"
                 >
-                  <span>Kenzo</span>
-                  <span className="text-primary font-normal">/</span>
-                  <span className="text-muted-foreground font-medium">dev</span>
+                  <Image
+                    src={personalInfo.logo.light}
+                    alt={personalInfo.name}
+                    width={28}
+                    height={28}
+                    className="size-7 rounded-[7px] shrink-0 dark:hidden"
+                  />
+                  <Image
+                    src={personalInfo.logo.dark}
+                    alt={personalInfo.name}
+                    width={28}
+                    height={28}
+                    className="size-7 rounded-[7px] shrink-0 hidden dark:block"
+                  />
+                  <span>{personalInfo.name}</span>
                 </Link>
 
                 <div className="flex items-center gap-2">
@@ -143,7 +154,7 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                   <span className="relative inline-flex rounded-full size-2 bg-emerald-500" />
                 </span>
-                <span className="truncate">Freelancing & Open to Full-Time</span>
+                <span className="truncate">{personalInfo.availability.message}</span>
               </div>
 
               {/* Navigation Links with Icons */}

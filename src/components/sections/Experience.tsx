@@ -58,10 +58,10 @@ export function Experience({ previewMode = false }: ExperienceProps) {
             return (
               <article
                 key={`${exp.organization}-${exp.role}`}
-                className="p-5 sm:p-6 flex flex-col gap-4 transition-colors hover:bg-muted/15"
+                className="@container p-5 sm:p-6 flex flex-col gap-4 transition-colors hover:bg-muted/15"
               >
-                {/* Role Header Row */}
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                {/* Role Header Row — Holds horizontal alignment until content genuinely wraps */}
+                <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="flex items-start gap-3.5 min-w-0">
                     {exp.logo && (
                       <div className="relative size-10 rounded-[10px] overflow-hidden bg-background border border-border shrink-0 p-1 image-outline">

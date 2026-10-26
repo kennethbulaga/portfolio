@@ -61,9 +61,6 @@ html {
   --rail-outer-bg: #f2f2ef;
   --rail-outer-border: #e2e2de;
   --rail-inner-border: #e6e6e2;
-  --status-green: #2f9e5b;
-  --status-green-ink: #1e6b3a;
-  --status-green-tint: #e6f4ea;
 }
 
 .dark {
@@ -89,9 +86,6 @@ html {
   --rail-outer-bg: #141417;
   --rail-outer-border: #232327;
   --rail-inner-border: #28282d;
-  --status-green: #2f9e5b;
-  --status-green-ink: #5fd08a;
-  --status-green-tint: rgba(47, 158, 91, 0.14);
 }
 
 * {

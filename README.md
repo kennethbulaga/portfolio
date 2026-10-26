@@ -1,8 +1,8 @@
-# Kenneth Bulaga ("Kenzo") — Full-Stack Portfolio
+# Kenneth Bulaga — Full-Stack Portfolio
 
 A fast, accessible, and data-driven developer portfolio showcasing production systems, institutional tooling, and verified credentials.
 
-**Live Website:** [kennethbulaga.dev](https://www.kennethbulaga.dev/)
+**Live Website:** [kennethbulaga.dev](https://kennethbulaga.dev)
 
 ---
 

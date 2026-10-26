@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { MapPin, Mail, ArrowDown, FileText, ArrowUpRight } from "lucide-react";
+import { MapPin, Mail, ArrowDown, FileText, ArrowUpRight, X, ZoomIn } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
   personalInfo,
@@ -13,6 +15,21 @@ import { PixelName } from "@/components/ui/pixel-name";
 import { TechMarquee } from "./TechMarquee";
 
 export function Hero() {
+  const [isAvatarZoomed, setIsAvatarZoomed] = useState(false);
+
+  useEffect(() => {
+    if (!isAvatarZoomed) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsAvatarZoomed(false);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isAvatarZoomed]);
+
   const scrollToProjects = () => {
     const el = document.querySelector("#projects");
     if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -24,16 +41,25 @@ export function Hero() {
       <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
         <div className="flex items-center gap-3.5">
           {personalInfo.avatar && (
-            <div className="relative size-14 rounded-full overflow-hidden bg-muted border border-border shrink-0 image-outline">
+            <button
+              type="button"
+              onClick={() => setIsAvatarZoomed(true)}
+              className="relative size-14 rounded-full overflow-hidden bg-muted border border-border shrink-0 image-outline cursor-zoom-in group transition-transform active:scale-95 focus-visible:ring-2 focus-visible:ring-ring"
+              aria-label="View portrait photo in full resolution"
+              title="Click to view portrait photo"
+            >
               <Image
                 src={personalInfo.avatar}
                 alt={personalInfo.name}
                 fill
                 sizes="56px"
                 priority
-                className="object-cover"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
-            </div>
+              <span className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
+                <ZoomIn size={16} />
+              </span>
+            </button>
           )}
           <div className="flex flex-col">
             <span className="text-lg font-semibold tracking-[-0.015em] text-foreground">
@@ -125,10 +151,10 @@ export function Hero() {
                     />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-foreground truncate">
+                    <p className="text-sm font-medium text-foreground text-pretty leading-snug">
                       {partner.name}
                     </p>
-                    <p className="text-xs text-muted-foreground truncate">
+                    <p className="text-xs text-muted-foreground text-pretty leading-snug">
                       {partner.role}
                     </p>
                   </div>
@@ -158,6 +184,43 @@ export function Hero() {
       </div>
 
       <TechMarquee />
+
+      {/* Avatar High-Resolution Lightbox Modal */}
+      <AnimatePresence>
+        {isAvatarZoomed && personalInfo.avatar && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md select-none cursor-zoom-out"
+            onClick={() => setIsAvatarZoomed(false)}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.94 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="relative aspect-square w-full max-w-[360px] rounded-2xl overflow-hidden border border-white/15 bg-zinc-950 shadow-2xl cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Image
+                src={personalInfo.avatar}
+                alt={personalInfo.name}
+                fill
+                sizes="360px"
+                priority
+                className="object-cover"
+              />
+
+              <button
+                type="button"
+                onClick={() => setIsAvatarZoomed(false)}
+                className="absolute top-3 right-3 size-8 rounded-full bg-black/60 hover:bg-black/85 text-white/90 hover:text-white transition-colors border border-white/20 flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-ring"
+                aria-label="Close photo preview"
+              >
+                <X size={16} />
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

@@ -31,7 +31,6 @@ export const metadata: Metadata = {
     "Full-stack developer building web applications and internal tools that turn slow, manual processes into fast, dependable software with Next.js, TypeScript, and PostgreSQL.",
   keywords: [
     "Kenneth Bulaga",
-    "Kenzo",
     "Full-stack Developer",
     "Full-Stack Developer",
     "Junior Software Developer",
@@ -93,33 +92,46 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: "Kenneth Bulaga",
-    alternateName: "Kenzo",
-    jobTitle: "Full-stack Developer",
-    url: "https://kennethbulaga.dev",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Davao City",
-      addressCountry: "PH",
-    },
-    alumniOf: {
-      "@type": "EducationalOrganization",
-      name: "St. John Paul II College of Davao",
-    },
-    sameAs: [
-      "https://github.com/kennethbulaga",
-      "https://www.linkedin.com/in/kenneth-bulaga/",
-    ],
-    knowsAbout: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "PostgreSQL",
-      "Supabase",
-      "Real-Time Systems",
-      "Tailwind CSS",
-      "Cloud & Serverless Deployment",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://kennethbulaga.dev/#website",
+        url: "https://kennethbulaga.dev",
+        name: "Kenneth Bulaga Portfolio",
+        inLanguage: "en",
+        publisher: { "@id": "https://kennethbulaga.dev/#person" },
+      },
+      {
+        "@type": "Person",
+        "@id": "https://kennethbulaga.dev/#person",
+        name: "Kenneth Bulaga",
+        jobTitle: "Full-stack Developer",
+        url: "https://kennethbulaga.dev",
+        image: "https://kennethbulaga.dev/profile/avatar.webp",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Davao City",
+          addressCountry: "PH",
+        },
+        alumniOf: {
+          "@type": "EducationalOrganization",
+          name: "St. John Paul II College of Davao",
+        },
+        sameAs: [
+          "https://github.com/kennethbulaga",
+          "https://www.linkedin.com/in/kenneth-bulaga/",
+        ],
+        knowsAbout: [
+          "Next.js",
+          "React",
+          "TypeScript",
+          "PostgreSQL",
+          "Supabase",
+          "Real-Time Systems",
+          "Tailwind CSS",
+          "Cloud & Serverless Deployment",
+        ],
+      },
     ],
   };
 

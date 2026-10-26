@@ -12,7 +12,7 @@ Engineering hiring managers, technical leads, and recruiters evaluating early-ca
 
 ## Product Purpose
 
-Kenneth Bulaga's ("Kenzo") developer portfolio (`kennethbulaga.dev`). Its job is to convert a recruiter or hiring manager's 30-second skim into an interview invitation by proving—with undeniable visual and architectural evidence—that Kenneth has built, deployed, and maintained production software used by thousands of real people.
+Kenneth Bulaga's developer portfolio (`kennethbulaga.dev`). Its job is to convert a recruiter or hiring manager's 30-second skim into an interview invitation by proving—with undeniable visual and architectural evidence—that Kenneth has built, deployed, and maintained production software used by thousands of real people.
 
 ## Positioning
 
@@ -36,7 +36,7 @@ Visitors arrive from `Kenneth_Bulaga_Resume.pdf`, GitHub (`github.com/kennethbul
 
 ## Brand Commitments
 
-- **Role Title**: Canonical `Full-stack Developer` (lowercase 's'). Navbar mark: `Kenzo / dev`.
+- **Role Title**: Canonical `Full-stack Developer` (lowercase 's'). Navbar mark: `Kenneth Bulaga`.
 - **Voice & Ethos**: "Student in the Game" — grounded, humble, curious, zero enterprise fluff or pretentious verbs ("built", "implemented", "automated" instead of "architected", "spearheaded").
 - **Tactile Restraint**: Quiet monochrome foundation with high-contrast typography, subtle film grain / hairline structure, and semantic emerald green reserved strictly for live status / availability / copy confirmation.
 

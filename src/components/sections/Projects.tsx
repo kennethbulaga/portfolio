@@ -57,7 +57,7 @@ function ContactSheetProject({
   const activeImage = activeScreen?.image || project.image;
 
   return (
-    <article className="rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25">
+    <article className="@container rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25">
       {/* Contact-Sheet Frame Header Bar */}
       <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3 min-w-0">
@@ -76,7 +76,7 @@ function ContactSheetProject({
             <h3 className="text-base sm:text-lg font-bold tracking-tight text-foreground text-balance leading-snug">
               {project.title}
             </h3>
-            <p className="text-xs font-mono text-muted-foreground truncate">
+            <p className="text-xs font-mono text-muted-foreground text-pretty leading-snug">
               {project.focus}
             </p>
           </div>
@@ -112,11 +112,11 @@ function ContactSheetProject({
         </div>
       </div>
 
-      {/* Main Split Contact-Sheet Body */}
-      <div className="grid grid-cols-1 lg:grid-cols-12">
+      {/* Main Split Contact-Sheet Body — Holds 12-col split until container drops below 672px */}
+      <div className="grid grid-cols-1 @2xl:grid-cols-12">
         {/* Left Stage: Screenshot Proof + Primitive Cutaway Callout + Frame Selector */}
         {activeImage && (
-          <div className="lg:col-span-7 flex flex-col justify-between bg-muted/15 p-3.5 sm:p-5 border-b lg:border-b-0 lg:border-r border-border gap-3">
+          <div className="@2xl:col-span-7 flex flex-col justify-between bg-muted/15 p-3.5 sm:p-5 border-b @2xl:border-b-0 @2xl:border-r border-border gap-3">
             <div className="flex flex-col gap-2.5">
               {/* Clickable Image Preview Container */}
               <div
@@ -212,18 +212,19 @@ function ContactSheetProject({
 
             {/* Numbered Contact-Sheet Frame Switcher */}
             {screenshots.length > 1 && (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-1.5 pt-0.5">
+              <div className="grid grid-cols-2 @lg:grid-cols-3 gap-1.5 pt-0.5">
                 {screenshots.map((screen, idx) => {
                   const active = activeScreenshotIdx === idx;
                   return (
                     <button
                       type="button"
                       key={screen.label}
+                      title={screen.label}
                       onClick={(e) => {
                         e.stopPropagation();
                         setActiveScreenshotIdx(idx);
                       }}
-                      className={`px-2.5 py-1.5 rounded-[8px] text-[11px] font-mono transition-colors duration-150 flex items-center gap-1.5 text-left truncate border ${
+                      className={`px-2.5 py-1.5 rounded-[8px] text-[11px] font-mono transition-colors duration-150 flex items-center gap-1.5 text-left border ${
                         active
                           ? "bg-foreground text-background border-foreground font-semibold"
                           : "bg-background border-border text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -232,7 +233,7 @@ function ContactSheetProject({
                       <span className="tabular-nums opacity-65 shrink-0">
                         {String(idx + 1).padStart(2, "0")}
                       </span>
-                      <span className="truncate">{screen.label}</span>
+                      <span className="leading-tight">{screen.label}</span>
                     </button>
                   );
                 })}
@@ -242,7 +243,7 @@ function ContactSheetProject({
         )}
 
         {/* Right Column: Engineering Specification & Hairline Ledger */}
-        <div className="lg:col-span-5 p-4 sm:p-5 flex flex-col justify-between gap-4">
+        <div className="@2xl:col-span-5 p-4 sm:p-5 flex flex-col justify-between gap-4">
           <div className="flex flex-col gap-4">
             <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground text-pretty">
               {project.description}
@@ -323,7 +324,7 @@ function ClientContactSheetCard({
   const activeImage = activeScreen?.image || project.image;
 
   return (
-    <article className="rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 w-full">
+    <article className="@container rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 w-full">
       {/* Header Bar */}
       <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3 min-w-0">
@@ -342,7 +343,7 @@ function ClientContactSheetCard({
             <h4 className="text-base font-bold text-foreground text-balance leading-snug">
               {project.title}
             </h4>
-            <p className="text-xs font-mono text-muted-foreground truncate">
+            <p className="text-xs font-mono text-muted-foreground text-pretty leading-snug">
               {project.client}
             </p>
           </div>
@@ -358,10 +359,10 @@ function ClientContactSheetCard({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12">
+      <div className="grid grid-cols-1 @2xl:grid-cols-12">
         {/* Left Screenshot Stage */}
         {activeImage && (
-          <div className="lg:col-span-7 p-3.5 sm:p-5 border-b lg:border-b-0 lg:border-r border-border bg-muted/15 flex flex-col gap-3">
+          <div className="@2xl:col-span-7 p-3.5 sm:p-5 border-b @2xl:border-b-0 @2xl:border-r border-border bg-muted/15 flex flex-col gap-3">
             <div
               onClick={() => onZoom(activeScreenshotIdx)}
               className="relative w-full aspect-[16/10] rounded-[10px] overflow-hidden border border-border bg-background cursor-zoom-in group/img image-outline"
@@ -417,18 +418,19 @@ function ClientContactSheetCard({
             )}
 
             {screenshots.length > 1 && (
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-0.5">
+              <div className="grid grid-cols-2 gap-1.5 pt-0.5">
                 {screenshots.map((screen, idx) => {
                   const active = activeScreenshotIdx === idx;
                   return (
                     <button
                       type="button"
                       key={screen.label}
+                      title={screen.label}
                       onClick={(e) => {
                         e.stopPropagation();
                         setActiveScreenshotIdx(idx);
                       }}
-                      className={`px-2.5 py-1.5 rounded-[8px] text-[11px] font-mono transition-colors duration-150 flex items-center gap-1.5 text-left truncate border ${
+                      className={`px-2.5 py-1.5 rounded-[8px] text-[11px] font-mono transition-colors duration-150 flex items-center gap-1.5 text-left border ${
                         active
                           ? "bg-foreground text-background border-foreground font-semibold"
                           : "bg-background border-border text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -437,7 +439,7 @@ function ClientContactSheetCard({
                       <span className="tabular-nums opacity-65 shrink-0">
                         {String(idx + 1).padStart(2, "0")}
                       </span>
-                      <span className="truncate">{screen.label}</span>
+                      <span className="leading-tight">{screen.label}</span>
                     </button>
                   );
                 })}
@@ -447,7 +449,7 @@ function ClientContactSheetCard({
         )}
 
         {/* Right Specification Column */}
-        <div className="lg:col-span-5 p-4 sm:p-5 flex flex-col justify-between gap-4">
+        <div className="@2xl:col-span-5 p-4 sm:p-5 flex flex-col justify-between gap-4">
           <div className="flex flex-col gap-3">
             <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground text-pretty">
               {project.objective}
@@ -563,40 +565,37 @@ export function Projects({ previewMode = false }: ProjectsProps) {
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground text-balance">
               {previewMode ? "Featured Production Systems" : "Production Systems & Proof Sheet"}
             </h2>
-            {previewMode ? (
-              <Link
-                href="/systems"
-                className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <span>View all 04 systems & lab</span>
-                <ArrowUpRight size={13} />
-              </Link>
-            ) : (
-              <span className="text-xs font-mono tabular-nums text-muted-foreground">
-                04 DEPLOYED PLATFORMS
-              </span>
-            )}
+            <span className="text-xs font-mono tabular-nums text-muted-foreground">
+              {previewMode ? "02 OF 04 SYSTEMS" : "04 DEPLOYED PLATFORMS"}
+            </span>
           </div>
           <p className="text-muted-foreground max-w-2xl text-sm sm:text-base text-pretty">
             Live multi-role software serving college departments, regional government units, and campus-wide tournaments. Switch numbered frames to inspect screenshots and underlying primitives.
           </p>
         </div>
 
-        {/* High-Contrast Tabular Production Scale Ledger */}
-        <div className="rounded-[14px] border border-border bg-card overflow-hidden grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 divide-x divide-border">
-          {heroLedger.map((item) => (
-            <div key={item.label} className="p-4 sm:p-5 flex flex-col gap-1">
-              <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums tracking-tight text-foreground leading-none">
-                {item.value}
-              </p>
-              <p className="text-xs font-semibold text-foreground pt-1">
-                {item.label}
-              </p>
-              <p className="text-[11px] font-mono text-muted-foreground">
-                {item.context}
-              </p>
-            </div>
-          ))}
+        {/* High-Contrast Tabular Production Scale Ledger — Holds 4 cols down to 576px container width */}
+        <div className="@container rounded-[14px] border border-border bg-card overflow-hidden">
+          <div className="grid grid-cols-2 @xl:grid-cols-4">
+            {heroLedger.map((item, idx) => (
+              <div
+                key={item.label}
+                className={`p-4 sm:p-5 flex flex-col gap-1 border-border ${
+                  idx % 2 === 1 ? "border-l" : ""
+                } ${idx >= 2 ? "max-@xl:border-t @xl:border-l" : ""}`}
+              >
+                <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums tracking-tight text-foreground leading-none">
+                  {item.value}
+                </p>
+                <p className="text-xs font-semibold text-foreground pt-1">
+                  {item.label}
+                </p>
+                <p className="text-[11px] font-mono text-muted-foreground">
+                  {item.context}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Flagship Contact-Sheet Frames */}
@@ -674,10 +673,10 @@ export function Projects({ previewMode = false }: ProjectsProps) {
               <div id="shipping-soon" className="pt-4 flex flex-col gap-4 scroll-mt-24">
                 <div className="flex items-baseline justify-between gap-3 flex-wrap">
                   <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground text-balance">
-                    Building in Public · Shipping Soon
+                    Building in Public · Lab
                   </h3>
-                  <span className="text-xs font-mono tabular-nums text-amber-600 dark:text-amber-400">
-                    IN ACTIVE DEVELOPMENT
+                  <span className="text-xs font-mono tabular-nums text-muted-foreground">
+                    ACTIVE DEVELOPMENT
                   </span>
                 </div>
 
@@ -696,7 +695,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                             <h4 className="text-base font-bold text-foreground text-balance leading-snug">
                               {item.title}
                             </h4>
-                            <p className="text-xs font-mono text-muted-foreground truncate">
+                            <p className="text-xs font-mono text-muted-foreground text-pretty leading-snug">
                               {item.tagline}
                             </p>
                           </div>
@@ -711,7 +710,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                             className="text-[10px] font-mono px-2.5 py-0.5 flex items-center gap-1.5"
                           >
                             <span className="size-1.5 rounded-full bg-amber-500 animate-pulse" />
-                            <span>{item.status} · {item.eta}</span>
+                            <span>{item.eta}</span>
                           </Badge>
                         </div>
                       </div>
@@ -774,12 +773,12 @@ export function Projects({ previewMode = false }: ProjectsProps) {
               className="w-full max-w-5xl flex items-center justify-between px-4 py-2.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-white z-20 shrink-0"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center gap-2 min-w-0">
-                <span className="text-xs sm:text-sm font-semibold font-mono text-zinc-200 truncate">
+              <div className="flex items-center gap-2 min-w-0 flex-wrap">
+                <span className="text-xs sm:text-sm font-semibold font-mono text-zinc-200">
                   {zoomState.projectTitle}
                 </span>
                 <span className="text-zinc-500 font-mono text-xs">/</span>
-                <span className="text-xs sm:text-sm text-zinc-400 truncate">
+                <span className="text-xs sm:text-sm text-zinc-400">
                   {zoomState.images[zoomState.currentIndex]?.label}
                 </span>
               </div>

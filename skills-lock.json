@@ -7,11 +7,23 @@
       "skillPath": "skills/academic-cv-builder/SKILL.md",
       "computedHash": "fb99caca47eab8bcf5f99b75c95d7ea1df1bfab327e6ae6ae4a9c61cd1f8e96f"
     },
+    "accessibility": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/accessibility/SKILL.md",
+      "computedHash": "88c64dead9bb55925c7b983f5fd95cfecf30bd8c076fd384cdb17019d1becd87"
+    },
     "application-form-filler": {
       "source": "Paramchoudhary/ResumeSkills",
       "sourceType": "github",
       "skillPath": "skills/application-form-filler/SKILL.md",
       "computedHash": "904972da2373b3d042f23adc5abc455ba92f2b88e56802ae0f594ec4d569d357"
+    },
+    "best-practices": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/best-practices/SKILL.md",
+      "computedHash": "fc34a8d4aea22d0158e0560457c82432e9d2d0ac74cf3e9aaccb599905f3f711"
     },
     "better-accessibility": {
       "source": "jakubkrehel/skills",
@@ -73,6 +85,12 @@
       "skillPath": "skills/cold-email-writer/SKILL.md",
       "computedHash": "994c1d12cfe7beb37702336f55f822e0582cec7fc985581e214a1e2ae4fc075e"
     },
+    "core-web-vitals": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/core-web-vitals/SKILL.md",
+      "computedHash": "ceaa3e9c9dfa6209ffe923714c0a093b950d0922213d0cf375c27f3d602cc857"
+    },
     "cover-letter-generator": {
       "source": "Paramchoudhary/ResumeSkills",
       "sourceType": "github",
@@ -133,6 +151,12 @@
       "skillPath": "skills/offer-comparison-analyzer/SKILL.md",
       "computedHash": "10397b3ed90ade8b76537942f48a366519f373413e2f04ee23a1ceb06c0678d2"
     },
+    "performance": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/performance/SKILL.md",
+      "computedHash": "25074989a0bbf636fd92e9079270b262a1c63422ed72a854494a8241dea0fcc5"
+    },
     "portfolio-case-study-writer": {
       "source": "Paramchoudhary/ResumeSkills",
       "sourceType": "github",
@@ -192,6 +216,12 @@
       "sourceType": "github",
       "skillPath": "skills/salary-negotiation-prep/SKILL.md",
       "computedHash": "64ee8b7d96149d4161bccebac00ef03f99e70160bd8565ab31fecd61526eb2f4"
+    },
+    "seo": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/seo/SKILL.md",
+      "computedHash": "aa081d7ee9f44d1b09ac521051630adac2fca0e595e3d0d0ec881d0b2644676f"
     },
     "tech-resume-optimizer": {
       "source": "Paramchoudhary/ResumeSkills",
@@ -276,6 +306,12 @@
       "sourceType": "github",
       "skillPath": "skills/variant/SKILL.md",
       "computedHash": "9d6d18d4305ff7f46e2120c05596986800780fee069ac978c94d60b587cb80cc"
+    },
+    "web-quality-audit": {
+      "source": "addyosmani/web-quality-skills",
+      "sourceType": "github",
+      "skillPath": "skills/web-quality-audit/SKILL.md",
+      "computedHash": "10c0b018ce77d2c6dd17aecf1ab58a64abb2beee945354d83c4ba8883527120a"
     }
   }
 }

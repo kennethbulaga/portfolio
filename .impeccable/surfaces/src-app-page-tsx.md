@@ -9,7 +9,7 @@ related_targets: ["src/app/globals.css","src/components/sections/Navbar.tsx","sr
 
 ## Scope & Mode
 - **Mode**: `experience`
-- **Audience**: Engineering hiring managers, technical leads, and recruiters evaluating Kenneth Bulaga ("Kenzo") for Full-stack Developer roles, plus institutional/freelance clients.
+- **Audience**: Engineering hiring managers, technical leads, and recruiters evaluating Kenneth Bulaga for Full-stack Developer roles, plus institutional/freelance clients.
 - **Primary Action**: Inspect live production systems (Case Study Drawer, multi-tab screenshots, live URLs), verify signed credentials, copy email, or download `Kenneth_Bulaga_Resume.pdf`.
 
 ## Direction contract

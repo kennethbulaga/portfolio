@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -69,6 +70,20 @@ export function Navbar() {
   const pathname = usePathname();
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+
+    const onScroll = () => {
+      setIsScrolled(window.scrollY > 120);
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [pathname]);
+
+  const showScrolledName = pathname !== "/" || isScrolled;
 
   const githubLink = socialLinks.find((l) => l.platform === "GitHub");
   const linkedinLink = socialLinks.find((l) => l.platform === "LinkedIn");
@@ -85,25 +100,42 @@ export function Navbar() {
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:bg-foreground focus:text-background focus:text-xs focus:font-mono focus:font-medium"
+      >
+        Skip to main content
+      </a>
+
       {/* Desktop Floating Left Rail */}
       <aside
         aria-label="Primary Sidebar Navigation"
-        className="hidden lg:block sticky top-3 h-[calc(100vh-24px)] w-[264px] shrink-0 my-3 ml-3 z-30 select-none"
+        className="hidden lg:block sticky top-3 h-[calc(100dvh-24px)] w-[264px] shrink-0 my-3 ml-3 z-30"
       >
         <div className="rail-shell h-full">
           <div className="rail-panel h-full flex flex-col justify-between p-3.5 overflow-y-auto no-scrollbar">
             <div className="flex flex-col gap-3.5">
               {/* Top Identity */}
-              <div className="flex items-center justify-between pl-2 pr-1 pt-0.5">
+              <div className="flex items-center justify-between pl-1.5 pr-1 pt-0.5">
                 <Link
                   href="/"
-                  className="group inline-flex items-center gap-1.5 font-mono text-base font-semibold tracking-tight text-foreground"
+                  className="group inline-flex items-center gap-2 font-mono text-sm font-semibold tracking-tight text-foreground"
                 >
-                  <PixelName text="Kenzo" />
-                  <span className="text-muted-foreground font-normal">/</span>
-                  <span className="text-muted-foreground group-hover:text-foreground transition-colors font-medium">
-                    dev
-                  </span>
+                  <Image
+                    src={personalInfo.logo.light}
+                    alt={personalInfo.name}
+                    width={26}
+                    height={26}
+                    className="size-6.5 rounded-[6px] shrink-0 dark:hidden"
+                  />
+                  <Image
+                    src={personalInfo.logo.dark}
+                    alt={personalInfo.name}
+                    width={26}
+                    height={26}
+                    className="size-6.5 rounded-[6px] shrink-0 hidden dark:block"
+                  />
+                  <PixelName text={personalInfo.name} />
                 </Link>
               </div>
 
@@ -259,15 +291,33 @@ export function Navbar() {
       <header className="lg:hidden sticky top-0 left-0 right-0 z-40 h-14 bg-background/90 backdrop-blur-md border-b border-border px-4 flex items-center justify-between">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 font-mono text-base font-semibold text-foreground tracking-tight"
+          aria-label={personalInfo.name}
+          className="inline-flex items-center gap-2 font-mono text-sm font-semibold text-foreground tracking-tight"
         >
-          <span>Kenzo</span>
-          <span className="text-muted-foreground font-normal">/</span>
-          <span className="text-muted-foreground font-medium">dev</span>
-          <span
-            className="ml-1.5 size-2 rounded-full bg-[#2f9e5b] ring-2 ring-[#2f9e5b]/20"
-            title={personalInfo.availability.message}
+          <Image
+            src={personalInfo.logo.light}
+            alt={personalInfo.name}
+            width={30}
+            height={30}
+            className="size-7.5 rounded-[7px] shrink-0 dark:hidden"
           />
+          <Image
+            src={personalInfo.logo.dark}
+            alt={personalInfo.name}
+            width={30}
+            height={30}
+            className="size-7.5 rounded-[7px] shrink-0 hidden dark:block"
+          />
+          <span
+            className={cn(
+              "transition-all duration-200 overflow-hidden whitespace-nowrap",
+              showScrolledName
+                ? "max-w-[200px] opacity-100 translate-x-0"
+                : "max-w-0 opacity-0 -translate-x-1"
+            )}
+          >
+            {personalInfo.name}
+          </span>
         </Link>
 
         <div className="flex items-center gap-1.5">

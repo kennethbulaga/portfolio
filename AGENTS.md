@@ -1,4 +1,4 @@
-# AGENTS.md — Engineering Guidelines for "The Kenzo System" Portfolio
+# AGENTS.md — Engineering Guidelines for Kenneth Bulaga's Portfolio
 
 This document provides foundational architecture rules, technical standards, and engineering guardrails for AI agents and human contributors working on Kenneth Bulaga's portfolio codebase.
 
@@ -6,7 +6,7 @@ This document provides foundational architecture rules, technical standards, and
 
 ## 1. Project Overview & Identity
 
-* **Developer:** Kenneth Bulaga ("Kenzo")
+* **Developer:** Kenneth Bulaga
 * **Professional Positioning:** Full-stack Developer
 * **Core Specialty:** Building scalable web applications, internal tools, automated workflows, and production-ready systems.
 * **Target Roles:** Full-stack Developer, Junior Software Developer, Web Developer.
@@ -63,20 +63,18 @@ portfolio/
     │   ├── ui/                  # Atom & Molecule components
     │   │   ├── badge.tsx        # Tech stack pills
     │   │   ├── button.tsx       # Standardized button variants
-    │   │   ├── card.tsx         # Bordered container cards
     │   │   ├── click-burst.tsx  # 5-line tactile ink burst on pointer click
+    │   │   ├── i-was-here.tsx   # Redis-backed visitor stamp counter
     │   │   ├── mobile-nav.tsx   # Responsive slide-over navigation sheet
-    │   │   ├── pixel-name.tsx   # Canvas pixel-block name resolution
-    │   │   ├── section-divider.tsx # Subtle section separation rules
-    │   │   └── case-study-drawer.tsx # Slide-over deep-dive for flagship architectures
+    │   │   └── pixel-name.tsx   # Canvas pixel-block name resolution
     │   └── sections/            # Organism components (page blocks)
-    │       ├── Navbar.tsx       # Floating left rail (Kenzo / dev) + mobile top bar
+    │       ├── Navbar.tsx       # Floating left rail (Kenneth Bulaga) + mobile top bar
     │       ├── Hero.tsx         # Friendly headline, open-to-work badge, trust bar
     │       ├── TechMarquee.tsx  # Continuous looping tech stack ticker with icons
-    │       ├── Projects.tsx     # Flagship cards (with case study triggers) + client cards
+    │       ├── Projects.tsx     # Contact-sheet flagship frames + client cards
     │       ├── Experience.tsx   # Professional experience timeline (OWWA, Independent)
-    │       ├── Education.tsx    # AWS cloud banner, academic degree & verified credentials
-    │       └── Footer.tsx       # Contact, avatar frame, direct Gmail action, social hub
+    │       ├── Education.tsx    # Academic degree, leadership & verified credentials
+    │       └── Footer.tsx       # Contact, direct Gmail action, social hub
     ├── data/
     │   └── portfolio.ts         # <--- SINGLE SOURCE OF TRUTH FOR ALL CONTENT
     └── lib/
@@ -94,7 +92,7 @@ portfolio/
 ### B. Genuine, Value-Driven & Grounded Tone ("Always a Student in the Game")
 * **Rule:** Always be a student in the game. Never present as "all-knowing", arrogant, or posturing as a senior enterprise know-it-all. Speak with humility, curiosity, and respect for engineering craft and real user needs.
 * **Positioning:** Frame Kenneth as a grounded, highly capable **Full-stack Developer** who builds practical web applications and internal tools (e.g., serving 7,125 Google SSO accounts, regional government operations, and real-time community apps) and reduces operational friction with automated workflows.
-  * Navbar logo: `Kenzo / dev`
+  * Navbar logo: `Kenneth Bulaga`
   * Hero Eyebrow: `● Available for Freelance & Full-time Roles`
   * Hero Sub-headline: `Full-stack Developer`
 * Focus on value delivered, problem-solving, clean code, and practical execution.
