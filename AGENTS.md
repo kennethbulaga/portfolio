@@ -51,8 +51,6 @@ portfolio/
 │   └── convert-to-webp.mjs      # Automated WebP compression pipeline
 └── src/
     ├── app/
-    │   ├── apple-icon.tsx       # Dynamic static Apple Touch Icon generator
-    │   ├── icon.tsx             # Dynamic static Monogram Favicon generator
     │   ├── globals.css          # Tailwind v4 cascade layers & zinc color tokens
     │   ├── layout.tsx           # Global HTML shell, fonts, SEO & OpenGraph metadata
     │   └── page.tsx             # Root page composition (imports sections only)
