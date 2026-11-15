@@ -49,6 +49,7 @@
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
   scrollbar-width: thin;
   scrollbar-color: var(--line) transparent;
   -webkit-tap-highlight-color: transparent;

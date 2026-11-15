@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Figtree, Newsreader } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ClickBurst } from "@/components/ui/click-burst";
 import "./globals.css";
 
 const figtreeSans = Figtree({
@@ -177,7 +176,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ClickBurst />
           {children}
         </ThemeProvider>
       </body>

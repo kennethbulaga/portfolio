@@ -57,8 +57,8 @@ function ContactSheetProject({
   return (
     <article className="@container rounded-[20px] sm:rounded-[22px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25">
       {/* Contact-Sheet Frame Header Bar */}
-      <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex items-center gap-3 min-w-0">
+      <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           {project.logo && (
             <div className="relative size-9 rounded-[8px] overflow-hidden bg-background shrink-0 border border-border p-0.5 image-outline">
               <Image
@@ -80,11 +80,7 @@ function ContactSheetProject({
           </div>
         </div>
 
-        <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto shrink-0 flex-wrap">
-          <span className="text-[11px] font-mono tabular-nums text-muted-foreground px-2 py-0.5 rounded-[6px] border border-border bg-background">
-            FRAME {indexNumber}
-          </span>
-
+        <div className="flex items-center justify-end gap-2 shrink-0 ml-auto">
           {project.link && project.link !== "#" ? (
             <a
               href={project.link}
@@ -320,8 +316,8 @@ function ClientContactSheetCard({
   return (
     <article className="@container rounded-[20px] sm:rounded-[22px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 w-full">
       {/* Header Bar */}
-      <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex items-center gap-3 min-w-0">
+      <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0 flex-1">
           {project.logo && (
             <div className="relative size-9 rounded-[8px] overflow-hidden bg-background shrink-0 border border-border p-0.5 image-outline">
               <Image
@@ -343,11 +339,8 @@ function ClientContactSheetCard({
           </div>
         </div>
 
-        <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto shrink-0">
-          <span className="text-[11px] font-mono tabular-nums text-muted-foreground px-2 py-0.5 rounded-[6px] border border-border bg-background">
-            FRAME {indexNumber}
-          </span>
-          <span className="nav-pill font-mono">Sole Developer</span>
+        <div className="flex items-center justify-end gap-2 shrink-0">
+          <span className="nav-pill font-mono">Gov Production</span>
         </div>
       </div>
 
@@ -637,29 +630,17 @@ export function Projects({ previewMode = false }: ProjectsProps) {
           </div>
         ) : (
           <>
-            {/* Additional Government Internship System */}
-            <div className="pt-4 flex flex-col gap-4">
-              <div className="flex items-baseline justify-between gap-3 flex-wrap">
-                <h3 className="text-lg sm:text-xl font-medium tracking-[-0.02em] text-foreground text-balance">
-                  Additional Government Internship Platform
-                </h3>
-                <span className="text-xs font-mono tabular-nums text-muted-foreground">
-                  OWWA REGION XI
-                </span>
-              </div>
-
-              <div className="flex flex-col gap-6">
-                {clientProjects.map((project, idx) => (
-                  <ClientContactSheetCard
-                    key={project.id}
-                    project={project}
-                    indexNumber={String(
-                      flagshipProjects.length + idx + 1
-                    ).padStart(2, "0")}
-                    onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
-                  />
-                ))}
-              </div>
+            <div className="flex flex-col gap-6">
+              {clientProjects.map((project, idx) => (
+                <ClientContactSheetCard
+                  key={project.id}
+                  project={project}
+                  indexNumber={String(
+                    flagshipProjects.length + idx + 1
+                  ).padStart(2, "0")}
+                  onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
+                />
+              ))}
             </div>
 
             {/* Building in Public / Shipping Soon Section */}
@@ -754,7 +735,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={shouldReduceMotion ? { duration: 0.15 } : { type: "spring", duration: 0.3, bounce: 0 }}
-            className="fixed inset-0 z-50 flex flex-col items-center justify-between p-3 sm:p-6 md:p-8 bg-black/92 backdrop-blur-md select-none"
+            className="fixed inset-0 z-50 flex flex-col items-center justify-between p-3 sm:p-6 md:p-8 pt-[max(12px,env(safe-area-inset-top))] pb-[max(12px,env(safe-area-inset-bottom))] bg-black/92 backdrop-blur-md select-none overscroll-contain"
             onClick={() => setZoomState(null)}
           >
             {/* Top Floating Control Bar */}
@@ -781,7 +762,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                 )}
                 <button
                   onClick={() => setZoomState(null)}
-                  className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
+                  className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Close image preview"
                 >
                   <X size={18} strokeWidth={1.5} />
@@ -807,10 +788,10 @@ export function Projects({ previewMode = false }: ProjectsProps) {
               <div className="relative w-full h-full max-h-[76vh] flex items-center justify-center">
                 <motion.div
                   key={zoomState.currentIndex}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.18 }}
                   className="relative w-full h-full max-h-[76vh] flex items-center justify-center"
                 >
                   <Image
@@ -846,7 +827,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                 </p>
               )}
               {zoomState.images.length > 1 && (
-                <div className="flex items-center gap-2 py-1">
+                <div className="flex items-center gap-4 py-1">
                   {zoomState.images.map((img, idx) => (
                     <button
                       key={img.label}
@@ -855,7 +836,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                           prev ? { ...prev, currentIndex: idx } : null
                         )
                       }
-                      className={`h-2 transition-all rounded-full ${
+                      className={`relative h-2 transition-[width,background-color] duration-200 ease-[var(--ease-out)] rounded-full after:absolute after:-inset-3 after:content-[''] ${
                         zoomState.currentIndex === idx
                           ? "w-7 bg-white"
                           : "w-2 bg-zinc-600 hover:bg-zinc-400"

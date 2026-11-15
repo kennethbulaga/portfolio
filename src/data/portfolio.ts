@@ -170,8 +170,8 @@ export const jpConnectMetrics = {
 
 export const heroHeadline = {
   prefix: "Building ",
-  emphasis: "dependable",
-  suffix: " web systems that eliminate manual bottlenecks.",
+  emphasis: "practical",
+  suffix: " web software for real operations.",
 } as const;
 
 export const heroLedger = [

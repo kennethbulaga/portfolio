@@ -119,7 +119,7 @@ export function Navbar() {
               type="button"
               onClick={() => setIsDrawerOpen(true)}
               aria-label="Open navigation menu"
-              className="size-11 rounded-[10px] flex items-center justify-center text-foreground hover:bg-muted transition-colors cursor-pointer shrink-0"
+              className="size-11 rounded-[10px] flex items-center justify-center text-foreground hover:bg-muted active:scale-[0.96] transition-[background-color,transform] duration-150 ease-[var(--ease-out)] motion-reduce:transition-none cursor-pointer shrink-0"
             >
               <Menu size={18} strokeWidth={1.5} />
             </button>

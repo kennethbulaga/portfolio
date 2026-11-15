@@ -467,7 +467,7 @@ export function Education({ previewMode = false }: EducationProps) {
       <AnimatePresence>
         {activeCert && gallery.length > 0 && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/92 backdrop-blur-md select-none"
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 pt-[max(12px,env(safe-area-inset-top))] pb-[max(12px,env(safe-area-inset-bottom))] bg-black/92 backdrop-blur-md select-none overscroll-contain"
             onClick={() => setActiveCert(null)}
           >
             <motion.div
@@ -499,7 +499,7 @@ export function Education({ previewMode = false }: EducationProps) {
 
                 <button
                   onClick={() => setActiveCert(null)}
-                  className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-800/90 text-zinc-200 hover:text-white hover:bg-zinc-700 transition-colors border border-white/10 shrink-0 flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
+                  className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-800/90 text-zinc-200 hover:text-white hover:bg-zinc-700 transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] border border-white/10 shrink-0 flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Close modal"
                 >
                   <X size={18} strokeWidth={1.5} />
