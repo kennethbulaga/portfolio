@@ -117,7 +117,7 @@ export const personalInfo: PersonalInfo = {
   email: "kennethbulaga.dev@gmail.com",
   avatar: "/profile/avatar.webp",
   availability: {
-    message: "Available for Freelance & Full-time Roles",
+    message: "Available for Freelance & Full-Time Roles",
   },
 };
 
