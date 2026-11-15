@@ -46,7 +46,9 @@ portfolio/
 │   ├── logos/                   # Institutional & client logos (SJPIICD, OWWA, CSWDO)
 │   ├── profile/                 # Developer avatar portraits (WebP)
 │   ├── projects/                # High-res project mockups, previews, and multi-tab screenshots
-│   └── KennethBulaga_*.pdf      # Downloadable resume
+│   └── Kenneth_Bulaga_Resume.pdf # Compiled resume PDF (generated via npm run resume:build)
+├── resume/
+│   └── kenneth-bulaga-resume.tex # Jake Gutierrez LaTeX resume source
 ├── scripts/
 │   └── convert-to-webp.mjs      # Automated WebP compression pipeline
 └── src/
@@ -55,24 +57,20 @@ portfolio/
     │   ├── layout.tsx           # Global HTML shell, fonts, SEO & OpenGraph metadata
     │   └── page.tsx             # Root page composition (imports sections only)
     ├── components/
-    │   ├── motion.tsx           # Shared Framer Motion animation variants
     │   ├── theme-provider.tsx   # Next-themes dark/light mode provider
     │   ├── theme-toggle.tsx     # Tactile theme toggle button
-    │   ├── ui/                  # Atom & Molecule components
-    │   │   ├── badge.tsx        # Tech stack pills
-    │   │   ├── button.tsx       # Standardized button variants
-    │   │   ├── click-burst.tsx  # 5-line tactile ink burst on pointer click
+    │   ├── ui/                  # Custom UI widgets
+    │   │   ├── github-contributions.tsx # Flat hairline GitHub activity grid
     │   │   ├── i-was-here.tsx   # Redis-backed visitor stamp counter
-    │   │   ├── mobile-nav.tsx   # Responsive slide-over navigation sheet
     │   │   └── pixel-name.tsx   # Canvas pixel-block name resolution
     │   └── sections/            # Organism components (page blocks)
-    │       ├── Navbar.tsx       # Floating left rail (Kenneth Bulaga) + mobile top bar
-    │       ├── Hero.tsx         # Friendly headline, open-to-work badge, trust bar
-    │       ├── TechMarquee.tsx  # Continuous looping tech stack ticker with icons
-    │       ├── Projects.tsx     # Contact-sheet flagship frames + client cards
-    │       ├── Experience.tsx   # Professional experience timeline (OWWA, Independent)
+    │       ├── Navbar.tsx       # Floating left rail (Kenneth Bulaga + Copy email) + mobile top bar
+    │       ├── Hero.tsx         # Metric-grounded headline, availability pill, institutional ledger
+    │       ├── TechMarquee.tsx  # Core Stack & Tooling grid
+    │       ├── Projects.tsx     # Production systems ledger + interactive multi-tab preview gallery
+    │       ├── Experience.tsx   # Professional experience timeline (OWWA Region XI, Independent)
     │       ├── Education.tsx    # Academic degree, leadership & verified credentials
-    │       └── Footer.tsx       # Contact, direct Gmail action, social hub
+    │       └── Footer.tsx       # Contact, clipboard email copy, social hub
     ├── data/
     │   └── portfolio.ts         # <--- SINGLE SOURCE OF TRUTH FOR ALL CONTENT
     └── lib/
@@ -94,6 +92,7 @@ portfolio/
   * Hero Eyebrow: `● Available for Freelance & Full-time Roles`
   * Hero Sub-headline: `Full-stack Developer`
 * Focus on value delivered, problem-solving, clean code, and practical execution.
+* **Copy & Skill Hygiene:** Pass any new or revised narrative copy in `src/data/portfolio.ts` through the local `humanizer` skill (`.agents/skills/humanizer/SKILL.md`) to strip AI clichés, and follow `emil-design-eng` + `make-interfaces-feel-better` + `mobile-native` for tactile micro-interactions (`Copy email` clipboard feedback instead of raw `mailto:` links, `tabular-nums`, concentric radii).
 
 ### C. Truth in Metrics
 * **JP Connect:** Student Services & Exam Scheduling Portal: 7,207 Authenticated Profiles (7,078 students, 126 instructors + admin roles), 14,778 Masterlist Records, 781 Validated Exam Rows across 9 academic departments, 0 room/proctor/self-proctor overlaps (2026–2027 1st Semester Finals), PHP 707,750 in tracked SSC clearance collections (Dec 2025 – Jan 2026).
@@ -114,4 +113,5 @@ portfolio/
 * **Production Build:** `npm run build`
 * **Run Linter:** `npm run lint`
 * **Preview Production:** `npm run start`
+* **Rebuild Resume PDF:** `npm run resume:build` (compiles `resume/kenneth-bulaga-resume.tex` via Tectonic to `public/Kenneth_Bulaga_Resume.pdf`)
 * **Convert Images to WebP:** `node scripts/convert-to-webp.mjs --dir public`
