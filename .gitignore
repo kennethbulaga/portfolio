@@ -22,6 +22,7 @@
 
 # misc
 .DS_Store
+Thumbs.db
 *.pem
 
 # docs
@@ -43,12 +44,16 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# agentskillz
+# agents & local tools
 .agents/
 .kiro/
+.gemini/
 
 # script
 scripts/
 
-# docs
-docs/
+# latex intermediates
+resume/*.aux
+resume/*.log
+resume/*.out
+resume/*.toc
