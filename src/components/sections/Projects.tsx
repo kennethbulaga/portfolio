@@ -147,38 +147,6 @@ function ContactSheetProject({
                   </div>
                 ))}
 
-                {/* Prev / Next Arrow Overlay for Multiple Screenshots */}
-                {screenshots.length > 1 && (
-                  <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-20 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200 ease-[var(--ease-out)]">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveScreenshotIdx((prev) =>
-                          prev > 0 ? prev - 1 : screenshots.length - 1
-                        );
-                      }}
-                      className="pointer-events-auto min-h-11 min-w-11 size-11 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
-                      aria-label="Previous screenshot"
-                    >
-                      <ChevronLeft size={16} strokeWidth={1.5} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveScreenshotIdx((prev) =>
-                          prev < screenshots.length - 1 ? prev + 1 : 0
-                        );
-                      }}
-                      className="pointer-events-auto min-h-11 min-w-11 size-11 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
-                      aria-label="Next screenshot"
-                    >
-                      <ChevronRight size={16} strokeWidth={1.5} />
-                    </button>
-                  </div>
-                )}
-
                 {/* Frame Counter Pill */}
                 {screenshots.length > 1 && (
                   <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-zinc-950/80 px-2 py-0.5 rounded-full border border-white/15 text-[10px] font-mono tabular-nums text-white/95">
