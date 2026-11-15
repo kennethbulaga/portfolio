@@ -10,7 +10,7 @@ This document provides foundational architecture rules, technical standards, and
 * **Professional Positioning:** Full-stack Developer
 * **Core Specialty:** Building scalable web applications, internal tools, automated workflows, and production-ready systems.
 * **Target Roles:** Full-stack Developer, Junior Software Developer, Web Developer.
-* **Core Design Ethos:** "High-Signal Craftsman & Genuine Utility" — humble, always a student in the game, zero fluff, clean typography, transparent communication, grounded in real problem-solving and practical engineering execution.
+* **Design & Content Spec:** See [`portfolio.md`](portfolio.md) for the unified monochrome design system (`light-dark()` tokens, Figtree/Newsreader typography, `.rail-*`/`.btn-*`/`.nav-pill` classes, hairline rules, and layout structure).
 
 ---
 
@@ -20,11 +20,11 @@ This document provides foundational architecture rules, technical standards, and
 |---|---|---|
 | **Framework** | Next.js 16 (App Router) | Turbopack, React Server Components (RSC), strict route handlers |
 | **Runtime / UI** | React 19 | Automatic React Compiler optimization, strict zero hydration mismatch |
-| **Styling** | Tailwind CSS v4 | CSS-first `@theme inline` configuration in `src/app/globals.css`, modern zinc monochrome palette |
+| **Styling** | Tailwind CSS v4 + CSS Tokens | `light-dark()` monochrome tokens in `src/app/globals.css`, `@theme inline` bridge |
 | **Language** | TypeScript (Strict) | Zero `any`, strict type checking, shared interfaces in `src/data/portfolio.ts` |
-| **Icons** | Lucide React | Clean, consistent 16-20px stroke icons |
-| **Motion** | Framer Motion | Subtle, purposeful transitions (stagger containers, fade-ins), never obstructive |
-| **Components** | Radix UI / shadcn style | Accessible, unstyled primitives styled with Tailwind utility classes |
+| **Icons** | Lucide React | Clean, consistent `16px` stroke icons (`strokeWidth={1.5}`) |
+| **Motion** | Framer Motion + CSS | Custom `--ease-out` transitions (`140–200ms`), `bounce: 0` springs, `prefers-reduced-motion` |
+| **Components** | Custom Monochrome Primitives | `.rail-*`, `.btn-*`, `.nav-pill`, and hairline list rows per [`portfolio.md`](portfolio.md) |
 | **Hosting** | Vercel (Edge Network) | Static generation with zero-latency response times |
 
 ---
@@ -51,7 +51,7 @@ portfolio/
 │   └── convert-to-webp.mjs      # Automated WebP compression pipeline
 └── src/
     ├── app/
-    │   ├── globals.css          # Tailwind v4 cascade layers & zinc color tokens
+    │   ├── globals.css          # Monochrome light-dark() tokens, .rail-*/.btn-* classes & Tailwind v4
     │   ├── layout.tsx           # Global HTML shell, fonts, SEO & OpenGraph metadata
     │   └── page.tsx             # Root page composition (imports sections only)
     ├── components/
@@ -89,21 +89,21 @@ portfolio/
 
 ### B. Genuine, Value-Driven & Grounded Tone ("Always a Student in the Game")
 * **Rule:** Always be a student in the game. Never present as "all-knowing", arrogant, or posturing as a senior enterprise know-it-all. Speak with humility, curiosity, and respect for engineering craft and real user needs.
-* **Positioning:** Frame Kenneth as a grounded, highly capable **Full-stack Developer** who builds practical web applications and internal tools (e.g., serving 7,125 Google SSO accounts, regional government operations, and real-time community apps) and reduces operational friction with automated workflows.
+* **Positioning:** Frame Kenneth as a grounded, highly capable **Full-stack Developer** who builds practical web applications and internal tools (e.g., serving 7,207 authenticated profiles, regional government operations, and real-time community apps) and reduces operational friction with automated workflows.
   * Navbar logo: `Kenneth Bulaga`
   * Hero Eyebrow: `● Available for Freelance & Full-time Roles`
   * Hero Sub-headline: `Full-stack Developer`
 * Focus on value delivered, problem-solving, clean code, and practical execution.
 
 ### C. Truth in Metrics
-* **JP Connect:** Student Services & Exam Scheduling Portal: 7,125 Google SSO Accounts (students & 249 faculty), 14,778 Masterlist Records, 658 Exam Slots across 9 academic departments, 0 Overlaps, PHP 707,750 in tracked SSC clearance collections (Dec 2025 – Jan 2026).
+* **JP Connect:** Student Services & Exam Scheduling Portal: 7,207 Authenticated Profiles (7,078 students, 126 instructors + admin roles), 14,778 Masterlist Records, 781 Validated Exam Rows across 9 academic departments, 0 room/proctor/self-proctor overlaps (2026–2027 1st Semester Finals), PHP 707,750 in tracked SSC clearance collections (Dec 2025 – Jan 2026).
 * **OWWA CSMR System:** Internal reporting tool: 4,632+ citizen feedback records consolidated across 10 regional units, 72 monthly report submissions, multi-tab workbooks for ARTA/CSC reporting requirements (avoid claiming "100% compliance"), <1s report generation time via Next.js Server Actions and ExcelJS.
 * **JP Intrams:** Real-time score synchronization across 23 sports divisions using Supabase Realtime (avoid unmeasured "sub-500ms" latency claims), distributed Redis rate limiting at API layer to prevent PostgreSQL connection exhaustion during concurrent tournament traffic, auto-cycling display mode for gym screens and mobile spectator devices.
 * **OWWA SPRS Platform:** Statistical reporting and performance analytics engine engineered as sole developer and presented for OWWA Region XI.
 
-### D. Styling & Tailwind v4 Conventions
-* Use Tailwind v4 `@theme inline` tokens and semantic classes (`bg-background`, `text-foreground`, `border-border`, `text-muted-foreground`, `bg-muted`).
-* Maintain the strict Zinc monochrome palette (`zinc-950`, `zinc-900`, `zinc-800`, `zinc-100`, `zinc-50`) with high contrast.
+### D. Styling & Monochrome Token Conventions
+* Follow [`portfolio.md`](portfolio.md) for all `light-dark()` monochrome tokens (`--bg`, `--surface`, `--ink`, `--muted`, `--line`, `--green`/`--green-ink` for availability only), Figtree/Newsreader typography, and `--ease-out` motion curves.
+* Use layered soft `box-shadow` only on raised surfaces (`.rail-shell`, `.rail-panel`, `.rail-cta`, active nav link, modals) and `1px` `--line` hairlines for flat lists.
 * Use `cn()` from `@/lib/utils` for conditional class joining.
 
 ---

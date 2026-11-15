@@ -112,7 +112,7 @@ export const personalInfo: PersonalInfo = {
     dark: "/logos/kb-logo-dark.svg",
   },
   subHeadline: "Full-stack Developer",
-  bio: "I build full-stack web applications and internal tools that turn slow, manual processes into fast, dependable software. Working across Next.js, TypeScript, and PostgreSQL, I take systems from database schema design and access control to clean, responsive interfaces.",
+  bio: "I shipped JP Connect for 7,207 student and faculty accounts at St. John Paul II College of Davao, validating 781 exam schedules with zero overlaps via a sweep-line algorithm. I also built JP Intrams for live tournament standings across 23 sports divisions using Supabase Realtime and Redis rate-limiting. For OWWA Region XI, I built the CSMR citizen feedback and SPRS statistical reporting platforms.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
   email: "kennethbulaga.dev@gmail.com",
   avatar: "/profile/avatar.webp",
@@ -158,10 +158,11 @@ export const techMarqueeItems: TechMarqueeItem[] = [
 // JP Connect Production Metrics (from the live admin analytics dashboard)
 
 export const jpConnectMetrics = {
-  accounts: "7,125",
-  faculty: "249",
+  accounts: "7,207",
+  students: "7,078",
+  faculty: "126",
   masterlist: "14,778",
-  exams: "658",
+  exams: "781",
   overlaps: "0",
   sanctionsCollected: "PHP 707,750",
   sanctionsPeriod: "Dec 2025 – Jan 2026",
@@ -176,8 +177,8 @@ export const heroHeadline = {
 export const heroLedger = [
   {
     value: jpConnectMetrics.accounts,
-    label: "Google SSO Accounts",
-    context: "JP Connect · Students & 249 Faculty",
+    label: "Authenticated Profiles",
+    context: "JP Connect · 7,078 Students & 126 Instructors",
   },
   {
     value: jpConnectMetrics.sanctionsCollected,
@@ -191,8 +192,8 @@ export const heroLedger = [
   },
   {
     value: "0 Overlaps",
-    label: "Validated Exam Schedules",
-    context: "658 Slots · 9 Academic Depts",
+    label: "Validated Exam Rows",
+    context: "781 Rows · 2026–2027 1st Sem Finals",
   },
 ] as const;
 
@@ -205,7 +206,7 @@ export const flagshipProjects: FlagshipProject[] = [
     link: "https://jp-connect.vercel.app",
     focus: "Student Services & Exam Scheduling Platform",
     description:
-      `Paid freelance contract for St. John Paul II College of Davao: a student services and exam scheduling portal with ${jpConnectMetrics.accounts} Google SSO accounts (students and ${jpConnectMetrics.faculty} faculty) across 9 academic departments. Replaces physical queues and spreadsheet scheduling with automated interval-sweep scheduling, role-based clearance passes, and a tracked sanctions ledger for the Supreme Student Council.`,
+      "Built under a freelance contract for St. John Paul II College of Davao to replace paper clearance queues and manual spreadsheet scheduling across 9 academic departments. Uses domain-locked Google Workspace SSO, PostgreSQL Row-Level Security, and an O(N log N) interval-sweep resolver to validate schedules and track SSC sanctions.",
     image: "/projects/jp-connect/1. LandingPage.webp",
     screenshots: [
       {
@@ -216,27 +217,27 @@ export const flagshipProjects: FlagshipProject[] = [
       {
         label: "Exam Schedules",
         image: "/projects/jp-connect/2. PersonalizedExam.webp",
-        primitive: "O(N log N) Interval-Sweep Resolver · 658 Slots Validated with 0 Collisions",
+        primitive: "O(N log N) Interval-Sweep · 781 Exam Rows, 0 Overlaps (2026–2027 Finals)",
       },
       {
         label: "Instructor Portal",
         image: "/projects/jp-connect/3 InstructorDashboard.webp",
-        primitive: "Normalized Proctor Alias Lookup Table Mapping 249 Faculty Accounts",
+        primitive: "Normalized Proctor Alias Lookup Table Mapping 126 Instructor Accounts",
       },
       {
         label: "SSC & Campus",
         image: "/projects/jp-connect/4. SSC&Campus.webp",
-        primitive: "Event Attendance Set-Difference Reconciliation (14,778 Records) + PHP 707,750 Sanctions Ledger",
+        primitive: "Set-Difference Attendance Sync (14,778 Records) + PHP 707,750 Ledger",
       },
       {
         label: "Program Head Email",
         image: "/projects/jp-connect/5. pg-email.webp",
-        primitive: "Written Commendation from CICT Program Head (St. John Paul II College of Davao)",
+        primitive: "Written Commendation from CICT Program Head (SJPIICD)",
       },
       {
         label: "Campus Projector",
         image: "/projects/jp-connect/6. projector.webp",
-        primitive: "Live Vertical Lobby Display Broadcasting Real-Time Exam Schedules & Clearance Status",
+        primitive: "Vertical Lobby Display · Live Exam & Clearance Feed",
       },
     ],
     logo: "/logos/jp-connect-logo.webp",
@@ -250,13 +251,13 @@ export const flagshipProjects: FlagshipProject[] = [
       "pg_cron",
     ],
     metrics: {
-      "Google SSO Accounts": jpConnectMetrics.accounts,
+      "Authenticated Profiles": jpConnectMetrics.accounts,
       "Masterlist Records": jpConnectMetrics.masterlist,
-      "Exam Schedules": jpConnectMetrics.exams,
+      "Validated Exam Rows": jpConnectMetrics.exams,
       "Schedule Overlaps": jpConnectMetrics.overlaps,
     },
     highlights: [
-      "Conflict-Free Scheduler: Implemented automated interval-sweep scheduling to eliminate timetable conflicts across 658 exam slots, replacing manual spreadsheet validation.",
+      "Conflict-Free Scheduler: Implemented automated interval-sweep scheduling to validate 781 exam rows with 0 room, proctor, or self-proctor overlaps for the 2026–2027 1st Semester Finals schedule, replacing manual spreadsheet validation.",
       "Role-Based Access: Configured domain-locked Google Workspace SSO (@sjp2cd.edu.ph) paired with PostgreSQL Row-Level Security to isolate student and faculty data.",
       "Automated Clearance: Reconciles event attendee ID uploads against 14,778 registrar records in under 5 seconds, auto-flagging absences and calculating SSC sanctions.",
       `Sanctions Ledger: Built a sanctions and payments module for the Supreme Student Council that links clearance to settled sanctions and logs every payment and expense, recording ${jpConnectMetrics.sanctionsCollected} in collections over one clearance period (${jpConnectMetrics.sanctionsPeriod}).`,
@@ -268,7 +269,7 @@ export const flagshipProjects: FlagshipProject[] = [
     link: "#",
     focus: "Internal Citizen Satisfaction & Feedback Reporting Tool",
     description:
-      "Internal reporting tool built during my OWWA Region XI internship, consolidating 4,632+ citizen feedback records across 10 regional units with live balance validation and 1-click Excel export for ARTA/CSC reporting requirements.",
+      "Internal reporting tool built during my OWWA Region XI internship to replace manual spreadsheet consolidation across frontline offices. Aggregates JSONB survey snapshots in Next.js Server Actions, validates tallies with Zod, and exports multi-tab ExcelJS workbooks for ARTA/CSC reporting.",
     image: "/projects/owwa-csmr/landing.webp",
     screenshots: [
       {
@@ -284,7 +285,7 @@ export const flagshipProjects: FlagshipProject[] = [
       {
         label: "Dashboard",
         image: "/projects/owwa-csmr/dashboard.webp",
-        primitive: "On-Demand JSONB Aggregation in Next.js Server Actions (<100ms) + ExcelJS Export (<1s)",
+        primitive: "On-Demand JSONB Aggregation in Server Actions + ExcelJS Export (<1s)",
       },
       {
         label: "Manage Offices",
@@ -322,7 +323,7 @@ export const flagshipProjects: FlagshipProject[] = [
     link: "https://jp-intrams.vercel.app",
     focus: "Real-Time Tournament Leaderboard & Campus Signage",
     description:
-      "Live tournament leaderboard delivering real-time score synchronization across 23 sports divisions for 9 departments using Supabase Realtime, with an auto-cycling display mode for gym screens and mobile spectator devices.",
+      "Campus tournament scoreboard built for SJPIICD intramurals to replace delayed manual scoreboards and printed bracket sheets. Syncs live standings via Supabase Realtime, rotates an auto-cycling /tv view for gym projectors, and uses Upstash Redis rate-limiting to protect PostgreSQL under spectator traffic.",
     image: "/projects/jp-intrams/desktop.webp",
     screenshots: [
       {
@@ -343,7 +344,7 @@ export const flagshipProjects: FlagshipProject[] = [
       {
         label: "Campus Projector",
         image: "/projects/jp-intrams/projector.webp",
-        primitive: "Live Quadrangle Stage Projection During SJPIICD Intramurals Tournament",
+        primitive: "Auto-Cycling /tv Output Projected Live on Quadrangle Stage",
       },
     ],
     logo: "/logos/school-logo-nobg.webp",
@@ -379,29 +380,29 @@ export const clientProjects: ClientProject[] = [
     title: "OWWA SPRS Platform",
     client: "Overseas Workers Welfare Administration (Region XI)",
     objective:
-      "Built as the sole developer during my OWWA Region XI internship: a performance reporting platform that tracks monthly KPI targets and accomplishment reports, with PostgreSQL constraints and Zod validation on every submission.",
+      "Internal reporting platform built as sole developer during my OWWA Region XI internship to replace manual monthly accomplishment spreadsheets. Tracks program KPI targets against actuals using dynamic indicator schemas, PostgreSQL constraints, and Zod validation.",
     logo: "/logos/owwa-logo.webp",
     image: "/projects/owwa-sprs/consolidation.webp",
     screenshots: [
       {
         label: "Consolidation & Export",
         image: "/projects/owwa-sprs/consolidation.webp",
-        primitive: "Regional KPI Consolidation & Multi-Sheet ExcelJS Accomplishment Export",
+        primitive: "Cross-Unit KPI Rollup + Multi-Sheet ExcelJS Accomplishment Export",
       },
       {
         label: "Template Builder",
         image: "/projects/owwa-sprs/template-builder.webp",
-        primitive: "Dynamic Indicator Schema Builder with Zod Validation & PostgreSQL Constraints",
+        primitive: "JSON Indicator Schema Builder + Per-Field Zod & SQL Constraints",
       },
       {
         label: "Public Landing",
         image: "/projects/owwa-sprs/landing.webp",
-        primitive: "Sole-Developer Statistical Performance Reporting Platform for OWWA Region XI",
+        primitive: "Role-Routed Entry Portal for OWWA Region XI Program Units",
       },
       {
         label: "System Modules",
         image: "/projects/owwa-sprs/dashboard.webp",
-        primitive: "Monthly Target vs. Actual Accomplishment Tracking Across Regional Programs",
+        primitive: "Monthly Target vs. Actual Variance Grids by Regional Program",
       },
     ],
     techStack: [
@@ -610,8 +611,8 @@ export const experience: Experience[] = [
     role: "Full-stack Developer (Freelance Contract)",
     period: "Aug 2025 – Present",
     highlights: [
-      `Built and deployed JP Connect, a paid student services and exam scheduling portal with ${jpConnectMetrics.accounts} Google SSO accounts (students and ${jpConnectMetrics.faculty} faculty) across 9 academic departments.`,
-      "Implemented an interval-sweep conflict check that validates 658 exam slots for room and instructor overlaps (0 conflicts), replacing manual cross-checking of departmental Excel files.",
+      `Built and deployed JP Connect, a paid student services and exam scheduling portal with ${jpConnectMetrics.accounts} authenticated profiles (${jpConnectMetrics.students} students and ${jpConnectMetrics.faculty} instructors) across 9 academic departments.`,
+      "Implemented an interval-sweep conflict check that validates 781 exam rows for room, proctor, and self-proctor overlaps (0 conflicts) for the 2026–2027 1st Semester Finals schedule, replacing manual cross-checking of departmental Excel files.",
       "Automated end-of-semester clearance by reconciling event attendee ID uploads against 14,778 registrar records in under 5 seconds, auto-flagging absences and calculating SSC sanctions.",
       "Enforced data isolation across 6 user roles with PostgreSQL Row-Level Security and Next.js middleware, so students on shared lab computers can only see their own records.",
       `Built a sanctions and payments module for the Supreme Student Council that links clearance to settled sanctions and logs every payment and expense, recording ${jpConnectMetrics.sanctionsCollected} in collections over one clearance period (${jpConnectMetrics.sanctionsPeriod}).`,
@@ -702,11 +703,11 @@ export const shippingSoonProjects: ShippingSoonItem[] = [
     status: "Shipping Soon",
     eta: "2026 Release",
     description:
-      "While Google Maps rates food and coffee flavor, DavaoSpots rates pure work-readiness—helping remote workers, freelancers, and students in Davao City find study-friendly cafes and coworking hubs with verified Wi-Fi, table socket density, late/24-7 hours, and backup generators during city power interruptions.",
+      "Directory for remote workers and students in Davao City. Unlike Google Maps, it indexes cafes and coworking spaces by verified Wi-Fi speed, outlet density, late or 24/7 hours, and backup generator availability during power outages.",
     plannedPrimitives: [
-      "1-Tap Panic Filters: Instant 0ms client-side filtering for Generator Backup, Sockets Every Table, Open 24/7, and Call-Friendly workspaces",
+      "1-Tap Panic Filters: Client-side filtering for Generator Backup, Sockets Every Table, Open 24/7, and Call-Friendly workspaces",
       "Geofenced Wi-Fi Benchmarks: Crowd-sourced speed tests verified only when physically inside a spot (<=250m radius)",
-      "Frictionless Community Submissions: Zero-login spot reports protected by Upstash Redis rate limiting and PostgreSQL RLS",
+      "Open Community Submissions: Zero-login spot reports protected by Upstash Redis rate limiting and PostgreSQL RLS",
     ],
     techStack: [
       "Next.js 16",

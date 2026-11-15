@@ -20,7 +20,7 @@ export function ClickBurst() {
         const dy = Math.sin(a);
         const line = document.createElement("span");
         line.style.cssText =
-          "position:absolute;left:0;top:-0.75px;width:7px;height:1.5px;border-radius:1px;background:hsl(var(--foreground));transform-origin:0 50%";
+          "position:absolute;left:0;top:-0.75px;width:7px;height:1.5px;border-radius:1px;background:var(--ink);transform-origin:0 50%";
         el.appendChild(line);
         line.animate(
           [

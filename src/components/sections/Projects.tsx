@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -13,9 +13,7 @@ import {
   Cpu,
   Rocket,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   flagshipProjects,
   clientProjects,
@@ -24,7 +22,6 @@ import {
   FlagshipProject,
   ClientProject,
 } from "@/data/portfolio";
-import { fadeInUp, staggerContainer, staggerItem } from "@/components/motion";
 
 interface ProjectsProps {
   previewMode?: boolean;
@@ -46,6 +43,7 @@ function ContactSheetProject({
   onZoom: (initialIndex: number) => void;
 }) {
   const [activeScreenshotIdx, setActiveScreenshotIdx] = useState(0);
+  const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
   const screenshots =
     project.screenshots && project.screenshots.length > 0
       ? project.screenshots
@@ -57,7 +55,7 @@ function ContactSheetProject({
   const activeImage = activeScreen?.image || project.image;
 
   return (
-    <article className="@container rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25">
+    <article className="@container rounded-[20px] sm:rounded-[22px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25">
       {/* Contact-Sheet Frame Header Bar */}
       <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3 min-w-0">
@@ -73,7 +71,7 @@ function ContactSheetProject({
             </div>
           )}
           <div className="min-w-0">
-            <h3 className="text-base sm:text-lg font-bold tracking-tight text-foreground text-balance leading-snug">
+            <h3 className="text-base sm:text-lg font-semibold tracking-[-0.015em] text-foreground text-balance leading-snug">
               {project.title}
             </h3>
             <p className="text-xs font-mono text-muted-foreground text-pretty leading-snug">
@@ -82,32 +80,24 @@ function ContactSheetProject({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0 flex-wrap">
+        <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto shrink-0 flex-wrap">
           <span className="text-[11px] font-mono tabular-nums text-muted-foreground px-2 py-0.5 rounded-[6px] border border-border bg-background">
             FRAME {indexNumber}
           </span>
 
           {project.link && project.link !== "#" ? (
-            <Button
-              asChild
-              size="sm"
-              variant="ghost"
-              className="gap-1 shrink-0 text-xs font-mono h-8 px-3 rounded-full border border-border bg-background hover:bg-muted"
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${project.title}`}
+              className="btn btn-light h-9 px-3.5 text-xs font-mono relative after:absolute after:-inset-1 after:content-['']"
             >
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`Open ${project.title}`}
-              >
-                <span>Live App</span>
-                <ArrowUpRight size={14} />
-              </a>
-            </Button>
+              <span>Live App</span>
+              <ArrowUpRight size={15} strokeWidth={1.5} />
+            </a>
           ) : (
-            <Badge variant="success" className="text-[10px] font-mono px-2.5 py-0.5 shrink-0">
-              Gov Production
-            </Badge>
+            <span className="nav-pill font-mono">Gov Production</span>
           )}
         </div>
       </div>
@@ -116,12 +106,31 @@ function ContactSheetProject({
       <div className="grid grid-cols-1 @2xl:grid-cols-12">
         {/* Left Stage: Screenshot Proof + Primitive Cutaway Callout + Frame Selector */}
         {activeImage && (
-          <div className="@2xl:col-span-7 flex flex-col justify-between bg-muted/15 p-3.5 sm:p-5 border-b @2xl:border-b-0 @2xl:border-r border-border gap-3">
+          <div className="@2xl:col-span-7 flex flex-col justify-between bg-muted/15 p-2 sm:p-5 border-b @2xl:border-b-0 @2xl:border-r border-border gap-3">
             <div className="flex flex-col gap-2.5">
-              {/* Clickable Image Preview Container */}
+              {/* Clickable & Touch-Swipeable Image Preview Container */}
               <div
                 onClick={() => onZoom(activeScreenshotIdx)}
-                className="relative aspect-[16/10] rounded-[10px] overflow-hidden bg-background border border-border group cursor-zoom-in image-outline"
+                onTouchStart={(e) => {
+                  const t = e.touches[0];
+                  swipeStartRef.current = { x: t.clientX, y: t.clientY };
+                }}
+                onTouchEnd={(e) => {
+                  if (!swipeStartRef.current || screenshots.length <= 1) return;
+                  const t = e.changedTouches[0];
+                  const dx = t.clientX - swipeStartRef.current.x;
+                  const dy = t.clientY - swipeStartRef.current.y;
+                  swipeStartRef.current = null;
+                  if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                    e.stopPropagation();
+                    setActiveScreenshotIdx((prev) =>
+                      dx < 0
+                        ? (prev + 1) % screenshots.length
+                        : (prev - 1 + screenshots.length) % screenshots.length
+                    );
+                  }
+                }}
+                className="relative aspect-[16/10] rounded-[12px] sm:rounded-[10px] overflow-hidden bg-background border border-border group cursor-zoom-in image-outline touch-pan-y"
                 title="Click to inspect full resolution"
               >
                 {screenshots.map((screen, idx) => (
@@ -139,14 +148,14 @@ function ContactSheetProject({
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 55vw, 560px"
                       priority={project.id === "jp-connect" && idx === 0}
-                      className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                      className="object-cover transition-transform duration-200 ease-[var(--ease-out)] group-hover:scale-[1.02]"
                     />
                   </div>
                 ))}
 
                 {/* Prev / Next Arrow Overlay for Multiple Screenshots */}
                 {screenshots.length > 1 && (
-                  <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-20 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-200 ease-[var(--ease-out)]">
                     <button
                       type="button"
                       onClick={(e) => {
@@ -155,10 +164,10 @@ function ContactSheetProject({
                           prev > 0 ? prev - 1 : screenshots.length - 1
                         );
                       }}
-                      className="pointer-events-auto min-h-[40px] min-w-[40px] size-10 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
+                      className="pointer-events-auto min-h-11 min-w-11 size-11 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
                       aria-label="Previous screenshot"
                     >
-                      <ChevronLeft size={16} />
+                      <ChevronLeft size={16} strokeWidth={1.5} />
                     </button>
                     <button
                       type="button"
@@ -168,10 +177,10 @@ function ContactSheetProject({
                           prev < screenshots.length - 1 ? prev + 1 : 0
                         );
                       }}
-                      className="pointer-events-auto min-h-[40px] min-w-[40px] size-10 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
+                      className="pointer-events-auto min-h-11 min-w-11 size-11 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
                       aria-label="Next screenshot"
                     >
-                      <ChevronRight size={16} />
+                      <ChevronRight size={16} strokeWidth={1.5} />
                     </button>
                   </div>
                 )}
@@ -197,8 +206,8 @@ function ContactSheetProject({
 
               {/* Primitive Cutaway Callout Bar */}
               {activeScreen?.primitive && (
-                <div className="px-3 py-2 rounded-[8px] border border-border bg-background flex items-start gap-2">
-                  <Terminal size={13} className="text-emerald-500 mt-0.5 shrink-0" />
+                <div className="min-h-[52px] sm:min-h-0 px-3 py-2 rounded-[8px] border border-border bg-background flex items-start gap-2">
+                  <Terminal size={14} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
                   <p className="text-[11px] font-mono text-muted-foreground leading-relaxed">
                     <span className="text-foreground font-semibold tabular-nums">
                       [{String(activeScreenshotIdx + 1).padStart(2, "0")}]{" "}
@@ -212,7 +221,7 @@ function ContactSheetProject({
 
             {/* Numbered Contact-Sheet Frame Switcher */}
             {screenshots.length > 1 && (
-              <div className="grid grid-cols-2 @lg:grid-cols-3 gap-1.5 pt-0.5">
+              <div className="flex overflow-x-auto no-scrollbar gap-2 pt-0.5 sm:grid sm:grid-cols-2 @lg:grid-cols-3 sm:gap-1.5">
                 {screenshots.map((screen, idx) => {
                   const active = activeScreenshotIdx === idx;
                   return (
@@ -224,7 +233,7 @@ function ContactSheetProject({
                         e.stopPropagation();
                         setActiveScreenshotIdx(idx);
                       }}
-                      className={`px-2.5 py-1.5 rounded-[8px] text-[11px] font-mono transition-colors duration-150 flex items-center gap-1.5 text-left border ${
+                      className={`min-h-11 sm:min-h-0 px-3 sm:px-2.5 py-2 sm:py-1.5 rounded-[8px] text-[11px] font-mono transition-[background-color,color,border-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97] flex items-center gap-1.5 text-left border shrink-0 whitespace-nowrap sm:whitespace-normal ${
                         active
                           ? "bg-foreground text-background border-foreground font-semibold"
                           : "bg-background border-border text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -267,33 +276,17 @@ function ContactSheetProject({
                 ))}
               </dl>
             )}
-
-            {/* Concise Engineering Highlights */}
-            {project.highlights && project.highlights.length > 0 && (
-              <ul className="flex flex-col gap-2">
-                {project.highlights.slice(0, 2).map((hl, i) => (
-                  <li
-                    key={i}
-                    className="text-xs text-muted-foreground leading-relaxed flex items-start gap-2 text-pretty"
-                  >
-                    <Cpu size={13} className="text-foreground/70 mt-0.5 shrink-0" />
-                    <span>{hl}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
           </div>
 
           {/* Tech Stack Pills */}
           <div className="pt-3 border-t border-border flex flex-wrap gap-1.5">
             {project.techStack.map((tech) => (
-              <Badge
+              <span
                 key={tech}
-                variant="secondary"
-                className="text-[10px] font-mono px-2 py-0.5"
+                className="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground"
               >
                 {tech}
-              </Badge>
+              </span>
             ))}
           </div>
         </div>
@@ -312,6 +305,7 @@ function ClientContactSheetCard({
   onZoom: (initialIndex: number) => void;
 }) {
   const [activeScreenshotIdx, setActiveScreenshotIdx] = useState(0);
+  const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
 
   const screenshots =
     project.screenshots && project.screenshots.length > 0
@@ -324,7 +318,7 @@ function ClientContactSheetCard({
   const activeImage = activeScreen?.image || project.image;
 
   return (
-    <article className="@container rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 w-full">
+    <article className="@container rounded-[20px] sm:rounded-[22px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 w-full">
       {/* Header Bar */}
       <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-3 min-w-0">
@@ -340,7 +334,7 @@ function ClientContactSheetCard({
             </div>
           )}
           <div className="min-w-0">
-            <h4 className="text-base font-bold text-foreground text-balance leading-snug">
+            <h4 className="text-base font-semibold tracking-[-0.015em] text-foreground text-balance leading-snug">
               {project.title}
             </h4>
             <p className="text-xs font-mono text-muted-foreground text-pretty leading-snug">
@@ -349,23 +343,40 @@ function ClientContactSheetCard({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto shrink-0">
           <span className="text-[11px] font-mono tabular-nums text-muted-foreground px-2 py-0.5 rounded-[6px] border border-border bg-background">
             FRAME {indexNumber}
           </span>
-          <Badge variant="success" className="text-[10px] font-mono px-2.5 py-0.5 shrink-0">
-            Sole Developer
-          </Badge>
+          <span className="nav-pill font-mono">Sole Developer</span>
         </div>
       </div>
 
       <div className="grid grid-cols-1 @2xl:grid-cols-12">
         {/* Left Screenshot Stage */}
         {activeImage && (
-          <div className="@2xl:col-span-7 p-3.5 sm:p-5 border-b @2xl:border-b-0 @2xl:border-r border-border bg-muted/15 flex flex-col gap-3">
+          <div className="@2xl:col-span-7 p-2 sm:p-5 border-b @2xl:border-b-0 @2xl:border-r border-border bg-muted/15 flex flex-col gap-3">
             <div
               onClick={() => onZoom(activeScreenshotIdx)}
-              className="relative w-full aspect-[16/10] rounded-[10px] overflow-hidden border border-border bg-background cursor-zoom-in group/img image-outline"
+              onTouchStart={(e) => {
+                const t = e.touches[0];
+                swipeStartRef.current = { x: t.clientX, y: t.clientY };
+              }}
+              onTouchEnd={(e) => {
+                if (!swipeStartRef.current || screenshots.length <= 1) return;
+                const t = e.changedTouches[0];
+                const dx = t.clientX - swipeStartRef.current.x;
+                const dy = t.clientY - swipeStartRef.current.y;
+                swipeStartRef.current = null;
+                if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+                  e.stopPropagation();
+                  setActiveScreenshotIdx((prev) =>
+                    dx < 0
+                      ? (prev + 1) % screenshots.length
+                      : (prev - 1 + screenshots.length) % screenshots.length
+                  );
+                }
+              }}
+              className="relative w-full aspect-[16/10] rounded-[12px] sm:rounded-[10px] overflow-hidden border border-border bg-background cursor-zoom-in group/img image-outline touch-pan-y"
               title="Click to inspect full resolution"
             >
               {screenshots.map((screen, idx) => (
@@ -382,7 +393,7 @@ function ClientContactSheetCard({
                     alt={`${project.title} — ${screen.label}`}
                     fill
                     sizes="(max-width: 640px) 100vw, 520px"
-                    className="object-cover transition-transform duration-300 group-hover/img:scale-[1.02]"
+                    className="object-cover transition-transform duration-200 ease-[var(--ease-out)] group-hover/img:scale-[1.02]"
                   />
                 </div>
               ))}
@@ -405,8 +416,8 @@ function ClientContactSheetCard({
             </div>
 
             {activeScreen?.primitive && (
-              <div className="px-3 py-2 rounded-[8px] border border-border bg-background flex items-start gap-2">
-                <Terminal size={13} className="text-emerald-500 mt-0.5 shrink-0" />
+              <div className="min-h-[52px] sm:min-h-0 px-3 py-2 rounded-[8px] border border-border bg-background flex items-start gap-2">
+                <Terminal size={14} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
                 <p className="text-[11px] font-mono text-muted-foreground leading-relaxed">
                   <span className="text-foreground font-semibold tabular-nums">
                     [{String(activeScreenshotIdx + 1).padStart(2, "0")}]{" "}
@@ -418,7 +429,7 @@ function ClientContactSheetCard({
             )}
 
             {screenshots.length > 1 && (
-              <div className="grid grid-cols-2 gap-1.5 pt-0.5">
+              <div className="flex overflow-x-auto no-scrollbar gap-2 pt-0.5 sm:grid sm:grid-cols-2 sm:gap-1.5">
                 {screenshots.map((screen, idx) => {
                   const active = activeScreenshotIdx === idx;
                   return (
@@ -430,7 +441,7 @@ function ClientContactSheetCard({
                         e.stopPropagation();
                         setActiveScreenshotIdx(idx);
                       }}
-                      className={`px-2.5 py-1.5 rounded-[8px] text-[11px] font-mono transition-colors duration-150 flex items-center gap-1.5 text-left border ${
+                      className={`min-h-11 sm:min-h-0 px-3 sm:px-2.5 py-2 sm:py-1.5 rounded-[8px] text-[11px] font-mono transition-[background-color,color,border-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97] flex items-center gap-1.5 text-left border shrink-0 whitespace-nowrap sm:whitespace-normal ${
                         active
                           ? "bg-foreground text-background border-foreground font-semibold"
                           : "bg-background border-border text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -457,7 +468,7 @@ function ClientContactSheetCard({
 
             {project.impact && (
               <div className="p-3 rounded-[10px] bg-muted/35 border border-border text-xs text-foreground leading-relaxed flex items-start gap-2">
-                <Cpu size={14} className="text-emerald-500 shrink-0 mt-0.5" />
+                <Cpu size={14} strokeWidth={1.5} className="text-muted-foreground shrink-0 mt-0.5" />
                 <span>{project.impact}</span>
               </div>
             )}
@@ -466,13 +477,12 @@ function ClientContactSheetCard({
           {project.techStack && project.techStack.length > 0 && (
             <div className="pt-3 border-t border-border flex flex-wrap gap-1.5">
               {project.techStack.map((tech) => (
-                <Badge
+                <span
                   key={tech}
-                  variant="secondary"
-                  className="text-[10px] font-mono px-2 py-0.5"
+                  className="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground"
                 >
                   {tech}
-                </Badge>
+                </span>
               ))}
             </div>
           )}
@@ -484,6 +494,7 @@ function ClientContactSheetCard({
 
 export function Projects({ previewMode = false }: ProjectsProps) {
   const [zoomState, setZoomState] = useState<ZoomState | null>(null);
+  const shouldReduceMotion = useReducedMotion();
   const visibleFlagships = previewMode
     ? flagshipProjects.slice(0, 2)
     : flagshipProjects;
@@ -550,19 +561,15 @@ export function Projects({ previewMode = false }: ProjectsProps) {
   }, [zoomState, handlePrev, handleNext]);
 
   return (
-    <motion.section
+    <section
       id="projects"
       className="py-12 sm:py-16"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={fadeInUp}
     >
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-6 sm:gap-8">
         {/* Section Header Row */}
         <div className="flex flex-col gap-2">
           <div className="flex items-baseline justify-between gap-4 flex-wrap">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground text-balance">
+            <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
               {previewMode ? "Featured Production Systems" : "Production Systems & Proof Sheet"}
             </h2>
             <span className="text-xs font-mono tabular-nums text-muted-foreground">
@@ -580,11 +587,11 @@ export function Projects({ previewMode = false }: ProjectsProps) {
             {heroLedger.map((item, idx) => (
               <div
                 key={item.label}
-                className={`p-4 sm:p-5 flex flex-col gap-1 border-border ${
+                className={`p-3 sm:p-5 flex flex-col gap-1 border-border ${
                   idx % 2 === 1 ? "border-l" : ""
                 } ${idx >= 2 ? "max-@xl:border-t @xl:border-l" : ""}`}
               >
-                <p className="text-xl sm:text-2xl font-bold font-mono tabular-nums tracking-tight text-foreground leading-none">
+                <p className="text-xl sm:text-2xl font-semibold font-mono tabular-nums tracking-[-0.03em] text-foreground leading-none">
                   {item.value}
                 </p>
                 <p className="text-xs font-semibold text-foreground pt-1">
@@ -599,23 +606,16 @@ export function Projects({ previewMode = false }: ProjectsProps) {
         </div>
 
         {/* Flagship Contact-Sheet Frames */}
-        <motion.div
-          className="flex flex-col gap-6"
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
+        <div className="flex flex-col gap-6">
           {visibleFlagships.map((project, idx) => (
-            <motion.div key={project.id} variants={staggerItem}>
-              <ContactSheetProject
-                project={project}
-                indexNumber={String(idx + 1).padStart(2, "0")}
-                onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
-              />
-            </motion.div>
+            <ContactSheetProject
+              key={project.id}
+              project={project}
+              indexNumber={String(idx + 1).padStart(2, "0")}
+              onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
+            />
           ))}
-        </motion.div>
+        </div>
 
         {previewMode ? (
           <div className="rounded-[14px] border border-border bg-card px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -627,19 +627,20 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                 Includes JP Intrams (23 sports divisions), OWWA SPRS Platform, and DavaoSpots (Shipping Soon)
               </p>
             </div>
-            <Button asChild variant="outline" size="sm" className="rounded-full font-mono text-xs gap-1.5 shrink-0">
-              <Link href="/systems">
-                <span>Inspect All Systems (04 + Lab)</span>
-                <ArrowUpRight size={14} />
-              </Link>
-            </Button>
+            <Link
+              href="/systems"
+              className="btn btn-light h-10 px-4 text-xs font-mono shrink-0"
+            >
+              <span>Inspect All Systems (04 + Lab)</span>
+              <ArrowUpRight size={15} strokeWidth={1.5} />
+            </Link>
           </div>
         ) : (
           <>
             {/* Additional Government Internship System */}
             <div className="pt-4 flex flex-col gap-4">
               <div className="flex items-baseline justify-between gap-3 flex-wrap">
-                <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground text-balance">
+                <h3 className="text-lg sm:text-xl font-medium tracking-[-0.02em] text-foreground text-balance">
                   Additional Government Internship Platform
                 </h3>
                 <span className="text-xs font-mono tabular-nums text-muted-foreground">
@@ -647,32 +648,25 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                 </span>
               </div>
 
-              <motion.div
-                className="flex flex-col gap-6"
-                variants={staggerContainer}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-              >
+              <div className="flex flex-col gap-6">
                 {clientProjects.map((project, idx) => (
-                  <motion.div key={project.id} variants={staggerItem}>
-                    <ClientContactSheetCard
-                      project={project}
-                      indexNumber={String(
-                        flagshipProjects.length + idx + 1
-                      ).padStart(2, "0")}
-                      onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
-                    />
-                  </motion.div>
+                  <ClientContactSheetCard
+                    key={project.id}
+                    project={project}
+                    indexNumber={String(
+                      flagshipProjects.length + idx + 1
+                    ).padStart(2, "0")}
+                    onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
+                  />
                 ))}
-              </motion.div>
+              </div>
             </div>
 
             {/* Building in Public / Shipping Soon Section */}
             {shippingSoonProjects && shippingSoonProjects.length > 0 && (
               <div id="shipping-soon" className="pt-4 flex flex-col gap-4 scroll-mt-24">
                 <div className="flex items-baseline justify-between gap-3 flex-wrap">
-                  <h3 className="text-lg sm:text-xl font-bold tracking-tight text-foreground text-balance">
+                  <h3 className="text-lg sm:text-xl font-medium tracking-[-0.02em] text-foreground text-balance">
                     Building in Public · Lab
                   </h3>
                   <span className="text-xs font-mono tabular-nums text-muted-foreground">
@@ -684,15 +678,15 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                   {shippingSoonProjects.map((item, idx) => (
                     <article
                       key={item.id}
-                      className="rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25"
+                      className="rounded-[22px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25"
                     >
                       <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3 flex-wrap">
                         <div className="flex items-center gap-3 min-w-0">
                           <div className="size-9 rounded-[8px] bg-background border border-border flex items-center justify-center shrink-0">
-                            <Rocket size={16} className="text-amber-500" />
+                            <Rocket size={16} strokeWidth={1.5} className="text-muted-foreground" />
                           </div>
                           <div className="min-w-0">
-                            <h4 className="text-base font-bold text-foreground text-balance leading-snug">
+                            <h4 className="text-base font-semibold tracking-[-0.015em] text-foreground text-balance leading-snug">
                               {item.title}
                             </h4>
                             <p className="text-xs font-mono text-muted-foreground text-pretty leading-snug">
@@ -701,17 +695,11 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2 shrink-0">
+                        <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto shrink-0">
                           <span className="text-[11px] font-mono tabular-nums text-muted-foreground px-2 py-0.5 rounded-[6px] border border-border bg-background">
                             LAB {String(idx + 1).padStart(2, "0")}
                           </span>
-                          <Badge
-                            variant="warning"
-                            className="text-[10px] font-mono px-2.5 py-0.5 flex items-center gap-1.5"
-                          >
-                            <span className="size-1.5 rounded-full bg-amber-500 animate-pulse" />
-                            <span>{item.eta}</span>
-                          </Badge>
+                          <span className="soon font-mono">{item.eta}</span>
                         </div>
                       </div>
 
@@ -727,8 +715,9 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                               className="px-3 py-2 rounded-[8px] border border-border bg-muted/15 flex items-start gap-2"
                             >
                               <Terminal
-                                size={13}
-                                className="text-amber-500 mt-0.5 shrink-0"
+                                size={14}
+                                strokeWidth={1.5}
+                                className="text-muted-foreground mt-0.5 shrink-0"
                               />
                               <p className="text-xs font-mono text-foreground/90 leading-relaxed">
                                 {prim}
@@ -739,13 +728,12 @@ export function Projects({ previewMode = false }: ProjectsProps) {
 
                         <div className="pt-3 border-t border-border flex flex-wrap gap-1.5">
                           {item.techStack.map((tech) => (
-                            <Badge
+                            <span
                               key={tech}
-                              variant="secondary"
-                              className="text-[10px] font-mono px-2 py-0.5"
+                              className="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground"
                             >
                               {tech}
-                            </Badge>
+                            </span>
                           ))}
                         </div>
                       </div>
@@ -765,6 +753,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={shouldReduceMotion ? { duration: 0.15 } : { type: "spring", duration: 0.3, bounce: 0 }}
             className="fixed inset-0 z-50 flex flex-col items-center justify-between p-3 sm:p-6 md:p-8 bg-black/92 backdrop-blur-md select-none"
             onClick={() => setZoomState(null)}
           >
@@ -792,10 +781,10 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                 )}
                 <button
                   onClick={() => setZoomState(null)}
-                  className="min-h-[40px] min-w-[40px] size-10 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
+                  className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Close image preview"
                 >
-                  <X size={18} />
+                  <X size={18} strokeWidth={1.5} />
                 </button>
               </div>
             </div>
@@ -880,6 +869,6 @@ export function Projects({ previewMode = false }: ProjectsProps) {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.section>
+    </section>
   );
 }

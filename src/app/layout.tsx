@@ -1,24 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Spectral } from "next/font/google";
+import { Figtree, Newsreader } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ClickBurst } from "@/components/ui/click-burst";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const figtreeSans = Figtree({
+  variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const spectralSerif = Spectral({
+const newsreaderSerif = Newsreader({
   variable: "--font-serif",
   subsets: ["latin"],
   weight: ["400"],
   style: ["italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -92,6 +90,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#fcfcfb" },
     { media: "(prefers-color-scheme: dark)", color: "#0f0f11" },
@@ -158,7 +157,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${spectralSerif.variable} font-sans antialiased`}
+        className={`${figtreeSans.variable} ${newsreaderSerif.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"

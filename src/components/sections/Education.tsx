@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   GraduationCap,
   Award,
@@ -19,15 +19,12 @@ import {
   ChevronRight,
   ArrowUpRight,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   education,
   leadership,
   featuredCredentials,
   Credential,
 } from "@/data/portfolio";
-import { fadeInUp } from "@/components/motion";
 
 const categoryIconMap: Record<string, React.ElementType> = {
   "Public Sector": Landmark,
@@ -63,7 +60,7 @@ function CredentialCard({
         {activeImage && (
           <div
             onClick={() => onOpenCert(item, activePhotoIdx)}
-            className="relative aspect-[16/10] w-full overflow-hidden border-b border-border bg-muted/20 cursor-zoom-in group/img"
+            className="relative aspect-[16/10] w-full overflow-hidden border-b border-border bg-muted/20 cursor-zoom-in group/img image-outline"
             title="Click to inspect full resolution"
           >
             {gallery.map((g, idx) => (
@@ -80,7 +77,7 @@ function CredentialCard({
                   alt={`${item.title} — ${g.label}`}
                   fill
                   sizes="(max-width: 768px) 100vw, 450px"
-                  className="object-cover transition-transform duration-300 group-hover/img:scale-[1.02]"
+                  className="object-cover transition-transform duration-200 ease-[var(--ease-out)] group-hover/img:scale-[1.02]"
                 />
               </div>
             ))}
@@ -96,10 +93,10 @@ function CredentialCard({
                       prev > 0 ? prev - 1 : gallery.length - 1
                     );
                   }}
-                  className="pointer-events-auto min-h-[40px] min-w-[40px] size-10 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
+                  className="pointer-events-auto min-h-11 min-w-11 size-11 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Previous photo"
                 >
-                  <ChevronLeft size={16} />
+                  <ChevronLeft size={16} strokeWidth={1.5} />
                 </button>
                 <button
                   type="button"
@@ -109,10 +106,10 @@ function CredentialCard({
                       prev < gallery.length - 1 ? prev + 1 : 0
                     );
                   }}
-                  className="pointer-events-auto min-h-[40px] min-w-[40px] size-10 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
+                  className="pointer-events-auto min-h-11 min-w-11 size-11 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Next photo"
                 >
-                  <ChevronRight size={16} />
+                  <ChevronRight size={16} strokeWidth={1.5} />
                 </button>
               </div>
             )}
@@ -139,7 +136,7 @@ function CredentialCard({
         {/* Content Area — Heading First (Zero Eyebrow Kicker Above Heading) */}
         <div className="p-4 sm:p-5 flex flex-col gap-3 flex-1">
           <div className="flex items-start justify-between gap-2.5">
-            <h4 className="font-bold text-foreground text-sm sm:text-base leading-snug text-balance">
+            <h4 className="font-semibold text-foreground text-sm sm:text-base leading-snug text-balance">
               {item.title}
             </h4>
             <span className="text-[10px] font-mono tabular-nums text-muted-foreground px-2 py-0.5 rounded-[6px] border border-border bg-background shrink-0">
@@ -150,33 +147,21 @@ function CredentialCard({
           {/* Inline Metadata Row Below Heading */}
           <div className="flex items-center justify-between gap-2 flex-wrap">
             <span className="text-[11px] font-mono text-muted-foreground flex items-center gap-1.5">
-              <CategoryIcon size={12} className="text-foreground/75 shrink-0" />
+              <CategoryIcon size={13} strokeWidth={1.5} className="text-foreground/75 shrink-0" />
               <span>{item.category}</span>
             </span>
 
             {item.status === "Active Production" ? (
-              <Badge
-                variant="success"
-                className="text-[10px] font-mono px-2 py-0.5 flex items-center gap-1 shrink-0"
-              >
-                <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="nav-pill font-mono shrink-0">
+                <span className="size-1.5 rounded-full bg-[var(--green)]" />
                 <span>Active Production</span>
-              </Badge>
+              </span>
             ) : item.status === "Highest Honor" ? (
-              <Badge
-                variant="warning"
-                className="text-[10px] font-mono px-2 py-0.5 flex items-center gap-1 shrink-0"
-              >
-                <span className="size-1.5 rounded-full bg-amber-500" />
-                <span>Highest Honor</span>
-              </Badge>
+              <span className="soon font-mono shrink-0">Highest Honor</span>
             ) : (
-              <Badge
-                variant="secondary"
-                className="text-[10px] font-mono px-2 py-0.5 shrink-0"
-              >
+              <span className="inline-flex items-center rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-mono text-secondary-foreground shrink-0">
                 {item.status}
-              </Badge>
+              </span>
             )}
           </div>
 
@@ -200,13 +185,12 @@ function CredentialCard({
           {item.skills && item.skills.length > 0 && (
             <div className="flex flex-wrap gap-1 pt-1 mt-auto">
               {item.skills.map((s) => (
-                <Badge
+                <span
                   key={s}
-                  variant="secondary"
-                  className="text-[10px] font-mono px-2 py-0.5"
+                  className="inline-flex items-center rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-mono text-secondary-foreground"
                 >
                   {s}
-                </Badge>
+                </span>
               ))}
             </div>
           )}
@@ -217,9 +201,9 @@ function CredentialCard({
       <button
         type="button"
         onClick={() => onOpenCert(item, activePhotoIdx)}
-        className="w-full py-2.5 px-4 bg-muted/25 hover:bg-muted/60 text-xs font-mono font-medium text-foreground flex items-center justify-center gap-2 border-t border-border transition-colors"
+        className="w-full min-h-11 py-2.5 px-4 bg-muted/25 hover:bg-muted/60 text-xs font-mono font-medium text-foreground flex items-center justify-center gap-2 border-t border-border transition-[background-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97] cursor-pointer"
       >
-        <BadgeCheck size={14} className="text-emerald-500 shrink-0" />
+        <BadgeCheck size={15} strokeWidth={1.5} className="text-muted-foreground shrink-0" />
         <span>
           {gallery.length > 1
             ? `Inspect Proof Gallery (${gallery.length} Frames)`
@@ -237,6 +221,7 @@ interface EducationProps {
 export function Education({ previewMode = false }: EducationProps) {
   const [activeCert, setActiveCert] = useState<Credential | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
   const visibleCredentials = previewMode
     ? featuredCredentials.slice(0, 2)
     : featuredCredentials;
@@ -298,23 +283,19 @@ export function Education({ previewMode = false }: EducationProps) {
 
   return (
     <>
-      <motion.section
+      <section
         id="education"
         className="py-12 sm:py-16"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        variants={fadeInUp}
       >
         <div className="flex flex-col gap-8">
           {/* Section Header */}
           <div className="flex flex-col gap-2">
             <div className="flex items-baseline justify-between gap-4 flex-wrap">
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground text-balance">
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
                 {previewMode ? "Verified Credentials & Proofs" : "Credentials, Honors & Education"}
               </h2>
               <span className="text-xs font-mono tabular-nums text-muted-foreground flex items-center gap-1.5">
-                <FileCheck size={13} className="text-emerald-500" />
+                <FileCheck size={14} strokeWidth={1.5} className="text-muted-foreground" />
                 <span>
                   {previewMode
                     ? "02 OF 04 PROOFS"
@@ -351,12 +332,13 @@ export function Education({ previewMode = false }: EducationProps) {
                   Includes OWWA SPRS Certificate, Davao HackEstate 2025, BSIT Degree & SSC Senator roles
                 </p>
               </div>
-              <Button asChild variant="outline" size="sm" className="rounded-full font-mono text-xs gap-1.5 shrink-0">
-                <Link href="/credentials">
-                  <span>Inspect All Credentials (04)</span>
-                  <ArrowUpRight size={14} />
-                </Link>
-              </Button>
+              <Link
+                href="/credentials"
+                className="btn btn-light h-10 px-4 text-xs font-mono shrink-0"
+              >
+                <span>Inspect All Credentials (04)</span>
+                <ArrowUpRight size={15} strokeWidth={1.5} />
+              </Link>
             </div>
           ) : (
             /* Two Column Layout: Academic Degree & Student Leadership */
@@ -407,7 +389,7 @@ export function Education({ previewMode = false }: EducationProps) {
                           </p>
                         )}
                         {edu.status && (
-                          <p className="text-[11px] font-mono tabular-nums text-emerald-600 dark:text-emerald-400">
+                          <p className="text-[11px] font-mono tabular-nums text-[var(--green-ink)]">
                             {edu.status}
                           </p>
                         )}
@@ -479,7 +461,7 @@ export function Education({ previewMode = false }: EducationProps) {
             </div>
           )}
         </div>
-      </motion.section>
+      </section>
 
       {/* Certificate & Presentation Multi-Slide High-Resolution Lightbox Modal */}
       <AnimatePresence>
@@ -489,10 +471,10 @@ export function Education({ previewMode = false }: EducationProps) {
             onClick={() => setActiveCert(null)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.96 }}
-              transition={{ duration: 0.2 }}
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+              animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+              transition={shouldReduceMotion ? { duration: 0.15 } : { type: "spring", duration: 0.3, bounce: 0 }}
               className="relative w-full max-w-4xl max-h-[92vh] flex flex-col items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
@@ -517,15 +499,15 @@ export function Education({ previewMode = false }: EducationProps) {
 
                 <button
                   onClick={() => setActiveCert(null)}
-                  className="min-h-[40px] min-w-[40px] size-10 rounded-full bg-zinc-800/90 text-zinc-200 hover:text-white hover:bg-zinc-700 transition-colors border border-white/10 shrink-0 flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
+                  className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-800/90 text-zinc-200 hover:text-white hover:bg-zinc-700 transition-colors border border-white/10 shrink-0 flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
                   aria-label="Close modal"
                 >
-                  <X size={18} />
+                  <X size={18} strokeWidth={1.5} />
                 </button>
               </div>
 
               {/* Main Image Stage with Left / Right Arrows */}
-              <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[72vh] rounded-[12px] overflow-hidden border border-white/15 bg-black/60 flex items-center justify-center">
+              <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[72vh] rounded-[12px] overflow-hidden border border-white/15 bg-black/60 flex items-center justify-center image-outline">
                 {gallery.length > 1 && (
                   <button
                     onClick={handlePrevSlide}
@@ -538,10 +520,10 @@ export function Education({ previewMode = false }: EducationProps) {
 
                 <motion.div
                   key={activeSlide}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
+                  initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+                  exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+                  transition={shouldReduceMotion ? { duration: 0.12 } : { duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
                   className="relative w-full h-full flex items-center justify-center"
                 >
                   <Image
@@ -579,12 +561,12 @@ export function Education({ previewMode = false }: EducationProps) {
                 </div>
 
                 {gallery.length > 1 && (
-                  <div className="flex items-center gap-1.5 shrink-0">
+                  <div className="flex items-center gap-2 shrink-0">
                     {gallery.map((_, idx) => (
                       <button
                         key={idx}
                         onClick={() => setActiveSlide(idx)}
-                        className={`h-1.5 transition-[width,background-color] rounded-full ${
+                        className={`relative h-1.5 transition-[width,background-color] rounded-full after:absolute after:-inset-3 after:content-[''] ${
                           activeSlide === idx
                             ? "w-6 bg-white"
                             : "w-1.5 bg-zinc-600 hover:bg-zinc-400"

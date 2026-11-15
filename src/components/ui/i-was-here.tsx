@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -38,6 +38,7 @@ export function IWasHereButton() {
   const [likes, setLikes] = useState<number | null>(null);
   const userClicks = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const [particles, setParticles] = useState<FloatingParticle[]>([]);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     let isMounted = true;
@@ -114,15 +115,15 @@ export function IWasHereButton() {
 
       <div className="relative shrink-0">
         <AnimatePresence>
-          {particles.map((particle) => (
+          {!shouldReduceMotion && particles.map((particle) => (
             <motion.span
               key={particle.id}
               initial={{ opacity: 1, y: 0, x: particle.x, scale: 0.8 }}
               animate={{ opacity: 0, y: -38, scale: 1.15 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.65, ease: "easeOut" }}
+              transition={{ duration: 0.65, ease: [0.23, 1, 0.32, 1] }}
               onAnimationComplete={() => removeParticle(particle.id)}
-              className="absolute -top-3 left-1/2 -translate-x-1/2 pointer-events-none text-[11px] font-bold font-mono text-emerald-500 select-none z-30 whitespace-nowrap"
+              className="absolute -top-3 left-1/2 -translate-x-1/2 pointer-events-none text-[11px] font-medium font-mono text-foreground select-none z-30 whitespace-nowrap"
             >
               {particle.text}
             </motion.span>
@@ -134,10 +135,10 @@ export function IWasHereButton() {
           onClick={handleClick}
           disabled={isMaxReached}
           className={cn(
-            "h-8 px-3 rounded-[9px] border text-xs font-mono font-medium inline-flex items-center gap-1.5 transition-colors cursor-pointer",
+            "relative h-8 px-3 rounded-[10px] border text-xs font-medium inline-flex items-center gap-1.5 transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] cursor-pointer after:absolute after:-inset-1.5 after:content-['']",
             isMaxReached
-              ? "bg-rose-500/10 border-rose-500/30 text-rose-600 dark:text-rose-400 cursor-default"
-              : "bg-background hover:bg-muted border-border text-foreground"
+              ? "bg-muted border-border text-muted-foreground cursor-default"
+              : "bg-background hover:bg-muted border-border text-foreground active:scale-[0.96]"
           )}
           title={
             isMaxReached
@@ -146,12 +147,11 @@ export function IWasHereButton() {
           }
         >
           <Heart
-            size={13}
+            size={14}
+            strokeWidth={1.5}
             className={cn(
               "transition-colors",
-              userClicks > 0
-                ? "text-rose-500 fill-rose-500"
-                : "text-muted-foreground"
+              userClicks > 0 ? "text-foreground fill-current" : "text-muted-foreground"
             )}
           />
           <span>{isMaxReached ? "Thanks!" : "I was here"}</span>

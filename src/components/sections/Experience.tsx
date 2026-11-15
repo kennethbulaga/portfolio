@@ -2,11 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ArrowUpRight, Terminal } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { experience } from "@/data/portfolio";
-import { fadeInUp } from "@/components/motion";
 
 interface ExperienceProps {
   previewMode?: boolean;
@@ -14,28 +11,24 @@ interface ExperienceProps {
 
 export function Experience({ previewMode = false }: ExperienceProps) {
   return (
-    <motion.section
+    <section
       id="work-experience"
       className="py-12 sm:py-16"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={fadeInUp}
     >
       <div className="flex flex-col gap-8">
         {/* Section Header */}
         <div className="flex flex-col gap-2">
           <div className="flex items-baseline justify-between gap-4 flex-wrap">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground text-balance">
+            <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
               Work Experience
             </h2>
             {previewMode ? (
               <Link
                 href="/experience"
-                className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
+                className="relative inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors after:absolute after:-inset-2 after:content-['']"
               >
                 <span>Full experience dossier</span>
-                <ArrowUpRight size={13} />
+                <ArrowUpRight size={14} strokeWidth={1.5} />
               </Link>
             ) : (
               <span className="text-xs font-mono tabular-nums text-muted-foreground">
@@ -76,7 +69,7 @@ export function Experience({ previewMode = false }: ExperienceProps) {
                     )}
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="font-bold text-foreground text-base sm:text-lg text-balance leading-snug">
+                        <h3 className="font-semibold text-foreground text-base sm:text-lg text-balance leading-snug">
                           {exp.organization}
                         </h3>
                         {exp.link && (
@@ -84,10 +77,10 @@ export function Experience({ previewMode = false }: ExperienceProps) {
                             href={exp.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
+                            className="relative inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors after:absolute after:-inset-2 after:content-['']"
                             aria-label={`Visit ${exp.organization}`}
                           >
-                            <ArrowUpRight size={14} />
+                            <ArrowUpRight size={15} strokeWidth={1.5} />
                           </a>
                         )}
                       </div>
@@ -113,8 +106,9 @@ export function Experience({ previewMode = false }: ExperienceProps) {
                         className="text-xs sm:text-sm text-muted-foreground leading-relaxed flex items-start gap-2.5 text-pretty"
                       >
                         <Terminal
-                          size={13}
-                          className="text-emerald-500 mt-1 shrink-0"
+                          size={14}
+                          strokeWidth={1.5}
+                          className="text-muted-foreground mt-1 shrink-0"
                         />
                         <span>{hl}</span>
                       </li>
@@ -126,13 +120,12 @@ export function Experience({ previewMode = false }: ExperienceProps) {
                 {exp.techStack && exp.techStack.length > 0 && (
                   <div className="flex flex-wrap gap-1.5 pl-0 sm:pl-[54px] pt-1">
                     {exp.techStack.map((tech) => (
-                      <Badge
+                      <span
                         key={tech}
-                        variant="secondary"
-                        className="text-[10px] font-mono px-2 py-0.5"
+                        className="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground"
                       >
                         {tech}
-                      </Badge>
+                      </span>
                     ))}
                   </div>
                 )}
@@ -141,6 +134,6 @@ export function Experience({ previewMode = false }: ExperienceProps) {
           })}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }

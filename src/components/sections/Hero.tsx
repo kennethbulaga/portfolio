@@ -2,20 +2,21 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { MapPin, Mail, ArrowDown, FileText, ArrowUpRight, X, ZoomIn } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
+import { MapPin, ArrowDown, Copy, Check, X, ArrowUpRight } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   personalInfo,
   heroHeadline,
   institutionalTrust,
-  resumePath,
 } from "@/data/portfolio";
+import { useCopyEmail } from "@/hooks/use-copy-email";
 import { PixelName } from "@/components/ui/pixel-name";
 import { TechMarquee } from "./TechMarquee";
 
 export function Hero() {
   const [isAvatarZoomed, setIsAvatarZoomed] = useState(false);
+  const { copied, copyEmail } = useCopyEmail(personalInfo.email);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (!isAvatarZoomed) return;
@@ -32,33 +33,29 @@ export function Hero() {
 
   const scrollToProjects = () => {
     const el = document.querySelector("#projects");
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) el.scrollIntoView({ behavior: shouldReduceMotion ? "auto" : "smooth" });
   };
 
   return (
     <section id="about" className="pt-2 sm:pt-4 flex flex-col gap-8">
       {/* Top Identity Row & Availability Status Pill */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
-        <div className="flex items-center gap-3.5">
+        <div className="flex items-center gap-4">
           {personalInfo.avatar && (
             <button
               type="button"
               onClick={() => setIsAvatarZoomed(true)}
-              className="relative size-14 rounded-full overflow-hidden bg-muted border border-border shrink-0 image-outline cursor-zoom-in group transition-transform active:scale-95 focus-visible:ring-2 focus-visible:ring-ring"
-              aria-label="View portrait photo in full resolution"
-              title="Click to view portrait photo"
+              aria-label="Enlarge portrait"
+              className="relative size-20 sm:size-24 rounded-[18px] overflow-hidden bg-muted border border-border shrink-0 image-outline cursor-zoom-in group transition-[transform,box-shadow] duration-150 ease-[var(--ease-out)] active:scale-[0.97] hover:ring-2 hover:ring-ring/40 focus-visible:ring-2 focus-visible:ring-ring"
             >
               <Image
                 src={personalInfo.avatar}
                 alt={personalInfo.name}
                 fill
-                sizes="56px"
+                sizes="(max-width: 640px) 80px, 96px"
                 priority
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                className="object-cover object-[50%_18%] scale-[1.15] transition-transform duration-150 ease-[var(--ease-out)] group-hover:scale-[1.18]"
               />
-              <span className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white">
-                <ZoomIn size={16} />
-              </span>
             </button>
           )}
           <div className="flex flex-col">
@@ -71,8 +68,8 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#2f9e5b]/30 bg-[#2f9e5b]/10 text-xs font-medium text-[#1e6b3a] dark:text-[#5fd08a]">
-          <span className="size-2 rounded-full bg-[#2f9e5b]" />
+        <div className="nav-pill px-3 py-1.5 text-xs font-medium">
+          <span className="size-2 rounded-full bg-[var(--green)]" />
           <span>{personalInfo.availability.message}</span>
         </div>
       </div>
@@ -89,41 +86,42 @@ export function Hero() {
           {personalInfo.bio}
         </p>
 
-        {/* Location & Direct Email Meta */}
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-muted-foreground pt-0.5">
+        {/* Location Meta */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground pt-0.5">
           <span className="inline-flex items-center gap-1.5">
-            <MapPin size={14} className="text-muted-foreground shrink-0" />
+            <MapPin size={15} strokeWidth={1.5} className="text-muted-foreground shrink-0" />
             <span>{personalInfo.location}</span>
           </span>
-          <a
-            href={`mailto:${personalInfo.email}`}
-            className="inline-flex items-center gap-1.5 hover:text-foreground transition-colors underline decoration-border hover:decoration-foreground"
-          >
-            <Mail size={14} className="text-muted-foreground shrink-0" />
-            <span className="font-mono">{personalInfo.email}</span>
-          </a>
         </div>
 
         {/* Tactile Pill Action Bar */}
         <div className="pt-1 flex flex-wrap items-center gap-2.5">
-          <Button
+          <button
+            type="button"
             onClick={scrollToProjects}
-            className="h-10 px-5 rounded-full gap-2 text-xs font-medium cursor-pointer"
+            className="btn btn-dark h-11 px-5 text-xs font-medium cursor-pointer"
           >
             <span>Inspect Production Systems</span>
-            <ArrowDown size={14} />
-          </Button>
+            <ArrowDown size={16} strokeWidth={1.5} />
+          </button>
 
-          <Button
-            asChild
-            variant="outline"
-            className="h-10 px-4 rounded-full gap-2 text-xs font-medium bg-card hover:bg-muted"
+          <button
+            type="button"
+            onClick={copyEmail}
+            className="btn btn-light h-11 px-4 text-xs font-medium cursor-pointer"
           >
-            <a href={resumePath} target="_blank" rel="noopener noreferrer">
-              <FileText size={14} className="text-muted-foreground" />
-              <span>Resume PDF</span>
-            </a>
-          </Button>
+            {copied ? (
+              <>
+                <Check size={16} strokeWidth={1.5} className="text-[var(--green-ink)]" />
+                <span className="text-[var(--green-ink)]">Email copied</span>
+              </>
+            ) : (
+              <>
+                <Copy size={16} strokeWidth={1.5} className="text-muted-foreground" />
+                <span>Get in Touch</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
 
@@ -138,8 +136,8 @@ export function Hero() {
 
         <div className="divide-y divide-border border-y border-border">
           {institutionalTrust.map((partner) => {
-            const row = (
-              <div className="py-3.5 px-2 -mx-2 rounded-lg hover:bg-muted/50 transition-colors flex items-center justify-between gap-4 group">
+            const inner = (
+              <div className="py-3.5 px-2.5 -mx-2.5 rounded-[12px] hover:bg-[var(--hover)] active:scale-[0.98] transition-[background-color,transform] duration-150 ease-[var(--ease-out)] flex items-center justify-between gap-4 group">
                 <div className="flex items-center gap-3 min-w-0">
                   <div className="relative size-9 rounded-lg overflow-hidden bg-card border border-border shrink-0 p-1 image-outline">
                     <Image
@@ -160,8 +158,9 @@ export function Hero() {
                   </div>
                 </div>
                 <ArrowUpRight
-                  size={15}
-                  className="text-muted-foreground group-hover:text-foreground transition-colors shrink-0"
+                  size={16}
+                  strokeWidth={1.5}
+                  className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-[color,transform] duration-150 ease-[var(--ease-out)] shrink-0"
                 />
               </div>
             );
@@ -174,10 +173,10 @@ export function Hero() {
                 rel="noopener noreferrer"
                 className="block"
               >
-                {row}
+                {inner}
               </a>
             ) : (
-              <div key={partner.name}>{row}</div>
+              <div key={partner.name}>{inner}</div>
             );
           })}
         </div>
@@ -188,16 +187,32 @@ export function Hero() {
       {/* Avatar High-Resolution Lightbox Modal */}
       <AnimatePresence>
         {isAvatarZoomed && personalInfo.avatar && (
-          <div
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md select-none cursor-zoom-out"
             onClick={() => setIsAvatarZoomed(false)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.94 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.94 }}
-              transition={{ duration: 0.18, ease: "easeOut" }}
-              className="relative aspect-square w-full max-w-[360px] rounded-2xl overflow-hidden border border-white/15 bg-zinc-950 shadow-2xl cursor-default"
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+              animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0.15 }
+                  : { type: "spring", duration: 0.3, bounce: 0 }
+              }
+              drag={shouldReduceMotion ? false : "y"}
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic={{ top: 0, bottom: 0.45 }}
+              onDragEnd={(_, info) => {
+                if (info.offset.y > 90 || info.velocity.y > 400) {
+                  setIsAvatarZoomed(false);
+                }
+              }}
+              className="relative aspect-square w-full max-w-[360px] rounded-[20px] overflow-hidden bg-zinc-950 shadow-[0_24px_60px_oklch(0_0_0/0.55)] cursor-default image-outline"
               onClick={(e) => e.stopPropagation()}
             >
               <Image
@@ -206,19 +221,19 @@ export function Hero() {
                 fill
                 sizes="360px"
                 priority
-                className="object-cover"
+                className="object-cover pointer-events-none"
               />
 
               <button
                 type="button"
                 onClick={() => setIsAvatarZoomed(false)}
-                className="absolute top-3 right-3 size-8 rounded-full bg-black/60 hover:bg-black/85 text-white/90 hover:text-white transition-colors border border-white/20 flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-ring"
+                className="absolute top-3 right-3 z-10 min-h-11 min-w-11 size-11 rounded-full bg-black/55 hover:bg-black/75 backdrop-blur-md text-white transition-[background-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] border border-[oklch(1_0_0/0.14)] flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label="Close photo preview"
               >
-                <X size={16} />
+                <X size={18} strokeWidth={1.5} />
               </button>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </section>

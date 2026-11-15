@@ -6,14 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "resume:build": "tectonic resume/kenneth-bulaga-resume.tex --outdir public && node -e \"require('fs').renameSync('public/kenneth-bulaga-resume.pdf','public/Kenneth_Bulaga_Resume.pdf')\""
   },
   "dependencies": {
-    "@radix-ui/react-slot": "^1.2.4",
     "@tailwindcss/postcss": "^4.3.3",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.38.3",
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.26.2",
     "lucide-react": "^0.562.0",
