@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Terminal } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { experience } from "@/data/portfolio";
 
 interface ExperienceProps {
@@ -68,22 +68,20 @@ export function Experience({ previewMode = false }: ExperienceProps) {
                       </div>
                     )}
                     <div className="min-w-0">
-                      <div className="flex items-center gap-2 flex-wrap">
-                        <h3 className="font-semibold text-foreground text-base sm:text-lg text-balance leading-snug">
-                          {exp.organization}
-                        </h3>
+                      <h3 className="font-semibold text-foreground text-base sm:text-lg text-balance leading-snug">
+                        {exp.organization}
                         {exp.link && (
                           <a
                             href={exp.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="relative inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors after:absolute after:-inset-2 after:content-['']"
+                            className="relative inline-flex items-center align-middle ml-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors after:absolute after:-inset-2 after:content-['']"
                             aria-label={`Visit ${exp.organization}`}
                           >
                             <ArrowUpRight size={15} strokeWidth={1.5} />
                           </a>
                         )}
-                      </div>
+                      </h3>
                       <p className="text-xs sm:text-sm font-mono text-foreground/80 mt-0.5">
                         {exp.role}
                       </p>
@@ -105,10 +103,9 @@ export function Experience({ previewMode = false }: ExperienceProps) {
                         key={i}
                         className="text-xs sm:text-sm text-muted-foreground leading-relaxed flex items-start gap-2.5 text-pretty"
                       >
-                        <Terminal
-                          size={14}
-                          strokeWidth={1.5}
-                          className="text-muted-foreground mt-1 shrink-0"
+                        <span
+                          aria-hidden="true"
+                          className="size-1.5 rounded-full bg-muted-foreground/60 mt-2 shrink-0"
                         />
                         <span>{hl}</span>
                       </li>

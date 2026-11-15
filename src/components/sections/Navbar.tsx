@@ -126,7 +126,7 @@ export function Navbar() {
             <Link
               href="/"
               aria-label={personalInfo.name}
-              className="relative inline-flex items-center h-7 min-w-[26px] text-[17px] font-semibold tracking-[-0.01em] text-foreground truncate"
+              className="relative inline-flex items-center h-7 text-[16px] font-semibold tracking-[-0.01em] text-foreground whitespace-nowrap"
             >
               <Image
                 src={personalInfo.logo.dark}
@@ -134,14 +134,14 @@ export function Navbar() {
                 width={26}
                 height={26}
                 className={cn(
-                  "size-6.5 rounded-[6px] shrink-0 image-outline transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none",
+                  "absolute left-0 size-6.5 rounded-[6px] shrink-0 image-outline transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none",
                   showMobileName ? "opacity-0 -translate-y-1.5 pointer-events-none" : "opacity-100 translate-y-0"
                 )}
               />
               <span
                 aria-hidden={!showMobileName}
                 className={cn(
-                  "absolute left-0 truncate transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none",
+                  "truncate transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none",
                   showMobileName ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1.5 pointer-events-none"
                 )}
               >

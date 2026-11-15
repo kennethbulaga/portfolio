@@ -312,7 +312,7 @@ export const flagshipProjects: FlagshipProject[] = [
       "Report Generation Time": "<1s (1-Click)",
     },
     highlights: [
-      "On-Demand Aggregation: Aggregates regional survey metrics on the fly in Next.js Server Actions from JSONB survey snapshots in under 100ms without saving redundant table rows.",
+      "On-Demand Aggregation: Aggregates regional survey metrics on the fly in Next.js Server Actions from JSONB survey snapshots without saving redundant table rows.",
       "In-Memory Excel Engine: Built an in-memory ExcelJS export engine generating multi-tab workbooks with formulas and audit styling for ARTA/CSC reporting requirements, reducing report generation time to under 1 second.",
       "Input Verification: Built live client-side balance checks with Zod validation so sub-category tallies always match respondent totals before submission.",
     ],
@@ -479,7 +479,7 @@ export const featuredCredentials: Credential[] = [
     status: "Active Production",
     period: "May 14, 2026",
     description:
-      "Awarded an official Certificate of Recognition from OWWA Region XI for developing and deploying the CSMR system, consolidating 4,632+ citizen feedback records across 10 regional units into multi-tab workbooks for ARTA/CSC reporting requirements.",
+      "Official Certificate of Recognition from OWWA Region XI for deploying the CSMR portal across 10 regional units for ARTA/CSC reporting.",
     skills: ["Government IT", "Feedback Analytics", "Compliance Reporting", "Full-Stack Web"],
     image: "/certificates/ojt/csmr.webp",
     gallery: [
@@ -517,7 +517,7 @@ export const featuredCredentials: Credential[] = [
     status: "Official Recognition",
     period: "May 14, 2026",
     description:
-      "Awarded an official Certificate of Recognition for developing SPRS as the sole developer during my internship, built to help regional units track monthly performance targets and automate accomplishment reporting.",
+      "Official Certificate of Recognition for building SPRS as sole developer to track monthly regional KPI targets and accomplishment reports.",
     skills: ["Government IT Systems", "Statistical Reporting", "Performance KPIs", "Data Management"],
     image: "/certificates/ojt/sprs.webp",
     gallery: [
@@ -612,10 +612,10 @@ export const experience: Experience[] = [
     period: "Aug 2025 – Present",
     highlights: [
       `Built and deployed JP Connect, a paid student services and exam scheduling portal with ${jpConnectMetrics.accounts} authenticated profiles (${jpConnectMetrics.students} students and ${jpConnectMetrics.faculty} instructors) across 9 academic departments.`,
-      "Implemented an interval-sweep conflict check that validates 781 exam rows for room, proctor, and self-proctor overlaps (0 conflicts) for the 2026–2027 1st Semester Finals schedule, replacing manual cross-checking of departmental Excel files.",
+      "Implemented an interval-sweep validator checking 781 exam slots for room, proctor, and self-proctor conflicts (0 overlaps), replacing manual Excel cross-checks.",
       "Automated end-of-semester clearance by reconciling event attendee ID uploads against 14,778 registrar records in under 5 seconds, auto-flagging absences and calculating SSC sanctions.",
-      "Enforced data isolation across 6 user roles with PostgreSQL Row-Level Security and Next.js middleware, so students on shared lab computers can only see their own records.",
-      `Built a sanctions and payments module for the Supreme Student Council that links clearance to settled sanctions and logs every payment and expense, recording ${jpConnectMetrics.sanctionsCollected} in collections over one clearance period (${jpConnectMetrics.sanctionsPeriod}).`,
+      "Enforced data isolation across 6 user roles using PostgreSQL Row-Level Security and Next.js middleware to restrict shared-terminal access.",
+      `Built an SSC sanctions and payments ledger linking clearance status to settled balances, tracking ${jpConnectMetrics.sanctionsCollected} in collections (${jpConnectMetrics.sanctionsPeriod}).`,
     ],
     techStack: ["Next.js 16", "TypeScript", "Supabase", "PostgreSQL RLS", "Tailwind CSS", "pg_cron"],
     logo: "/logos/school-logo-nobg.webp",
@@ -627,10 +627,10 @@ export const experience: Experience[] = [
     period: "Jan 2026 – May 2026",
     highlights: [
       "Developed the Client Satisfaction Measurement Report (CSMR) system, consolidating 4,632+ citizen feedback records and 72 monthly report submissions from 10 regional units.",
-      "Replaced a 4-day manual spreadsheet consolidation with on-demand report generation that runs in under 1 second, using Next.js Server Actions for server-side aggregation.",
-      "Built an ExcelJS export that generates multi-tab workbooks with formulas and formatting required for ARTA/CSC reporting, so staff no longer rebuild reports by hand.",
-      "Built the Statistical Performance Reporting System (SPRS) as the sole developer, tracking monthly KPI targets and accomplishment reports, with PostgreSQL constraints and Zod validation on every submission.",
-      "Received two official Certificates of Recognition from OWWA Region XI (CSMR and SPRS) and presented both systems to regional staff.",
+      "Replaced a 4-day manual spreadsheet consolidation using on-demand server-side aggregation in Next.js Server Actions.",
+      "Engineered an ExcelJS export pipeline generating multi-tab workbooks with embedded formulas and ARTA/CSC audit formatting.",
+      "Built the Statistical Performance Reporting System (SPRS) as sole developer, enforcing monthly KPI validation via PostgreSQL constraints and Zod.",
+      "Delivered live system walkthroughs and technical handoff of CSMR and SPRS to OWWA Region XI regional staff, earning two official Certificates of Recognition.",
     ],
     techStack: ["Next.js Server Actions", "PostgreSQL", "Supabase SSR", "Zod", "ExcelJS", "TypeScript", "Recharts"],
     logo: "/logos/owwa-logo.webp",

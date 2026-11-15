@@ -22,9 +22,9 @@ export function PixelName({ text, className }: PixelNameProps) {
     document.fonts.ready.then(() => {
       if (cancelled || !wrapRef.current) return;
       const rect = el.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
       const w = Math.ceil(rect.width) + 4;
       const h = Math.ceil(rect.height) + 4;
-      if (!w || !h) return;
 
       const dpr = window.devicePixelRatio || 1;
       const style = getComputedStyle(el);
@@ -68,6 +68,11 @@ export function PixelName({ text, className }: PixelNameProps) {
         const sh = Math.max(1, Math.round(h / block));
         small.width = sw;
         small.height = sh;
+        if (small.width <= 0 || small.height <= 0 || src.width <= 0 || src.height <= 0) {
+          canvas.remove();
+          el.classList.remove("is-pixel");
+          return;
+        }
         smCtx.imageSmoothingEnabled = false;
         smCtx.clearRect(0, 0, sw, sh);
         smCtx.drawImage(src, 0, 0, sw, sh);

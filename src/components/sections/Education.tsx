@@ -84,7 +84,7 @@ function CredentialCard({
 
             {/* Prev / Next Arrow Overlay for Multiple Photos */}
             {gallery.length > 1 && (
-              <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-20 opacity-0 group-hover/img:opacity-100 transition-opacity">
+              <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-20 opacity-100 sm:opacity-0 sm:group-hover/img:opacity-100 transition-opacity">
                 <button
                   type="button"
                   onClick={(e) => {

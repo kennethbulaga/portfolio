@@ -21,7 +21,7 @@ export default function ExperiencePage() {
         id="main-content"
         className="flex-1 min-w-0 px-4 sm:px-6 lg:px-10 xl:px-14 py-6 sm:py-10 lg:py-12"
       >
-        <div className="max-w-[980px] mx-auto flex flex-col gap-8">
+        <div className="max-w-[980px] mx-auto flex flex-col gap-2 sm:gap-4 [&>section]:pt-2 [&>section]:sm:pt-4">
           <div className="pt-2 sm:pt-4">
             <Link
               href="/"

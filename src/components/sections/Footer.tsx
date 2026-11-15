@@ -35,7 +35,7 @@ export function Footer() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-dark h-10 px-4 text-xs"
+            className="btn btn-dark h-11 px-4 text-xs"
           >
             <Mail size={16} strokeWidth={1.5} />
             <span>Open in Gmail</span>
@@ -44,7 +44,7 @@ export function Footer() {
           <button
             type="button"
             onClick={copyEmail}
-            className="btn btn-light h-10 px-4 text-xs cursor-pointer"
+            className="btn btn-light h-11 px-4 text-xs cursor-pointer"
           >
             {copied ? (
               <>
