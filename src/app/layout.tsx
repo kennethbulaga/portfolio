@@ -21,12 +21,15 @@ const newsreaderSerif = Newsreader({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kennethbulaga.dev"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
-    default: "Kenneth Bulaga — Full-stack Developer",
+    default: "Kenneth Bulaga — Full-Stack Developer",
     template: "%s | Kenneth Bulaga",
   },
   description:
-    "Full-stack developer building scalable web applications, internal tools, and automated workflows with Next.js, TypeScript, and PostgreSQL.",
+    "Full-Stack Developer shipping JP Connect (7,207 profiles), JP Intrams, and OWWA Region XI CSMR & SPRS reporting platforms with Next.js, TypeScript, and PostgreSQL.",
   keywords: [
     "Kenneth Bulaga",
     "Full-stack Developer",
@@ -49,16 +52,25 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://kennethbulaga.dev",
-    title: "Kenneth Bulaga — Full-stack Developer",
+    title: "Kenneth Bulaga — Full-Stack Developer",
     description:
-      "Full-stack developer building practical web apps, internal tools, and automated workflows with Next.js & TypeScript.",
+      "Full-Stack Developer shipping JP Connect (7,207 profiles), JP Intrams, and OWWA Region XI CSMR & SPRS reporting platforms with Next.js, TypeScript, and PostgreSQL.",
     siteName: "Kenneth Bulaga Portfolio",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Kenneth Bulaga — Full-Stack Developer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kenneth Bulaga — Full-stack Developer",
+    title: "Kenneth Bulaga — Full-Stack Developer",
     description:
-      "Full-stack developer building practical web apps, internal tools, and automated workflows with Next.js & TypeScript.",
+      "Full-Stack Developer shipping JP Connect (7,207 profiles), JP Intrams, and OWWA Region XI CSMR & SPRS reporting platforms with Next.js, TypeScript, and PostgreSQL.",
+    images: ["/opengraph-image.png"],
     creator: "@kenzodev69",
   },
   icons: {
