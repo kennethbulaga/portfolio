@@ -178,11 +178,11 @@ export const heroLedger = [
   {
     value: jpConnectMetrics.accounts,
     label: "Authenticated Profiles",
-    context: "JP Connect · 7,078 Students & 126 Instructors",
+    context: "7,078 Students · 126 Faculty",
   },
   {
     value: jpConnectMetrics.sanctionsCollected,
-    label: "Tracked SSC Clearance Ledger",
+    label: "SSC Clearance Ledger",
     context: "1 Clearance Period (Dec 2025 – Jan 2026)",
   },
   {

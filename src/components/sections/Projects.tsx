@@ -589,7 +589,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                 key={item.label}
                 className={`p-3 sm:p-5 flex flex-col gap-1 border-border ${
                   idx % 2 === 1 ? "border-l" : ""
-                } ${idx >= 2 ? "max-@xl:border-t @xl:border-l" : ""}`}
+                } ${idx >= 2 ? "border-t @xl:border-t-0 @xl:border-l" : ""}`}
               >
                 <p className="text-xl sm:text-2xl font-semibold font-mono tabular-nums tracking-[-0.03em] text-foreground leading-none">
                   {item.value}
