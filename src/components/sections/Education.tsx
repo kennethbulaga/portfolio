@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -42,6 +42,7 @@ function CredentialCard({
   onOpenCert: (cert: Credential, slideIdx?: number) => void;
 }) {
   const [activePhotoIdx, setActivePhotoIdx] = useState(0);
+  const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
   const CategoryIcon = categoryIconMap[item.category] || BadgeCheck;
 
   const gallery =
@@ -54,162 +55,145 @@ function CredentialCard({
   const activeImage = gallery[activePhotoIdx]?.image || item.image;
 
   return (
-    <article className="rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 flex flex-col justify-between group">
-      <div className="flex flex-col">
-        {/* Flush Certificate / Presentation Photo Preview */}
-        {activeImage && (
-          <div
-            onClick={() => onOpenCert(item, activePhotoIdx)}
-            className="relative aspect-[16/10] w-full overflow-hidden border-b border-border bg-muted/20 cursor-zoom-in group/img image-outline"
-            title="Click to inspect full resolution"
-          >
-            {gallery.map((g, idx) => (
-              <div
-                key={g.image}
-                className={`absolute inset-0 transition-opacity duration-200 ${
-                  activePhotoIdx === idx
-                    ? "opacity-100 z-1"
-                    : "opacity-0 z-0 pointer-events-none"
-                }`}
-              >
-                <Image
-                  src={g.image}
-                  alt={`${item.title} — ${g.label}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 450px"
-                  className="object-cover transition-transform duration-200 ease-[var(--ease-out)] group-hover/img:scale-[1.02]"
-                />
-              </div>
-            ))}
-
-            {/* Prev / Next Arrow Overlay for Multiple Photos */}
-            {gallery.length > 1 && (
-              <div className="absolute inset-x-2 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none z-20 opacity-100 sm:opacity-0 sm:group-hover/img:opacity-100 transition-opacity">
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActivePhotoIdx((prev) =>
-                      prev > 0 ? prev - 1 : gallery.length - 1
-                    );
-                  }}
-                  className="pointer-events-auto min-h-11 min-w-11 size-11 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
-                  aria-label="Previous photo"
-                >
-                  <ChevronLeft size={16} strokeWidth={1.5} />
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActivePhotoIdx((prev) =>
-                      prev < gallery.length - 1 ? prev + 1 : 0
-                    );
-                  }}
-                  className="pointer-events-auto min-h-11 min-w-11 size-11 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white flex items-center justify-center border border-white/20 transition-transform active:scale-[0.96] focus-visible:ring-2 focus-visible:ring-ring"
-                  aria-label="Next photo"
-                >
-                  <ChevronRight size={16} strokeWidth={1.5} />
-                </button>
-              </div>
-            )}
-
-            {/* Multi-Photo Indicator Pill Overlay */}
-            {gallery.length > 1 && (
-              <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-zinc-950/80 px-2 py-0.5 rounded-full border border-white/15 text-[10px] font-mono tabular-nums text-white/95">
-                <span>
-                  {String(activePhotoIdx + 1).padStart(2, "0")}/
-                  {String(gallery.length).padStart(2, "0")}
-                </span>
-              </div>
-            )}
-
-            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
-              <div className="px-2.5 py-1 rounded-full bg-zinc-950/90 text-white text-[11px] font-mono flex items-center gap-1.5 border border-white/20">
-                <ZoomIn size={12} />
-                <span>Inspect Proof</span>
-              </div>
+    <article className="rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 flex flex-col h-full group">
+      {/* Flush Certificate / Presentation Photo Preview */}
+      {activeImage && (
+        <div
+          onClick={() => onOpenCert(item, activePhotoIdx)}
+          onTouchStart={(e) => {
+            const t = e.touches[0];
+            swipeStartRef.current = { x: t.clientX, y: t.clientY };
+          }}
+          onTouchEnd={(e) => {
+            if (!swipeStartRef.current || gallery.length <= 1) return;
+            const t = e.changedTouches[0];
+            const dx = t.clientX - swipeStartRef.current.x;
+            const dy = t.clientY - swipeStartRef.current.y;
+            swipeStartRef.current = null;
+            if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+              e.stopPropagation();
+              setActivePhotoIdx((prev) =>
+                dx < 0
+                  ? (prev + 1) % gallery.length
+                  : (prev - 1 + gallery.length) % gallery.length
+              );
+            }
+          }}
+          className="relative aspect-[16/10] w-full overflow-hidden border-b border-border bg-muted/20 cursor-zoom-in group/img image-outline shrink-0 touch-pan-y"
+          title="Click to inspect full resolution"
+        >
+          {gallery.map((g, idx) => (
+            <div
+              key={g.image}
+              className={`absolute inset-0 transition-opacity duration-200 ${
+                activePhotoIdx === idx
+                  ? "opacity-100 z-1"
+                  : "opacity-0 z-0 pointer-events-none"
+              }`}
+            >
+              <Image
+                src={g.image}
+                alt={`${item.title} — ${g.label}`}
+                fill
+                sizes="(max-width: 768px) 100vw, 450px"
+                className="object-cover transition-transform duration-200 ease-[var(--ease-out)] group-hover/img:scale-[1.02]"
+              />
             </div>
-          </div>
-        )}
+          ))}
 
-        {/* Content Area — Heading First (Zero Eyebrow Kicker Above Heading) */}
-        <div className="p-4 sm:p-5 flex flex-col gap-3 flex-1">
-          <div className="flex items-start justify-between gap-2.5">
-            <h4 className="font-semibold text-foreground text-sm sm:text-base leading-snug text-balance">
-              {item.title}
-            </h4>
-            <span className="text-[10px] font-mono tabular-nums text-muted-foreground px-2 py-0.5 rounded-[6px] border border-border bg-background shrink-0">
-              {indexNumber}
-            </span>
-          </div>
-
-          {/* Inline Metadata Row Below Heading */}
-          <div className="flex items-center justify-between gap-2 flex-wrap">
-            <span className="text-[11px] font-mono text-muted-foreground flex items-center gap-1.5">
-              <CategoryIcon size={13} strokeWidth={1.5} className="text-foreground/75 shrink-0" />
-              <span>{item.category}</span>
-            </span>
-
-            {item.status === "Active Production" ? (
-              <span className="nav-pill font-mono shrink-0">
-                <span className="size-1.5 rounded-full bg-[var(--green)]" />
-                <span>Active Production</span>
+          {/* Multi-Photo Indicator Pill Overlay */}
+          {gallery.length > 1 && (
+            <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-zinc-950/80 px-2 py-0.5 rounded-full border border-white/15 text-[10px] font-mono tabular-nums text-white/95">
+              <span>
+                {String(activePhotoIdx + 1).padStart(2, "0")}/
+                {String(gallery.length).padStart(2, "0")}
               </span>
-            ) : item.status === "Highest Honor" ? (
-              <span className="soon font-mono shrink-0">Highest Honor</span>
-            ) : (
-              <span className="inline-flex items-center rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-mono text-secondary-foreground shrink-0">
-                {item.status}
-              </span>
-            )}
-          </div>
-
-          {/* Date and Issuer */}
-          <div className="flex flex-col gap-0.5 text-xs text-muted-foreground pt-0.5 border-t border-border">
-            <div className="flex items-center gap-1.5 font-mono text-xs text-foreground/85 pt-2">
-              <Calendar size={12} className="text-muted-foreground shrink-0" />
-              <span className="tabular-nums">{item.period}</span>
-            </div>
-            <p className="text-[11px] text-muted-foreground leading-snug text-pretty">
-              {item.issuer}
-            </p>
-          </div>
-
-          {/* Description */}
-          <p className="text-xs text-muted-foreground leading-relaxed text-pretty">
-            {item.description}
-          </p>
-
-          {/* Technical Skills / Focus Tags */}
-          {item.skills && item.skills.length > 0 && (
-            <div className="flex flex-wrap gap-1 pt-1 mt-auto">
-              {item.skills.map((s) => (
-                <span
-                  key={s}
-                  className="inline-flex items-center rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-mono text-secondary-foreground"
-                >
-                  {s}
-                </span>
-              ))}
             </div>
           )}
+
+          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
+            <div className="px-2.5 py-1 rounded-full bg-zinc-950/90 text-white text-[11px] font-mono flex items-center gap-1.5 border border-white/20">
+              <ZoomIn size={12} />
+              <span>Inspect Proof</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Content Area — Heading First (Zero Eyebrow Kicker Above Heading) */}
+      <div className="p-4 sm:p-5 flex flex-col gap-3 flex-1">
+        <div className="flex items-start justify-between gap-3">
+          <h4 className="font-semibold text-foreground text-sm sm:text-base leading-snug text-balance">
+            {item.title}
+          </h4>
+          <span className="text-xs font-mono tabular-nums text-muted-foreground shrink-0 pt-0.5">
+            {indexNumber}
+          </span>
+        </div>
+
+        {/* Inline Metadata Row Below Heading */}
+        <div className="flex items-center justify-between gap-2 flex-wrap">
+          <span className="text-[11px] font-mono text-muted-foreground flex items-center gap-1.5">
+            <CategoryIcon size={13} strokeWidth={1.5} className="text-foreground/75 shrink-0" />
+            <span>{item.category}</span>
+          </span>
+
+          {item.status === "Active Production" ? (
+            <span className="nav-pill font-mono shrink-0">
+              <span className="size-1.5 rounded-full bg-[var(--green)]" />
+              <span>Active Production</span>
+            </span>
+          ) : item.status === "Highest Honor" ? (
+            <span className="soon font-mono shrink-0">Highest Honor</span>
+          ) : (
+            <span className="inline-flex items-center rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-mono text-secondary-foreground shrink-0">
+              {item.status}
+            </span>
+          )}
+        </div>
+
+        {/* Date and Issuer */}
+        <div className="flex flex-col gap-0.5 text-xs text-muted-foreground pt-2 border-t border-border">
+          <div className="flex items-center gap-1.5 font-mono text-xs text-foreground/85">
+            <Calendar size={12} className="text-muted-foreground shrink-0" />
+            <span className="tabular-nums">{item.period}</span>
+          </div>
+          <p className="text-[11px] text-muted-foreground leading-snug text-pretty">
+            {item.issuer}
+          </p>
+        </div>
+
+        {/* Description */}
+        <p className="text-xs text-muted-foreground leading-relaxed text-pretty">
+          {item.description}
+        </p>
+
+        {/* Inline Focus Metadata */}
+        {item.skills && item.skills.length > 0 && (
+          <p className="text-[11px] font-mono text-muted-foreground/85 leading-relaxed text-pretty">
+            {item.skills.join(" · ")}
+          </p>
+        )}
+
+        {/* Hairline Footer Action */}
+        <div className="mt-auto pt-3 border-t border-border">
+          <button
+            type="button"
+            onClick={() => onOpenCert(item, activePhotoIdx)}
+            className="w-full min-h-11 sm:min-h-8 py-1 text-xs font-medium text-foreground hover:text-muted-foreground flex items-center justify-between gap-2 transition-colors active:scale-[0.99] cursor-pointer"
+          >
+            <span className="inline-flex items-center gap-1.5">
+              <BadgeCheck size={15} strokeWidth={1.5} className="text-muted-foreground shrink-0" />
+              <span>
+                {gallery.length > 1
+                  ? `Inspect Proof Gallery (${gallery.length} Frames)`
+                  : "Inspect Signed Certificate"}
+              </span>
+            </span>
+            <ArrowUpRight size={14} strokeWidth={1.5} className="text-muted-foreground shrink-0" />
+          </button>
         </div>
       </div>
-
-      {/* Interactive Footer Action */}
-      <button
-        type="button"
-        onClick={() => onOpenCert(item, activePhotoIdx)}
-        className="w-full min-h-11 py-2.5 px-4 bg-muted/25 hover:bg-muted/60 text-xs font-mono font-medium text-foreground flex items-center justify-center gap-2 border-t border-border transition-[background-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97] cursor-pointer"
-      >
-        <BadgeCheck size={15} strokeWidth={1.5} className="text-muted-foreground shrink-0" />
-        <span>
-          {gallery.length > 1
-            ? `Inspect Proof Gallery (${gallery.length} Frames)`
-            : "Inspect Signed Certificate"}
-        </span>
-      </button>
     </article>
   );
 }
@@ -479,15 +463,15 @@ export function Education({ previewMode = false }: EducationProps) {
               className="relative w-full max-w-4xl max-h-[92vh] flex flex-col items-center justify-center"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header Floating Action Bar */}
+              {/* Header Control Bar */}
               <div className="w-full flex items-center justify-between pb-3 text-white">
                 <div className="flex flex-col gap-0.5 min-w-0 pr-4">
-                  <div className="flex items-center gap-2 flex-wrap">
+                  <div className="flex items-center gap-2.5 flex-wrap">
                     <p className="text-xs sm:text-base font-semibold text-balance leading-snug">
                       {activeCert.title}
                     </p>
                     {gallery.length > 1 && (
-                      <span className="text-[10px] font-mono tabular-nums px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700 shrink-0">
+                      <span className="text-xs font-mono tabular-nums text-zinc-400 shrink-0">
                         {String(activeSlide + 1).padStart(2, "0")} /{" "}
                         {String(gallery.length).padStart(2, "0")}
                       </span>
@@ -500,7 +484,7 @@ export function Education({ previewMode = false }: EducationProps) {
 
                 <button
                   onClick={() => setActiveCert(null)}
-                  className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-800/90 text-zinc-200 hover:text-white hover:bg-zinc-700 transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] border border-white/10 shrink-0 flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
+                  className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-900/90 text-zinc-200 hover:text-white hover:bg-zinc-800 transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] border border-white/15 shrink-0 flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
                   aria-label="Close modal"
                 >
                   <X size={18} strokeWidth={1.5} />
@@ -508,7 +492,7 @@ export function Education({ previewMode = false }: EducationProps) {
               </div>
 
               {/* Main Image Stage with Left / Right Arrows */}
-              <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[72vh] rounded-[12px] overflow-hidden border border-white/15 bg-black/60 flex items-center justify-center image-outline">
+              <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[72vh] flex items-center justify-center">
                 {gallery.length > 1 && (
                   <button
                     onClick={handlePrevSlide}
@@ -531,8 +515,9 @@ export function Education({ previewMode = false }: EducationProps) {
                     src={gallery[activeSlide].image}
                     alt={gallery[activeSlide].label}
                     fill
+                    unoptimized
                     sizes="(max-width: 1280px) 100vw, 1000px"
-                    className="object-contain"
+                    className="object-contain rounded-[10px]"
                     priority
                   />
                 </motion.div>

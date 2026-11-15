@@ -112,7 +112,7 @@ export const personalInfo: PersonalInfo = {
     dark: "/logos/kb-logo-dark.svg",
   },
   subHeadline: "Full-stack Developer",
-  bio: "I shipped JP Connect for 7,207 student and faculty accounts at St. John Paul II College of Davao, validating 781 exam schedules with zero overlaps via a sweep-line algorithm. I also built JP Intrams for live tournament standings across 23 sports divisions using Supabase Realtime and Redis rate-limiting. For OWWA Region XI, I built the CSMR citizen feedback and SPRS statistical reporting platforms.",
+  bio: "I built JP Connect for 7,207 student and faculty accounts at St. John Paul II College of Davao, validating 781 exam schedules with zero overlaps. I also built JP Intrams for live tournament standings across 23 sports divisions, along with the CSMR citizen feedback and SPRS reporting platforms for OWWA Region XI.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
   email: "kennethbulaga.dev@gmail.com",
   avatar: "/profile/avatar.webp",
@@ -146,13 +146,12 @@ export const techMarqueeItems: TechMarqueeItem[] = [
   { id: "typescript", name: "TypeScript", category: "Strict Type Safety", icon: "/tech-stack/typescript.svg" },
   { id: "tailwind", name: "Tailwind CSS v4", category: "Modern Styling", icon: "/tech-stack/tailwind.svg" },
   { id: "supabase", name: "Supabase", category: "Auth, Realtime & RLS", icon: "/tech-stack/supabase.svg" },
-  { id: "upstash", name: "Upstash Redis", category: "Serverless Cache & Queue", icon: "/tech-stack/upstash-light.svg", darkIcon: "/tech-stack/upstash-dark.svg" },
+  { id: "upstash", name: "Upstash Redis", category: "Rate limiting & low-latency state", icon: "/tech-stack/upstash-light.svg", darkIcon: "/tech-stack/upstash-dark.svg" },
   { id: "postgres", name: "PostgreSQL", category: "Relational DB" },
   { id: "nodejs", name: "Node.js", category: "Server Runtime" },
   { id: "zod", name: "Zod", category: "Schema Validation", icon: "/tech-stack/zod.svg" },
   { id: "github", name: "Git & GitHub", category: "Version Control", icon: "/tech-stack/github.svg", invertInDark: true },
   { id: "vercel", name: "Vercel", category: "Edge Platform", icon: "/tech-stack/vercel.svg", invertInLight: true },
-  { id: "framer", name: "Framer Motion", category: "Motion & UI", icon: "/tech-stack/framer.svg", invertInDark: true },
 ];
 
 // JP Connect Production Metrics (from the live admin analytics dashboard)
@@ -258,7 +257,6 @@ export const flagshipProjects: FlagshipProject[] = [
       "Tailwind CSS v4",
       "Supabase SSR",
       "PostgreSQL RLS",
-      "pg_cron",
     ],
     metrics: {
       "Authenticated Profiles": jpConnectMetrics.accounts,
@@ -627,7 +625,7 @@ export const experience: Experience[] = [
       "Enforced data isolation across 6 user roles using PostgreSQL Row-Level Security and Next.js middleware to restrict shared-terminal access.",
       `Built an SSC sanctions and payments ledger linking clearance status to settled balances, tracking ${jpConnectMetrics.sanctionsCollected} in collections (${jpConnectMetrics.sanctionsPeriod}).`,
     ],
-    techStack: ["Next.js 16", "TypeScript", "Supabase", "PostgreSQL RLS", "Tailwind CSS", "pg_cron"],
+    techStack: ["Next.js 16", "React 19", "TypeScript", "Supabase", "Tailwind CSS v4", "Zod"],
     logo: "/logos/school-logo-nobg.webp",
     link: "https://jp-connect.vercel.app",
   },
@@ -642,7 +640,7 @@ export const experience: Experience[] = [
       "Built the Statistical Performance Reporting System (SPRS) as sole developer, enforcing monthly KPI validation via PostgreSQL constraints and Zod.",
       "Delivered live system walkthroughs and technical handoff of CSMR and SPRS to OWWA Region XI regional staff, earning two official Certificates of Recognition.",
     ],
-    techStack: ["Next.js Server Actions", "PostgreSQL", "Supabase SSR", "Zod", "ExcelJS", "TypeScript", "Recharts"],
+    techStack: ["Next.js", "TypeScript", "Supabase", "Zod", "ExcelJS", "Recharts"],
     logo: "/logos/owwa-logo.webp",
     link: "https://www.facebook.com/owwadavao.lco",
   },
@@ -733,50 +731,49 @@ export const shippingSoonProjects: ShippingSoonItem[] = [
   },
 ];
 
+export interface StackItem {
+  name: string;
+  role: string;
+}
+
 export interface StackCategory {
   category: string;
-  items: string[];
+  items: StackItem[];
 }
 
 export const stackCatalog: StackCategory[] = [
   {
     category: "Frontend",
     items: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "shadcn/ui",
-      "Framer Motion",
+      { name: "Next.js 16", role: "App Router & Server Actions" },
+      { name: "React 19", role: "Server & client UI components" },
+      { name: "TypeScript", role: "Strict end-to-end type safety" },
+      { name: "Tailwind CSS v4", role: "Token-driven design systems" },
     ],
   },
   {
-    category: "Backend & database",
+    category: "Backend & Database",
     items: [
-      "Supabase",
-      "PostgreSQL",
-      "Upstash Redis",
-      "Resend",
-      "Node.js",
-      "Zod",
+      { name: "Supabase & PostgreSQL", role: "RLS policies, Auth, Realtime & pg_cron" },
+      { name: "Node.js", role: "Server runtime & build pipelines" },
+      { name: "Upstash Redis", role: "Rate limiting & low-latency state" },
+      { name: "Zod", role: "Schema & payload validation" },
     ],
   },
   {
-    category: "Data, maps & visualization",
+    category: "Data, Maps & Visualization",
     items: [
-      "ExcelJS",
-      "SheetJS",
-      "MapLibre GL",
-      "Recharts",
+      { name: "ExcelJS", role: "Multi-tab audit workbooks" },
+      { name: "Recharts", role: "Operational analytics charts" },
+      { name: "MapLibre GL", role: "Vector tiles & geospatial queries" },
     ],
   },
   {
-    category: "AI & workflow",
+    category: "Deployment & Tooling",
     items: [
-      "Claude Code",
-      "Cursor",
-      "Vercel",
-      "Git & GitHub",
+      { name: "Vercel", role: "Edge hosting & CI/CD deploys" },
+      { name: "Git & GitHub", role: "Version control & Actions workflows" },
+      { name: "AI Dev Tooling", role: "Antigravity, Claude Code & custom skills" },
     ],
   },
 ];

@@ -39,9 +39,9 @@ export function Hero() {
   };
 
   return (
-    <section id="about" className="pt-0 flex flex-col gap-8">
+    <section id="about" className="pt-0 flex flex-col gap-6 sm:gap-7">
       {/* Top Identity Row & Availability Status Pill */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-border">
         <div className="flex items-center gap-4">
           {personalInfo.avatar && (
             <button

@@ -147,16 +147,6 @@ function ContactSheetProject({
                   </div>
                 ))}
 
-                {/* Frame Counter Pill */}
-                {screenshots.length > 1 && (
-                  <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-zinc-950/80 px-2 py-0.5 rounded-full border border-white/15 text-[10px] font-mono tabular-nums text-white/95">
-                    <span>
-                      {String(activeScreenshotIdx + 1).padStart(2, "0")}/
-                      {String(screenshots.length).padStart(2, "0")}
-                    </span>
-                  </div>
-                )}
-
                 {/* Hover Zoom Indicator */}
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
                   <div className="px-3 py-1.5 rounded-full bg-zinc-950/90 text-white text-xs font-mono flex items-center gap-1.5 border border-white/20">
@@ -168,7 +158,7 @@ function ContactSheetProject({
 
               {/* Primitive Cutaway Editorial Caption */}
               {activeScreen?.primitive && (
-                <div className="border-l-2 border-foreground/25 pl-3 py-0.5 flex items-start gap-2">
+                <div className="border-l-2 border-foreground/25 pl-3 py-1 mb-0.5 flex items-start gap-2">
                   <Terminal size={14} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
                   <p className="text-[11px] font-mono text-muted-foreground leading-relaxed">
                     <span className="text-foreground font-semibold tabular-nums">
@@ -670,13 +660,13 @@ export function Projects({ previewMode = false }: ProjectsProps) {
             className="fixed inset-0 z-50 flex flex-col items-center justify-between p-3 sm:p-6 md:p-8 pt-[max(12px,env(safe-area-inset-top))] pb-[max(12px,env(safe-area-inset-bottom))] bg-black/92 backdrop-blur-md select-none overscroll-contain"
             onClick={() => setZoomState(null)}
           >
-            {/* Top Floating Control Bar */}
+            {/* Top Control Bar */}
             <div
-              className="w-full max-w-5xl flex items-center justify-between px-4 py-2.5 rounded-full bg-zinc-900/90 border border-zinc-800 text-white z-20 shrink-0"
+              className="w-full max-w-5xl flex items-center justify-between px-1 py-1 text-white z-20 shrink-0"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center gap-2 min-w-0 flex-wrap">
-                <span className="text-xs sm:text-sm font-semibold font-mono text-zinc-200">
+                <span className="text-xs sm:text-sm font-semibold font-mono text-zinc-100">
                   {zoomState.projectTitle}
                 </span>
                 <span className="text-zinc-500 font-mono text-xs">/</span>
@@ -687,14 +677,14 @@ export function Projects({ previewMode = false }: ProjectsProps) {
 
               <div className="flex items-center gap-3 shrink-0 ml-3">
                 {zoomState.images.length > 1 && (
-                  <span className="text-xs font-mono tabular-nums text-zinc-300 bg-zinc-800 px-2.5 py-1 rounded-full border border-zinc-700">
+                  <span className="text-xs font-mono tabular-nums text-zinc-400">
                     {String(zoomState.currentIndex + 1).padStart(2, "0")} /{" "}
                     {String(zoomState.images.length).padStart(2, "0")}
                   </span>
                 )}
                 <button
                   onClick={() => setZoomState(null)}
-                  className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
+                  className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 hover:text-white border border-white/15 transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
                   aria-label="Close image preview"
                 >
                   <X size={18} strokeWidth={1.5} />
@@ -755,7 +745,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
               onClick={(e) => e.stopPropagation()}
             >
               {zoomState.images[zoomState.currentIndex]?.primitive && (
-                <p className="text-xs font-mono text-zinc-300 text-center px-4 py-1.5 rounded-full bg-zinc-900/90 border border-zinc-800">
+                <p className="text-xs font-mono text-zinc-400 text-center text-pretty px-2">
                   {zoomState.images[zoomState.currentIndex].primitive}
                 </p>
               )}

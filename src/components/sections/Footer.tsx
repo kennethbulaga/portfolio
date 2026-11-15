@@ -24,7 +24,7 @@ export function Footer() {
             {personalInfo.availability.message}
           </p>
           <p className="text-xs text-muted-foreground text-pretty">
-            Reach out directly for full-time software engineering roles or institutional web builds.
+            Email me about full-time developer roles or freelance web projects.
           </p>
         </div>
 

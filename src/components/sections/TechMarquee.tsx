@@ -56,6 +56,10 @@ function TechItemBadge({ item }: { item: TechMarqueeItem }) {
 }
 
 export function TechMarquee() {
+  const splitIndex = Math.ceil(techMarqueeItems.length / 2);
+  const topRow = techMarqueeItems.slice(0, splitIndex);
+  const bottomRow = techMarqueeItems.slice(splitIndex);
+
   return (
     <div id="stack" className="w-full pt-2">
       <div className="mb-3 flex items-center justify-between gap-2">
@@ -71,10 +75,32 @@ export function TechMarquee() {
         </Link>
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        {techMarqueeItems.map((item) => (
-          <TechItemBadge key={item.id} item={item} />
-        ))}
+      <div className="relative w-full overflow-hidden flex flex-col gap-2 [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)]">
+        <div className="animate-marquee">
+          <div className="flex items-center gap-2 pr-2 shrink-0">
+            {topRow.map((item) => (
+              <TechItemBadge key={item.id} item={item} />
+            ))}
+          </div>
+          <div className="flex items-center gap-2 pr-2 shrink-0" aria-hidden="true">
+            {topRow.map((item) => (
+              <TechItemBadge key={`${item.id}-dup`} item={item} />
+            ))}
+          </div>
+        </div>
+
+        <div className="animate-marquee-reverse">
+          <div className="flex items-center gap-2 pr-2 shrink-0">
+            {bottomRow.map((item) => (
+              <TechItemBadge key={item.id} item={item} />
+            ))}
+          </div>
+          <div className="flex items-center gap-2 pr-2 shrink-0" aria-hidden="true">
+            {bottomRow.map((item) => (
+              <TechItemBadge key={`${item.id}-dup`} item={item} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

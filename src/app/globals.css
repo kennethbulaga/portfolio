@@ -274,8 +274,16 @@ a {
   will-change: transform;
 }
 
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee 24s linear infinite reverse;
+  will-change: transform;
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .animate-marquee:hover {
+  .animate-marquee:hover,
+  .animate-marquee-reverse:hover {
     animation-play-state: paused;
   }
 }
@@ -284,7 +292,8 @@ a {
   html {
     scroll-behavior: auto;
   }
-  .animate-marquee {
+  .animate-marquee,
+  .animate-marquee-reverse {
     animation: none;
   }
 }

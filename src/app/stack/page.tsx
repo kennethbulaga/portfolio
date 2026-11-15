@@ -20,7 +20,7 @@ export default function StackPage() {
         id="main-content"
         className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 xl:px-10 pt-4 pb-6 sm:py-8 lg:pt-7 lg:pb-12"
       >
-        <div className="@container max-w-[720px] mx-auto flex flex-col gap-12 sm:gap-16">
+        <div className="@container max-w-[980px] mx-auto flex flex-col gap-12 sm:gap-14">
           {/* Header */}
           <div className="flex flex-col gap-5 lg:pt-1">
             <div>
@@ -37,20 +37,30 @@ export default function StackPage() {
             </div>
           </div>
 
-          {/* 2-Column Minimal Hairline Stack Grid — Holds 2 cols down to 448px (@md) */}
-          <div className="grid grid-cols-1 @md:grid-cols-2 gap-x-10 gap-y-12">
-            {stackCatalog.map((group) => (
+          {/* 2-Column Editorial Hairline Stack Grid */}
+          <div className="grid grid-cols-1 @2xl:grid-cols-2 gap-x-10 gap-y-12">
+            {stackCatalog.map((group, idx) => (
               <section key={group.category} className="flex flex-col gap-3">
-                <h2 className="text-sm font-medium text-muted-foreground">
-                  {group.category}
-                </h2>
+                <div className="flex items-baseline justify-between gap-2">
+                  <h2 className="text-sm font-medium text-foreground">
+                    {group.category}
+                  </h2>
+                  <span className="text-xs font-mono tabular-nums text-muted-foreground">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                </div>
                 <div className="divide-y divide-border border-y border-border">
                   {group.items.map((item) => (
                     <div
-                      key={item}
-                      className="py-3.5 text-sm font-medium text-foreground"
+                      key={item.name}
+                      className="py-3.5 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4"
                     >
-                      {item}
+                      <span className="text-sm font-medium text-foreground shrink-0">
+                        {item.name}
+                      </span>
+                      <span className="text-xs font-mono text-muted-foreground sm:text-right text-pretty">
+                        {item.role}
+                      </span>
                     </div>
                   ))}
                 </div>
