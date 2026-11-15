@@ -10,7 +10,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Terminal,
-  Cpu,
   Rocket,
 } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -35,11 +34,9 @@ interface ZoomState {
 
 function ContactSheetProject({
   project,
-  indexNumber,
   onZoom,
 }: {
   project: FlagshipProject;
-  indexNumber: string;
   onZoom: (initialIndex: number) => void;
 }) {
   const [activeScreenshotIdx, setActiveScreenshotIdx] = useState(0);
@@ -102,7 +99,7 @@ function ContactSheetProject({
       <div className="grid grid-cols-1 @2xl:grid-cols-12">
         {/* Left Stage: Screenshot Proof + Primitive Cutaway Callout + Frame Selector */}
         {activeImage && (
-          <div className="@2xl:col-span-7 flex flex-col justify-between bg-muted/15 p-2 sm:p-5 border-b @2xl:border-b-0 @2xl:border-r border-border gap-3">
+          <div className="@2xl:col-span-7 flex flex-col justify-between bg-muted/15 p-2 sm:p-3 border-b @2xl:border-b-0 @2xl:border-r border-border gap-3">
             <div className="flex flex-col gap-2.5">
               {/* Clickable & Touch-Swipeable Image Preview Container */}
               <div
@@ -142,6 +139,7 @@ function ContactSheetProject({
                       src={screen.image}
                       alt={`${project.title} — ${screen.label}`}
                       fill
+                      unoptimized
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 55vw, 560px"
                       priority={project.id === "jp-connect" && idx === 0}
                       className="object-cover transition-transform duration-200 ease-[var(--ease-out)] group-hover:scale-[1.02]"
@@ -200,9 +198,9 @@ function ContactSheetProject({
                 </div>
               </div>
 
-              {/* Primitive Cutaway Callout Bar */}
+              {/* Primitive Cutaway Editorial Caption */}
               {activeScreen?.primitive && (
-                <div className="min-h-[52px] sm:min-h-0 px-3 py-2 rounded-[8px] border border-border bg-background flex items-start gap-2">
+                <div className="border-l-2 border-foreground/25 pl-3 py-0.5 flex items-start gap-2">
                   <Terminal size={14} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
                   <p className="text-[11px] font-mono text-muted-foreground leading-relaxed">
                     <span className="text-foreground font-semibold tabular-nums">
@@ -293,11 +291,9 @@ function ContactSheetProject({
 
 function ClientContactSheetCard({
   project,
-  indexNumber,
   onZoom,
 }: {
   project: ClientProject;
-  indexNumber: string;
   onZoom: (initialIndex: number) => void;
 }) {
   const [activeScreenshotIdx, setActiveScreenshotIdx] = useState(0);
@@ -314,40 +310,38 @@ function ClientContactSheetCard({
   const activeImage = activeScreen?.image || project.image;
 
   return (
-    <article className="@container rounded-[20px] sm:rounded-[22px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 w-full">
-      {/* Header Bar */}
-      <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0 flex-1">
-          {project.logo && (
-            <div className="relative size-9 rounded-[8px] overflow-hidden bg-background shrink-0 border border-border p-0.5 image-outline">
-              <Image
-                src={project.logo}
-                alt={project.title}
-                fill
-                sizes="36px"
-                className="object-contain p-0.5"
-              />
+    <article className="rounded-[18px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 flex flex-col justify-between w-full">
+      <div className="flex flex-col">
+        {/* Compact Header Bar */}
+        <div className="px-4 py-3 border-b border-border bg-muted/20 flex items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2.5 min-w-0 flex-1">
+            {project.logo && (
+              <div className="relative size-8 rounded-[8px] overflow-hidden bg-background shrink-0 border border-border p-0.5 image-outline">
+                <Image
+                  src={project.logo}
+                  alt={project.title}
+                  fill
+                  sizes="32px"
+                  className="object-contain p-0.5"
+                />
+              </div>
+            )}
+            <div className="min-w-0">
+              <h4 className="text-sm sm:text-base font-semibold tracking-[-0.015em] text-foreground text-balance leading-snug truncate">
+                {project.title}
+              </h4>
+              <p className="text-[11px] font-mono text-muted-foreground text-pretty leading-snug truncate">
+                {project.client}
+              </p>
             </div>
-          )}
-          <div className="min-w-0">
-            <h4 className="text-base font-semibold tracking-[-0.015em] text-foreground text-balance leading-snug">
-              {project.title}
-            </h4>
-            <p className="text-xs font-mono text-muted-foreground text-pretty leading-snug">
-              {project.client}
-            </p>
           </div>
+
+          <span className="nav-pill font-mono shrink-0">Production</span>
         </div>
 
-        <div className="flex items-center justify-end gap-2 shrink-0">
-          <span className="nav-pill font-mono">Gov Production</span>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 @2xl:grid-cols-12">
-        {/* Left Screenshot Stage */}
+        {/* 16/10 Preview Frame */}
         {activeImage && (
-          <div className="@2xl:col-span-7 p-2 sm:p-5 border-b @2xl:border-b-0 @2xl:border-r border-border bg-muted/15 flex flex-col gap-3">
+          <div className="p-2 border-b border-border bg-muted/15 flex flex-col gap-2">
             <div
               onClick={() => onZoom(activeScreenshotIdx)}
               onTouchStart={(e) => {
@@ -369,7 +363,7 @@ function ClientContactSheetCard({
                   );
                 }
               }}
-              className="relative w-full aspect-[16/10] rounded-[12px] sm:rounded-[10px] overflow-hidden border border-border bg-background cursor-zoom-in group/img image-outline touch-pan-y"
+              className="relative w-full aspect-[16/10] rounded-[10px] overflow-hidden border border-border bg-background cursor-zoom-in group/img image-outline touch-pan-y"
               title="Click to inspect full resolution"
             >
               {screenshots.map((screen, idx) => (
@@ -385,14 +379,15 @@ function ClientContactSheetCard({
                     src={screen.image}
                     alt={`${project.title} — ${screen.label}`}
                     fill
-                    sizes="(max-width: 640px) 100vw, 520px"
+                    unoptimized
+                    sizes="(max-width: 768px) 100vw, 460px"
                     className="object-cover transition-transform duration-200 ease-[var(--ease-out)] group-hover/img:scale-[1.02]"
                   />
                 </div>
               ))}
 
               {screenshots.length > 1 && (
-                <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-zinc-950/80 px-2 py-0.5 rounded-full border border-white/15 text-[10px] font-mono tabular-nums text-white/95">
+                <div className="absolute top-2 right-2 z-20 flex items-center gap-1 bg-zinc-950/80 px-2 py-0.5 rounded-full border border-white/15 text-[10px] font-mono tabular-nums text-white/95">
                   <span>
                     {String(activeScreenshotIdx + 1).padStart(2, "0")}/
                     {String(screenshots.length).padStart(2, "0")}
@@ -408,21 +403,8 @@ function ClientContactSheetCard({
               </div>
             </div>
 
-            {activeScreen?.primitive && (
-              <div className="min-h-[52px] sm:min-h-0 px-3 py-2 rounded-[8px] border border-border bg-background flex items-start gap-2">
-                <Terminal size={14} strokeWidth={1.5} className="text-muted-foreground mt-0.5 shrink-0" />
-                <p className="text-[11px] font-mono text-muted-foreground leading-relaxed">
-                  <span className="text-foreground font-semibold tabular-nums">
-                    [{String(activeScreenshotIdx + 1).padStart(2, "0")}]{" "}
-                    {activeScreen.label}:
-                  </span>{" "}
-                  {activeScreen.primitive}
-                </p>
-              </div>
-            )}
-
             {screenshots.length > 1 && (
-              <div className="flex overflow-x-auto no-scrollbar gap-2 pt-0.5 sm:grid sm:grid-cols-2 sm:gap-1.5">
+              <div className="flex overflow-x-auto no-scrollbar gap-1.5">
                 {screenshots.map((screen, idx) => {
                   const active = activeScreenshotIdx === idx;
                   return (
@@ -434,7 +416,7 @@ function ClientContactSheetCard({
                         e.stopPropagation();
                         setActiveScreenshotIdx(idx);
                       }}
-                      className={`min-h-11 sm:min-h-0 px-3 sm:px-2.5 py-2 sm:py-1.5 rounded-[8px] text-[11px] font-mono transition-[background-color,color,border-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97] flex items-center gap-1.5 text-left border shrink-0 whitespace-nowrap sm:whitespace-normal ${
+                      className={`min-h-11 sm:min-h-8 px-2.5 py-1 rounded-[8px] text-[11px] font-mono transition-[background-color,color,border-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97] flex items-center gap-1.5 text-left border shrink-0 whitespace-nowrap ${
                         active
                           ? "bg-foreground text-background border-foreground font-semibold"
                           : "bg-background border-border text-muted-foreground hover:text-foreground hover:bg-muted/60"
@@ -451,35 +433,27 @@ function ClientContactSheetCard({
             )}
           </div>
         )}
+      </div>
 
-        {/* Right Specification Column */}
-        <div className="@2xl:col-span-5 p-4 sm:p-5 flex flex-col justify-between gap-4">
-          <div className="flex flex-col gap-3">
-            <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground text-pretty">
-              {project.objective}
+      {/* Concise 2-Row Summary & Inline Stack */}
+      <div className="p-4 flex flex-col gap-3 flex-1 justify-between">
+        <div className="flex flex-col gap-2.5">
+          <p className="text-xs leading-relaxed text-muted-foreground text-pretty">
+            {project.objective}
+          </p>
+
+          {project.impact && (
+            <p className="border-l-2 border-foreground/20 pl-2.5 text-xs text-foreground leading-relaxed text-pretty">
+              {project.impact}
             </p>
-
-            {project.impact && (
-              <div className="p-3 rounded-[10px] bg-muted/35 border border-border text-xs text-foreground leading-relaxed flex items-start gap-2">
-                <Cpu size={14} strokeWidth={1.5} className="text-muted-foreground shrink-0 mt-0.5" />
-                <span>{project.impact}</span>
-              </div>
-            )}
-          </div>
-
-          {project.techStack && project.techStack.length > 0 && (
-            <div className="pt-3 border-t border-border flex flex-wrap gap-1.5">
-              {project.techStack.map((tech) => (
-                <span
-                  key={tech}
-                  className="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
           )}
         </div>
+
+        {project.techStack && project.techStack.length > 0 && (
+          <p className="pt-2.5 border-t border-border text-[11px] font-mono text-muted-foreground">
+            {project.techStack.join(" · ")}
+          </p>
+        )}
       </div>
     </article>
   );
@@ -537,26 +511,29 @@ export function Projects({ previewMode = false }: ProjectsProps) {
     });
   }, []);
 
+  const isZoomOpen = Boolean(zoomState);
+
   useEffect(() => {
+    if (!isZoomOpen) return;
+    const prevFocus = document.activeElement as HTMLElement | null;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setZoomState(null);
       if (e.key === "ArrowLeft") handlePrev();
       if (e.key === "ArrowRight") handleNext();
     };
-    if (zoomState) {
-      window.addEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "hidden";
-    }
+    window.addEventListener("keydown", handleKeyDown);
+    document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "unset";
+      prevFocus?.focus();
     };
-  }, [zoomState, handlePrev, handleNext]);
+  }, [isZoomOpen, handlePrev, handleNext]);
 
   return (
     <section
       id="projects"
-      className="py-12 sm:py-16"
+      className="py-0"
     >
       <div className="flex flex-col gap-6 sm:gap-8">
         {/* Section Header Row */}
@@ -574,23 +551,23 @@ export function Projects({ previewMode = false }: ProjectsProps) {
           </p>
         </div>
 
-        {/* High-Contrast Tabular Production Scale Ledger — Holds 4 cols down to 576px container width */}
-        <div className="@container rounded-[14px] border border-border bg-card overflow-hidden">
-          <div className="grid grid-cols-2 @xl:grid-cols-4">
+        {/* Open Editorial Production Scale Ledger */}
+        <div className="border-y border-border">
+          <div className="grid grid-cols-2 md:grid-cols-4">
             {heroLedger.map((item, idx) => (
               <div
                 key={item.label}
-                className={`p-3 sm:p-5 flex flex-col gap-1 border-border ${
+                className={`py-5 px-3 sm:px-5 flex flex-col gap-1.5 border-border ${
                   idx % 2 === 1 ? "border-l" : ""
-                } ${idx >= 2 ? "border-t @xl:border-t-0 @xl:border-l" : ""}`}
+                } ${idx >= 2 ? "border-t md:border-t-0 md:border-l" : ""}`}
               >
-                <p className="text-xl sm:text-2xl font-semibold font-mono tabular-nums tracking-[-0.03em] text-foreground leading-none">
+                <p className="text-2xl sm:text-3xl font-medium font-mono tabular-nums tracking-[-0.03em] text-foreground leading-none">
                   {item.value}
                 </p>
-                <p className="text-xs font-semibold text-foreground pt-1">
+                <p className="text-xs font-medium text-muted-foreground pt-0.5">
                   {item.label}
                 </p>
-                <p className="text-[11px] font-mono text-muted-foreground">
+                <p className="text-[11px] font-mono text-muted-foreground/80">
                   {item.context}
                 </p>
               </div>
@@ -600,18 +577,17 @@ export function Projects({ previewMode = false }: ProjectsProps) {
 
         {/* Flagship Contact-Sheet Frames */}
         <div className="flex flex-col gap-6">
-          {visibleFlagships.map((project, idx) => (
+          {visibleFlagships.map((project) => (
             <ContactSheetProject
               key={project.id}
               project={project}
-              indexNumber={String(idx + 1).padStart(2, "0")}
               onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
             />
           ))}
         </div>
 
         {previewMode ? (
-          <div className="rounded-[14px] border border-border bg-card px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex flex-col gap-0.5">
               <p className="text-sm font-semibold text-foreground">
                 More Deployed Systems & Active Lab Builds
@@ -622,7 +598,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
             </div>
             <Link
               href="/systems"
-              className="btn btn-light h-10 px-4 text-xs font-mono shrink-0"
+              className="btn btn-light h-11 sm:h-10 px-4 text-xs font-mono shrink-0"
             >
               <span>Inspect All Systems (04 + Lab)</span>
               <ArrowUpRight size={15} strokeWidth={1.5} />
@@ -630,14 +606,11 @@ export function Projects({ previewMode = false }: ProjectsProps) {
           </div>
         ) : (
           <>
-            <div className="flex flex-col gap-6">
-              {clientProjects.map((project, idx) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {clientProjects.map((project) => (
                 <ClientContactSheetCard
                   key={project.id}
                   project={project}
-                  indexNumber={String(
-                    flagshipProjects.length + idx + 1
-                  ).padStart(2, "0")}
                   onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
                 />
               ))}
@@ -655,13 +628,13 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                   </span>
                 </div>
 
-                <div className="flex flex-col gap-4">
+                <div className="border-y border-border divide-y divide-border">
                   {shippingSoonProjects.map((item, idx) => (
                     <article
                       key={item.id}
-                      className="rounded-[22px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25"
+                      className="py-5 sm:py-6 flex flex-col gap-4"
                     >
-                      <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3 flex-wrap">
+                      <div className="flex items-center justify-between gap-3 flex-wrap">
                         <div className="flex items-center gap-3 min-w-0">
                           <div className="size-9 rounded-[8px] bg-background border border-border flex items-center justify-center shrink-0">
                             <Rocket size={16} strokeWidth={1.5} className="text-muted-foreground" />
@@ -676,48 +649,39 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between sm:justify-end gap-2 w-full sm:w-auto shrink-0">
-                          <span className="text-[11px] font-mono tabular-nums text-muted-foreground px-2 py-0.5 rounded-[6px] border border-border bg-background">
+                        <div className="flex items-center justify-between sm:justify-end gap-2.5 w-full sm:w-auto shrink-0">
+                          <span className="text-[11px] font-mono tabular-nums text-muted-foreground">
                             LAB {String(idx + 1).padStart(2, "0")}
                           </span>
                           <span className="soon font-mono">{item.eta}</span>
                         </div>
                       </div>
 
-                      <div className="p-4 sm:p-5 flex flex-col gap-4">
-                        <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground text-pretty max-w-3xl">
-                          {item.description}
-                        </p>
+                      <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground text-pretty max-w-3xl">
+                        {item.description}
+                      </p>
 
-                        <div className="flex flex-col gap-2">
-                          {item.plannedPrimitives.map((prim, pIdx) => (
-                            <div
-                              key={pIdx}
-                              className="px-3 py-2 rounded-[8px] border border-border bg-muted/15 flex items-start gap-2"
-                            >
-                              <Terminal
-                                size={14}
-                                strokeWidth={1.5}
-                                className="text-muted-foreground mt-0.5 shrink-0"
-                              />
-                              <p className="text-xs font-mono text-foreground/90 leading-relaxed">
-                                {prim}
-                              </p>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="pt-3 border-t border-border flex flex-wrap gap-1.5">
-                          {item.techStack.map((tech) => (
-                            <span
-                              key={tech}
-                              className="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
+                      <div className="flex flex-col gap-2">
+                        {item.plannedPrimitives.map((prim, pIdx) => (
+                          <div
+                            key={pIdx}
+                            className="border-l-2 border-foreground/20 pl-3 py-0.5 flex items-start gap-2"
+                          >
+                            <Terminal
+                              size={14}
+                              strokeWidth={1.5}
+                              className="text-muted-foreground mt-0.5 shrink-0"
+                            />
+                            <p className="text-xs font-mono text-foreground/90 leading-relaxed">
+                              {prim}
+                            </p>
+                          </div>
+                        ))}
                       </div>
+
+                      <p className="text-xs font-mono text-muted-foreground">
+                        {item.techStack.join(" · ")}
+                      </p>
                     </article>
                   ))}
                 </div>
@@ -798,6 +762,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                     src={zoomState.images[zoomState.currentIndex].image}
                     alt={zoomState.images[zoomState.currentIndex].label}
                     fill
+                    unoptimized
                     sizes="(max-width: 1280px) 100vw, 1200px"
                     className="object-contain rounded-[10px]"
                     priority

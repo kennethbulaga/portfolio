@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Footer } from "@/components/sections/Footer";
+import { BackHomeLink } from "@/components/ui/back-home-link";
 import { stackCatalog } from "@/data/portfolio";
 
 export const metadata: Metadata = {
@@ -19,19 +18,13 @@ export default function StackPage() {
 
       <main
         id="main-content"
-        className="flex-1 min-w-0 px-4 sm:px-6 lg:px-10 xl:px-14 py-6 sm:py-10 lg:py-12"
+        className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 xl:px-10 pt-4 pb-6 sm:py-8 lg:pt-7 lg:pb-12"
       >
         <div className="@container max-w-[720px] mx-auto flex flex-col gap-12 sm:gap-16">
           {/* Header */}
-          <div className="flex flex-col gap-6 pt-2 sm:pt-4">
+          <div className="flex flex-col gap-5 lg:pt-1">
             <div>
-              <Link
-                href="/"
-                className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ArrowLeft size={14} />
-                <span>Home</span>
-              </Link>
+              <BackHomeLink />
             </div>
 
             <div className="flex flex-col gap-2.5">

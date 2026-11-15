@@ -70,6 +70,7 @@ export function Navbar() {
   const pathname = usePathname();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [showMobileName, setShowMobileName] = useState(false);
+  const [activeSection, setActiveSection] = useState<"about" | "projects">("about");
   const { copied, copyEmail } = useCopyEmail(personalInfo.email);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
@@ -82,7 +83,48 @@ export function Navbar() {
   }, [pathname]);
 
   useEffect(() => {
+    if (pathname !== "/") return;
+    if (
+      typeof window !== "undefined" &&
+      window.innerWidth < 1024 &&
+      sessionStorage.getItem("reopen-nav-drawer") === "1"
+    ) {
+      const id = requestAnimationFrame(() => {
+        sessionStorage.removeItem("reopen-nav-drawer");
+        setIsDrawerOpen(true);
+      });
+      return () => cancelAnimationFrame(id);
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+    const aboutEl = document.getElementById("about");
+    const projectsEl = document.getElementById("projects");
+    if (!aboutEl || !projectsEl) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          if (entry.target.id === "projects") {
+            setActiveSection("projects");
+          } else if (entry.target.id === "about") {
+            setActiveSection("about");
+          }
+        }
+      },
+      { rootMargin: "-25% 0px -55% 0px", threshold: 0 }
+    );
+
+    observer.observe(aboutEl);
+    observer.observe(projectsEl);
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  useEffect(() => {
     if (!isDrawerOpen) return;
+    const prevFocus = document.activeElement as HTMLElement | null;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsDrawerOpen(false);
@@ -94,6 +136,7 @@ export function Navbar() {
     return () => {
       document.body.style.overflow = "unset";
       window.removeEventListener("keydown", handleKeyDown);
+      prevFocus?.focus();
     };
   }, [isDrawerOpen]);
 
@@ -111,62 +154,64 @@ export function Navbar() {
         Skip to main content
       </a>
 
-      {/* Home-only Mobile Top Bar (<1024px) */}
-      {pathname === "/" && (
-        <header className="lg:hidden sticky top-0 left-0 right-0 z-40 min-h-14 pt-[env(safe-area-inset-top)] bg-background/90 backdrop-blur-md border-b border-border px-3 flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 min-w-0">
-            <button
-              type="button"
-              onClick={() => setIsDrawerOpen(true)}
-              aria-label="Open navigation menu"
-              className="size-11 rounded-[10px] flex items-center justify-center text-foreground hover:bg-muted active:scale-[0.96] transition-[background-color,transform] duration-150 ease-[var(--ease-out)] motion-reduce:transition-none cursor-pointer shrink-0"
-            >
-              <Menu size={18} strokeWidth={1.5} />
-            </button>
-            <Link
-              href="/"
-              aria-label={personalInfo.name}
-              className="relative inline-flex items-center h-7 text-[16px] font-semibold tracking-[-0.01em] text-foreground whitespace-nowrap"
-            >
-              <Image
-                src={personalInfo.logo.dark}
-                alt={personalInfo.name}
-                width={26}
-                height={26}
-                className={cn(
-                  "absolute left-0 size-6.5 rounded-[6px] shrink-0 image-outline transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none",
-                  showMobileName ? "opacity-0 -translate-y-1.5 pointer-events-none" : "opacity-100 translate-y-0"
-                )}
-              />
-              <span
-                aria-hidden={!showMobileName}
-                className={cn(
-                  "truncate transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none",
-                  showMobileName ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1.5 pointer-events-none"
-                )}
-              >
-                {personalInfo.name}
-              </span>
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              type="button"
-              onClick={copyEmail}
-              aria-label="Copy email address"
+      {/* Mobile Top Bar (<1024px) across all routes */}
+      <header className="lg:hidden sticky top-0 left-0 right-0 z-40 min-h-14 pt-[env(safe-area-inset-top)] bg-background/90 backdrop-blur-md border-b border-border px-3 flex items-center justify-between gap-2">
+        <div className="flex items-center gap-1.5 min-w-0">
+          <button
+            type="button"
+            onClick={() => setIsDrawerOpen(true)}
+            aria-label="Open navigation menu"
+            className="size-11 rounded-[10px] flex items-center justify-center text-foreground hover:bg-muted active:scale-[0.96] transition-[background-color,transform] duration-150 ease-[var(--ease-out)] motion-reduce:transition-none cursor-pointer shrink-0"
+          >
+            <Menu size={18} strokeWidth={1.5} />
+          </button>
+          <Link
+            href="/"
+            aria-label={personalInfo.name}
+            className="relative inline-flex items-center h-7 text-[16px] font-semibold tracking-[-0.01em] text-foreground whitespace-nowrap"
+          >
+            <Image
+              src={personalInfo.logo.dark}
+              alt={personalInfo.name}
+              width={26}
+              height={26}
               className={cn(
-                "relative min-h-9 px-3 rounded-full border border-border bg-card inline-flex items-center gap-1.5 text-xs font-medium transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] cursor-pointer after:absolute after:-inset-1.5 after:content-['']",
-                copied ? "text-[var(--green-ink)]" : "text-foreground"
+                "absolute left-0 size-6.5 rounded-[6px] shrink-0 image-outline transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none",
+                pathname !== "/" || showMobileName
+                  ? "opacity-0 -translate-y-1.5 pointer-events-none"
+                  : "opacity-100 translate-y-0"
+              )}
+            />
+            <span
+              aria-hidden={pathname === "/" && !showMobileName}
+              className={cn(
+                "truncate transition-[opacity,transform] duration-200 ease-[var(--ease-out)] motion-reduce:transition-none",
+                pathname !== "/" || showMobileName
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-1.5 pointer-events-none"
               )}
             >
-              <span className="size-1.5 rounded-full bg-[var(--green)] shrink-0" />
-              <span>{copied ? "Copied" : "Copy email"}</span>
-            </button>
-            <ThemeToggle />
-          </div>
-        </header>
-      )}
+              {personalInfo.name}
+            </span>
+          </Link>
+        </div>
+
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={copyEmail}
+            aria-label="Copy email address"
+            className={cn(
+              "relative min-h-9 px-3 rounded-full border border-border bg-card inline-flex items-center gap-1.5 text-xs font-medium transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] cursor-pointer after:absolute after:-inset-y-1.5 after:-inset-x-0.5 after:content-['']",
+              copied ? "text-[var(--green-ink)]" : "text-foreground"
+            )}
+          >
+            <span className="size-1.5 rounded-full bg-[var(--green)] shrink-0" />
+            <span>{copied ? "Copied" : "Copy email"}</span>
+          </button>
+          <ThemeToggle />
+        </div>
+      </header>
 
       {/* Mobile Scrim (<1024px) */}
       {isDrawerOpen && (
@@ -268,14 +313,20 @@ export function Navbar() {
                   </div>
                   {navItems.map((item) => {
                     const Icon = navIconMap[item.href] || Layers;
-                    const isActive = pathname === item.href;
+                    const isCurrentRoute = pathname === item.href;
+                    const isActive =
+                      pathname === "/"
+                        ? activeSection === "projects"
+                          ? item.href === "/systems"
+                          : item.href === "/"
+                        : isCurrentRoute;
 
                     return (
                       <Link
                         key={item.href}
                         href={item.href}
                         onClick={closeDrawer}
-                        aria-current={isActive ? "page" : undefined}
+                        aria-current={isCurrentRoute ? "page" : undefined}
                         className={cn(
                           "h-10 px-3 rounded-[12px] flex items-center gap-3 text-[15px] font-medium transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.97]",
                           isActive

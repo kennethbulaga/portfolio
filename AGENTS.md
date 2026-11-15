@@ -92,7 +92,17 @@ portfolio/
   * Hero Eyebrow: `● Available for Freelance & Full-time Roles`
   * Hero Sub-headline: `Full-stack Developer`
 * Focus on value delivered, problem-solving, clean code, and practical execution.
-* **Copy & Skill Hygiene:** Pass any new or revised narrative copy in `src/data/portfolio.ts` through the local `humanizer` skill (`.agents/skills/humanizer/SKILL.md`) to strip AI clichés, and follow `emil-design-eng` + `make-interfaces-feel-better` + `mobile-native` for tactile micro-interactions (`Copy email` clipboard feedback instead of raw `mailto:` links, `tabular-nums`, concentric radii).
+* **Copy & Skill Hygiene:** Pass any new or revised narrative copy in `src/data/portfolio.ts` through the local `humanizer` skill (`.agents/skills/humanizer/SKILL.md`) to strip AI clichés, and use the `Copy email` clipboard trigger instead of raw `mailto:` links.
+
+| Scope | Skill | When to Invoke |
+| :--- | :--- | :--- |
+| **Local** (`.agents/skills/`) | `humanizer` | All portfolio copy, project descriptions, and case studies in `src/data/portfolio.ts` and UI microcopy |
+| **Local** (`.agents/skills/`) | `resume-tailor` | Tailoring `resume/kenneth-bulaga-resume.tex` and compiling via `npm run resume:build` |
+| **Global** (`~/.gemini/config/skills/`) | `impeccable`, `apple-design`, `emil-design-eng`, `make-interfaces-feel-better` | UI layout, visual hierarchy, restraint, motion (`--ease-out`), and micro-interactions |
+| **Global** (`~/.gemini/config/skills/`) | `mobile-native` | Touch targets (`44×44px`), mobile drawer ergonomics, safe-area insets, responsive containment (`375px`–`430px`) |
+| **Global** (`~/.gemini/config/skills/`) | `modern-web-guidance`, `vercel-react-best-practices` | Next.js 16 App Router, RSC boundaries, bundle size, and asset/font loading |
+| **Global** (`~/.gemini/config/skills/`) | `supabase-postgres-best-practices` | Database schema, RLS policies, or query work |
+| **Global** (`~/.gemini/config/skills/`) | `caveman` | Optional terse status/CLI summaries only (never in portfolio prose or resume copy) |
 
 ### C. Truth in Metrics
 * **JP Connect:** Student Services & Exam Scheduling Portal: 7,207 Authenticated Profiles (7,078 students, 126 instructors + admin roles), 14,778 Masterlist Records, 781 Validated Exam Rows across 9 academic departments, 0 room/proctor/self-proctor overlaps (2026–2027 1st Semester Finals), PHP 707,750 in tracked SSC clearance collections (Dec 2025 – Jan 2026).

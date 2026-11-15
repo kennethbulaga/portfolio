@@ -20,6 +20,7 @@ export function Hero() {
 
   useEffect(() => {
     if (!isAvatarZoomed) return;
+    const prevFocus = document.activeElement as HTMLElement | null;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsAvatarZoomed(false);
     };
@@ -28,6 +29,7 @@ export function Hero() {
     return () => {
       document.body.style.overflow = "unset";
       window.removeEventListener("keydown", handleKeyDown);
+      prevFocus?.focus();
     };
   }, [isAvatarZoomed]);
 
@@ -37,7 +39,7 @@ export function Hero() {
   };
 
   return (
-    <section id="about" className="pt-2 sm:pt-4 flex flex-col gap-8">
+    <section id="about" className="pt-0 flex flex-col gap-8">
       {/* Top Identity Row & Availability Status Pill */}
       <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-border">
         <div className="flex items-center gap-4">

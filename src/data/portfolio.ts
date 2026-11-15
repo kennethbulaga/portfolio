@@ -207,37 +207,47 @@ export const flagshipProjects: FlagshipProject[] = [
     focus: "Student Services & Exam Scheduling Platform",
     description:
       "Built under a freelance contract for St. John Paul II College of Davao to replace paper clearance queues and manual spreadsheet scheduling across 9 academic departments. Uses domain-locked Google Workspace SSO, PostgreSQL Row-Level Security, and an O(N log N) interval-sweep resolver to validate schedules and track SSC sanctions.",
-    image: "/projects/jp-connect/1. LandingPage.webp",
+    image: "/projects/jp-connect/portfolio-01-landing.webp",
     screenshots: [
       {
         label: "Landing & Student",
-        image: "/projects/jp-connect/1. LandingPage.webp",
+        image: "/projects/jp-connect/portfolio-01-landing.webp",
         primitive: "Google Workspace OAuth (@sjp2cd.edu.ph) + PostgreSQL RLS (auth.uid() = student_id)",
       },
       {
         label: "Exam Schedules",
-        image: "/projects/jp-connect/2. PersonalizedExam.webp",
+        image: "/projects/jp-connect/portfolio-02-exams.webp",
         primitive: "O(N log N) Interval-Sweep · 781 Exam Rows, 0 Overlaps (2026–2027 Finals)",
       },
       {
         label: "Instructor Portal",
-        image: "/projects/jp-connect/3 InstructorDashboard.webp",
+        image: "/projects/jp-connect/portfolio-03-faculty.webp",
         primitive: "Normalized Proctor Alias Lookup Table Mapping 126 Instructor Accounts",
       },
       {
-        label: "SSC & Campus",
-        image: "/projects/jp-connect/4. SSC&Campus.webp",
+        label: "SSC & Clearance",
+        image: "/projects/jp-connect/portfolio-04-clearance.webp",
         primitive: "Set-Difference Attendance Sync (14,778 Records) + PHP 707,750 Ledger",
       },
       {
-        label: "Program Head Email",
-        image: "/projects/jp-connect/5. pg-email.webp",
-        primitive: "Written Commendation from CICT Program Head (SJPIICD)",
+        label: "Academic Calendar",
+        image: "/projects/jp-connect/portfolio-05-calendar.webp",
+        primitive: "Synced Campus Events, Exam Windows & Clearance Deadlines",
       },
       {
-        label: "Campus Projector",
-        image: "/projects/jp-connect/6. projector.webp",
+        label: "Conflict Resolver",
+        image: "/projects/jp-connect/portfolio-06-conflicts.webp",
+        primitive: "Automated Room, Proctor & Self-Proctor Overlap Detection",
+      },
+      {
+        label: "Campus Standee",
+        image: "/projects/jp-connect/portfolio-07-campus-standee.webp",
         primitive: "Vertical Lobby Display · Live Exam & Clearance Feed",
+      },
+      {
+        label: "Program Head Email",
+        image: "/projects/jp-connect/portfolio-08-commendation.webp",
+        primitive: "Written Commendation from CICT Program Head (SJPIICD)",
       },
     ],
     logo: "/logos/jp-connect-logo.webp",
@@ -608,10 +618,10 @@ export const featuredCredentials: Credential[] = [
 export const experience: Experience[] = [
   {
     organization: "St. John Paul II College of Davao",
-    role: "Full-stack Developer (Freelance Contract)",
+    role: "Full-Stack Developer (Freelance Contract)",
     period: "Aug 2025 – Present",
     highlights: [
-      `Built and deployed JP Connect, a paid student services and exam scheduling portal with ${jpConnectMetrics.accounts} authenticated profiles (${jpConnectMetrics.students} students and ${jpConnectMetrics.faculty} instructors) across 9 academic departments.`,
+      `Built and deployed JP Connect, a student services and exam scheduling portal with ${jpConnectMetrics.accounts} authenticated profiles (${jpConnectMetrics.students} students and ${jpConnectMetrics.faculty} instructors) across 9 academic departments.`,
       "Implemented an interval-sweep validator checking 781 exam slots for room, proctor, and self-proctor conflicts (0 overlaps), replacing manual Excel cross-checks.",
       "Automated end-of-semester clearance by reconciling event attendee ID uploads against 14,778 registrar records in under 5 seconds, auto-flagging absences and calculating SSC sanctions.",
       "Enforced data isolation across 6 user roles using PostgreSQL Row-Level Security and Next.js middleware to restrict shared-terminal access.",

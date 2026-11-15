@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import { Navbar } from "@/components/sections/Navbar";
 import { Experience } from "@/components/sections/Experience";
 import { Footer } from "@/components/sections/Footer";
+import { BackHomeLink } from "@/components/ui/back-home-link";
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -19,17 +18,11 @@ export default function ExperiencePage() {
 
       <main
         id="main-content"
-        className="flex-1 min-w-0 px-4 sm:px-6 lg:px-10 xl:px-14 py-6 sm:py-10 lg:py-12"
+        className="flex-1 min-w-0 px-4 sm:px-6 lg:px-8 xl:px-10 pt-4 pb-6 sm:py-8 lg:pt-7 lg:pb-12"
       >
         <div className="max-w-[980px] mx-auto flex flex-col gap-2 sm:gap-4 [&>section]:pt-2 [&>section]:sm:pt-4">
-          <div className="pt-2 sm:pt-4">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft size={14} />
-              <span>Home</span>
-            </Link>
+          <div className="lg:pt-1">
+            <BackHomeLink />
           </div>
 
           <Experience />

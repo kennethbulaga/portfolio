@@ -268,18 +268,19 @@ export function Education({ previewMode = false }: EducationProps) {
     [activeCert, gallery.length, handlePrevSlide, handleNextSlide]
   );
 
+  const isCertOpen = Boolean(activeCert);
+
   useEffect(() => {
-    if (activeCert) {
-      document.body.style.overflow = "hidden";
-      window.addEventListener("keydown", handleKeyDown);
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    if (!isCertOpen) return;
+    const prevFocus = document.activeElement as HTMLElement | null;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = "unset";
       window.removeEventListener("keydown", handleKeyDown);
+      prevFocus?.focus();
     };
-  }, [activeCert, handleKeyDown]);
+  }, [isCertOpen, handleKeyDown]);
 
   return (
     <>
@@ -323,7 +324,7 @@ export function Education({ previewMode = false }: EducationProps) {
           )}
 
           {previewMode ? (
-            <div className="rounded-[14px] border border-border bg-card px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex flex-col gap-0.5">
                 <p className="text-sm font-semibold text-foreground">
                   Academic Background, Hackathons & Leadership Dossier
@@ -334,7 +335,7 @@ export function Education({ previewMode = false }: EducationProps) {
               </div>
               <Link
                 href="/credentials"
-                className="btn btn-light h-10 px-4 text-xs font-mono shrink-0"
+                className="btn btn-light h-11 sm:h-10 px-4 text-xs font-mono shrink-0"
               >
                 <span>Inspect All Credentials (04)</span>
                 <ArrowUpRight size={15} strokeWidth={1.5} />
@@ -348,7 +349,7 @@ export function Education({ previewMode = false }: EducationProps) {
                 <div className="px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <GraduationCap size={17} className="text-foreground shrink-0" />
-                    <h3 className="text-sm sm:text-base font-bold text-foreground">
+                    <h3 className="text-sm sm:text-base font-semibold text-foreground">
                       Academic Background
                     </h3>
                   </div>
@@ -404,7 +405,7 @@ export function Education({ previewMode = false }: EducationProps) {
                 <div className="px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <Award size={17} className="text-foreground shrink-0" />
-                    <h3 className="text-sm sm:text-base font-bold text-foreground">
+                    <h3 className="text-sm sm:text-base font-semibold text-foreground">
                       Institutional Leadership
                     </h3>
                   </div>
@@ -482,7 +483,7 @@ export function Education({ previewMode = false }: EducationProps) {
               <div className="w-full flex items-center justify-between pb-3 text-white">
                 <div className="flex flex-col gap-0.5 min-w-0 pr-4">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <p className="text-xs sm:text-base font-bold text-balance leading-snug">
+                    <p className="text-xs sm:text-base font-semibold text-balance leading-snug">
                       {activeCert.title}
                     </p>
                     {gallery.length > 1 && (
