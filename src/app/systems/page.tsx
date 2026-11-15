@@ -16,14 +16,6 @@ export const metadata: Metadata = {
     description:
       "Production systems by Kenneth Bulaga: JP Connect, OWWA CSMR and SPRS, and JP Intrams, built with Next.js, TypeScript, and PostgreSQL.",
     url: "/systems",
-    images: [
-      {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Kenneth Bulaga — Full-Stack Developer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -31,7 +23,6 @@ export const metadata: Metadata = {
     title: "Systems | Kenneth Bulaga",
     description:
       "Production systems by Kenneth Bulaga: JP Connect, OWWA CSMR and SPRS, and JP Intrams, built with Next.js, TypeScript, and PostgreSQL.",
-    images: ["/opengraph-image.png"],
   },
 };
 

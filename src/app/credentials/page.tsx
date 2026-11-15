@@ -16,14 +16,6 @@ export const metadata: Metadata = {
     description:
       "Verified government certificates of recognition, national hackathon awards, academic degree, and student leadership records.",
     url: "/credentials",
-    images: [
-      {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Kenneth Bulaga — Full-Stack Developer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -31,7 +23,6 @@ export const metadata: Metadata = {
     title: "Credentials & Education | Kenneth Bulaga",
     description:
       "Verified government certificates of recognition, national hackathon awards, academic degree, and student leadership records.",
-    images: ["/opengraph-image.png"],
   },
 };
 
