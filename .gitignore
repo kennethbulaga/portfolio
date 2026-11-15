@@ -48,6 +48,12 @@ next-env.d.ts
 .agents/
 .kiro/
 .gemini/
+skills-lock.json
+
+# internal specs
+DESIGN.md
+PRODUCT.md
+portfolio.md
 
 # script
 scripts/
