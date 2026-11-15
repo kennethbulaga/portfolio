@@ -9,6 +9,30 @@ export const metadata: Metadata = {
   description:
     "Production software engineering experience across St. John Paul II College of Davao and OWWA Region XI.",
   alternates: { canonical: "/experience" },
+  openGraph: {
+    type: "website",
+    siteName: "Kenneth Bulaga Portfolio",
+    title: "Experience | Kenneth Bulaga",
+    description:
+      "Production software engineering experience across St. John Paul II College of Davao and OWWA Region XI.",
+    url: "/experience",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Kenneth Bulaga — Full-Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@kenzodev69",
+    title: "Experience | Kenneth Bulaga",
+    description:
+      "Production software engineering experience across St. John Paul II College of Davao and OWWA Region XI.",
+    images: ["/opengraph-image.png"],
+  },
 };
 
 export default function ExperiencePage() {

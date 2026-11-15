@@ -111,7 +111,7 @@ export const personalInfo: PersonalInfo = {
     light: "/logos/kb-logo-dark.svg",
     dark: "/logos/kb-logo-dark.svg",
   },
-  subHeadline: "Full-stack Developer",
+  subHeadline: "Full-Stack Developer",
   bio: "I built JP Connect for 7,207 student and faculty accounts at St. John Paul II College of Davao, validating 781 exam schedules with zero overlaps. I also built JP Intrams for live tournament standings across 23 sports divisions, along with the CSMR citizen feedback and SPRS reporting platforms for OWWA Region XI.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
   email: "kennethbulaga.dev@gmail.com",

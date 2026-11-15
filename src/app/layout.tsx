@@ -28,10 +28,10 @@ export const metadata: Metadata = {
     template: "%s | Kenneth Bulaga",
   },
   description:
-    "Full-Stack Developer shipping JP Connect (7,207 profiles), JP Intrams, and OWWA Region XI CSMR & SPRS reporting platforms with Next.js, TypeScript, and PostgreSQL.",
+    "Full-Stack Developer in Davao City building production Next.js & TypeScript web systems for St. John Paul II College of Davao and OWWA Region XI.",
   keywords: [
     "Kenneth Bulaga",
-    "Full-stack Developer",
+    "Full-Stack Developer",
     "Junior Software Developer",
     "Web Developer",
     "Next.js 16",
@@ -53,23 +53,14 @@ export const metadata: Metadata = {
     url: "https://kennethbulaga.dev",
     title: "Kenneth Bulaga — Full-Stack Developer",
     description:
-      "Full-Stack Developer shipping JP Connect (7,207 profiles), JP Intrams, and OWWA Region XI CSMR & SPRS reporting platforms with Next.js, TypeScript, and PostgreSQL.",
+      "Full-Stack Developer in Davao City building production Next.js & TypeScript web systems for St. John Paul II College of Davao and OWWA Region XI.",
     siteName: "Kenneth Bulaga Portfolio",
-    images: [
-      {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Kenneth Bulaga — Full-Stack Developer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Kenneth Bulaga — Full-Stack Developer",
     description:
-      "Full-Stack Developer shipping JP Connect (7,207 profiles), JP Intrams, and OWWA Region XI CSMR & SPRS reporting platforms with Next.js, TypeScript, and PostgreSQL.",
-    images: ["/opengraph-image.png"],
+      "Full-Stack Developer in Davao City building production Next.js & TypeScript web systems for St. John Paul II College of Davao and OWWA Region XI.",
     creator: "@kenzodev69",
   },
   icons: {
@@ -123,14 +114,23 @@ export default function RootLayout({
         name: "Kenneth Bulaga Portfolio",
         inLanguage: "en",
         publisher: { "@id": "https://kennethbulaga.dev/#person" },
+        primaryImageOfPage: { "@id": "https://kennethbulaga.dev/#avatar" },
       },
       {
         "@type": "Person",
         "@id": "https://kennethbulaga.dev/#person",
         name: "Kenneth Bulaga",
-        jobTitle: "Full-stack Developer",
+        jobTitle: "Full-Stack Developer",
         url: "https://kennethbulaga.dev",
-        image: "https://kennethbulaga.dev/profile/avatar.webp",
+        image: {
+          "@type": "ImageObject",
+          "@id": "https://kennethbulaga.dev/#avatar",
+          url: "https://kennethbulaga.dev/profile/avatar.webp",
+          contentUrl: "https://kennethbulaga.dev/profile/avatar.webp",
+          width: 1638,
+          height: 1638,
+          caption: "Kenneth Bulaga — Full-Stack Developer",
+        },
         address: {
           "@type": "PostalAddress",
           addressLocality: "Davao City",

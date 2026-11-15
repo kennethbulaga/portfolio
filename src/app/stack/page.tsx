@@ -9,6 +9,30 @@ export const metadata: Metadata = {
   description:
     "The tools Kenneth Bulaga reaches for when building client systems and independent projects.",
   alternates: { canonical: "/stack" },
+  openGraph: {
+    type: "website",
+    siteName: "Kenneth Bulaga Portfolio",
+    title: "Stack | Kenneth Bulaga",
+    description:
+      "The tools Kenneth Bulaga reaches for when building client systems and independent projects.",
+    url: "/stack",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Kenneth Bulaga — Full-Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@kenzodev69",
+    title: "Stack | Kenneth Bulaga",
+    description:
+      "The tools Kenneth Bulaga reaches for when building client systems and independent projects.",
+    images: ["/opengraph-image.png"],
+  },
 };
 
 export default function StackPage() {

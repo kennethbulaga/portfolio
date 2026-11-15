@@ -4,7 +4,7 @@ import { navItems } from "@/data/portfolio";
 const siteUrl = "https://kennethbulaga.dev";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const lastModified = new Date();
+  const lastModified = "2026-11-16";
 
   return navItems.map((item) => ({
     url: item.href === "/" ? siteUrl : `${siteUrl}${item.href}`,
