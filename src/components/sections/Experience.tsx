@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -19,9 +17,15 @@ export function Experience({ previewMode = false }: ExperienceProps) {
         {/* Section Header */}
         <div className="flex flex-col gap-2">
           <div className="flex items-baseline justify-between gap-4 flex-wrap">
-            <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
-              Work Experience
-            </h2>
+            {previewMode ? (
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
+                Work Experience
+              </h2>
+            ) : (
+              <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-foreground text-balance">
+                Work Experience
+              </h1>
+            )}
             {previewMode ? (
               <Link
                 href="/experience"

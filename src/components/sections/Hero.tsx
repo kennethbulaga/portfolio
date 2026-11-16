@@ -1,37 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import { MapPin, ArrowDown, Copy, Check, X, ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   personalInfo,
   heroHeadline,
   institutionalTrust,
 } from "@/data/portfolio";
 import { useCopyEmail } from "@/hooks/use-copy-email";
+import { useDialogFocusTrap } from "@/hooks/use-dialog-focus-trap";
 import { PixelName } from "@/components/ui/pixel-name";
 import { TechMarquee } from "./TechMarquee";
 
 export function Hero() {
   const [isAvatarZoomed, setIsAvatarZoomed] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
   const { copied, copyEmail } = useCopyEmail(personalInfo.email);
   const shouldReduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    if (!isAvatarZoomed) return;
-    const prevFocus = document.activeElement as HTMLElement | null;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsAvatarZoomed(false);
-    };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.body.style.overflow = "unset";
-      window.removeEventListener("keydown", handleKeyDown);
-      prevFocus?.focus();
-    };
-  }, [isAvatarZoomed]);
+  const closeAvatarModal = useCallback(() => setIsAvatarZoomed(false), []);
+  useDialogFocusTrap(isAvatarZoomed, modalRef, closeAvatarModal);
 
   const scrollToProjects = () => {
     const el = document.querySelector("#projects");
@@ -56,6 +46,7 @@ export function Hero() {
                 fill
                 sizes="(max-width: 640px) 80px, 96px"
                 priority
+                fetchPriority="high"
                 className="object-cover object-[50%_18%] scale-[1.15] transition-transform duration-150 ease-[var(--ease-out)] group-hover:scale-[1.18]"
               />
             </button>
@@ -189,15 +180,23 @@ export function Hero() {
       {/* Avatar High-Resolution Lightbox Modal */}
       <AnimatePresence>
         {isAvatarZoomed && personalInfo.avatar && (
-          <motion.div
+          <m.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="hero-avatar-dialog-title"
+            tabIndex={-1}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.18 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/90 backdrop-blur-md select-none cursor-zoom-out"
-            onClick={() => setIsAvatarZoomed(false)}
+            onClick={closeAvatarModal}
           >
-            <motion.div
+            <h2 id="hero-avatar-dialog-title" className="sr-only">
+              {personalInfo.name} portrait preview
+            </h2>
+            <m.div
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
               animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
               exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
@@ -211,7 +210,7 @@ export function Hero() {
               dragElastic={{ top: 0, bottom: 0.45 }}
               onDragEnd={(_, info) => {
                 if (info.offset.y > 90 || info.velocity.y > 400) {
-                  setIsAvatarZoomed(false);
+                  closeAvatarModal();
                 }
               }}
               className="relative aspect-square w-full max-w-[360px] rounded-[20px] overflow-hidden bg-zinc-950 shadow-[0_24px_60px_oklch(0_0_0/0.55)] cursor-default image-outline"
@@ -228,14 +227,14 @@ export function Hero() {
 
               <button
                 type="button"
-                onClick={() => setIsAvatarZoomed(false)}
+                onClick={closeAvatarModal}
                 className="absolute top-3 right-3 z-10 min-h-11 min-w-11 size-11 rounded-full bg-black/55 hover:bg-black/75 backdrop-blur-md text-white transition-[background-color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] border border-[oklch(1_0_0/0.14)] flex items-center justify-center cursor-pointer focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label="Close photo preview"
               >
                 <X size={18} strokeWidth={1.5} />
               </button>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>

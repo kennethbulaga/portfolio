@@ -47,17 +47,20 @@
   color-scheme: dark;
 }
 
-html {
-  scroll-behavior: smooth;
-  overscroll-behavior-y: contain;
-  scrollbar-width: thin;
-  scrollbar-color: var(--line) transparent;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-text-size-adjust: 100%;
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+  }
 
-* {
-  border-color: var(--line);
+  * {
+    border-color: var(--line);
+  }
 }
 
 body {
@@ -238,23 +241,25 @@ a {
   color: var(--bg);
 }
 
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-::-webkit-scrollbar-thumb {
-  background: var(--line);
-  border-radius: 999px;
-}
+  ::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 999px;
+  }
 
-@media (hover: hover) and (pointer: fine) {
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--faint);
+  @media (hover: hover) and (pointer: fine) {
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--faint);
+    }
   }
 }
 

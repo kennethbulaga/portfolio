@@ -1,12 +1,9 @@
-"use client";
-
-import { Mail, Check, Copy, ArrowUpRight } from "lucide-react";
+import { Mail, ArrowUpRight } from "lucide-react";
 import { socialLinks, personalInfo } from "@/data/portfolio";
-import { useCopyEmail } from "@/hooks/use-copy-email";
+import { FooterCopyEmailButton } from "@/components/ui/footer-copy-email-button";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  const { copied, copyEmail } = useCopyEmail(personalInfo.email);
 
   const externalChannels = socialLinks.filter(
     (l) => l.platform !== "Email" && l.platform !== "TikTok"
@@ -41,23 +38,7 @@ export function Footer() {
             <span>Open in Gmail</span>
           </a>
 
-          <button
-            type="button"
-            onClick={copyEmail}
-            className="btn btn-light h-11 px-4 text-xs cursor-pointer"
-          >
-            {copied ? (
-              <>
-                <Check size={16} strokeWidth={1.5} className="text-[var(--green-ink)]" />
-                <span className="text-[var(--green-ink)] font-medium">Email copied</span>
-              </>
-            ) : (
-              <>
-                <Copy size={16} strokeWidth={1.5} className="text-muted-foreground" />
-                <span>{personalInfo.email}</span>
-              </>
-            )}
-          </button>
+          <FooterCopyEmailButton email={personalInfo.email} />
         </div>
       </div>
 

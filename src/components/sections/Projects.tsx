@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -12,7 +12,8 @@ import {
   Terminal,
   Rocket,
 } from "lucide-react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useDialogFocusTrap } from "@/hooks/use-dialog-focus-trap";
 import {
   flagshipProjects,
   clientProjects,
@@ -102,8 +103,10 @@ function ContactSheetProject({
           <div className="@2xl:col-span-7 flex flex-col justify-between bg-muted/15 p-2 sm:p-3 border-b @2xl:border-b-0 @2xl:border-r border-border gap-3">
             <div className="flex flex-col gap-2.5">
               {/* Clickable & Touch-Swipeable Image Preview Container */}
-              <div
+              <button
+                type="button"
                 onClick={() => onZoom(activeScreenshotIdx)}
+                aria-label={`Inspect ${project.title} screenshot gallery`}
                 onTouchStart={(e) => {
                   const t = e.touches[0];
                   swipeStartRef.current = { x: t.clientX, y: t.clientY };
@@ -123,7 +126,7 @@ function ContactSheetProject({
                     );
                   }
                 }}
-                className="relative aspect-[16/10] rounded-[12px] sm:rounded-[10px] overflow-hidden bg-background border border-border group cursor-zoom-in image-outline touch-pan-y"
+                className="relative w-full text-left aspect-[16/10] rounded-[12px] sm:rounded-[10px] overflow-hidden bg-background border border-border group cursor-zoom-in image-outline touch-pan-y"
                 title="Click to inspect full resolution"
               >
                 {screenshots.map((screen, idx) => (
@@ -139,9 +142,7 @@ function ContactSheetProject({
                       src={screen.image}
                       alt={`${project.title} — ${screen.label}`}
                       fill
-                      unoptimized
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 55vw, 560px"
-                      priority={project.id === "jp-connect" && idx === 0}
                       className="object-cover transition-transform duration-200 ease-[var(--ease-out)] group-hover:scale-[1.02]"
                     />
                   </div>
@@ -154,7 +155,7 @@ function ContactSheetProject({
                     <span>Inspect Frame</span>
                   </div>
                 </div>
-              </div>
+              </button>
 
               {/* Primitive Cutaway Editorial Caption */}
               {activeScreen?.primitive && (
@@ -285,9 +286,9 @@ function ClientContactSheetCard({
               </div>
             )}
             <div className="min-w-0">
-              <h4 className="text-sm sm:text-base font-semibold tracking-[-0.015em] text-foreground text-balance leading-snug truncate">
+              <h3 className="text-sm sm:text-base font-semibold tracking-[-0.015em] text-foreground text-balance leading-snug truncate">
                 {project.title}
-              </h4>
+              </h3>
               <p className="text-[11px] font-mono text-muted-foreground text-pretty leading-snug truncate">
                 {project.client}
               </p>
@@ -300,8 +301,10 @@ function ClientContactSheetCard({
         {/* 16/10 Preview Frame */}
         {activeImage && (
           <div className="p-2 border-b border-border bg-muted/15 flex flex-col gap-2">
-            <div
+            <button
+              type="button"
               onClick={() => onZoom(activeScreenshotIdx)}
+              aria-label={`Inspect ${project.title} screenshot gallery`}
               onTouchStart={(e) => {
                 const t = e.touches[0];
                 swipeStartRef.current = { x: t.clientX, y: t.clientY };
@@ -321,7 +324,7 @@ function ClientContactSheetCard({
                   );
                 }
               }}
-              className="relative w-full aspect-[16/10] rounded-[10px] overflow-hidden border border-border bg-background cursor-zoom-in group/img image-outline touch-pan-y"
+              className="relative w-full text-left aspect-[16/10] rounded-[10px] overflow-hidden border border-border bg-background cursor-zoom-in group/img image-outline touch-pan-y"
               title="Click to inspect full resolution"
             >
               {screenshots.map((screen, idx) => (
@@ -337,7 +340,6 @@ function ClientContactSheetCard({
                     src={screen.image}
                     alt={`${project.title} — ${screen.label}`}
                     fill
-                    unoptimized
                     sizes="(max-width: 768px) 100vw, 460px"
                     className="object-cover transition-transform duration-200 ease-[var(--ease-out)] group-hover/img:scale-[1.02]"
                   />
@@ -359,7 +361,7 @@ function ClientContactSheetCard({
                   <span>Inspect Frame</span>
                 </div>
               </div>
-            </div>
+            </button>
 
             {screenshots.length > 1 && (
               <div className="flex overflow-x-auto no-scrollbar gap-1.5">
@@ -419,6 +421,7 @@ function ClientContactSheetCard({
 
 export function Projects({ previewMode = false }: ProjectsProps) {
   const [zoomState, setZoomState] = useState<ZoomState | null>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const visibleFlagships = previewMode
     ? flagshipProjects.slice(0, 2)
@@ -470,23 +473,16 @@ export function Projects({ previewMode = false }: ProjectsProps) {
   }, []);
 
   const isZoomOpen = Boolean(zoomState);
-
-  useEffect(() => {
-    if (!isZoomOpen) return;
-    const prevFocus = document.activeElement as HTMLElement | null;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setZoomState(null);
+  const closeZoom = useCallback(() => setZoomState(null), []);
+  const handleArrowKeys = useCallback(
+    (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft") handlePrev();
       if (e.key === "ArrowRight") handleNext();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-      document.body.style.overflow = "unset";
-      prevFocus?.focus();
-    };
-  }, [isZoomOpen, handlePrev, handleNext]);
+    },
+    [handlePrev, handleNext]
+  );
+
+  useDialogFocusTrap(isZoomOpen, modalRef, closeZoom, handleArrowKeys);
 
   return (
     <section
@@ -497,9 +493,15 @@ export function Projects({ previewMode = false }: ProjectsProps) {
         {/* Section Header Row */}
         <div className="flex flex-col gap-2">
           <div className="flex items-baseline justify-between gap-4 flex-wrap">
-            <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
-              {previewMode ? "Featured Production Systems" : "Production Systems & Proof Sheet"}
-            </h2>
+            {previewMode ? (
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
+                Featured Production Systems
+              </h2>
+            ) : (
+              <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-foreground text-balance">
+                Production Systems & Proof Sheet
+              </h1>
+            )}
             <span className="text-xs font-mono tabular-nums text-muted-foreground">
               {previewMode ? "02 OF 04 SYSTEMS" : "04 DEPLOYED PLATFORMS"}
             </span>
@@ -652,13 +654,18 @@ export function Projects({ previewMode = false }: ProjectsProps) {
       {/* Full-Resolution Lightbox Modal */}
       <AnimatePresence>
         {zoomState && (
-          <motion.div
+          <m.div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="projects-lightbox-title"
+            tabIndex={-1}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={shouldReduceMotion ? { duration: 0.15 } : { type: "spring", duration: 0.3, bounce: 0 }}
             className="fixed inset-0 z-50 flex flex-col items-center justify-between p-3 sm:p-6 md:p-8 pt-[max(12px,env(safe-area-inset-top))] pb-[max(12px,env(safe-area-inset-bottom))] bg-black/92 backdrop-blur-md select-none overscroll-contain"
-            onClick={() => setZoomState(null)}
+            onClick={closeZoom}
           >
             {/* Top Control Bar */}
             <div
@@ -666,7 +673,10 @@ export function Projects({ previewMode = false }: ProjectsProps) {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex items-center gap-2 min-w-0 flex-wrap">
-                <span className="text-xs sm:text-sm font-semibold font-mono text-zinc-100">
+                <span
+                  id="projects-lightbox-title"
+                  className="text-xs sm:text-sm font-semibold font-mono text-zinc-100"
+                >
                   {zoomState.projectTitle}
                 </span>
                 <span className="text-zinc-500 font-mono text-xs">/</span>
@@ -708,7 +718,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
               )}
 
               <div className="relative w-full h-full max-h-[76vh] flex items-center justify-center">
-                <motion.div
+                <m.div
                   key={zoomState.currentIndex}
                   initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
                   animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
@@ -720,12 +730,10 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                     src={zoomState.images[zoomState.currentIndex].image}
                     alt={zoomState.images[zoomState.currentIndex].label}
                     fill
-                    unoptimized
                     sizes="(max-width: 1280px) 100vw, 1200px"
                     className="object-contain rounded-[10px]"
-                    priority
                   />
-                </motion.div>
+                </m.div>
               </div>
 
               {zoomState.images.length > 1 && (
@@ -759,7 +767,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                           prev ? { ...prev, currentIndex: idx } : null
                         )
                       }
-                      className={`relative h-2 transition-[width,background-color] duration-200 ease-[var(--ease-out)] rounded-full after:absolute after:-inset-3 after:content-[''] ${
+                      className={`relative h-2 transition-[width,background-color] duration-200 ease-[var(--ease-out)] rounded-full after:absolute after:-inset-4 after:content-[''] ${
                         zoomState.currentIndex === idx
                           ? "w-7 bg-white"
                           : "w-2 bg-zinc-600 hover:bg-zinc-400"
@@ -770,7 +778,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
                 </div>
               )}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>

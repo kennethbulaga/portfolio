@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -116,7 +116,7 @@ export function IWasHereButton() {
       <div className="relative shrink-0">
         <AnimatePresence>
           {!shouldReduceMotion && particles.map((particle) => (
-            <motion.span
+            <m.span
               key={particle.id}
               initial={{ opacity: 1, y: 0, x: particle.x, scale: 0.8 }}
               animate={{ opacity: 0, y: -38, scale: 1.15 }}
@@ -126,7 +126,7 @@ export function IWasHereButton() {
               className="absolute -top-3 left-1/2 -translate-x-1/2 pointer-events-none text-[11px] font-medium font-mono text-foreground select-none z-30 whitespace-nowrap"
             >
               {particle.text}
-            </motion.span>
+            </m.span>
           ))}
         </AnimatePresence>
 

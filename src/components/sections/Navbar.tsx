@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,6 +24,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { PixelName } from "@/components/ui/pixel-name";
 import { IWasHereButton } from "@/components/ui/i-was-here";
 import { useCopyEmail } from "@/hooks/use-copy-email";
+import { useDialogFocusTrap } from "@/hooks/use-dialog-focus-trap";
 import {
   navItems,
   personalInfo,
@@ -66,6 +67,14 @@ function DavaoClock() {
   return <span className="font-mono text-[11px] tabular-nums text-muted-foreground">{time}</span>;
 }
 
+const subscribeMedia = (cb: () => void) => {
+  const mq = window.matchMedia("(min-width: 1024px)");
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
+const getDesktopSnapshot = () => window.matchMedia("(min-width: 1024px)").matches;
+const getDesktopServerSnapshot = () => true;
+
 export function Navbar() {
   const pathname = usePathname();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -73,6 +82,15 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState<"about" | "projects">("about");
   const { copied, copyEmail } = useCopyEmail(personalInfo.email);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const asideRef = useRef<HTMLElement>(null);
+  const isDesktop = useSyncExternalStore(
+    subscribeMedia,
+    getDesktopSnapshot,
+    getDesktopServerSnapshot
+  );
+
+  const closeDrawer = useCallback(() => setIsDrawerOpen(false), []);
+  useDialogFocusTrap(!isDesktop && isDrawerOpen, asideRef, closeDrawer);
 
   useEffect(() => {
     if (pathname !== "/") return;
@@ -122,28 +140,8 @@ export function Navbar() {
     return () => observer.disconnect();
   }, [pathname]);
 
-  useEffect(() => {
-    if (!isDrawerOpen) return;
-    const prevFocus = document.activeElement as HTMLElement | null;
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setIsDrawerOpen(false);
-    };
-
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = "unset";
-      window.removeEventListener("keydown", handleKeyDown);
-      prevFocus?.focus();
-    };
-  }, [isDrawerOpen]);
-
   const githubLink = socialLinks.find((l) => l.platform === "GitHub");
   const linkedinLink = socialLinks.find((l) => l.platform === "LinkedIn");
-
-  const closeDrawer = () => setIsDrawerOpen(false);
 
   return (
     <>
@@ -224,7 +222,11 @@ export function Navbar() {
 
       {/* Unified Floating Left Rail (Desktop) & Left-Sliding Drawer (Mobile) */}
       <aside
+        ref={asideRef}
         aria-label="Primary Sidebar Navigation"
+        role={!isDesktop && isDrawerOpen ? "dialog" : undefined}
+        aria-modal={!isDesktop && isDrawerOpen ? true : undefined}
+        inert={!isDesktop && !isDrawerOpen ? true : undefined}
         onTouchStart={(e) => {
           if (!isDrawerOpen) return;
           const t = e.touches[0];

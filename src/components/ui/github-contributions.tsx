@@ -66,7 +66,7 @@ export function GithubContributions() {
               fontSize={12}
             />
           ) : (
-            <div className="h-[115px] flex items-center justify-center text-xs text-muted-foreground">
+            <div className="h-[136px] flex items-center justify-center text-xs text-muted-foreground">
               Loading contribution history...
             </div>
           )}

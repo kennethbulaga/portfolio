@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -35,7 +35,7 @@ export function ThemeToggle() {
       className={baseClass}
     >
       <AnimatePresence initial={false} mode="popLayout">
-        <motion.span
+        <m.span
           key={isDark ? "dark" : "light"}
           initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.25, filter: "blur(4px)" }}
           animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, filter: "blur(0px)" }}
@@ -48,7 +48,7 @@ export function ThemeToggle() {
           ) : (
             <Moon size={16} strokeWidth={1.5} />
           )}
-        </motion.span>
+        </m.span>
       </AnimatePresence>
       <span className="sr-only">Toggle theme</span>
     </button>

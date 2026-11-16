@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useDialogFocusTrap } from "@/hooks/use-dialog-focus-trap";
 import {
   GraduationCap,
   Award,
@@ -58,8 +59,10 @@ function CredentialCard({
     <article className="rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 flex flex-col h-full group">
       {/* Flush Certificate / Presentation Photo Preview */}
       {activeImage && (
-        <div
+        <button
+          type="button"
           onClick={() => onOpenCert(item, activePhotoIdx)}
+          aria-label={`Inspect ${item.title} proof gallery`}
           onTouchStart={(e) => {
             const t = e.touches[0];
             swipeStartRef.current = { x: t.clientX, y: t.clientY };
@@ -79,7 +82,7 @@ function CredentialCard({
               );
             }
           }}
-          className="relative aspect-[16/10] w-full overflow-hidden border-b border-border bg-muted/20 cursor-zoom-in group/img image-outline shrink-0 touch-pan-y"
+          className="relative aspect-[16/10] w-full text-left overflow-hidden border-b border-border bg-muted/20 cursor-zoom-in group/img image-outline shrink-0 touch-pan-y"
           title="Click to inspect full resolution"
         >
           {gallery.map((g, idx) => (
@@ -117,15 +120,15 @@ function CredentialCard({
               <span>Inspect Proof</span>
             </div>
           </div>
-        </div>
+        </button>
       )}
 
       {/* Content Area — Heading First (Zero Eyebrow Kicker Above Heading) */}
       <div className="p-4 sm:p-5 flex flex-col gap-3 flex-1">
         <div className="flex items-start justify-between gap-3">
-          <h4 className="font-semibold text-foreground text-sm sm:text-base leading-snug text-balance">
+          <h3 className="font-semibold text-foreground text-sm sm:text-base leading-snug text-balance">
             {item.title}
-          </h4>
+          </h3>
           <span className="text-xs font-mono tabular-nums text-muted-foreground shrink-0 pt-0.5">
             {indexNumber}
           </span>
@@ -205,6 +208,7 @@ interface EducationProps {
 export function Education({ previewMode = false }: EducationProps) {
   const [activeCert, setActiveCert] = useState<Credential | null>(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const modalRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const visibleCredentials = previewMode
     ? featuredCredentials.slice(0, 2)
@@ -238,33 +242,21 @@ export function Education({ previewMode = false }: EducationProps) {
     [gallery.length]
   );
 
-  const handleKeyDown = useCallback(
+  const isCertOpen = Boolean(activeCert);
+  const closeCert = useCallback(() => setActiveCert(null), []);
+
+  const handleArrowKeys = useCallback(
     (e: KeyboardEvent) => {
-      if (!activeCert) return;
-      if (e.key === "Escape") {
-        setActiveCert(null);
-      } else if (e.key === "ArrowLeft" && gallery.length > 1) {
+      if (e.key === "ArrowLeft" && gallery.length > 1) {
         handlePrevSlide();
       } else if (e.key === "ArrowRight" && gallery.length > 1) {
         handleNextSlide();
       }
     },
-    [activeCert, gallery.length, handlePrevSlide, handleNextSlide]
+    [gallery.length, handlePrevSlide, handleNextSlide]
   );
 
-  const isCertOpen = Boolean(activeCert);
-
-  useEffect(() => {
-    if (!isCertOpen) return;
-    const prevFocus = document.activeElement as HTMLElement | null;
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.body.style.overflow = "unset";
-      window.removeEventListener("keydown", handleKeyDown);
-      prevFocus?.focus();
-    };
-  }, [isCertOpen, handleKeyDown]);
+  useDialogFocusTrap(isCertOpen, modalRef, closeCert, handleArrowKeys);
 
   return (
     <>
@@ -276,9 +268,15 @@ export function Education({ previewMode = false }: EducationProps) {
           {/* Section Header */}
           <div className="flex flex-col gap-2">
             <div className="flex items-baseline justify-between gap-4 flex-wrap">
-              <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
-                {previewMode ? "Verified Credentials & Proofs" : "Credentials, Honors & Education"}
-              </h2>
+              {previewMode ? (
+                <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
+                  Verified Credentials & Proofs
+                </h2>
+              ) : (
+                <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-foreground text-balance">
+                  Credentials, Honors & Education
+                </h1>
+              )}
               <span className="text-xs font-mono tabular-nums text-muted-foreground flex items-center gap-1.5">
                 <FileCheck size={14} strokeWidth={1.5} className="text-muted-foreground" />
                 <span>
@@ -425,7 +423,7 @@ export function Education({ previewMode = false }: EducationProps) {
                               href={position.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors"
+                              className="relative inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors after:absolute after:-inset-3 after:content-['']"
                               aria-label={`Visit ${position.organization}`}
                             >
                               <ArrowUpRight size={13} />
@@ -452,10 +450,15 @@ export function Education({ previewMode = false }: EducationProps) {
       <AnimatePresence>
         {activeCert && gallery.length > 0 && (
           <div
+            ref={modalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="education-lightbox-title"
+            tabIndex={-1}
             className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 pt-[max(12px,env(safe-area-inset-top))] pb-[max(12px,env(safe-area-inset-bottom))] bg-black/92 backdrop-blur-md select-none overscroll-contain"
-            onClick={() => setActiveCert(null)}
+            onClick={closeCert}
           >
-            <motion.div
+            <m.div
               initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
               animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
               exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
@@ -467,7 +470,10 @@ export function Education({ previewMode = false }: EducationProps) {
               <div className="w-full flex items-center justify-between pb-3 text-white">
                 <div className="flex flex-col gap-0.5 min-w-0 pr-4">
                   <div className="flex items-center gap-2.5 flex-wrap">
-                    <p className="text-xs sm:text-base font-semibold text-balance leading-snug">
+                    <p
+                      id="education-lightbox-title"
+                      className="text-xs sm:text-base font-semibold text-balance leading-snug"
+                    >
                       {activeCert.title}
                     </p>
                     {gallery.length > 1 && (
@@ -503,7 +509,7 @@ export function Education({ previewMode = false }: EducationProps) {
                   </button>
                 )}
 
-                <motion.div
+                <m.div
                   key={activeSlide}
                   initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
                   animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
@@ -515,12 +521,10 @@ export function Education({ previewMode = false }: EducationProps) {
                     src={gallery[activeSlide].image}
                     alt={gallery[activeSlide].label}
                     fill
-                    unoptimized
                     sizes="(max-width: 1280px) 100vw, 1000px"
                     className="object-contain rounded-[10px]"
-                    priority
                   />
-                </motion.div>
+                </m.div>
 
                 {gallery.length > 1 && (
                   <button
@@ -552,7 +556,7 @@ export function Education({ previewMode = false }: EducationProps) {
                       <button
                         key={idx}
                         onClick={() => setActiveSlide(idx)}
-                        className={`relative h-1.5 transition-[width,background-color] rounded-full after:absolute after:-inset-3 after:content-[''] ${
+                        className={`relative h-1.5 transition-[width,background-color] rounded-full after:absolute after:-inset-4 after:content-[''] ${
                           activeSlide === idx
                             ? "w-6 bg-white"
                             : "w-1.5 bg-zinc-600 hover:bg-zinc-400"
@@ -573,7 +577,7 @@ export function Education({ previewMode = false }: EducationProps) {
                     </p>
                   </div>
                 )}
-            </motion.div>
+            </m.div>
           </div>
         )}
       </AnimatePresence>
