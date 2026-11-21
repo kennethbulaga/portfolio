@@ -13,6 +13,9 @@ const cspReportOnly = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  experimental: {
+    agentUpgrade: "security",
+  },
   images: {
     formats: ["image/avif", "image/webp"],
   },

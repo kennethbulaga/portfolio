@@ -205,7 +205,7 @@ export const flagshipProjects: FlagshipProject[] = [
     link: "https://jp-connect.vercel.app",
     focus: "Student Services & Exam Scheduling Platform",
     description:
-      "Built under a freelance contract for St. John Paul II College of Davao to replace paper clearance queues and manual spreadsheet scheduling across 9 academic departments. Uses domain-locked Google Workspace SSO, PostgreSQL Row-Level Security, and an O(N log N) interval-sweep resolver to validate schedules and track SSC sanctions.",
+      "School-owned platform for students and faculty of St. John Paul II College of Davao, handling exam scheduling, SSC clearance, and daily campus engagement. Features an O(N log N) conflict-free exam scheduler with Google Calendar re-sync cleanup, a multi-tab daily campus card (Davao weather, PH holidays, trivia quiz, and Wikipedia reader), and Pasiklaban 2026 spirit standings backed by Next.js Data Cache and Upstash.",
     image: "/projects/jp-connect/portfolio-01-landing.webp",
     screenshots: [
       {
@@ -231,12 +231,12 @@ export const flagshipProjects: FlagshipProject[] = [
       {
         label: "Academic Calendar",
         image: "/projects/jp-connect/portfolio-05-calendar.webp",
-        primitive: "Synced Campus Events, Exam Windows & Clearance Deadlines",
+        primitive: "Google Calendar Sync with Stale Event Cleanup, Exam Windows & Clearance Deadlines",
       },
       {
         label: "Conflict Resolver",
         image: "/projects/jp-connect/portfolio-06-conflicts.webp",
-        primitive: "Automated Room, Proctor & Self-Proctor Overlap Detection",
+        primitive: "Automated Room, Proctor & Self-Proctor Overlap Detection + Instructor Preview",
       },
       {
         label: "Campus Standee",
@@ -257,6 +257,8 @@ export const flagshipProjects: FlagshipProject[] = [
       "Tailwind CSS v4",
       "Supabase SSR",
       "PostgreSQL RLS",
+      "Google Calendar API",
+      "Upstash Redis",
     ],
     metrics: {
       "Authenticated Profiles": jpConnectMetrics.accounts,
@@ -265,10 +267,66 @@ export const flagshipProjects: FlagshipProject[] = [
       "Schedule Overlaps": jpConnectMetrics.overlaps,
     },
     highlights: [
-      "Conflict-Free Scheduler: Implemented automated interval-sweep scheduling to validate 781 exam rows with 0 room, proctor, or self-proctor overlaps for the 2026–2027 1st Semester Finals schedule, replacing manual spreadsheet validation.",
-      "Role-Based Access: Configured domain-locked Google Workspace SSO (@sjp2cd.edu.ph) paired with PostgreSQL Row-Level Security to isolate student and faculty data.",
-      "Automated Clearance: Reconciles event attendee ID uploads against 14,778 registrar records in under 5 seconds, auto-flagging absences and calculating SSC sanctions.",
-      `Sanctions Ledger: Built a sanctions and payments module for the Supreme Student Council that links clearance to settled sanctions and logs every payment and expense, recording ${jpConnectMetrics.sanctionsCollected} in collections over one clearance period (${jpConnectMetrics.sanctionsPeriod}).`,
+      "Conflict-Free Scheduler & Calendar Sync: Implemented automated interval-sweep scheduling to validate 781 exam rows with 0 room, proctor, or self-proctor overlaps for the 2026–2027 1st Semester Finals schedule, plus Google Calendar re-syncs that purge stale and legacy events.",
+      "Role-Based Access & Auth Hardening: Configured domain-locked Google Workspace SSO (@sjp2cd.edu.ph) with PostgreSQL Row-Level Security, server-side authentication on Server Actions, masked admin routes, and hardened RPC privileges.",
+      `Automated Clearance & Sanctions Ledger: Reconciles event attendee ID uploads against 14,778 registrar records in under 5 seconds, auto-flagging absences and logging settled SSC sanctions (${jpConnectMetrics.sanctionsCollected} collected over ${jpConnectMetrics.sanctionsPeriod}).`,
+      "Daily Campus Engagement & CWV Polish: Built a multi-tab daily campus card (Davao weather and sunset HUD, PH holidays, trivia quiz, and Wikipedia reader) alongside Pasiklaban 2026 Spirit Leaders, code-split charts, pg_trgm database indexes, synchronized Base UI dialog transitions, and design-system test guardrails.",
+    ],
+  },
+  {
+    id: "jp-intrams",
+    title: "JP Intrams",
+    link: "https://jp-intrams.vercel.app",
+    focus: "Real-Time Tournament Leaderboard, Cheer Wall & Campus Signage",
+    description:
+      "Campus tournament platform built for SJPIICD intramurals to replace manual scoreboards and printed bracket sheets. Syncs live standings across 23 sports divisions via Supabase Realtime, runs an auto-cycling /tv view for gym projectors, and pairs a live Shoutout Wall with daily Spirit Cheers, Davao heat advisories, and 9:16 QR story share cards. Cheer voting and burst tracking run through an atomic Upstash Redis Lua script with HttpOnly voter cookies, fingerprint caps, and batched MGET caching.",
+    image: "/projects/jp-intrams/jp-intrams-linkedin-promo.webp",
+    screenshots: [
+      {
+        label: "Desktop Leaderboard",
+        image: "/projects/jp-intrams/jp-intrams-linkedin-promo.webp",
+        primitive: "Supabase Realtime Standings Across 23 Divisions, Shoutout Wall & Podium Cheer Strip",
+      },
+      {
+        label: "Mobile Spectator",
+        image: "/projects/jp-intrams/jp-intrams-mobile-spectator.webp",
+        primitive: "Atomic Redis Lua Cheer Voting (CAST_CHEER_LUA), 15 req/min Rate Limit & 10s Cache",
+      },
+      {
+        label: "Gym Display Mode",
+        image: "/projects/jp-intrams/tv(desktop).webp",
+        primitive: "Dedicated /tv Route Rotating 5 Standings Views Every 15s with AV Hotkeys",
+      },
+      {
+        label: "Campus Projector",
+        image: "/projects/jp-intrams/projector.webp",
+        primitive: "Auto-Cycling /tv Output Projected Live on Quadrangle Stage",
+      },
+    ],
+    logo: "/logos/school-logo-nobg.webp",
+    techStack: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Supabase Realtime",
+      "PostgreSQL",
+      "Upstash Redis",
+      "Framer Motion",
+      "Open-Meteo",
+    ],
+    metrics: {
+      "Competing Departments": "9 Departments",
+      "Sports Divisions": "23 Divisions",
+      "Cheer & Shoutout Engine": "Atomic Lua · 500 Posts",
+      "API Rate & Cache": "15 req/min · 10s TTL",
+      "Operational Uptime": "100% (Zero Downtime)",
+    },
+    highlights: [
+      "Live Score Sync: Real-time score synchronization across 23 sports divisions using Supabase Realtime, paired with an auto-cycling /tv display mode for campus gym projectors and spectator phones.",
+      "Spirit Cheers & Shoutout Wall: Added a live Shoutout Wall (500-post cap, threaded replies, department filters, and DiceBear Anonymous ### handles) alongside daily 12:00 AM PHT Spirit Cheers with burst tracking, Web Audio, and haptic feedback.",
+      "Atomic Redis Security & Caching: Consolidated cheer voting and burst tracking into an atomic Upstash Redis Lua script (CAST_CHEER_LUA) with HttpOnly sjp_voter_id cookies, UUID v4 and same-origin checks, IP plus device fingerprint caps (6/day), 15 req/min rate limiting, batched MGET reads, and a 10s in-memory and CDN cache.",
+      "Campus Context & 9:16 Story Cards: Integrated Open-Meteo Davao weather and unrounded heat advisories (15-minute cache) with +08:00 sunset pills, plus a dark varsity 9:16 IG Story Card generator with embedded QR codes for department standings.",
     ],
   },
   {
@@ -323,59 +381,6 @@ export const flagshipProjects: FlagshipProject[] = [
       "On-Demand Aggregation: Aggregates regional survey metrics on the fly in Next.js Server Actions from JSONB survey snapshots without saving redundant table rows.",
       "In-Memory Excel Engine: Built an in-memory ExcelJS export engine generating multi-tab workbooks with formulas and audit styling for ARTA/CSC reporting requirements, reducing report generation time to under 1 second.",
       "Input Verification: Built live client-side balance checks with Zod validation so sub-category tallies always match respondent totals before submission.",
-    ],
-  },
-  {
-    id: "jp-intrams",
-    title: "JP Intrams",
-    link: "https://jp-intrams.vercel.app",
-    focus: "Real-Time Tournament Leaderboard & Campus Signage",
-    description:
-      "Campus tournament scoreboard built for SJPIICD intramurals to replace delayed manual scoreboards and printed bracket sheets. Syncs live standings via Supabase Realtime, rotates an auto-cycling /tv view for gym projectors, and uses Upstash Redis rate-limiting to protect PostgreSQL under spectator traffic.",
-    image: "/projects/jp-intrams/desktop.webp",
-    screenshots: [
-      {
-        label: "Desktop Leaderboard",
-        image: "/projects/jp-intrams/desktop.webp",
-        primitive: "Supabase Realtime Change Channels on points_log Across 23 Sports Divisions",
-      },
-      {
-        label: "Mobile Spectator",
-        image: "/projects/jp-intrams/iphone HD.webp",
-        primitive: "Upstash Redis Atomic SETNX Rate Limiting (5 Votes/s/IP) + Edge CDN Cache (s-maxage=5)",
-      },
-      {
-        label: "Gym Display Mode",
-        image: "/projects/jp-intrams/tv(desktop).webp",
-        primitive: "Dedicated /tv Route Rotating 5 Standings Views Every 15s with AV Hotkeys",
-      },
-      {
-        label: "Campus Projector",
-        image: "/projects/jp-intrams/projector.webp",
-        primitive: "Auto-Cycling /tv Output Projected Live on Quadrangle Stage",
-      },
-    ],
-    logo: "/logos/school-logo-nobg.webp",
-    techStack: [
-      "Next.js 16",
-      "React 19",
-      "TypeScript",
-      "Tailwind CSS v4",
-      "Supabase Realtime",
-      "PostgreSQL",
-      "Upstash Redis",
-      "Framer Motion",
-    ],
-    metrics: {
-      "Competing Departments": "9 Departments",
-      "Sports Divisions": "23 Divisions",
-      "Score Sync": "Real-Time",
-      "Operational Uptime": "100% (Zero Downtime)",
-    },
-    highlights: [
-      "Live Score Sync: Delivered real-time score synchronization across 23 sports divisions using Supabase Realtime to push live standings to student devices.",
-      "Auto-Cycling Display Mode: Developed an auto-cycling display mode deployed across campus gym screens and mobile spectator devices for continuous live score broadcasts.",
-      "Distributed Redis Rate Limiting: Implemented distributed Redis rate limiting at the API layer to prevent PostgreSQL connection exhaustion during concurrent tournament traffic.",
     ],
   },
 ];
