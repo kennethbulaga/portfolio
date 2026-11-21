@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "npm run lint && node --test scripts/test-design-system.mjs && npx tsc --noEmit",
     "resume:build": "tectonic resume/kenneth-bulaga-resume.tex --outdir public && node -e \"require('fs').renameSync('public/kenneth-bulaga-resume.pdf','public/Kenneth_Bulaga_Resume.pdf')\""
   },
   "dependencies": {

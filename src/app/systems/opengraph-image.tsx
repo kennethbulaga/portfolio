@@ -9,6 +9,6 @@ export default async function Image() {
   return renderOgImage({
     eyebrow: "01 / PRODUCTION SYSTEMS · DAVAO CITY, PH",
     title: "Production systems built for real operations.",
-    subtitle: `JP Connect (${jpConnectMetrics.accounts}+ profiles), JP Intrams across 23 sports divisions, and OWWA Region XI CSMR & SPRS platforms.`,
+    subtitle: `JP Connect (${jpConnectMetrics.accounts} accounts), JP Intrams across 23 sports divisions, and OWWA Region XI CSMR & SPRS platforms.`,
   });
 }

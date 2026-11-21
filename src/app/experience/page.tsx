@@ -7,14 +7,14 @@ import { BackHomeLink } from "@/components/ui/back-home-link";
 export const metadata: Metadata = {
   title: "Experience",
   description:
-    "Production software engineering experience across St. John Paul II College of Davao and OWWA Region XI.",
+    "Software built and deployed under contract for St. John Paul II College of Davao and during an internship at OWWA Region XI.",
   alternates: { canonical: "/experience" },
   openGraph: {
     type: "website",
     siteName: "Kenneth Bulaga Portfolio",
     title: "Experience | Kenneth Bulaga",
     description:
-      "Production software engineering experience across St. John Paul II College of Davao and OWWA Region XI.",
+      "Software built and deployed under contract for St. John Paul II College of Davao and during an internship at OWWA Region XI.",
     url: "/experience",
   },
   twitter: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     creator: "@kenzodev69",
     title: "Experience | Kenneth Bulaga",
     description:
-      "Production software engineering experience across St. John Paul II College of Davao and OWWA Region XI.",
+      "Software built and deployed under contract for St. John Paul II College of Davao and during an internship at OWWA Region XI.",
   },
 };
 

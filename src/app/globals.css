@@ -82,6 +82,13 @@ button,
 [role="button"] {
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+@media (display-mode: standalone) {
+  .pt-safe-standalone {
+    padding-top: env(safe-area-inset-top);
+  }
 }
 
 a {

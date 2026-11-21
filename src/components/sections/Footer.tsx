@@ -21,7 +21,7 @@ export function Footer() {
             {personalInfo.availability.message}
           </p>
           <p className="text-xs text-muted-foreground text-pretty">
-            Email me about full-time developer roles or freelance web projects.
+            Open to freelance project work (web or mobile) and full-time developer roles.
           </p>
         </div>
 

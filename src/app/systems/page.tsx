@@ -7,14 +7,14 @@ import { BackHomeLink } from "@/components/ui/back-home-link";
 export const metadata: Metadata = {
   title: "Systems",
   description:
-    "Production systems by Kenneth Bulaga: JP Connect, OWWA CSMR and SPRS, and JP Intrams, built with Next.js, TypeScript, and PostgreSQL.",
+    "Working systems by Kenneth Bulaga: JP Connect, OWWA CSMR and SPRS, and JP Intrams, built for school operations, government reporting, and live events.",
   alternates: { canonical: "/systems" },
   openGraph: {
     type: "website",
     siteName: "Kenneth Bulaga Portfolio",
     title: "Systems | Kenneth Bulaga",
     description:
-      "Production systems by Kenneth Bulaga: JP Connect, OWWA CSMR and SPRS, and JP Intrams, built with Next.js, TypeScript, and PostgreSQL.",
+      "Working systems by Kenneth Bulaga: JP Connect, OWWA CSMR and SPRS, and JP Intrams, built for school operations, government reporting, and live events.",
     url: "/systems",
   },
   twitter: {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     creator: "@kenzodev69",
     title: "Systems | Kenneth Bulaga",
     description:
-      "Production systems by Kenneth Bulaga: JP Connect, OWWA CSMR and SPRS, and JP Intrams, built with Next.js, TypeScript, and PostgreSQL.",
+      "Working systems by Kenneth Bulaga: JP Connect, OWWA CSMR and SPRS, and JP Intrams, built for school operations, government reporting, and live events.",
   },
 };
 

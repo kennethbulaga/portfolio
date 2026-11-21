@@ -153,7 +153,7 @@ export function Navbar() {
       </a>
 
       {/* Mobile Top Bar (<1024px) across all routes */}
-      <header className="lg:hidden sticky top-0 left-0 right-0 z-40 min-h-14 pt-[env(safe-area-inset-top)] bg-background/90 backdrop-blur-md border-b border-border px-3 flex items-center justify-between gap-2">
+      <header className="lg:hidden sticky top-0 left-0 right-0 z-40 min-h-14 pt-safe-standalone bg-background/90 backdrop-blur-md border-b border-border px-3 flex items-center justify-between gap-2">
         <div className="flex items-center gap-1.5 min-w-0">
           <button
             type="button"

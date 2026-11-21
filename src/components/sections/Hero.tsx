@@ -29,9 +29,9 @@ export function Hero() {
   };
 
   return (
-    <section id="about" className="pt-0 flex flex-col gap-6 sm:gap-7">
+    <section id="about" className="pt-0 flex flex-col gap-4 sm:gap-7">
       {/* Top Identity Row & Availability Status Pill */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-5 border-b border-border">
+      <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pb-3.5 sm:pb-5 border-b border-border">
         <div className="flex items-center gap-4">
           {personalInfo.avatar && (
             <button
@@ -94,7 +94,7 @@ export function Hero() {
             onClick={scrollToProjects}
             className="btn btn-dark h-11 px-5 text-xs font-medium cursor-pointer"
           >
-            <span>Inspect Production Systems</span>
+            <span>See Live Systems</span>
             <ArrowDown size={16} strokeWidth={1.5} />
           </button>
 
@@ -122,7 +122,7 @@ export function Hero() {
       <div className="pt-4 border-t border-border flex flex-col gap-3">
         <div className="flex items-center justify-between">
           <h2 className="text-xs font-medium text-muted-foreground">
-            Institutional & Regional Deployments
+            Organizations & Deployments
           </h2>
           <span className="font-mono text-xs tabular-nums text-muted-foreground">02</span>
         </div>

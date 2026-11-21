@@ -495,11 +495,11 @@ export function Projects({ previewMode = false }: ProjectsProps) {
           <div className="flex items-baseline justify-between gap-4 flex-wrap">
             {previewMode ? (
               <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
-                Featured Production Systems
+                Featured Systems
               </h2>
             ) : (
               <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-foreground text-balance">
-                Production Systems & Proof Sheet
+                Systems & Results
               </h1>
             )}
             <span className="text-xs font-mono tabular-nums text-muted-foreground">
@@ -507,7 +507,7 @@ export function Projects({ previewMode = false }: ProjectsProps) {
             </span>
           </div>
           <p className="text-muted-foreground max-w-2xl text-sm sm:text-base text-pretty">
-            Live multi-role software serving college departments, regional government units, and campus-wide tournaments. Switch numbered frames to inspect screenshots and underlying primitives.
+            Working web software built for real operations, from school scheduling and clearance to government reporting and live events. Switch frames to inspect each system.
           </p>
         </div>
 
@@ -550,31 +550,33 @@ export function Projects({ previewMode = false }: ProjectsProps) {
           <div className="border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex flex-col gap-0.5">
               <p className="text-sm font-semibold text-foreground">
-                More Deployed Systems & Active Lab Builds
+                More Deployed Systems & Upcoming Builds
               </p>
               <p className="text-xs font-mono text-muted-foreground">
-                Includes JP Intrams (23 sports divisions), OWWA SPRS Platform, and DavaoSpots (Shipping Soon)
+                Includes OWWA CSMR & SPRS Platforms, and DavaoSpots (Shipping Soon)
               </p>
             </div>
             <Link
               href="/systems"
               className="btn btn-light h-11 sm:h-10 px-4 text-xs font-mono shrink-0"
             >
-              <span>Inspect All Systems (04 + Lab)</span>
+              <span>See All Systems (04 + Upcoming)</span>
               <ArrowUpRight size={15} strokeWidth={1.5} />
             </Link>
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {clientProjects.map((project) => (
-                <ClientContactSheetCard
-                  key={project.id}
-                  project={project}
-                  onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
-                />
-              ))}
-            </div>
+            {clientProjects.length > 0 && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {clientProjects.map((project) => (
+                  <ClientContactSheetCard
+                    key={project.id}
+                    project={project}
+                    onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
+                  />
+                ))}
+              </div>
+            )}
 
             {/* Building in Public / Shipping Soon Section */}
             {shippingSoonProjects && shippingSoonProjects.length > 0 && (

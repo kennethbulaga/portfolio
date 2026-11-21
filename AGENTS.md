@@ -8,9 +8,10 @@ This document provides foundational architecture rules, technical standards, and
 
 * **Developer:** Kenneth Bulaga
 * **Professional Positioning:** Full-stack Developer
-* **Core Specialty:** Building scalable web applications, internal tools, automated workflows, and production-ready systems.
-* **Target Roles:** Full-stack Developer, Junior Software Developer, Web Developer.
-* **Design & Content Spec:** See [`portfolio.md`](portfolio.md) for the unified monochrome design system (`light-dark()` tokens, Figtree/Newsreader typography, `.rail-*`/`.btn-*`/`.nav-pill` classes, hairline rules, and layout structure).
+* **Core Specialty:** Building practical web and mobile software for real operational problems across any industry (internal tools, scheduling/clearance portals, reporting pipelines, and live event systems).
+* **Availability:** Open to both freelance/project work and full-time roles (Full-stack Developer, Junior Software Developer, Web Developer).
+* **Content Priority:** Lead with operational problems solved and concrete real-world results in plain language; keep deep technical details secondary so the site is clear to business owners and non-technical decision-makers while staying credible to technical recruiters.
+* **Design & Content Spec:** See [`portfolio.md`](portfolio.md) for the unified monochrome design system (`light-dark()` tokens, Figtree/Newsreader typography, `.rail-*`/`.btn-*`/`.nav-pill` classes, hairline rules, and content positioning rules).
 
 ---
 
@@ -87,11 +88,12 @@ portfolio/
 
 ### B. Genuine, Value-Driven & Grounded Tone ("Always a Student in the Game")
 * **Rule:** Always be a student in the game. Never present as "all-knowing", arrogant, or posturing as a senior enterprise know-it-all. Speak with humility, curiosity, and respect for engineering craft and real user needs.
-* **Positioning:** Frame Kenneth as a grounded, highly capable **Full-stack Developer** who builds practical web applications and internal tools (e.g., serving 7,207 authenticated profiles, regional government operations, and real-time community apps) and reduces operational friction with automated workflows.
+* **Positioning:** Frame Kenneth as a grounded, practical **Full-stack Developer** who builds web and mobile software for real operational problems across any industry (e.g., serving 7,207 accounts, regional government reporting, and live tournament operations), and is open to both freelance/project work and full-time roles.
   * Navbar logo: `Kenneth Bulaga`
-  * Hero Eyebrow: `● Available for Freelance & Full-time Roles`
-  * Hero Sub-headline: `Full-stack Developer`
-* Focus on value delivered, problem-solving, clean code, and practical execution.
+  * Hero Eyebrow: `Available for Freelance & Full-Time Roles`
+  * Hero Headline: `Building practical web software for real operations.`
+  * Hero Sub-headline: `Full-Stack Developer`
+* Lead with operational problems solved, real-world results, and practical execution; keep stack-first jargon and implementation details secondary.
 * **Copy & Skill Hygiene:** Pass any new or revised narrative copy in `src/data/portfolio.ts` through the local `humanizer` skill (`.agents/skills/humanizer/SKILL.md`) to strip AI clichés, and use the `Copy email` clipboard trigger instead of raw `mailto:` links.
 
 | Scope | Skill | When to Invoke |

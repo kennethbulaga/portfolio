@@ -41,7 +41,7 @@ export function Experience({ previewMode = false }: ExperienceProps) {
             )}
           </div>
           <p className="text-muted-foreground max-w-2xl text-sm sm:text-base text-pretty">
-            Production software engineering across a paid institutional contract and a regional government internship.
+            Software built and deployed under a paid school contract and a regional government internship.
           </p>
         </div>
 

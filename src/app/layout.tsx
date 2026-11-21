@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     template: "%s | Kenneth Bulaga",
   },
   description:
-    "Full-Stack Developer in Davao City building production Next.js & TypeScript web systems for St. John Paul II College of Davao and OWWA Region XI.",
+    "Full-Stack Developer in Davao City building practical web and mobile software for real operations. Creator of JP Connect (7,207 accounts) and OWWA Region XI reporting systems. Open to freelance projects and full-time roles.",
   keywords: [
     "Kenneth Bulaga",
     "Full-Stack Developer",
@@ -53,14 +53,14 @@ export const metadata: Metadata = {
     url: "https://kennethbulaga.dev",
     title: "Kenneth Bulaga — Full-Stack Developer",
     description:
-      "Full-Stack Developer in Davao City building production Next.js & TypeScript web systems for St. John Paul II College of Davao and OWWA Region XI.",
+      "Full-Stack Developer in Davao City building practical web and mobile software for real operations. Creator of JP Connect (7,207 accounts) and OWWA Region XI reporting systems.",
     siteName: "Kenneth Bulaga Portfolio",
   },
   twitter: {
     card: "summary_large_image",
     title: "Kenneth Bulaga — Full-Stack Developer",
     description:
-      "Full-Stack Developer in Davao City building production Next.js & TypeScript web systems for St. John Paul II College of Davao and OWWA Region XI.",
+      "Full-Stack Developer in Davao City building practical web and mobile software for real operations. Open to freelance projects and full-time roles.",
     creator: "@kenzodev69",
   },
   icons: {
