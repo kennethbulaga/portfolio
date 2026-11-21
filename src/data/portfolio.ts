@@ -178,23 +178,27 @@ export const heroHeadline = {
 export const heroLedger = [
   {
     value: jpConnectMetrics.accounts,
-    label: "Active User Accounts",
-    context: "7,078 Students · 126 Faculty",
+    label: "User Accounts",
+    context: "JP Connect · SJPIICD",
+    href: "/systems/jp-connect",
   },
   {
     value: jpConnectMetrics.sanctionsCollected,
-    label: "SSC Clearance Tracked",
-    context: "1 Clearance Period (Dec 2025 – Jan 2026)",
+    label: "Clearance Tracked",
+    context: "JP Connect · SSC",
+    href: "/systems/jp-connect",
   },
   {
     value: "4,632+",
-    label: "Citizen Feedback Records",
-    context: "OWWA Region XI · 10 Offices",
+    label: "Feedback Records",
+    context: "OWWA Region XI",
+    href: "/systems/owwa-csmr",
   },
   {
     value: "0 Overlaps",
-    label: "Exam Schedule Conflicts",
-    context: "781 Schedules · 2026–2027 1st Sem Finals",
+    label: "Exam Conflicts",
+    context: "781 Exam Schedules",
+    href: "/systems/jp-connect",
   },
 ] as const;
 

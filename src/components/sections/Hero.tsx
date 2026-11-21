@@ -2,22 +2,25 @@
 
 import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
-import { MapPin, ArrowDown, Copy, Check, X } from "lucide-react";
+import Link from "next/link";
+import { MapPin, ArrowDown, X, ArrowUpRight } from "lucide-react";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   personalInfo,
   heroHeadline,
   heroLedger,
+  socialLinks,
 } from "@/data/portfolio";
-import { useCopyEmail } from "@/hooks/use-copy-email";
 import { useDialogFocusTrap } from "@/hooks/use-dialog-focus-trap";
 import { PixelName } from "@/components/ui/pixel-name";
 
 export function Hero() {
   const [isAvatarZoomed, setIsAvatarZoomed] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
-  const { copied, copyEmail } = useCopyEmail(personalInfo.email);
   const shouldReduceMotion = useReducedMotion();
+  const facebookUrl =
+    socialLinks.find((l) => l.platform === "Facebook")?.url ||
+    "https://www.facebook.com/bulagakenneth";
 
   const closeAvatarModal = useCallback(() => setIsAvatarZoomed(false), []);
   useDialogFocusTrap(isAvatarZoomed, modalRef, closeAvatarModal);
@@ -97,23 +100,15 @@ export function Hero() {
             <ArrowDown size={16} strokeWidth={1.5} />
           </button>
 
-          <button
-            type="button"
-            onClick={copyEmail}
-            className="btn btn-light h-11 px-4 text-xs font-medium cursor-pointer"
+          <a
+            href={facebookUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-light h-11 px-4 text-xs font-medium"
           >
-            {copied ? (
-              <>
-                <Check size={16} strokeWidth={1.5} className="text-[var(--green-ink)]" />
-                <span className="text-[var(--green-ink)]">Email copied</span>
-              </>
-            ) : (
-              <>
-                <Copy size={16} strokeWidth={1.5} className="text-muted-foreground" />
-                <span>Get in Touch</span>
-              </>
-            )}
-          </button>
+            <span>Get in Touch</span>
+            <ArrowUpRight size={15} strokeWidth={1.5} className="text-muted-foreground" />
+          </a>
         </div>
       </div>
 
@@ -121,19 +116,30 @@ export function Hero() {
       <div className="border-y border-border">
         <div className="grid grid-cols-2 md:grid-cols-4">
           {heroLedger.map((item, idx) => (
-            <div
+            <Link
               key={item.label}
-              className={`py-3.5 sm:py-4 px-3 sm:px-4 first:pl-0 flex flex-col gap-1 border-border ${
+              href={item.href}
+              className={`py-3.5 sm:py-4 px-3 sm:px-4 odd:pl-0 md:odd:pl-4 md:first:pl-0 flex flex-col gap-1 border-border hover:bg-[var(--hover)] transition-colors group ${
                 idx % 2 === 1 ? "border-l" : ""
               } ${idx >= 2 ? "border-t md:border-t-0 md:border-l" : ""}`}
             >
-              <p className="text-xl sm:text-2xl font-medium font-mono tabular-nums tracking-[-0.03em] text-foreground leading-none">
-                {item.value}
-              </p>
-              <p className="text-xs text-muted-foreground">
+              <div className="flex items-baseline justify-between gap-2">
+                <p className="text-xl sm:text-2xl font-medium font-mono tabular-nums tracking-[-0.03em] text-foreground leading-none">
+                  {item.value}
+                </p>
+                <ArrowUpRight
+                  size={13}
+                  strokeWidth={1.5}
+                  className="text-muted-foreground/60 group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-[color,transform] duration-150 ease-[var(--ease-out)] shrink-0"
+                />
+              </div>
+              <p className="text-xs font-medium text-foreground/85 leading-snug">
                 {item.label}
               </p>
-            </div>
+              <p className="text-[11px] font-mono text-muted-foreground leading-snug">
+                {item.context}
+              </p>
+            </Link>
           ))}
         </div>
       </div>
