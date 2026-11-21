@@ -43,7 +43,7 @@ function loadOgAssets(): Promise<OgAssets> {
           readFile(path.join(root, "public/fonts/Figtree-Medium.ttf")),
           readFile(path.join(root, "public/fonts/Figtree-SemiBold.ttf")),
           readFile(path.join(root, "public/fonts/JetBrainsMono-Regular.ttf")),
-          readFile(path.join(root, "public/profile/avatar.webp")),
+          readFile(path.join(root, "public/profile/avatar-new.webp")),
           readFile(path.join(root, "public/logos/kb-logo-dark.svg")),
         ]);
 

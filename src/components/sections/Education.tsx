@@ -6,16 +6,7 @@ import Link from "next/link";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useDialogFocusTrap } from "@/hooks/use-dialog-focus-trap";
 import {
-  GraduationCap,
-  Award,
-  BadgeCheck,
-  Code,
-  Landmark,
-  Trophy,
-  ZoomIn,
   X,
-  FileCheck,
-  Calendar,
   ChevronLeft,
   ChevronRight,
   ArrowUpRight,
@@ -26,180 +17,6 @@ import {
   featuredCredentials,
   Credential,
 } from "@/data/portfolio";
-
-const categoryIconMap: Record<string, React.ElementType> = {
-  "Public Sector": Landmark,
-  "Hackathons & Competitions": Code,
-  "Institutional Honors": Trophy,
-};
-
-function CredentialCard({
-  item,
-  indexNumber,
-  onOpenCert,
-}: {
-  item: Credential;
-  indexNumber: string;
-  onOpenCert: (cert: Credential, slideIdx?: number) => void;
-}) {
-  const [activePhotoIdx, setActivePhotoIdx] = useState(0);
-  const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
-  const CategoryIcon = categoryIconMap[item.category] || BadgeCheck;
-
-  const gallery =
-    item.gallery && item.gallery.length > 0
-      ? item.gallery
-      : item.image
-      ? [{ label: item.title, image: item.image }]
-      : [];
-
-  const activeImage = gallery[activePhotoIdx]?.image || item.image;
-
-  return (
-    <article className="rounded-[14px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25 flex flex-col h-full group">
-      {/* Flush Certificate / Presentation Photo Preview */}
-      {activeImage && (
-        <button
-          type="button"
-          onClick={() => onOpenCert(item, activePhotoIdx)}
-          aria-label={`Inspect ${item.title} proof gallery`}
-          onTouchStart={(e) => {
-            const t = e.touches[0];
-            swipeStartRef.current = { x: t.clientX, y: t.clientY };
-          }}
-          onTouchEnd={(e) => {
-            if (!swipeStartRef.current || gallery.length <= 1) return;
-            const t = e.changedTouches[0];
-            const dx = t.clientX - swipeStartRef.current.x;
-            const dy = t.clientY - swipeStartRef.current.y;
-            swipeStartRef.current = null;
-            if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
-              e.stopPropagation();
-              setActivePhotoIdx((prev) =>
-                dx < 0
-                  ? (prev + 1) % gallery.length
-                  : (prev - 1 + gallery.length) % gallery.length
-              );
-            }
-          }}
-          className="relative aspect-[16/10] w-full text-left overflow-hidden border-b border-border bg-muted/20 cursor-zoom-in group/img image-outline shrink-0 touch-pan-y"
-          title="Click to inspect full resolution"
-        >
-          {gallery.map((g, idx) => (
-            <div
-              key={g.image}
-              className={`absolute inset-0 transition-opacity duration-200 ${
-                activePhotoIdx === idx
-                  ? "opacity-100 z-1"
-                  : "opacity-0 z-0 pointer-events-none"
-              }`}
-            >
-              <Image
-                src={g.image}
-                alt={`${item.title} — ${g.label}`}
-                fill
-                sizes="(max-width: 768px) 100vw, 450px"
-                className="object-cover transition-transform duration-200 ease-[var(--ease-out)] group-hover/img:scale-[1.02]"
-              />
-            </div>
-          ))}
-
-          {/* Multi-Photo Indicator Pill Overlay */}
-          {gallery.length > 1 && (
-            <div className="absolute top-2.5 right-2.5 z-20 flex items-center gap-1 bg-zinc-950/80 px-2 py-0.5 rounded-full border border-white/15 text-[10px] font-mono tabular-nums text-white/95">
-              <span>
-                {String(activePhotoIdx + 1).padStart(2, "0")}/
-                {String(gallery.length).padStart(2, "0")}
-              </span>
-            </div>
-          )}
-
-          <div className="absolute inset-0 bg-black/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center pointer-events-none z-10">
-            <div className="px-2.5 py-1 rounded-full bg-zinc-950/90 text-white text-[11px] font-mono flex items-center gap-1.5 border border-white/20">
-              <ZoomIn size={12} />
-              <span>Inspect Proof</span>
-            </div>
-          </div>
-        </button>
-      )}
-
-      {/* Content Area — Heading First (Zero Eyebrow Kicker Above Heading) */}
-      <div className="p-4 sm:p-5 flex flex-col gap-3 flex-1">
-        <div className="flex items-start justify-between gap-3">
-          <h3 className="font-semibold text-foreground text-sm sm:text-base leading-snug text-balance">
-            {item.title}
-          </h3>
-          <span className="text-xs font-mono tabular-nums text-muted-foreground shrink-0 pt-0.5">
-            {indexNumber}
-          </span>
-        </div>
-
-        {/* Inline Metadata Row Below Heading */}
-        <div className="flex items-center justify-between gap-2 flex-wrap">
-          <span className="text-[11px] font-mono text-muted-foreground flex items-center gap-1.5">
-            <CategoryIcon size={13} strokeWidth={1.5} className="text-foreground/75 shrink-0" />
-            <span>{item.category}</span>
-          </span>
-
-          {item.status === "Active Production" ? (
-            <span className="nav-pill font-mono shrink-0">
-              <span className="size-1.5 rounded-full bg-[var(--green)]" />
-              <span>Active Production</span>
-            </span>
-          ) : item.status === "Highest Honor" ? (
-            <span className="soon font-mono shrink-0">Highest Honor</span>
-          ) : (
-            <span className="inline-flex items-center rounded-full border border-border bg-secondary px-2 py-0.5 text-[10px] font-mono text-secondary-foreground shrink-0">
-              {item.status}
-            </span>
-          )}
-        </div>
-
-        {/* Date and Issuer */}
-        <div className="flex flex-col gap-0.5 text-xs text-muted-foreground pt-2 border-t border-border">
-          <div className="flex items-center gap-1.5 font-mono text-xs text-foreground/85">
-            <Calendar size={12} className="text-muted-foreground shrink-0" />
-            <span className="tabular-nums">{item.period}</span>
-          </div>
-          <p className="text-[11px] text-muted-foreground leading-snug text-pretty">
-            {item.issuer}
-          </p>
-        </div>
-
-        {/* Description */}
-        <p className="text-xs text-muted-foreground leading-relaxed text-pretty">
-          {item.description}
-        </p>
-
-        {/* Inline Focus Metadata */}
-        {item.skills && item.skills.length > 0 && (
-          <p className="text-[11px] font-mono text-muted-foreground/85 leading-relaxed text-pretty">
-            {item.skills.join(" · ")}
-          </p>
-        )}
-
-        {/* Hairline Footer Action */}
-        <div className="mt-auto pt-3 border-t border-border">
-          <button
-            type="button"
-            onClick={() => onOpenCert(item, activePhotoIdx)}
-            className="w-full min-h-11 sm:min-h-8 py-1 text-xs font-medium text-foreground hover:text-muted-foreground flex items-center justify-between gap-2 transition-colors active:scale-[0.99] cursor-pointer"
-          >
-            <span className="inline-flex items-center gap-1.5">
-              <BadgeCheck size={15} strokeWidth={1.5} className="text-muted-foreground shrink-0" />
-              <span>
-                {gallery.length > 1
-                  ? `Inspect Proof Gallery (${gallery.length} Frames)`
-                  : "Inspect Signed Certificate"}
-              </span>
-            </span>
-            <ArrowUpRight size={14} strokeWidth={1.5} className="text-muted-foreground shrink-0" />
-          </button>
-        </div>
-      </div>
-    </article>
-  );
-}
 
 interface EducationProps {
   previewMode?: boolean;
@@ -260,188 +77,224 @@ export function Education({ previewMode = false }: EducationProps) {
 
   return (
     <>
-      <section
-        id="education"
-        className="py-12 sm:py-16"
-      >
-        <div className="flex flex-col gap-8">
-          {/* Section Header */}
+      <section id="education" className="py-12 sm:py-16">
+        <div className="flex flex-col gap-10 sm:gap-12">
+          {/* Page Header */}
           <div className="flex flex-col gap-2">
-            <div className="flex items-baseline justify-between gap-4 flex-wrap">
-              {previewMode ? (
-                <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
-                  Verified Credentials & Proofs
-                </h2>
-              ) : (
-                <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-foreground text-balance">
-                  Credentials, Honors & Education
-                </h1>
-              )}
-              <span className="text-xs font-mono tabular-nums text-muted-foreground flex items-center gap-1.5">
-                <FileCheck size={14} strokeWidth={1.5} className="text-muted-foreground" />
-                <span>
-                  {previewMode
-                    ? "02 OF 04 PROOFS"
-                    : `${String(featuredCredentials.length).padStart(2, "0")} VERIFIED PROOFS`}
-                </span>
-              </span>
-            </div>
+            {previewMode ? (
+              <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
+                Credentials
+              </h2>
+            ) : (
+              <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-foreground text-balance">
+                Credentials & Education
+              </h1>
+            )}
             <p className="text-muted-foreground max-w-2xl text-sm sm:text-base text-pretty">
-              Signed government certificates of recognition, national hackathon awards, academic degree, and campus leadership records.
+              Signed government certificates, hackathon awards, academic degree, and student leadership records.
             </p>
           </div>
 
-          {/* Verified Credentials Contact-Sheet Grid */}
-          {visibleCredentials && visibleCredentials.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-              {visibleCredentials.map((item, idx) => (
-                <CredentialCard
-                  key={item.id}
-                  item={item}
-                  indexNumber={String(idx + 1).padStart(2, "0")}
-                  onOpenCert={handleOpenCert}
-                />
-              ))}
+          {/* Verified Credentials List (Compact Thumbnail Rows) */}
+          <div className="flex flex-col gap-3">
+            <div className="flex items-baseline justify-between gap-4">
+              <h2 className="text-sm font-medium text-muted-foreground">
+                Verified Proofs
+              </h2>
+              <span className="text-xs font-mono tabular-nums text-muted-foreground">
+                {String(visibleCredentials.length).padStart(2, "0")}
+              </span>
             </div>
-          )}
+
+            <div className="border-y border-border divide-y divide-border">
+              {visibleCredentials.map((item) => {
+                const thumb = item.gallery?.[0]?.image || item.image;
+                const frameCount = item.gallery?.length ?? (item.image ? 1 : 0);
+
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleOpenCert(item, 0)}
+                    className="w-full text-left py-3.5 px-2.5 -mx-2.5 rounded-[12px] hover:bg-[var(--hover)] active:scale-[0.99] transition-[background-color,transform] duration-150 ease-[var(--ease-out)] flex items-center justify-between gap-4 group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3.5 min-w-0 flex-1">
+                      {thumb && (
+                        <div className="relative w-16 h-11 sm:w-[76px] sm:h-12 rounded-[8px] overflow-hidden bg-muted border border-border shrink-0 image-outline">
+                          <Image
+                            src={thumb}
+                            alt={item.title}
+                            fill
+                            sizes="76px"
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm sm:text-[15px] font-medium text-foreground leading-snug text-pretty">
+                          {item.title}
+                        </p>
+                        <p className="text-xs sm:text-sm text-muted-foreground leading-snug text-pretty mt-0.5">
+                          {item.issuer}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2.5 shrink-0">
+                      <span className="hidden sm:inline text-xs font-mono tabular-nums text-muted-foreground">
+                        {frameCount > 1 ? `${frameCount} frames` : item.period}
+                      </span>
+                      <ArrowUpRight
+                        size={15}
+                        strokeWidth={1.5}
+                        className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-[color,transform] duration-150 ease-[var(--ease-out)]"
+                      />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
 
           {previewMode ? (
-            <div className="border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex flex-col gap-0.5">
-                <p className="text-sm font-semibold text-foreground">
-                  Academic Background, Hackathons & Leadership Dossier
-                </p>
-                <p className="text-xs font-mono text-muted-foreground">
-                  Includes OWWA SPRS Certificate, Davao HackEstate 2025, BSIT Degree & SSC Senator roles
-                </p>
-              </div>
+            <div className="flex justify-end">
               <Link
                 href="/credentials"
-                className="btn btn-light h-11 sm:h-10 px-4 text-xs font-mono shrink-0"
+                className="relative inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors after:absolute after:-inset-2 after:content-['']"
               >
-                <span>Inspect All Credentials (04)</span>
-                <ArrowUpRight size={15} strokeWidth={1.5} />
+                <span>View all credentials</span>
+                <ArrowUpRight size={13} strokeWidth={1.5} />
               </Link>
             </div>
           ) : (
-            /* Two Column Layout: Academic Degree & Student Leadership */
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-              {/* Academic Degree Dossier */}
-              <div className="rounded-[14px] border border-border bg-card overflow-hidden flex flex-col">
-                <div className="px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <GraduationCap size={17} className="text-foreground shrink-0" />
-                    <h3 className="text-sm sm:text-base font-semibold text-foreground">
-                      Academic Background
-                    </h3>
-                  </div>
-                  <span className="text-[11px] font-mono tabular-nums text-muted-foreground">
-                    BSIT · 2022–2026
+            <>
+              {/* Education Hairline List */}
+              <div className="flex flex-col gap-3">
+                <div className="flex items-baseline justify-between gap-4">
+                  <h2 className="text-sm font-medium text-muted-foreground">
+                    Education
+                  </h2>
+                  <span className="text-xs font-mono tabular-nums text-muted-foreground">
+                    {String(education.length).padStart(2, "0")}
                   </span>
                 </div>
 
-                <ul className="divide-y divide-border">
+                <div className="border-y border-border divide-y divide-border">
                   {education.map((edu) => (
-                    <li
+                    <div
                       key={`${edu.institution}-${edu.level}`}
-                      className="p-4 sm:p-5 flex items-start gap-3.5"
+                      className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4"
                     >
-                      {edu.logo && (
-                        <div className="relative size-10 rounded-[10px] overflow-hidden bg-background border border-border shrink-0 p-0.5 image-outline">
-                          <Image
-                            src={edu.logo}
-                            alt={edu.institution}
-                            fill
-                            sizes="40px"
-                            className="object-cover"
-                          />
-                        </div>
-                      )}
-                      <div className="flex flex-col gap-1 min-w-0 flex-1">
-                        <div className="flex items-baseline justify-between gap-2 flex-wrap">
-                          <h4 className="font-semibold text-foreground text-sm leading-snug">
+                      <div className="flex items-center gap-3 min-w-0">
+                        {edu.logo && (
+                          <div className="relative size-9 rounded-[8px] overflow-hidden bg-background border border-border shrink-0 p-0.5 image-outline">
+                            <Image
+                              src={edu.logo}
+                              alt={edu.institution}
+                              fill
+                              sizes="36px"
+                              className="object-contain p-0.5"
+                            />
+                          </div>
+                        )}
+                        <div className="min-w-0">
+                          <p className="text-sm sm:text-[15px] font-medium text-foreground leading-snug text-pretty">
                             {edu.institution}
-                          </h4>
-                          <span className="text-[11px] font-mono text-muted-foreground shrink-0">
-                            {edu.level}
-                          </span>
-                        </div>
-                        {edu.program && (
-                          <p className="text-xs sm:text-sm text-muted-foreground">
-                            {edu.program}
                           </p>
-                        )}
-                        {edu.status && (
-                          <p className="text-[11px] font-mono tabular-nums text-[var(--green-ink)]">
-                            {edu.status}
-                          </p>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Leadership Dossier */}
-              <div className="rounded-[14px] border border-border bg-card overflow-hidden flex flex-col">
-                <div className="px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
-                    <Award size={17} className="text-foreground shrink-0" />
-                    <h3 className="text-sm sm:text-base font-semibold text-foreground">
-                      Institutional Leadership
-                    </h3>
-                  </div>
-                  <span className="text-[11px] font-mono tabular-nums text-muted-foreground">
-                    {String(leadership.length).padStart(2, "0")} ROLES
-                  </span>
-                </div>
-
-                <ul className="divide-y divide-border">
-                  {leadership.map((position) => (
-                    <li
-                      key={`${position.organization}-${position.role}`}
-                      className="p-4 sm:p-5 flex items-start gap-3.5"
-                    >
-                      {position.logo && (
-                        <div className="relative size-10 rounded-[10px] overflow-hidden bg-background border border-border shrink-0 p-0.5 image-outline">
-                          <Image
-                            src={position.logo}
-                            alt={position.organization}
-                            fill
-                            sizes="40px"
-                            className="object-cover"
-                          />
-                        </div>
-                      )}
-                      <div className="flex flex-col gap-1 min-w-0 flex-1">
-                        <div className="flex items-center justify-between gap-2 flex-wrap">
-                          <h4 className="font-semibold text-foreground text-sm leading-snug">
-                            {position.organization}
-                          </h4>
-                          {position.link && (
-                            <a
-                              href={position.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="relative inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors after:absolute after:-inset-3 after:content-['']"
-                              aria-label={`Visit ${position.organization}`}
-                            >
-                              <ArrowUpRight size={13} />
-                            </a>
+                          {edu.program && (
+                            <p className="text-xs sm:text-sm text-muted-foreground leading-snug text-pretty">
+                              {edu.program}
+                            </p>
                           )}
                         </div>
-                        <p className="text-xs sm:text-sm text-muted-foreground">
-                          {position.role}
-                        </p>
-                        <p className="text-[11px] font-mono tabular-nums text-muted-foreground">
-                          {position.period}
-                        </p>
                       </div>
-                    </li>
+
+                      <div className="flex items-center gap-3 sm:text-right shrink-0 pl-12 sm:pl-0">
+                        <span className="text-xs font-mono text-muted-foreground">
+                          {edu.level}
+                        </span>
+                        {edu.status && (
+                          <span className="text-xs font-mono tabular-nums text-[var(--green-ink)]">
+                            · {edu.status}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
-            </div>
+
+              {/* Leadership Hairline List */}
+              <div className="flex flex-col gap-3">
+                <div className="flex items-baseline justify-between gap-4">
+                  <h2 className="text-sm font-medium text-muted-foreground">
+                    Institutional Leadership
+                  </h2>
+                  <span className="text-xs font-mono tabular-nums text-muted-foreground">
+                    {String(leadership.length).padStart(2, "0")}
+                  </span>
+                </div>
+
+                <div className="border-y border-border divide-y divide-border">
+                  {leadership.map((position) => {
+                    const content = (
+                      <div className="py-4 px-2.5 -mx-2.5 rounded-[12px] hover:bg-[var(--hover)] active:scale-[0.99] transition-[background-color,transform] duration-150 ease-[var(--ease-out)] flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-4 group">
+                        <div className="flex items-center gap-3 min-w-0">
+                          {position.logo && (
+                            <div className="relative size-9 rounded-[8px] overflow-hidden bg-background border border-border shrink-0 p-0.5 image-outline">
+                              <Image
+                                src={position.logo}
+                                alt={position.organization}
+                                fill
+                                sizes="36px"
+                                className="object-contain p-0.5"
+                              />
+                            </div>
+                          )}
+                          <div className="min-w-0">
+                            <p className="text-sm sm:text-[15px] font-medium text-foreground leading-snug text-pretty">
+                              {position.organization}
+                            </p>
+                            <p className="text-xs sm:text-sm text-muted-foreground leading-snug text-pretty">
+                              {position.role}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 shrink-0 pl-12 sm:pl-0">
+                          <span className="text-xs font-mono tabular-nums text-muted-foreground">
+                            {position.period}
+                          </span>
+                          {position.link && (
+                            <ArrowUpRight
+                              size={14}
+                              strokeWidth={1.5}
+                              className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-[color,transform] duration-150 ease-[var(--ease-out)]"
+                            />
+                          )}
+                        </div>
+                      </div>
+                    );
+
+                    return position.link ? (
+                      <a
+                        key={`${position.organization}-${position.role}`}
+                        href={position.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      <div key={`${position.organization}-${position.role}`}>
+                        {content}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </>
           )}
         </div>
       </section>
@@ -486,6 +339,11 @@ export function Education({ previewMode = false }: EducationProps) {
                   <p className="text-[11px] text-zinc-400 font-mono tabular-nums">
                     {activeCert.issuer} · {activeCert.period}
                   </p>
+                  {activeCert.description && (
+                    <p className="text-xs text-zinc-300 leading-relaxed text-pretty pt-0.5">
+                      {activeCert.description}
+                    </p>
+                  )}
                 </div>
 
                 <button
@@ -498,7 +356,7 @@ export function Education({ previewMode = false }: EducationProps) {
               </div>
 
               {/* Main Image Stage with Left / Right Arrows */}
-              <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[72vh] flex items-center justify-center">
+              <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] max-h-[72vh] flex items-center justify-center touch-pan-y">
                 {gallery.length > 1 && (
                   <button
                     onClick={handlePrevSlide}
@@ -514,7 +372,7 @@ export function Education({ previewMode = false }: EducationProps) {
                   initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
                   animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
                   exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
-                  transition={shouldReduceMotion ? { duration: 0.12 } : { duration: 0.18, ease: [0.23, 1, 0.32, 1] }}
+                  transition={{ duration: 0.18 }}
                   className="relative w-full h-full flex items-center justify-center"
                 >
                   <Image

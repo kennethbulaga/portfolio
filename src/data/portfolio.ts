@@ -38,6 +38,8 @@ export interface FlagshipProject {
   title: string;
   link: string;
   focus: string;
+  summary?: string;
+  clientTag?: string;
   description: string;
   image?: string;
   screenshots?: { label: string; image: string; primitive?: string }[];
@@ -112,10 +114,10 @@ export const personalInfo: PersonalInfo = {
     dark: "/logos/kb-logo-dark.svg",
   },
   subHeadline: "Full-Stack Developer",
-  bio: "I build web and mobile software for real operational problems across any industry. My work includes JP Connect for 7,207 school accounts (781 exam schedules, zero overlaps), live tournament software across 23 sports divisions, and reporting systems for OWWA Region XI.",
+  bio: "I like figuring out how things work and shipping tools people actually use, on web or mobile, across any industry.",
   location: "Based in Davao City, Philippines · Remote Worldwide",
   email: "kennethbulaga.dev@gmail.com",
-  avatar: "/profile/avatar.webp",
+  avatar: "/profile/avatar-new.webp",
   availability: {
     message: "Available for Freelance & Full-Time Roles",
   },
@@ -203,7 +205,9 @@ export const flagshipProjects: FlagshipProject[] = [
     id: "jp-connect",
     title: "JP Connect",
     link: "https://jp-connect.vercel.app",
-    focus: "Student Services & Exam Scheduling Platform",
+    focus: "Student Services & Exam Scheduling",
+    summary: "Exam scheduling and clearance portal for 7,207 students and faculty with zero overlaps.",
+    clientTag: "School Portal",
     description:
       "Replaced manual spreadsheet scheduling and paper clearance tracking for 7,207 students and faculty at St. John Paul II College of Davao. The portal validates 781 exam schedules with zero room or proctor overlaps, reconciles event attendance against 14,778 registrar records in under 5 seconds, and tracks PHP 707,750 in settled SSC clearance collections. It also syncs exam windows to Google Calendar and gives students a daily campus hub for weather, holidays, and event standings.",
     image: "/projects/jp-connect/portfolio-01-landing.webp",
@@ -277,7 +281,9 @@ export const flagshipProjects: FlagshipProject[] = [
     id: "jp-intrams",
     title: "JP Intrams",
     link: "https://jp-intrams.vercel.app",
-    focus: "Real-Time Tournament Leaderboard, Cheer Wall & Campus Signage",
+    focus: "Live Tournament Standings & Signage",
+    summary: "Live tournament standings, gym projector display, and shoutout wall across 23 divisions.",
+    clientTag: "Live Events",
     description:
       "Replaced manual scoreboards and printed bracket sheets for SJPIICD intramurals across 9 departments and 23 sports divisions. Spectators and organizers get live standings on their phones, an auto-cycling /tv display for gym projectors, a moderated Shoutout Wall, daily Spirit Cheers, and shareable QR story cards, all protected by server-side rate limits and caching to handle tournament traffic spikes.",
     image: "/projects/jp-intrams/jp-intrams-linkedin-promo.webp",
@@ -333,7 +339,9 @@ export const flagshipProjects: FlagshipProject[] = [
     id: "owwa-csmr",
     title: "OWWA CSMR System",
     link: "#",
-    focus: "Internal Citizen Satisfaction & Feedback Reporting Tool",
+    focus: "Citizen Feedback & Reporting Portal",
+    summary: "Citizen feedback portal consolidating 4,632+ records into 1-click ARTA/CSC Excel reports.",
+    clientTag: "Gov · OWWA",
     description:
       "Replaced a 4-day manual spreadsheet consolidation process for OWWA Region XI across 10 frontline offices. Staff submit monthly citizen feedback through one portal, which consolidates 4,632+ records and 72 monthly submissions into ready-to-submit ARTA/CSC Excel workbooks in under 1 second, with built-in tally checks to prevent math errors before submission.",
     image: "/projects/owwa-csmr/landing.webp",
@@ -387,7 +395,9 @@ export const flagshipProjects: FlagshipProject[] = [
     id: "owwa-sprs",
     title: "OWWA SPRS Platform",
     link: "#",
-    focus: "Statistical Performance & KPI Reporting Platform (OWWA Region XI)",
+    focus: "Regional KPI & Accomplishment Reporting",
+    summary: "Regional KPI reporting tool tracking monthly program targets against actual results.",
+    clientTag: "Gov · OWWA",
     description:
       "Built as sole developer during my OWWA Region XI internship to replace manual monthly accomplishment spreadsheets. Tracks program KPI targets against actual results across regional units, flags missing or invalid entries at input time, and exports consolidated multi-sheet Excel reports.",
     image: "/projects/owwa-sprs/consolidation.webp",
@@ -704,7 +714,7 @@ export const navItems = [
   { label: "Systems", href: "/systems", count: "04" },
   { label: "Experience", href: "/experience", count: "02" },
   { label: "Credentials", href: "/credentials", count: "04" },
-  { label: "Stack", href: "/stack", count: "20" },
+  { label: "Stack", href: "/stack", count: "14" },
 ] as const;
 
 export interface ShippingSoonItem {
@@ -743,7 +753,7 @@ export const shippingSoonProjects: ShippingSoonItem[] = [
       "Supabase (PostgreSQL & RLS)",
       "Upstash Redis",
     ],
-    href: "/systems#shipping-soon",
+    href: "/systems/davao-spots",
   },
 ];
 

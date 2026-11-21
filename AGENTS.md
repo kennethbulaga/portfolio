@@ -56,7 +56,10 @@ portfolio/
     ├── app/
     │   ├── globals.css          # Monochrome light-dark() tokens, .rail-*/.btn-* classes & Tailwind v4
     │   ├── layout.tsx           # Global HTML shell, fonts, SEO & OpenGraph metadata
-    │   └── page.tsx             # Root page composition (imports sections only)
+    │   ├── page.tsx             # Root Overview (Hero, Experience, Systems rows, Stack, GitHub, Footer)
+    │   └── systems/
+    │       ├── page.tsx         # Systems index (compact hairline rows linking to /systems/[slug])
+    │       └── [slug]/page.tsx  # Dedicated per-system ContactSheetProject detail page & outcomes
     ├── components/
     │   ├── theme-provider.tsx   # Next-themes dark/light mode provider
     │   ├── theme-toggle.tsx     # Tactile theme toggle button
@@ -65,12 +68,11 @@ portfolio/
     │   │   ├── i-was-here.tsx   # Redis-backed visitor stamp counter
     │   │   └── pixel-name.tsx   # Canvas pixel-block name resolution
     │   └── sections/            # Organism components (page blocks)
-    │       ├── Navbar.tsx       # Floating left rail (Kenneth Bulaga + Copy email) + mobile top bar
-    │       ├── Hero.tsx         # Metric-grounded headline, availability pill, institutional ledger
-    │       ├── TechMarquee.tsx  # Core Stack & Tooling grid
-    │       ├── Projects.tsx     # Production systems ledger + interactive multi-tab preview gallery
-    │       ├── Experience.tsx   # Professional experience timeline (OWWA Region XI, Independent)
-    │       ├── Education.tsx    # Academic degree, leadership & verified credentials
+    │       ├── Navbar.tsx       # Floating left rail + mobile top bar (.pt-safe-standalone)
+    │       ├── Hero.tsx         # Metric-grounded headline, availability pill, 4-col scale strip
+    │       ├── Projects.tsx     # Compact index rows (Overview & /systems) + full ContactSheetProject (/systems/[slug])
+    │       ├── Experience.tsx   # Single-column editorial timeline with + N more / Show less toggle
+    │       ├── Education.tsx    # Hairline rows for Verified Proofs (lightbox), Education & Leadership
     │       └── Footer.tsx       # Contact, clipboard email copy, social hub
     ├── data/
     │   └── portfolio.ts         # <--- SINGLE SOURCE OF TRUTH FOR ALL CONTENT

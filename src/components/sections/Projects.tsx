@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowUpRight,
+  ArrowLeft,
   ZoomIn,
   X,
   ChevronLeft,
@@ -16,8 +17,6 @@ import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useDialogFocusTrap } from "@/hooks/use-dialog-focus-trap";
 import {
   flagshipProjects,
-  clientProjects,
-  heroLedger,
   shippingSoonProjects,
   FlagshipProject,
   ClientProject,
@@ -25,6 +24,83 @@ import {
 
 interface ProjectsProps {
   previewMode?: boolean;
+  projectId?: string;
+}
+
+function ProjectIndexRow({ project }: { project: FlagshipProject }) {
+  return (
+    <Link
+      href={`/systems/${project.id}`}
+      className="py-3.5 px-2.5 -mx-2.5 rounded-[12px] hover:bg-[var(--hover)] active:scale-[0.99] transition-[background-color,transform] duration-150 ease-[var(--ease-out)] flex items-center justify-between gap-4 group"
+    >
+      <div className="flex items-center gap-3.5 min-w-0 flex-1">
+        {project.image && (
+          <div className="relative w-16 h-11 sm:w-[76px] sm:h-12 rounded-[8px] overflow-hidden bg-muted border border-border shrink-0 image-outline">
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              sizes="76px"
+              className="object-cover"
+            />
+          </div>
+        )}
+        <div className="min-w-0 flex-1">
+          <p className="text-sm sm:text-[15px] font-medium text-foreground leading-snug text-pretty">
+            {project.title}
+          </p>
+          <p className="text-xs sm:text-sm text-muted-foreground leading-snug text-pretty line-clamp-2 sm:line-clamp-1 mt-0.5">
+            {project.summary || project.focus}
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-2.5 shrink-0">
+        {project.clientTag && (
+          <span className="hidden sm:inline text-xs font-mono text-muted-foreground">
+            {project.clientTag}
+          </span>
+        )}
+        <ArrowUpRight
+          size={15}
+          strokeWidth={1.5}
+          className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-[color,transform] duration-150 ease-[var(--ease-out)]"
+        />
+      </div>
+    </Link>
+  );
+}
+
+function UpcomingIndexRow({ item }: { item: (typeof shippingSoonProjects)[number] }) {
+  return (
+    <Link
+      href={item.href}
+      className="py-3.5 px-2.5 -mx-2.5 rounded-[12px] hover:bg-[var(--hover)] active:scale-[0.99] transition-[background-color,transform] duration-150 ease-[var(--ease-out)] flex items-center justify-between gap-4 group"
+    >
+      <div className="flex items-center gap-3.5 min-w-0 flex-1">
+        <div className="w-16 h-11 sm:w-[76px] sm:h-12 rounded-[8px] bg-muted/60 border border-border shrink-0 flex items-center justify-center">
+          <Rocket size={16} strokeWidth={1.5} className="text-muted-foreground" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <p className="text-sm sm:text-[15px] font-medium text-foreground leading-snug">
+              {item.title}
+            </p>
+            <span className="soon font-mono">Soon</span>
+          </div>
+          <p className="text-xs sm:text-sm text-muted-foreground leading-snug text-pretty line-clamp-1 mt-0.5">
+            {item.tagline}
+          </p>
+        </div>
+      </div>
+
+      <ArrowUpRight
+        size={15}
+        strokeWidth={1.5}
+        className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-[color,transform] duration-150 ease-[var(--ease-out)] shrink-0"
+      />
+    </Link>
+  );
 }
 
 interface ZoomState {
@@ -53,7 +129,10 @@ function ContactSheetProject({
   const activeImage = activeScreen?.image || project.image;
 
   return (
-    <article className="@container rounded-[20px] sm:rounded-[22px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25">
+    <article
+      id={project.id}
+      className="@container scroll-mt-24 rounded-[20px] sm:rounded-[22px] border border-border bg-card overflow-hidden transition-colors duration-200 hover:border-foreground/25"
+    >
       {/* Contact-Sheet Frame Header Bar */}
       <div className="px-4 sm:px-5 py-3.5 border-b border-border bg-muted/20 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0 flex-1">
@@ -419,13 +498,17 @@ function ClientContactSheetCard({
   );
 }
 
-export function Projects({ previewMode = false }: ProjectsProps) {
+export function Projects({ previewMode = false, projectId }: ProjectsProps) {
   const [zoomState, setZoomState] = useState<ZoomState | null>(null);
   const modalRef = useRef<HTMLDivElement>(null);
   const shouldReduceMotion = useReducedMotion();
-  const visibleFlagships = previewMode
-    ? flagshipProjects.slice(0, 2)
-    : flagshipProjects;
+
+  const selectedFlagship = projectId
+    ? flagshipProjects.find((p) => p.id === projectId)
+    : undefined;
+  const selectedUpcoming = projectId
+    ? shippingSoonProjects.find((p) => p.id === projectId)
+    : undefined;
 
   const handleOpenZoom = (
     project: FlagshipProject | ClientProject,
@@ -484,172 +567,312 @@ export function Projects({ previewMode = false }: ProjectsProps) {
 
   useDialogFocusTrap(isZoomOpen, modalRef, closeZoom, handleArrowKeys);
 
-  return (
-    <section
-      id="projects"
-      className="py-0"
-    >
-      <div className="flex flex-col gap-6 sm:gap-8">
-        {/* Section Header Row */}
-        <div className="flex flex-col gap-2">
-          <div className="flex items-baseline justify-between gap-4 flex-wrap">
-            {previewMode ? (
-              <h2 className="text-2xl sm:text-3xl font-medium tracking-[-0.02em] text-foreground text-balance">
-                Featured Systems
-              </h2>
-            ) : (
-              <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-foreground text-balance">
-                Systems & Results
-              </h1>
-            )}
-            <span className="text-xs font-mono tabular-nums text-muted-foreground">
-              {previewMode ? "02 OF 04 SYSTEMS" : "04 DEPLOYED PLATFORMS"}
-            </span>
+  if (previewMode) {
+    return (
+      <section id="projects" className="py-0">
+        <div className="flex flex-col gap-3 sm:gap-4">
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="text-sm font-medium text-muted-foreground">
+              Systems
+            </h2>
+            <Link
+              href="/systems"
+              className="relative inline-flex items-center gap-1 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors after:absolute after:-inset-2 after:content-['']"
+            >
+              <span className="tabular-nums">
+                View all ({String(flagshipProjects.length).padStart(2, "0")})
+              </span>
+              <ArrowUpRight size={13} strokeWidth={1.5} />
+            </Link>
           </div>
+
+          <div className="border-y border-border divide-y divide-border">
+            {flagshipProjects.map((project) => (
+              <ProjectIndexRow key={project.id} project={project} />
+            ))}
+            {shippingSoonProjects.map((item) => (
+              <UpcomingIndexRow key={item.id} item={item} />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Dedicated Single-System Detail View (/systems/[slug])
+  if (projectId) {
+    return (
+      <section id="projects" className="py-0">
+        <div className="flex flex-col gap-6 sm:gap-8">
+          <div className="lg:pt-1">
+            <Link
+              href="/systems"
+              className="relative inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors after:absolute after:-inset-y-3 after:-inset-x-3 after:content-['']"
+            >
+              <ArrowLeft size={14} />
+              <span>All Systems</span>
+            </Link>
+          </div>
+
+          {selectedFlagship && (
+            <>
+              <ContactSheetProject
+                project={selectedFlagship}
+                onZoom={(screenIdx) => handleOpenZoom(selectedFlagship, screenIdx)}
+              />
+
+              {selectedFlagship.highlights && selectedFlagship.highlights.length > 0 && (
+                <div className="flex flex-col gap-3">
+                  <h2 className="text-sm font-medium text-muted-foreground">
+                    Key Outcomes & Details
+                  </h2>
+                  <div className="border-y border-border divide-y divide-border">
+                    {selectedFlagship.highlights.map((hl, idx) => (
+                      <p
+                        key={idx}
+                        className="py-3.5 text-xs sm:text-sm text-muted-foreground leading-relaxed text-pretty max-w-[72ch]"
+                      >
+                        {hl}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+
+          {selectedUpcoming && (
+            <article className="flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-foreground text-balance">
+                    {selectedUpcoming.title}
+                  </h1>
+                  <span className="soon font-mono">{selectedUpcoming.eta}</span>
+                </div>
+                <p className="text-xs sm:text-sm font-mono text-muted-foreground">
+                  {selectedUpcoming.tagline}
+                </p>
+              </div>
+
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed text-pretty max-w-[68ch]">
+                {selectedUpcoming.description}
+              </p>
+
+              <div className="flex flex-col gap-2">
+                <h2 className="text-sm font-medium text-muted-foreground">
+                  Planned Features
+                </h2>
+                <div className="border-y border-border divide-y divide-border">
+                  {selectedUpcoming.plannedPrimitives.map((prim, idx) => (
+                    <div key={idx} className="py-3 flex items-start gap-2.5">
+                      <Terminal
+                        size={14}
+                        strokeWidth={1.5}
+                        className="text-muted-foreground mt-1 shrink-0"
+                      />
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed text-pretty">
+                        {prim}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-1.5">
+                {selectedUpcoming.techStack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="inline-flex items-center rounded-full border border-border bg-secondary px-2.5 py-0.5 text-[11px] font-medium text-secondary-foreground"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </article>
+          )}
+        </div>
+
+        {/* Full-Resolution Lightbox Modal */}
+        <AnimatePresence>
+          {zoomState && (
+            <m.div
+              ref={modalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="projects-lightbox-title"
+              tabIndex={-1}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={shouldReduceMotion ? { duration: 0.15 } : { type: "spring", duration: 0.3, bounce: 0 }}
+              className="fixed inset-0 z-50 flex flex-col items-center justify-between p-3 sm:p-6 md:p-8 pt-[max(12px,env(safe-area-inset-top))] pb-[max(12px,env(safe-area-inset-bottom))] bg-black/92 backdrop-blur-md select-none overscroll-contain"
+              onClick={closeZoom}
+            >
+              <div
+                className="w-full max-w-5xl flex items-center justify-between px-1 py-1 text-white z-20 shrink-0"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center gap-2 min-w-0 flex-wrap">
+                  <span
+                    id="projects-lightbox-title"
+                    className="text-xs sm:text-sm font-semibold font-mono text-zinc-100"
+                  >
+                    {zoomState.projectTitle}
+                  </span>
+                  <span className="text-zinc-500 font-mono text-xs">/</span>
+                  <span className="text-xs sm:text-sm text-zinc-400">
+                    {zoomState.images[zoomState.currentIndex]?.label}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-3 shrink-0 ml-3">
+                  {zoomState.images.length > 1 && (
+                    <span className="text-xs font-mono tabular-nums text-zinc-400">
+                      {String(zoomState.currentIndex + 1).padStart(2, "0")} /{" "}
+                      {String(zoomState.images.length).padStart(2, "0")}
+                    </span>
+                  )}
+                  <button
+                    onClick={() => setZoomState(null)}
+                    className="min-h-11 min-w-11 size-11 rounded-full bg-zinc-900/90 hover:bg-zinc-800 text-zinc-200 hover:text-white border border-white/15 transition-[background-color,color,transform] duration-150 ease-[var(--ease-out)] active:scale-[0.96] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring cursor-pointer"
+                    aria-label="Close image preview"
+                  >
+                    <X size={18} strokeWidth={1.5} />
+                  </button>
+                </div>
+              </div>
+
+              <div
+                className="relative w-full max-w-5xl flex-1 flex items-center justify-center my-auto py-2"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {zoomState.images.length > 1 && (
+                  <button
+                    onClick={handlePrev}
+                    className="absolute left-2 sm:left-4 z-30 min-h-[44px] min-w-[44px] size-11 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white border border-white/20 transition-transform active:scale-[0.96] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                )}
+
+                <div className="relative w-full h-full max-h-[76vh] flex items-center justify-center">
+                  <m.div
+                    key={zoomState.currentIndex}
+                    initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+                    animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+                    exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.18 }}
+                    className="relative w-full h-full max-h-[76vh] flex items-center justify-center"
+                  >
+                    <Image
+                      src={zoomState.images[zoomState.currentIndex].image}
+                      alt={zoomState.images[zoomState.currentIndex].label}
+                      fill
+                      sizes="(max-width: 1280px) 100vw, 1200px"
+                      className="object-contain rounded-[10px]"
+                    />
+                  </m.div>
+                </div>
+
+                {zoomState.images.length > 1 && (
+                  <button
+                    onClick={handleNext}
+                    className="absolute right-2 sm:right-4 z-30 min-h-[44px] min-w-[44px] size-11 rounded-full bg-zinc-950/85 hover:bg-zinc-950 text-white border border-white/20 transition-transform active:scale-[0.96] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-ring"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                )}
+              </div>
+
+              <div
+                className="w-full max-w-3xl flex flex-col items-center gap-2 z-20 shrink-0"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {zoomState.images[zoomState.currentIndex]?.primitive && (
+                  <p className="text-xs font-mono text-zinc-400 text-center text-pretty px-2">
+                    {zoomState.images[zoomState.currentIndex].primitive}
+                  </p>
+                )}
+                {zoomState.images.length > 1 && (
+                  <div className="flex items-center gap-4 py-1">
+                    {zoomState.images.map((img, idx) => (
+                      <button
+                        key={img.label}
+                        onClick={() =>
+                          setZoomState((prev) =>
+                            prev ? { ...prev, currentIndex: idx } : null
+                          )
+                        }
+                        className={`relative h-2 transition-[width,background-color] duration-200 ease-[var(--ease-out)] rounded-full after:absolute after:-inset-4 after:content-[''] ${
+                          zoomState.currentIndex === idx
+                            ? "w-7 bg-white"
+                            : "w-2 bg-zinc-600 hover:bg-zinc-400"
+                        }`}
+                        aria-label={`Jump to ${img.label}`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </m.div>
+          )}
+        </AnimatePresence>
+      </section>
+    );
+  }
+
+  // Systems Index Page (/systems)
+  return (
+    <section id="projects" className="py-0">
+      <div className="flex flex-col gap-8 sm:gap-10">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl sm:text-4xl font-medium tracking-[-0.025em] text-foreground text-balance">
+            Systems
+          </h1>
           <p className="text-muted-foreground max-w-2xl text-sm sm:text-base text-pretty">
-            Working web software built for real operations, from school scheduling and clearance to government reporting and live events. Switch frames to inspect each system.
+            Working web software built for real operations, from school scheduling and clearance to government reporting and live events.
           </p>
         </div>
 
-        {/* Open Editorial Production Scale Ledger */}
-        <div className="border-y border-border">
-          <div className="grid grid-cols-2 md:grid-cols-4">
-            {heroLedger.map((item, idx) => (
-              <div
-                key={item.label}
-                className={`py-5 px-3 sm:px-5 flex flex-col gap-1.5 border-border ${
-                  idx % 2 === 1 ? "border-l" : ""
-                } ${idx >= 2 ? "border-t md:border-t-0 md:border-l" : ""}`}
-              >
-                <p className="text-2xl sm:text-3xl font-medium font-mono tabular-nums tracking-[-0.03em] text-foreground leading-none">
-                  {item.value}
-                </p>
-                <p className="text-xs font-medium text-muted-foreground pt-0.5">
-                  {item.label}
-                </p>
-                <p className="text-[11px] font-mono text-muted-foreground/80">
-                  {item.context}
-                </p>
-              </div>
+        {/* Deployed Systems List */}
+        <div className="flex flex-col gap-3">
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="text-sm font-medium text-muted-foreground">
+              Deployed Systems
+            </h2>
+            <span className="text-xs font-mono tabular-nums text-muted-foreground">
+              {String(flagshipProjects.length).padStart(2, "0")}
+            </span>
+          </div>
+
+          <div className="border-y border-border divide-y divide-border">
+            {flagshipProjects.map((project) => (
+              <ProjectIndexRow key={project.id} project={project} />
             ))}
           </div>
         </div>
 
-        {/* Flagship Contact-Sheet Frames */}
-        <div className="flex flex-col gap-6">
-          {visibleFlagships.map((project) => (
-            <ContactSheetProject
-              key={project.id}
-              project={project}
-              onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
-            />
-          ))}
-        </div>
-
-        {previewMode ? (
-          <div className="border-t border-border pt-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <div className="flex flex-col gap-0.5">
-              <p className="text-sm font-semibold text-foreground">
-                More Deployed Systems & Upcoming Builds
-              </p>
-              <p className="text-xs font-mono text-muted-foreground">
-                Includes OWWA CSMR & SPRS Platforms, and DavaoSpots (Shipping Soon)
-              </p>
+        {/* Upcoming Builds */}
+        {shippingSoonProjects.length > 0 && (
+          <div className="flex flex-col gap-3">
+            <div className="flex items-baseline justify-between gap-4">
+              <h2 className="text-sm font-medium text-muted-foreground">
+                Upcoming
+              </h2>
+              <span className="text-xs font-mono tabular-nums text-muted-foreground">
+                {String(shippingSoonProjects.length).padStart(2, "0")}
+              </span>
             </div>
-            <Link
-              href="/systems"
-              className="btn btn-light h-11 sm:h-10 px-4 text-xs font-mono shrink-0"
-            >
-              <span>See All Systems (04 + Upcoming)</span>
-              <ArrowUpRight size={15} strokeWidth={1.5} />
-            </Link>
+
+            <div className="border-y border-border divide-y divide-border">
+              {shippingSoonProjects.map((item) => (
+                <UpcomingIndexRow key={item.id} item={item} />
+              ))}
+            </div>
           </div>
-        ) : (
-          <>
-            {clientProjects.length > 0 && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {clientProjects.map((project) => (
-                  <ClientContactSheetCard
-                    key={project.id}
-                    project={project}
-                    onZoom={(screenIdx) => handleOpenZoom(project, screenIdx)}
-                  />
-                ))}
-              </div>
-            )}
-
-            {/* Building in Public / Shipping Soon Section */}
-            {shippingSoonProjects && shippingSoonProjects.length > 0 && (
-              <div id="shipping-soon" className="pt-4 flex flex-col gap-4 scroll-mt-24">
-                <div className="flex items-baseline justify-between gap-3 flex-wrap">
-                  <h3 className="text-lg sm:text-xl font-medium tracking-[-0.02em] text-foreground text-balance">
-                    Building in Public · Lab
-                  </h3>
-                  <span className="text-xs font-mono tabular-nums text-muted-foreground">
-                    ACTIVE DEVELOPMENT
-                  </span>
-                </div>
-
-                <div className="border-y border-border divide-y divide-border">
-                  {shippingSoonProjects.map((item, idx) => (
-                    <article
-                      key={item.id}
-                      className="py-5 sm:py-6 flex flex-col gap-4"
-                    >
-                      <div className="flex items-center justify-between gap-3 flex-wrap">
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="size-9 rounded-[8px] bg-background border border-border flex items-center justify-center shrink-0">
-                            <Rocket size={16} strokeWidth={1.5} className="text-muted-foreground" />
-                          </div>
-                          <div className="min-w-0">
-                            <h4 className="text-base font-semibold tracking-[-0.015em] text-foreground text-balance leading-snug">
-                              {item.title}
-                            </h4>
-                            <p className="text-xs font-mono text-muted-foreground text-pretty leading-snug">
-                              {item.tagline}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center justify-between sm:justify-end gap-2.5 w-full sm:w-auto shrink-0">
-                          <span className="text-[11px] font-mono tabular-nums text-muted-foreground">
-                            LAB {String(idx + 1).padStart(2, "0")}
-                          </span>
-                          <span className="soon font-mono">{item.eta}</span>
-                        </div>
-                      </div>
-
-                      <p className="text-xs sm:text-sm leading-relaxed text-muted-foreground text-pretty max-w-3xl">
-                        {item.description}
-                      </p>
-
-                      <div className="flex flex-col gap-2">
-                        {item.plannedPrimitives.map((prim, pIdx) => (
-                          <div
-                            key={pIdx}
-                            className="border-l-2 border-foreground/20 pl-3 py-0.5 flex items-start gap-2"
-                          >
-                            <Terminal
-                              size={14}
-                              strokeWidth={1.5}
-                              className="text-muted-foreground mt-0.5 shrink-0"
-                            />
-                            <p className="text-xs font-mono text-foreground/90 leading-relaxed">
-                              {prim}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-
-                      <p className="text-xs font-mono text-muted-foreground">
-                        {item.techStack.join(" · ")}
-                      </p>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            )}
-          </>
         )}
       </div>
 

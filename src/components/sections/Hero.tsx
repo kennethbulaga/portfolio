@@ -2,17 +2,16 @@
 
 import { useState, useRef, useCallback } from "react";
 import Image from "next/image";
-import { MapPin, ArrowDown, Copy, Check, X, ArrowUpRight } from "lucide-react";
+import { MapPin, ArrowDown, Copy, Check, X } from "lucide-react";
 import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   personalInfo,
   heroHeadline,
-  institutionalTrust,
+  heroLedger,
 } from "@/data/portfolio";
 import { useCopyEmail } from "@/hooks/use-copy-email";
 import { useDialogFocusTrap } from "@/hooks/use-dialog-focus-trap";
 import { PixelName } from "@/components/ui/pixel-name";
-import { TechMarquee } from "./TechMarquee";
 
 export function Hero() {
   const [isAvatarZoomed, setIsAvatarZoomed] = useState(false);
@@ -47,7 +46,7 @@ export function Hero() {
                 sizes="(max-width: 640px) 80px, 96px"
                 priority
                 fetchPriority="high"
-                className="object-cover object-[50%_18%] scale-[1.15] transition-transform duration-150 ease-[var(--ease-out)] group-hover:scale-[1.18]"
+                className="object-cover object-center transition-transform duration-150 ease-[var(--ease-out)] group-hover:scale-[1.03]"
               />
             </button>
           )}
@@ -118,64 +117,26 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Institutional Provenance Hairline Rows */}
-      <div className="pt-4 border-t border-border flex flex-col gap-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xs font-medium text-muted-foreground">
-            Organizations & Deployments
-          </h2>
-          <span className="font-mono text-xs tabular-nums text-muted-foreground">02</span>
-        </div>
-
-        <div className="divide-y divide-border border-y border-border">
-          {institutionalTrust.map((partner) => {
-            const inner = (
-              <div className="py-3.5 px-2.5 -mx-2.5 rounded-[12px] hover:bg-[var(--hover)] active:scale-[0.98] transition-[background-color,transform] duration-150 ease-[var(--ease-out)] flex items-center justify-between gap-4 group">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="relative size-9 rounded-lg overflow-hidden bg-card border border-border shrink-0 p-1 image-outline">
-                    <Image
-                      src={partner.logo}
-                      alt={partner.name}
-                      fill
-                      sizes="36px"
-                      className="object-contain p-0.5"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium text-foreground text-pretty leading-snug">
-                      {partner.name}
-                    </p>
-                    <p className="text-xs text-muted-foreground text-pretty leading-snug">
-                      {partner.role}
-                    </p>
-                  </div>
-                </div>
-                <ArrowUpRight
-                  size={16}
-                  strokeWidth={1.5}
-                  className="text-muted-foreground group-hover:text-foreground group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-[color,transform] duration-150 ease-[var(--ease-out)] shrink-0"
-                />
-              </div>
-            );
-
-            return partner.link ? (
-              <a
-                key={partner.name}
-                href={partner.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block"
-              >
-                {inner}
-              </a>
-            ) : (
-              <div key={partner.name}>{inner}</div>
-            );
-          })}
+      {/* Clean Production Scale Strip */}
+      <div className="border-y border-border">
+        <div className="grid grid-cols-2 md:grid-cols-4">
+          {heroLedger.map((item, idx) => (
+            <div
+              key={item.label}
+              className={`py-3.5 sm:py-4 px-3 sm:px-4 first:pl-0 flex flex-col gap-1 border-border ${
+                idx % 2 === 1 ? "border-l" : ""
+              } ${idx >= 2 ? "border-t md:border-t-0 md:border-l" : ""}`}
+            >
+              <p className="text-xl sm:text-2xl font-medium font-mono tabular-nums tracking-[-0.03em] text-foreground leading-none">
+                {item.value}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {item.label}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
-
-      <TechMarquee />
 
       {/* Avatar High-Resolution Lightbox Modal */}
       <AnimatePresence>

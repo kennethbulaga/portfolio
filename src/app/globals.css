@@ -155,40 +155,42 @@ a {
 }
 
 /* Monochrome Button & Pill Primitives */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 44px;
-  padding: 0 20px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 500;
-  transition: background-color 140ms var(--ease-out), transform 140ms var(--ease-out);
-}
-
-.btn:active {
-  transform: scale(0.96);
-}
-
-.btn-dark {
-  background: var(--ink);
-  color: var(--bg);
-}
-
-.btn-light {
-  border: 1px solid var(--line-strong);
-  background: var(--surface);
-  color: var(--ink);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .btn-dark:hover {
-    background: light-dark(#2a2a2e, #d2d2d6);
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 44px;
+    padding: 0 20px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 140ms var(--ease-out), transform 140ms var(--ease-out);
   }
-  .btn-light:hover {
-    background: var(--hover);
+
+  .btn:active {
+    transform: scale(0.96);
+  }
+
+  .btn-dark {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .btn-light {
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn-dark:hover {
+      background: light-dark(#2a2a2e, #d2d2d6);
+    }
+    .btn-light:hover {
+      background: var(--hover);
+    }
   }
 }
 
